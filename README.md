@@ -1,4 +1,4 @@
-# funkyFlamingos-4
+# BisonFir
 
 BisonFir is a new app to create a fitness companion app for U of M students tailored to the Active Living Center!
 
