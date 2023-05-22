@@ -1,6 +1,6 @@
-# BisonFir
+# BisonFit
 
-BisonFir is a new app to create a fitness companion app for U of M students tailored to the Active Living Center!
+BisonFit is a new app to create a fitness companion app for U of M students tailored to the Active Living Center!
 
 
 ## Iteration Documents
