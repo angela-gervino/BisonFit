@@ -1,4 +1,4 @@
-# Vision Statement TEST_CHANGE
+# Vision Statement
 BisonFit will be a fitness app tailored to the needs of those who workout at the Active Living Center.
 
 ## What is BisonFit?
