@@ -4,7 +4,7 @@ BisonFit will be a fitness app tailored to the needs of those who workout at the
 ## What is BisonFit?
 BisonFit will be an Android app developed to assist in fitness management for visitors of the Active Living Center. Its user-friendly interface and functional capabilities will help individuals plan their workouts, track their progress, and stay hydrated.
 
-The homepage will serve as a centralized hub, offering a convenient water tracker, Active Living Center operating hours, and a customizable workout list. Users can easily access and create detailed exercise routines by choosing a specific workout. The app allows them to customize these routines by adding, removing, modifying, or rearranging exercises according to their preferences.
+The homepage will serve as a centralized hub, offering a convenient water tracker, Active Living Center operating hours, and a customizable workout list. Users can easily create and access detailed exercise routines by choosing a specific workout. The app allows them to customize these routines by adding, removing, modifying, or rearranging exercises according to their preferences.
 
 The water tracker on the homepage will allow users to stay mindful of their hydration goals by tracking their daily water intake. Additionally, the Active Living Center schedule will keep users informed about the remaining time they have to visit the gym and provide detailed operating hours for each weekday.
 
