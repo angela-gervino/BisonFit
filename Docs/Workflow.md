@@ -11,4 +11,14 @@ We are using GitHub flow as described [here](http://scottchacon.com/2011/08/31/g
 
 for example: 
 `git checkout -b nathan/hello-world`
-* Once you are finished implementing a task create a Merge Request, link the task, and assign/ask for review. 
+
+* Once you are finished implementing a task, push changes to main with 
+
+`git push -u origin [branch name]`
+
+for example: 
+`git push -u origin nathan/hello-world`
+
+* Create a Merge Request in GitLab (if you pushed with the previous command, you should see your branch in the Merge Request menu).
+* Link the Developer Task in the comments, and assign/ask for review (at least one teamate should review). 
+* After your changes are approved, if there are no conflicts, complete the merge. 
