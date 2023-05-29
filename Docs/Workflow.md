@@ -21,4 +21,4 @@ for example:
 
 * Create a Merge Request in GitLab (if you pushed with the previous command, you should see your branch in the Merge Request menu).
 * Link the Developer Task in the comments, and assign/ask for review (at least one teamate should review). 
-* After your changes are approved, if there are no conflicts, complete the merge. 
+* After your changes are approved, if there are no conflicts, merge to main. 
