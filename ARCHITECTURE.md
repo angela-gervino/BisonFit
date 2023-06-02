@@ -1,6 +1,6 @@
-<p style="text-align: center; font-weight: bold">
+<div align=center><b><i>
 This document outlines the underlying architecure of BisonFit.
-</p>
+</i></b></div>
 
 ## Three+ layer apprach
 
