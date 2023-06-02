@@ -20,13 +20,13 @@ The _Domain Specific Object (DSO)_ does not represents a layer per se., but desc
 ## Database tables
 The following are the `SQL` tables that required.
 
-####Static Lookup Tables:
+#### Static Lookup Tables:
 **exercise\_lookup\_table**<br>
 - <ins>exercise\_id</ins><br>
 - exercise\_name<br>
 - exercise\_type<br>
 
-####Workout History Tables:
+#### Workout History Tables:
 **set\_history\_item**<br>
 - <ins>workout\_id</ins><br>
 - <ins>index</ins><br>
@@ -39,7 +39,7 @@ The following are the `SQL` tables that required.
 - start\_timestamp<br>
 - end\_timestamp<br>
 
-####Saved Workouts Tables:
+#### Saved Workouts Tables:
 **saved\_routines**<br>
 - <ins>workout\_id</ins><br>
 - workout\_name<br>
@@ -49,7 +49,7 @@ The following are the `SQL` tables that required.
 - <ins>exercise\_id</ins><br>
 - <ins>index</ins><br>
 
-####Water Tracking Tables:
+#### Water Tracking Tables:
 **water\_record**<br>
 - <ins>date\_timestamp</ins><br>
 - cups_drank<br>
