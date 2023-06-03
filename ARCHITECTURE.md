@@ -66,7 +66,7 @@ Tables that hold the record of routines and exercises done by the user.<br><br>
 
 
 #### Water Tracking Tables:
-Tables that hold data on water drinking goal progress.
+Tables that hold data on daily water drinking goal progress.
 |Attribute|Type|Description|
 |-|-|-|
 |<ins>date\_timestamp<ins>|`timestamp`|Unix time stamp at 12:00AM of day in reference|
