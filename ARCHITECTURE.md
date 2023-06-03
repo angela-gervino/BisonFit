@@ -22,37 +22,48 @@ The following are the `SQL` tables that required.
 
 #### Static Lookup Tables:
 **exercise\_lookup\_table**<br>
-- <ins>exercise\_id</ins><br>
-- exercise\_name<br>
-- exercise\_type<br>
-
-#### Workout History Tables:
-**set\_history\_item**<br>
-- <ins>workout\_id</ins><br>
-- <ins>index</ins><br>
-- exercise\_id<br>
-- property\_a<br>
-- property\_b<br>
-
-**workout\_history\_item**<br>
-- <ins>workout\_history\_id</ins><br>
-- start\_timestamp<br>
-- end\_timestamp<br>
+|Attribute|Type|Description|
+|-|-|-|
+|<ins>exercise_id<ins>|`int`|Unique exercise indentifier
+|exercise_name|`varchar`|Display name of exercise
+|exercise_type|`int`|`0` for weight exercise, `1` for other (eg.running)
 
 #### Saved Workouts Tables:
 **saved\_routines**<br>
-- <ins>workout\_id</ins><br>
-- workout\_name<br>
+|Attribute|Type|Description|
+|-|-|-|
+|<ins>routine\_id</ins>|`int`|Unique routine indentifier
+|routine_name|`varchar`|Display name of routine
 
 **saved\_routine\_exercises**<br>
-- <ins>workout\_id</ins><br>
-- <ins>exercise\_id</ins><br>
-- <ins>index</ins><br>
+|Attribute|Type|Description|
+|-|-|-|
+|<ins>routine\_id</ins>|`int`|Identifier of routine to which this exercise belongs|
+|<ins>exercise\_id</ins>|`int`|Identifier of exercise
+|<ins>index</ins>|`int`|The position of this exercise in this routine
+
+#### Workout History Tables:
+**history\_exercise\_item**<br>
+|Attribute|Type|Description|
+|-|-|-|
+|<ins>history\_routine\_id</ins|`int`|Identifier of saved routine
+|<ins>index</ins>|`int`|The position of exercise in this saved routine
+|exercise\_id|`int`|Identifier of exercise
+|property\_a|`int`|Type 0: weight, Type 1: distance
+|property\_b|`int`|Type 0: repititions, Type 1: time
+
+**history\_routine\_item**<br>
+|Attribute|Type|Description|
+|-|-|-|
+|<ins>history_routine_id</ins>|`int`|Unique identifier of performed routine|
+|routine\_id|`int`|Identifier of routine performed
+|start_timestamp|`timestamp`|Unix time stamp at start of routine
+|end\_timestamp|`timestamp`|Unix time stamp at end of routine
 
 #### Water Tracking Tables:
-**water\_record**<br>
-- <ins>date\_timestamp</ins><br>
-- cups_drank<br>
-- goal<br>
-
+|Attribute|Type|Description|
+|-|-|-|
+|<ins>date\_timestamp<ins>|`timestamp`|Unix time stamp at 12:00AM of day in reference|
+|cups_drank|`int`|The number of cups drank this day
+|goal|`int`|The goal for this day 
 ## DSO
