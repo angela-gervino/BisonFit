@@ -25,7 +25,7 @@ Tables needed to lookup exercises. Not meant to be changed by the user.<br><br>
 **exercise\_lookup\_table**<br>
 |Attribute|Type|Description|
 |-|-|-|
-|<ins>exercise_id<ins>|`int`|Unique exercise indentifier
+|<ins>exercise_id<ins>|`int`|Unique exercise identifier
 |exercise_name|`varchar`|Display name of exercise
 |exercise_type|`int`|`0` for weight exercise, `1` for other (eg.running)
 
@@ -34,7 +34,7 @@ Tables that contain the routines that have been created and saved by the user or
 **saved\_routines**<br>
 |Attribute|Type|Description|
 |-|-|-|
-|<ins>routine\_id</ins>|`int`|Unique routine indentifier
+|<ins>routine\_id</ins>|`int`|Unique routine identifier
 |routine_name|`varchar`|Display name of routine
 
 **saved\_routine\_exercises**<br>
@@ -61,8 +61,10 @@ Tables that hold the record of routines and exercises done by the user.<br><br>
 |<ins>routine\_record\_id</ins|`int`|Identifier of performed routine
 |<ins>index</ins>|`int`|The position of exercise in performed routine
 |exercise\_id|`int`|Identifier of exercise
-|property\_a|`int`|Type 0: weight, Type 1: distance
-|property\_b|`int`|Type 0: repititions, Type 1: time
+|weight|`int`|The weight in lbs performed in this set, `-1` if not required
+|reps|`int`|The number of repitions performed in this set, `-1` if not required
+|distance|`int`|The distance in meters covered, `-1` if not required
+|time|`int`|The time in seconds it took to cover the distance, `-1` if not required
 
 
 #### Water Tracking Tables:
