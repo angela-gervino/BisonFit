@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/funkyflamingos-4.iml" filepath="$PROJECT_DIR$/.idea/modules/funkyflamingos-4.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/funkyflamingos-4.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/funkyflamingos-4.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/funkyflamingos-4.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/funkyflamingos-4.app.androidTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/funkyflamingos-4.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/funkyflamingos-4.app.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/funkyflamingos-4.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/funkyflamingos-4.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BisonFit.iml" filepath="$PROJECT_DIR$/.idea/modules/BisonFit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BisonFit.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BisonFit.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BisonFit.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BisonFit.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BisonFit.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BisonFit.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BisonFit.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BisonFit.app.unitTest.iml" />
     </modules>
   </component>
 </project>
