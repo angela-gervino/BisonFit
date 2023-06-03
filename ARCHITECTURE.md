@@ -18,9 +18,10 @@ The _Domain Specific Object (DSO)_ does not represents a layer per se., but desc
 
 
 ## Database tables
-The following are the `SQL` tables that required.
+The following are the `SQL` tables that are required. Underlined attributes make up the primary key. Tables with same attribute names represent data of same category, linked according to the values of common attributes.
 
 #### Static Lookup Tables:
+Tables needed to lookup exercises. Not meant to be changed by the user.<br><br>
 **exercise\_lookup\_table**<br>
 |Attribute|Type|Description|
 |-|-|-|
@@ -28,7 +29,8 @@ The following are the `SQL` tables that required.
 |exercise_name|`varchar`|Display name of exercise
 |exercise_type|`int`|`0` for weight exercise, `1` for other (eg.running)
 
-#### Saved Workouts Tables:
+#### Saved Routines Tables:
+Tables that contain the routines that have been created and saved by the user or exist by deafult.<br><br>
 **saved\_routines**<br>
 |Attribute|Type|Description|
 |-|-|-|
@@ -42,23 +44,26 @@ The following are the `SQL` tables that required.
 |<ins>exercise\_id</ins>|`int`|Identifier of exercise
 |<ins>index</ins>|`int`|The position of this exercise in this routine
 
-#### Workout History Tables:
-**history\_exercise\_item**<br>
+#### Workout Record Tables:
+Tables that hold the record of routines and exercises done by the user.<br><br>
+
+**performed\_routine\_record**<br>
 |Attribute|Type|Description|
 |-|-|-|
-|<ins>history\_routine\_id</ins|`int`|Identifier of saved routine
-|<ins>index</ins>|`int`|The position of exercise in this saved routine
+|<ins>routine\_record\_id</ins>|`int`|Unique identifier of performed routine|
+|routine\_id|`int`|Identifier of routine performed
+|start_timestamp|`timestamp`|Unix time stamp at start of routine
+|end\_timestamp|`timestamp`|Unix time stamp at end of routine
+
+**performed\_exercise\_record**<br>
+|Attribute|Type|Description|
+|-|-|-|
+|<ins>routine\_record\_id</ins|`int`|Identifier of performed routine
+|<ins>index</ins>|`int`|The position of exercise in performed routine
 |exercise\_id|`int`|Identifier of exercise
 |property\_a|`int`|Type 0: weight, Type 1: distance
 |property\_b|`int`|Type 0: repititions, Type 1: time
 
-**history\_routine\_item**<br>
-|Attribute|Type|Description|
-|-|-|-|
-|<ins>history_routine_id</ins>|`int`|Unique identifier of performed routine|
-|routine\_id|`int`|Identifier of routine performed
-|start_timestamp|`timestamp`|Unix time stamp at start of routine
-|end\_timestamp|`timestamp`|Unix time stamp at end of routine
 
 #### Water Tracking Tables:
 |Attribute|Type|Description|
@@ -66,4 +71,4 @@ The following are the `SQL` tables that required.
 |<ins>date\_timestamp<ins>|`timestamp`|Unix time stamp at 12:00AM of day in reference|
 |cups_drank|`int`|The number of cups drank this day
 |goal|`int`|The goal for this day 
-## DSO
+## DSOs
