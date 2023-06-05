@@ -22,7 +22,7 @@ The following are the `SQL` tables that are required. Underlined attributes make
 
 #### Static Lookup Tables:
 Tables needed to lookup exercises. Not meant to be changed by the user.<br><br>
-**exercise\_lookup\_table**<br>
+**exercise\_lookup**<br>
 |Attribute|Type|Description|
 |-|-|-|
 |<ins>exercise_id<ins>|`int`|Unique exercise identifier
