@@ -1,4 +1,4 @@
-package funkyflamingos.bisonfit.Persistence;
+package funkyflamingos.bisonfit.persistence;
 
 public interface SavedRoutinesPersistence {
 }

@@ -1,4 +1,4 @@
-package funkyflamingos.bisonfit.UI;
+package funkyflamingos.bisonfit.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
