@@ -35,24 +35,24 @@
             android:layout_width="58dp"
             android:layout_height="58dp"
             android:layout_gravity="center"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:max="8"
             android:progress="5"
             app:indicatorSize="58dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/hoursTxtV"
+            app:layout_constraintEnd_toStartOf="@+id/lblHours"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/greetingTxtV"
+            app:layout_constraintTop_toBottomOf="@+id/lblGreetings"
             app:trackCornerRadius="100dp"
             app:trackThickness="5dp" />
 
         <TextView
-            android:id="@+id/greetingTxtV"
+            android:id="@+id/lblGreetings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="Hi Rob!"
             android:textColor="@color/black"
             android:textSize="34sp"
@@ -60,7 +60,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/hoursTxtV"
+            android:id="@+id/lblHours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="7h 23m Until Closing"
@@ -69,17 +69,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/circularProgressView"
-            app:layout_constraintTop_toBottomOf="@+id/greetingTxtV" />
+            app:layout_constraintTop_toBottomOf="@+id/lblGreetings" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
