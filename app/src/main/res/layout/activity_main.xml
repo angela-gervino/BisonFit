@@ -6,6 +6,72 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/topLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/card_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/circularProgressButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:contentDescription="Increment water progress"
+            android:padding="10dp"
+            android:scaleType="centerInside"
+            app:layout_constraintBottom_toBottomOf="@+id/circularProgressView"
+            app:layout_constraintEnd_toEndOf="@+id/circularProgressView"
+            app:layout_constraintStart_toStartOf="@+id/circularProgressView"
+            app:layout_constraintTop_toTopOf="@+id/circularProgressView"
+            app:srcCompat="@drawable/glass" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/circularProgressView"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:max="8"
+            android:progress="5"
+            app:indicatorSize="58dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/hoursTxtV"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/greetingTxtV"
+            app:trackCornerRadius="100dp"
+            app:trackThickness="5dp" />
+
+        <TextView
+            android:id="@+id/greetingTxtV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:text="Hi Rob!"
+            android:textColor="@color/black"
+            android:textSize="34sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/hoursTxtV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="7h 23m Until Closing"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/circularProgressView"
+            app:layout_constraintTop_toBottomOf="@+id/greetingTxtV" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -13,26 +79,6 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/circularProgressView"
-            android:layout_width="152dp"
-            android:layout_height="172dp"
-            android:layout_gravity="center"
-            android:max="8"
-            app:indicatorSize="150dp"
-            app:trackCornerRadius="100dp"
-            app:trackThickness="10dp" />
-
-        <ImageButton
-            android:id="@+id/circularProgressButton"
-            android:layout_width="107dp"
-            android:layout_height="115dp"
-            android:layout_gravity="center"
-            android:background="@android:color/transparent"
-            android:padding="0dp"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/glass" />
 
     </FrameLayout>
 
