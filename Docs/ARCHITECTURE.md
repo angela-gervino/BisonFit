@@ -3,11 +3,6 @@
 This document outlines the underlying architecure of BisonFit.
 </i></b></div>
 
-### Iteration 1 Diagram
-
-![architecture](architecture-1.jpg)
-
-
 ## Three+ layer apprach
 
 #### 1. UI Layer
@@ -34,6 +29,9 @@ The _Domain Specific Object (DSO)_ does not represents a layer per se., but desc
 
 `app/src/main/java/funkyflamingos/bisonfit/objects`
 
+### Iteration 1 Diagram
+
+![architecture](architecture-1.jpg)
 
 ## Database tables
 The following are the SQL tables that are required. Underlined attributes make up the primary key. Tables with same attribute names represent data of same category, linked according to the values of common attributes.
