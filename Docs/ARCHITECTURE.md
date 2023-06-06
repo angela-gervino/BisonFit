@@ -3,6 +3,11 @@
 This document outlines the underlying architecure of BisonFit.
 </i></b></div>
 
+### Iteration 1 Diagram
+
+![architecture](architecture-1.jpg)
+
+
 ## Three+ layer apprach
 
 #### 1. UI Layer
