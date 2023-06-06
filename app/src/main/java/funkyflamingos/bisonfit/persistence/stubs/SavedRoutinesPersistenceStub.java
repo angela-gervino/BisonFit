@@ -1,4 +1,6 @@
 package funkyflamingos.bisonfit.persistence.stubs;
 
-public class SavedRoutinesPersistenceStub {
+import funkyflamingos.bisonfit.persistence.ISavedRoutinesPersistence;
+
+public class SavedRoutinesPersistenceStub implements ISavedRoutinesPersistence {
 }
