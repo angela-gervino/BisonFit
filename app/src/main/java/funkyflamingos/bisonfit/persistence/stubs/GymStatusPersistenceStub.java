@@ -1,12 +1,12 @@
 package funkyflamingos.bisonfit.persistence.stubs;
 
 import funkyflamingos.bisonfit.dso.GymHours;
-import funkyflamingos.bisonfit.persistence.GymStatusPersistence;
+import funkyflamingos.bisonfit.persistence.IGymStatusPersistence;
 
 import java.time.*;
 import java.util.*;
 import java.util.ArrayList;
-public class GymStatusPersistenceStub implements GymStatusPersistence {
+public class GymStatusPersistenceStub implements IGymStatusPersistence {
     private List<GymHours>  gymHoursList;
     public GymStatusPersistenceStub(){
         this.gymHoursList = new ArrayList<>();

@@ -2,7 +2,7 @@ package funkyflamingos.bisonfit.persistence;
 
 import java.time.LocalDate;
 
-public interface WaterTrackerPersistence {
+public interface IWaterTrackerPersistence {
 
     void increment(LocalDate date);
 
