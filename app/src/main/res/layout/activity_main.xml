@@ -22,6 +22,7 @@
             android:layout_gravity="center"
             android:background="@android:color/transparent"
             android:contentDescription="Increment water progress"
+            android:onClick="incrementAndUpdateWaterTracker"
             android:padding="10dp"
             android:scaleType="centerInside"
             app:layout_constraintBottom_toBottomOf="@+id/circularProgressView"
@@ -38,14 +39,14 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:max="8"
-            android:progress="5"
             app:indicatorSize="58dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/lblHours"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lblGreetings"
             app:trackCornerRadius="100dp"
-            app:trackThickness="5dp" />
+            app:trackThickness="5dp"
+            app:trackColor="@color/white"/>
 
         <TextView
             android:id="@+id/lblGreetings"
