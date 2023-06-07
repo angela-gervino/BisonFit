@@ -1,15 +1,19 @@
 package funkyflamingos.bisonfit.logic;
 
+import funkyflamingos.bisonfit.persistence.IWaterTrackerPersistence;
 import funkyflamingos.bisonfit.persistence.stubs.WaterTrackerPersistenceStub;
+
 import java.time.LocalDate;
 
 public class WaterHandler {
-    WaterTrackerPersistenceStub persistence;
+    IWaterTrackerPersistence persistence;
 
     public WaterHandler() {
         persistence = new WaterTrackerPersistenceStub();
     }
-
+    public WaterHandler(IWaterTrackerPersistence persistence) {
+        this.persistence = persistence;
+    }
     public void increment() {
         LocalDate today = LocalDate.now();
 

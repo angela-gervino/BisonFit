@@ -1,4 +1,5 @@
 package funkyflamingos.bisonfit.ui;
+
 import funkyflamingos.bisonfit.dso.RoutineHeader;
 import funkyflamingos.bisonfit.logic.WaterHandler;
 
@@ -8,10 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 
 import funkyflamingos.bisonfit.R;
-import funkyflamingos.bisonfit.logic.WorkoutManager;
+import funkyflamingos.bisonfit.logic.RoutineHandler;
 
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         waterTrackerProgress = findViewById(R.id.circularProgressView);
         waterHandler = new WaterHandler();
-        WorkoutManager workoutManager = new WorkoutManager();
+        RoutineHandler workoutManager = new RoutineHandler();
         listOfWorkouts = workoutManager.getAllRoutineHeaders();
 
         adapter = new MyWorkoutsListAdapter(listOfWorkouts, this);

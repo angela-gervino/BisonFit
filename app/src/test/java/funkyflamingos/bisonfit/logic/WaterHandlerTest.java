@@ -1,10 +1,12 @@
-package funkyflamingos.bisonfit;
+package funkyflamingos.bisonfit.logic;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 import funkyflamingos.bisonfit.logic.WaterHandler;
+import funkyflamingos.bisonfit.persistence.stubs.WaterTrackerPersistenceStub;
 
 public class WaterHandlerTest {
     private WaterHandler waterHandler;
@@ -12,7 +14,8 @@ public class WaterHandlerTest {
     @Before
     public void setup() {
         System.out.println("Setting up for WaterHandler Test\n");
-        waterHandler = new WaterHandler();
+        WaterTrackerPersistenceStub persistence = new WaterTrackerPersistenceStub();
+        waterHandler = new WaterHandler(persistence);
     }
 
     @Test
@@ -61,16 +64,14 @@ public class WaterHandlerTest {
     }
 
     @Test
-    public void testNoProgress()
-    {
+    public void testNoProgress() {
         System.out.println("Starting testNoProgress()... ");
         assertEquals(0, waterHandler.getProgress());
         System.out.println("Finished testNoProgress()\n");
     }
 
     @Test
-    public void testCompletedProgress()
-    {
+    public void testCompletedProgress() {
         initializeFullWaterHandler();
         System.out.println("Starting testCompletedProgress()... ");
         assertEquals(8, waterHandler.getProgress());
@@ -78,8 +79,7 @@ public class WaterHandlerTest {
     }
 
     @Test
-    public void testPartiallyCompletedProgress()
-    {
+    public void testPartiallyCompletedProgress() {
         initializeNonEmptyWaterHandler();
         System.out.println("Starting testPartiallyCompletedProgress()... ");
         for (int i = 2; i < waterHandler.getGoal(); i++) {

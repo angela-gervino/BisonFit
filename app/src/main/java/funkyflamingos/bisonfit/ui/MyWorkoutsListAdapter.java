@@ -15,7 +15,7 @@ import java.util.List;
 import funkyflamingos.bisonfit.R;
 import funkyflamingos.bisonfit.dso.RoutineHeader;
 
-public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAdapter.ViewHolder>{
+public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAdapter.ViewHolder> {
 
     private List<RoutineHeader> localDataSet;
     private Context parentActivity;

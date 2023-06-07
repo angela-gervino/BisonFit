@@ -3,6 +3,7 @@ package funkyflamingos.bisonfit.persistence.stubs;
 import java.util.Map;
 import java.util.HashMap;
 import java.time.LocalDate;
+
 import funkyflamingos.bisonfit.persistence.IWaterTrackerPersistence;
 
 public class WaterTrackerPersistenceStub implements IWaterTrackerPersistence {
