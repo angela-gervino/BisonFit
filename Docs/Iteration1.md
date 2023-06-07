@@ -24,8 +24,4 @@ Didn't started:
 
 - Gym open days 
 - Crowd-Aware Gym Planning
- - Not enough time to finish this user stories, need more time for the UI. 
-
-## Next Iteration
-
-- 
+    - Not enough time to finish this user stories, need more time for the UI. 
