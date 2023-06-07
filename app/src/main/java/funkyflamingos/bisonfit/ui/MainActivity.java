@@ -35,13 +35,10 @@ public class MainActivity extends AppCompatActivity {
         WorkoutManager workoutManager = new WorkoutManager();
         listOfWorkouts = workoutManager.getAllRoutineHeaders();
 
-        adapter = new MyWorkoutsListAdapter(listOfWorkouts);
+        adapter = new MyWorkoutsListAdapter(listOfWorkouts, this);
         recyclerView = findViewById(R.id.lstMyWorkouts);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-        //TODO: onClick adapter
-        //TODO: onClick adapter
-
     }
 
     public void incrementAndUpdateWaterTracker(View v) {

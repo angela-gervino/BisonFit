@@ -10,6 +10,9 @@
         android:id="@+id/topLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/card_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,8 +20,8 @@
 
         <ImageButton
             android:id="@+id/circularProgressButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="63dp"
+            android:layout_height="63dp"
             android:layout_gravity="center"
             android:background="@android:color/transparent"
             android:contentDescription="Increment water progress"
@@ -39,14 +42,15 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:max="8"
+            app:indicatorColor="@color/water_blue"
             app:indicatorSize="58dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/lblHours"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lblGreetings"
+            app:trackColor="@color/white"
             app:trackCornerRadius="100dp"
-            app:trackThickness="5dp"
-            app:trackColor="@color/white"/>
+            app:trackThickness="5dp" />
 
         <TextView
             android:id="@+id/lblGreetings"
@@ -88,11 +92,22 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lstMyWorkouts"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtMyWorkouts" />
+
+    <Button
+        android:id="@+id/btnViewStats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="View Stats"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
