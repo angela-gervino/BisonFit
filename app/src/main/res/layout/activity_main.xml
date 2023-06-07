@@ -71,6 +71,28 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/circularProgressView"
             app:layout_constraintTop_toBottomOf="@+id/lblGreetings" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/txtMyWorkouts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        android:text="My Workouts"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topLayout" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/lstMyWorkouts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtMyWorkouts" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
