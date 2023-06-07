@@ -6,6 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import funkyflamingos.bisonfit.logic.WaterHandler;
+import funkyflamingos.bisonfit.persistence.stubs.WaterTrackerPersistenceStub;
 
 public class WaterHandlerTest {
     private WaterHandler waterHandler;
@@ -13,7 +14,8 @@ public class WaterHandlerTest {
     @Before
     public void setup() {
         System.out.println("Setting up for WaterHandler Test\n");
-        waterHandler = new WaterHandler();
+        WaterTrackerPersistenceStub database = new WaterTrackerPersistenceStub();
+        waterHandler = new WaterHandler(database);
     }
 
     @Test
