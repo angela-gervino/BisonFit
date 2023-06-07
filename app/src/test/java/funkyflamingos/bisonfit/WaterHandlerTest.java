@@ -27,7 +27,7 @@ public class WaterHandlerTest {
     public void testMiddleIncrements() {
         initializeNonEmptyWaterHandler();
         System.out.println("Starting testMiddleIncrements()... ");
-        for (int i = 2; i < waterHandler.getGoal() - 1; i++) {
+        for (int i = 2; i < waterHandler.getGoal(); i++) {
             waterHandler.increment();
             assertEquals(i, waterHandler.getProgress());
         }
@@ -82,7 +82,7 @@ public class WaterHandlerTest {
     {
         initializeNonEmptyWaterHandler();
         System.out.println("Starting testPartiallyCompletedProgress()... ");
-        for (int i = 0; i < waterHandler.getGoal(); i++) {
+        for (int i = 2; i < waterHandler.getGoal(); i++) {
             waterHandler.increment();
             assertEquals(i, waterHandler.getProgress());
         }
