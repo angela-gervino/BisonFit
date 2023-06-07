@@ -23,10 +23,6 @@ public class RoutineHandler {
         return persistence.getAllRoutineHeaders();
     }
 
-    public RoutineHeader getRoutineHeaderByID(int routineID) {
-        return persistence.getRoutineByID(routineID).getHeader();
-    }
-
     public Routine getRoutineByID(int routineID) {
         return persistence.getRoutineByID(routineID);
     }
