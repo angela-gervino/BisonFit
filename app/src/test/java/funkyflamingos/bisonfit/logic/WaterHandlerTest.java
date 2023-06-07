@@ -14,8 +14,8 @@ public class WaterHandlerTest {
     @Before
     public void setup() {
         System.out.println("Setting up for WaterHandler Test\n");
-        WaterTrackerPersistenceStub database = new WaterTrackerPersistenceStub();
-        waterHandler = new WaterHandler(database);
+        WaterTrackerPersistenceStub persistence = new WaterTrackerPersistenceStub();
+        waterHandler = new WaterHandler(persistence);
     }
 
     @Test
