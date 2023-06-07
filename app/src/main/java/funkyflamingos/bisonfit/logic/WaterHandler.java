@@ -29,5 +29,7 @@ public class WaterHandler {
         return persistence.getGoal();
     }
 
-    public boolean reachedGoal() { return getProgress() == getGoal(); };
+    public boolean reachedGoal() {
+        return getProgress() == getGoal();
+    };
 }
