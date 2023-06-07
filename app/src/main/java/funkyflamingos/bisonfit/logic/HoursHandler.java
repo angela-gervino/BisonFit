@@ -62,22 +62,19 @@ public class HoursHandler {
     }
 
     private String getFormattedTime(String durationToString) {
-        String output = durationToString.substring(2)
-                .replaceAll("[.][1-9]+S", "s")
-                .replaceAll("H", "h ")
-                .replaceAll("M", "m ")
-                .replaceAll("S", "s");
+        String output = durationToString.substring(2);
 
-        if (!output.contains("h")) {
-            output = "0h " + output;
+        if (output.contains("M")){
+            output = output.replaceAll("M[0-9.S]*", "m").toLowerCase().replaceAll("h", "h ");
         }
-
-        if (!output.contains("m")) {
-            output = output.replaceAll("h", "h 0m");
-        }
-
-        if (!output.contains("s")) {
-            output = output + "0s";
+        else
+        {
+            if (output.contains("H")) {
+                output = output.replaceAll("H[0-9.S]*", "h 0m");
+            }
+            else {
+                output = "<1 Minute";
+            }
         }
         return output;
     }
