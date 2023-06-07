@@ -4,9 +4,11 @@ import funkyflamingos.bisonfit.dso.RoutineHeader;
 import funkyflamingos.bisonfit.logic.WaterHandler;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
@@ -19,7 +21,6 @@ import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity {
     private CircularProgressIndicator waterTrackerProgress;
-
     private WaterHandler waterHandler;
 
     @Override
@@ -31,9 +32,10 @@ public class HomePageActivity extends AppCompatActivity {
         MyWorkoutsListAdapter adapter;
         RecyclerView recyclerView;
 
-        waterTrackerProgress = findViewById(R.id.circularProgressView);
-        waterHandler = new WaterHandler();
         RoutineHandler workoutManager = new RoutineHandler();
+        waterHandler = new WaterHandler();
+        waterTrackerProgress = findViewById(R.id.circularProgressView);
+        waterTrackerProgress.setMax(waterHandler.getGoal());
         listOfWorkouts = workoutManager.getAllRoutineHeaders();
 
         adapter = new MyWorkoutsListAdapter(listOfWorkouts, this);
@@ -45,5 +47,8 @@ public class HomePageActivity extends AppCompatActivity {
     public void incrementAndUpdateWaterTracker(View v) {
         waterHandler.increment();
         waterTrackerProgress.setProgress(waterHandler.getProgress());
+        if(waterHandler.reachedGoal()) { // set goal  as accomplished
+            waterTrackerProgress.setIndicatorColor(ContextCompat.getColor(this, R.color.success_green));
+        }
     }
 }
