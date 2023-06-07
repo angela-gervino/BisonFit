@@ -20,7 +20,7 @@ Finished:
 - Select a workout 
 - Gym Closing time 
 
-Didn't started: 
+Didn't start: 
 
 - Gym open days 
 - Crowd-Aware Gym Planning
