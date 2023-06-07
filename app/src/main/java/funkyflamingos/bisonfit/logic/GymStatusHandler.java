@@ -4,6 +4,7 @@ import java.time.*;
 
 import funkyflamingos.bisonfit.dso.GymHours;
 import funkyflamingos.bisonfit.persistence.IGymStatusPersistence;
+import funkyflamingos.bisonfit.persistence.stubs.GymStatusPersistenceStub;
 
 public class GymStatusHandler {
     private IGymStatusPersistence persistence;
