@@ -24,6 +24,6 @@ public class WaterTrackerPersistenceStub implements IWaterTrackerPersistence {
     }
 
     public int getProgress(LocalDate date) {
-        return progress.containsKey(date) ? progress.get(date) : -1;
+        return progress.containsKey(date) ? progress.get(date) : 0;
     }
 }
