@@ -41,7 +41,6 @@
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-            android:max="8"
             app:indicatorColor="@color/water_blue"
             app:indicatorSize="58dp"
             app:layout_constraintBottom_toBottomOf="parent"
