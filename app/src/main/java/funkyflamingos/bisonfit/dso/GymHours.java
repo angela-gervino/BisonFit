@@ -26,13 +26,4 @@ public class GymHours {
     public LocalTime getClosing(){
         return closing;
     }
-
-    public void setOpening(LocalTime setOpening){
-        this.opening=setOpening;
-    }
-
-    public void setClosing(LocalTime setClosing){
-        this.opening=setClosing;
-    }
-
 }
