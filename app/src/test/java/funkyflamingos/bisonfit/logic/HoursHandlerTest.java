@@ -1,4 +1,4 @@
-package funkyflamingos.bisonfit;
+package funkyflamingos.bisonfit.logic;
 
 import org.junit.Before;
 import org.junit.Test;
