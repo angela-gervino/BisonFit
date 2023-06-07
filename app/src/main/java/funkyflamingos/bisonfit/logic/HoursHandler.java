@@ -4,10 +4,14 @@ import java.time.*;
 
 import funkyflamingos.bisonfit.dso.GymHours;
 import funkyflamingos.bisonfit.persistence.IGymStatusPersistence;
+import funkyflamingos.bisonfit.persistence.stubs.GymStatusPersistenceStub;
 
 public class HoursHandler {
     private IGymStatusPersistence persistence;
 
+    public HoursHandler() {
+        persistence = new GymStatusPersistenceStub();
+    }
     public HoursHandler(IGymStatusPersistence persistence) {
         this.persistence = persistence;
     }

@@ -7,7 +7,6 @@ import java.time.LocalDate;
 
 public class WaterHandler {
     IWaterTrackerPersistence persistence;
-
     public WaterHandler() {
         persistence = new WaterTrackerPersistenceStub();
     }
