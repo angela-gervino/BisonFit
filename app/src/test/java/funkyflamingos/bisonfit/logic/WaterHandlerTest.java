@@ -71,6 +71,18 @@ public class WaterHandlerTest {
         }
     }
 
+    @Test
+    public void testReachedGoalWhenTrue() {
+        initializeFullWaterHandler();
+        assertTrue(waterHandler.reachedGoal());
+    }
+
+    @Test
+    public void testReachedGoalWhenFalse() {
+        initializeAlmostFullWaterHandler();
+        assertFalse(waterHandler.reachedGoal());
+    }
+
     private void initializeNonEmptyWaterHandler() {
         waterHandler.increment();
     }
