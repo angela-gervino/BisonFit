@@ -2,19 +2,19 @@ package funkyflamingos.bisonfit.dso;
 
 public class RoutineHeader {
 
-    String routineName;
-    int routineID;
+    String name;
+    int id;
 
-    public RoutineHeader(String routineName, int routineID) {
-        this.routineName = routineName;
-        this.routineID = routineID;
+    public RoutineHeader(String name, int id) {
+        this.name = name;
+        this.id = id;
     }
 
-    public String getRoutineName() {
-        return routineName;
+    public String getName() {
+        return name;
     }
 
-    public int getRoutineID() {
-        return routineID;
+    public int getId() {
+        return id;
     }
 }
