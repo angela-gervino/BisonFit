@@ -24,35 +24,49 @@ public class HoursHandlerTest {
     public void testGymIsOpen()
     {
         String output = hoursHandler.getGymStatus(getClockSetToAfternoon());
-        assertEquals("9h 29m 30s Until Closing", output);
+        assertEquals("9h 29m Until Closing", output);
     }
 
     @Test
     public void testGymIsClosed()
     {
         String result = hoursHandler.getGymStatus(getClockSetToPastMidight());
-        assertEquals("4h 33m 33s Until Opening", result);
+        assertEquals("4h 33m Until Opening", result);
     }
 
     @Test
     public void testGymIsClosed2()
     {
         String result = hoursHandler.getGymStatus(getClockSetToBeforeMidnight());
-        assertEquals("6h 33m 33s Until Opening", result);
+        assertEquals("6h 33m Until Opening", result);
     }
 
     @Test
     public void testAtClosingTime()
     {
         String result = hoursHandler.getGymStatus(getClockSetToGymCloseTime());
-        assertEquals("8h 0m 0s Until Opening", result);
+        assertEquals("8h 0m Until Opening", result);
     }
 
     @Test
     public void testAtOpeningTime()
     {
         String result = hoursHandler.getGymStatus(getClockSetToGymOpenTime());
-        assertEquals("16h 0m 0s Until Closing", result);
+        assertEquals("16h 0m Until Closing", result);
+    }
+
+    @Test
+    public void testGymAlmostClosed()
+    {
+        String result = hoursHandler.getGymStatus(getClockSetToGymAlmostClosed());
+        assertEquals("<1 Minute Until Closing", result);
+    }
+
+    @Test
+    public void testGymAlmostOpened()
+    {
+        String result = hoursHandler.getGymStatus(getClockSetToGymAlmostOpened());
+        assertEquals("<1 Minute Until Opening", result);
     }
 
     public Clock getClockSetToAfternoon()
@@ -78,5 +92,15 @@ public class HoursHandlerTest {
     public Clock getClockSetToGymOpenTime()
     {
         return Clock.fixed(Instant.parse("2023-06-08T06:00:00Z"), ZoneOffset.UTC);
+    }
+
+    public Clock getClockSetToGymAlmostClosed()
+    {
+        return Clock.fixed(Instant.parse("2023-06-06T21:59:01Z"), ZoneOffset.UTC);
+    }
+
+    public Clock getClockSetToGymAlmostOpened()
+    {
+        return Clock.fixed(Instant.parse("2023-06-09T05:59:22Z"), ZoneOffset.UTC);
     }
 }
