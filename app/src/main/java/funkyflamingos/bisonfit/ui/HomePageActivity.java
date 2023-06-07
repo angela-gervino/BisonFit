@@ -17,18 +17,19 @@ import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class HomePageActivity extends AppCompatActivity {
     private CircularProgressIndicator waterTrackerProgress;
 
     private WaterHandler waterHandler;
-    private List<RoutineHeader> listOfWorkouts;
-    private MyWorkoutsListAdapter adapter;
-    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home_page);
+
+        List<RoutineHeader> listOfWorkouts;
+        MyWorkoutsListAdapter adapter;
+        RecyclerView recyclerView;
 
         waterTrackerProgress = findViewById(R.id.circularProgressView);
         waterHandler = new WaterHandler();

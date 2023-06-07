@@ -18,7 +18,7 @@
             android:label="@string/title_activity_routine_overview"
             android:theme="@style/Base.Theme.BisonFit.ActionBar" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.HomePageActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
