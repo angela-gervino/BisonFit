@@ -4,68 +4,67 @@ import org.junit.Before;
 import org.junit.Test;
 import java.time.*;
 
-import funkyflamingos.bisonfit.logic.HoursHandler;
 import funkyflamingos.bisonfit.persistence.IGymStatusPersistence;
 import funkyflamingos.bisonfit.persistence.stubs.GymStatusPersistenceStub;
 
 import static org.junit.Assert.*;
 
-public class HoursHandlerTest {
-    HoursHandler hoursHandler;
+public class GymStatusHandlerTest {
+    GymStatusHandler gymStatusHandler;
 
     @Before
     public void setup()
     {
         IGymStatusPersistence persistence = new GymStatusPersistenceStub();
-        hoursHandler = new HoursHandler(persistence);
+        gymStatusHandler = new GymStatusHandler(persistence);
     }
 
     @Test
     public void testGymIsOpen()
     {
-        String output = hoursHandler.getGymStatus(getClockSetToAfternoon());
+        String output = gymStatusHandler.getGymStatus(getClockSetToAfternoon());
         assertEquals("9h 29m Until Closing", output);
     }
 
     @Test
     public void testGymIsClosed()
     {
-        String result = hoursHandler.getGymStatus(getClockSetToPastMidight());
+        String result = gymStatusHandler.getGymStatus(getClockSetToPastMidight());
         assertEquals("4h 33m Until Opening", result);
     }
 
     @Test
     public void testGymIsClosed2()
     {
-        String result = hoursHandler.getGymStatus(getClockSetToBeforeMidnight());
+        String result = gymStatusHandler.getGymStatus(getClockSetToBeforeMidnight());
         assertEquals("6h 33m Until Opening", result);
     }
 
     @Test
     public void testAtClosingTime()
     {
-        String result = hoursHandler.getGymStatus(getClockSetToGymCloseTime());
+        String result = gymStatusHandler.getGymStatus(getClockSetToGymCloseTime());
         assertEquals("8h 0m Until Opening", result);
     }
 
     @Test
     public void testAtOpeningTime()
     {
-        String result = hoursHandler.getGymStatus(getClockSetToGymOpenTime());
+        String result = gymStatusHandler.getGymStatus(getClockSetToGymOpenTime());
         assertEquals("16h 0m Until Closing", result);
     }
 
     @Test
     public void testGymAlmostClosed()
     {
-        String result = hoursHandler.getGymStatus(getClockSetToGymAlmostClosed());
+        String result = gymStatusHandler.getGymStatus(getClockSetToGymAlmostClosed());
         assertEquals("<1 Minute Until Closing", result);
     }
 
     @Test
     public void testGymAlmostOpened()
     {
-        String result = hoursHandler.getGymStatus(getClockSetToGymAlmostOpened());
+        String result = gymStatusHandler.getGymStatus(getClockSetToGymAlmostOpened());
         assertEquals("<1 Minute Until Opening", result);
     }
 

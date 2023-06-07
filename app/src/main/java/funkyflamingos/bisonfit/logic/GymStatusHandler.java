@@ -5,10 +5,10 @@ import java.time.*;
 import funkyflamingos.bisonfit.dso.GymHours;
 import funkyflamingos.bisonfit.persistence.IGymStatusPersistence;
 
-public class HoursHandler {
+public class GymStatusHandler {
     private IGymStatusPersistence persistence;
 
-    public HoursHandler(IGymStatusPersistence persistence) {
+    public GymStatusHandler(IGymStatusPersistence persistence) {
         this.persistence = persistence;
     }
 
