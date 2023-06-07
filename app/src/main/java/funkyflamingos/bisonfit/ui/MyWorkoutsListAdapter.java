@@ -44,7 +44,7 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        viewHolder.getLabel().setText(localDataSet.get(position).getRoutineName());
+        viewHolder.getLabel().setText(localDataSet.get(position).getName());
     }
 
     @Override

@@ -1,4 +1,4 @@
-package funkyflamingos.bisonfit;
+package funkyflamingos.bisonfit.logic;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,8 +16,8 @@ public class HoursHandlerTest {
     @Before
     public void setup()
     {
-        IGymStatusPersistence database = new GymStatusPersistenceStub();
-        hoursHandler = new HoursHandler(database);
+        IGymStatusPersistence persistence = new GymStatusPersistenceStub();
+        hoursHandler = new HoursHandler(persistence);
     }
 
     @Test
