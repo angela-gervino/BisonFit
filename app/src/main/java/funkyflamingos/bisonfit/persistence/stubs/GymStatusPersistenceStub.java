@@ -9,49 +9,30 @@ import java.util.ArrayList;
 public class GymStatusPersistenceStub implements IGymStatusPersistence {
     private List<GymHours>  gymHoursList;
     public GymStatusPersistenceStub(){
-        this.gymHoursList = new ArrayList<GymHours>();
-        gymHoursList.add( new GymHours(
-                1,
-                LocalTime.of(6, 0, 0),
-                LocalTime.of(22,0,0)
-        ));
-        gymHoursList.add( new GymHours(
-                2,
-                LocalTime.of(6, 0, 0),
-                LocalTime.of(22,0,0)
-        ));
-        gymHoursList.add( new GymHours(
-                3,
-                LocalTime.of(6, 0, 0),
-                LocalTime.of(22,0,0)
-        ));
-        gymHoursList.add( new GymHours(
-                4,
-                LocalTime.of(6, 0, 0),
-                LocalTime.of(22,0,0)
-        ));
-        gymHoursList.add( new GymHours(
-                5,
-                LocalTime.of(6, 0, 0),
-                LocalTime.of(22,0,0)
-        ));
-        gymHoursList.add( new GymHours(
-                6,
-                LocalTime.of(8, 0, 0),
-                LocalTime.of(20,0,0)
-        ));
-        gymHoursList.add( new GymHours(
-                7,
-                LocalTime.of(8, 0, 0),
-                LocalTime.of(20,0,0)
-        ));
+        this.gymHoursList = new ArrayList<>();
+
+        // Add hours for the work-days
+        for (int i = 1; i <= 5; i++)
+            gymHoursList.add( new GymHours(
+                    i,
+                    LocalTime.of(6, 0, 0),
+                    LocalTime.of(22,0,0)
+            ));
+
+        // Add hours for the week-end
+        for (int i = 6; i <= 7; i++)
+            gymHoursList.add( new GymHours(
+                    i,
+                    LocalTime.of(8, 0, 0),
+                    LocalTime.of(20,0,0)
+            ));
     }
 
     @Override
     public GymHours getHoursByID(int dayID) {
-        for(int i = 0; i < gymHoursList.size(); i++)
-            if(gymHoursList.get(i).getDayID() == dayID)
-                return gymHoursList.get(i);
+        for(GymHours weekday : gymHoursList)
+            if(weekday.getDayID() == dayID)
+                return weekday;
         return null;
     }
 }
