@@ -11,7 +11,7 @@ public class GymStatusPersistenceStub implements IGymStatusPersistence {
     public GymStatusPersistenceStub(){
         this.gymHoursList = new ArrayList<>();
 
-        // Add hours for the week-days
+        // Add hours for the work-days
         for (int i = 1; i <= 5; i++)
             gymHoursList.add( new GymHours(
                     i,
