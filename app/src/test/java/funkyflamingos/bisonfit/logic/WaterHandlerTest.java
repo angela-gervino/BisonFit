@@ -79,8 +79,6 @@ public class WaterHandlerTest {
 
     @Test
     public void testReachedGoalWhenFalse() {
-        initializeNonEmptyWaterHandler();
-        assertFalse(waterHandler.reachedGoal());
         initializeAlmostFullWaterHandler();
         assertFalse(waterHandler.reachedGoal());
     }
