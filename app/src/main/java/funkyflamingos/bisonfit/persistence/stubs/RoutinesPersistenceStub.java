@@ -28,7 +28,7 @@ public class RoutinesPersistenceStub implements IRoutinesPersistence {
 
     @Override
     public Routine getRoutineByID(int routineID) {
-        return allRoutines.stream().filter(r -> r.getHeader().getId() == routineID)
+        return allRoutines.stream().filter(routine -> routine.getHeader().getId() == routineID)
                 .findFirst().orElse(null);
     }
 
