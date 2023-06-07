@@ -24,7 +24,7 @@ public class RoutineHandlerTest {
     }
 
     @Test
-    public void testNoMatchinID() {
+    public void testNoMatchingID() {
         assertNull(routineHandler.getRoutineByID(100));
     }
 
