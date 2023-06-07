@@ -2,6 +2,7 @@ package funkyflamingos.bisonfit.logic;
 
 import java.util.List;
 
+import funkyflamingos.bisonfit.dso.Routine;
 import funkyflamingos.bisonfit.dso.RoutineHeader;
 import funkyflamingos.bisonfit.persistence.IRoutinesPersistence;
 import funkyflamingos.bisonfit.persistence.stubs.RoutinesPersistenceStub;
@@ -20,5 +21,13 @@ public class RoutineHandler {
 
     public List<RoutineHeader> getAllRoutineHeaders() {
         return persistence.getAllRoutineHeaders();
+    }
+
+    public RoutineHeader getRoutineHeaderByID(int routineID) {
+        return persistence.getRoutineByID(routineID).getHeader();
+    }
+
+    public Routine getRoutineByID(int routineID) {
+        return persistence.getRoutineByID(routineID);
     }
 }
