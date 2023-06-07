@@ -1,12 +1,11 @@
 package funkyflamingos.bisonfit.dso;
 
-public class RoutineSummary {
+public class RoutineHeader {
 
     String routineName;
-
     int routineID;
 
-    public RoutineSummary(String routineName, int routineID) {
+    public RoutineHeader(String routineName, int routineID) {
         this.routineName = routineName;
         this.routineID = routineID;
     }
