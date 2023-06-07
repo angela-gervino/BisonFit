@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class GymStatusPersistenceStub implements IGymStatusPersistence {
     private List<GymHours>  gymHoursList;
     public GymStatusPersistenceStub(){
-        this.gymHoursList = new ArrayList<>();
+        this.gymHoursList = new ArrayList<GymHours>();
         gymHoursList.add( new GymHours(
                 1,
                 LocalTime.of(6, 0, 0),
