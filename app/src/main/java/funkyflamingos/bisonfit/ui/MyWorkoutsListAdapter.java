@@ -5,12 +5,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
+
 import funkyflamingos.bisonfit.R;
-import funkyflamingos.bisonfit.dso.RoutineSummary;
+import funkyflamingos.bisonfit.dso.RoutineHeader;
 
 public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAdapter.ViewHolder>{
 
-    private RoutineSummary[] localDataSet;
+    private List<RoutineHeader> localDataSet;
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView lblWorkout;
 
@@ -26,7 +29,7 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
 
     }
 
-    public MyWorkoutsListAdapter(RoutineSummary[] dataSet) {
+    public MyWorkoutsListAdapter(List<RoutineHeader> dataSet) {
         localDataSet = dataSet;
     }
 
@@ -39,11 +42,11 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        viewHolder.getLabel().setText(localDataSet[position].getRoutineName());
+        viewHolder.getLabel().setText(localDataSet.get(position).getRoutineName());
     }
 
     @Override
     public int getItemCount() {
-        return localDataSet.length;
+        return localDataSet.size();
     }
 }
