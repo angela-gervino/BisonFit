@@ -20,9 +20,9 @@ The planned [architecture](https://code.cs.umanitoba.ca/3350-summer2023/funkyfla
 [Iteration 1](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/milestones)
 
 
-## Coding Stye
+## Programming Standards
 
-- Our [coding style](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/blob/main/Docs/Programming%20Standards.md)
+- Our [Programming Standards](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/blob/main/Docs/Programming%20Standards.md)
 
 
 ## Work Flow
