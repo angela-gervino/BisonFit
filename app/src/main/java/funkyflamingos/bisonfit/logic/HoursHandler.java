@@ -1,14 +1,14 @@
 package funkyflamingos.bisonfit.logic;
 
 import java.time.*;
+
 import funkyflamingos.bisonfit.dso.GymHours;
 import funkyflamingos.bisonfit.persistence.IGymStatusPersistence;
 
 public class HoursHandler {
     private IGymStatusPersistence database;
 
-    public HoursHandler(IGymStatusPersistence database)
-    {
+    public HoursHandler(IGymStatusPersistence database) {
         this.database = database;
     }
 
@@ -34,17 +34,14 @@ public class HoursHandler {
 
         if (currToOpening.isZero()) {
             duration = Duration.between(openTime, closingTime);
-        }
-        else if (currToClosing.isZero()) {
+        } else if (currToClosing.isZero()) {
             duration = Duration.between(closingTime, endOfDay).plus(Duration.between(midnight, openTime));
             duration = duration.plusSeconds(1);
             result = " Until Opening";
-        }
-        else if(!currToClosing.isNegative() && !currToOpening.isNegative()) { // past midnight
+        } else if (!currToClosing.isNegative() && !currToOpening.isNegative()) { // past midnight
             duration = currToOpening;
             result = " Until Opening";
-        }
-        else if (currToClosing.isNegative() && currToOpening.isNegative()) { // before midnight
+        } else if (currToClosing.isNegative() && currToOpening.isNegative()) { // before midnight
             duration = Duration.between(midnight, openTime).plus(Duration.between(currentTime, endOfDay));
             duration = duration.plusSeconds(1);
             result = " Until Opening";
@@ -60,18 +57,15 @@ public class HoursHandler {
                 .replaceAll("M", "m ")
                 .replaceAll("S", "s");
 
-        if (!output.contains("h"))
-        {
+        if (!output.contains("h")) {
             output = "0h " + output;
         }
 
-        if (!output.contains("m"))
-        {
+        if (!output.contains("m")) {
             output = output.replaceAll("h", "h 0m");
         }
 
-        if (!output.contains("s"))
-        {
+        if (!output.contains("s")) {
             output = output + "0s";
         }
         return output;

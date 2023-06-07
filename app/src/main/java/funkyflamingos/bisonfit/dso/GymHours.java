@@ -9,21 +9,21 @@ public class GymHours {
     private LocalTime closing;
     private int dayID;
 
-    public GymHours ( int dayID, LocalTime opening, LocalTime closing){
+    public GymHours(int dayID, LocalTime opening, LocalTime closing) {
         this.dayID = dayID;
         this.opening = opening;
         this.closing = closing;
     }
 
-    public int getDayID(){
+    public int getDayID() {
         return dayID;
     }
 
-    public LocalTime getOpening(){
+    public LocalTime getOpening() {
         return opening;
     }
 
-    public LocalTime getClosing(){
+    public LocalTime getClosing() {
         return closing;
     }
 }

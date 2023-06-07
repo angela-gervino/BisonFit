@@ -2,6 +2,7 @@ package funkyflamingos.bisonfit;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 import funkyflamingos.bisonfit.logic.WaterHandler;
@@ -61,16 +62,14 @@ public class WaterHandlerTest {
     }
 
     @Test
-    public void testNoProgress()
-    {
+    public void testNoProgress() {
         System.out.println("Starting testNoProgress()... ");
         assertEquals(0, waterHandler.getProgress());
         System.out.println("Finished testNoProgress()\n");
     }
 
     @Test
-    public void testCompletedProgress()
-    {
+    public void testCompletedProgress() {
         initializeFullWaterHandler();
         System.out.println("Starting testCompletedProgress()... ");
         assertEquals(8, waterHandler.getProgress());
@@ -78,8 +77,7 @@ public class WaterHandlerTest {
     }
 
     @Test
-    public void testPartiallyCompletedProgress()
-    {
+    public void testPartiallyCompletedProgress() {
         initializeNonEmptyWaterHandler();
         System.out.println("Starting testPartiallyCompletedProgress()... ");
         for (int i = 2; i < waterHandler.getGoal(); i++) {
