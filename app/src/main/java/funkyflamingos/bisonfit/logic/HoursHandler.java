@@ -6,48 +6,59 @@ import funkyflamingos.bisonfit.dso.GymHours;
 import funkyflamingos.bisonfit.persistence.IGymStatusPersistence;
 
 public class HoursHandler {
-    private IGymStatusPersistence database;
+    private IGymStatusPersistence persistence;
 
-    public HoursHandler(IGymStatusPersistence database) {
-        this.database = database;
+    public HoursHandler(IGymStatusPersistence persistence) {
+        this.persistence = persistence;
     }
 
     public String getGymStatus(Clock clock) {
-        String result = " Until Closing";
+        String result;
+        String UNTIL_CLOSING = " Until Closing";
+        String UNTIL_OPENING = " Until Opening";
+
         LocalTime currentTime = LocalTime.now(clock);
         LocalDate currentDay = LocalDate.now(clock);
+
         DayOfWeek day = currentDay.getDayOfWeek();
         int dayOfWeekTodayAsInt = day.getValue();
         int dayOfWeekTomorrowAsInt = dayOfWeekTodayAsInt == 7 ? 1 : dayOfWeekTodayAsInt + 1;
 
-        GymHours todaysHours = database.getHoursByID(dayOfWeekTodayAsInt);
-        GymHours tomorrowsHours = database.getHoursByID(dayOfWeekTomorrowAsInt);
+        GymHours todaysHours = persistence.getHoursByID(dayOfWeekTodayAsInt);
+        GymHours tomorrowsHours = persistence.getHoursByID(dayOfWeekTomorrowAsInt);
 
         LocalTime closingTime = todaysHours.getClosing();
-        LocalTime openTime = tomorrowsHours.getOpening();
-        LocalTime midnight = LocalTime.MIDNIGHT;
-        LocalTime endOfDay = LocalTime.MAX;
+        LocalTime openTime = todaysHours.getOpening();
 
         Duration currToOpening = Duration.between(currentTime, openTime);
         Duration currToClosing = Duration.between(currentTime, closingTime);
-        Duration duration = currToClosing;
+        Duration duration;
 
-        if (currToOpening.isZero()) {
-            duration = Duration.between(openTime, closingTime);
-        } else if (currToClosing.isZero()) {
-            duration = Duration.between(closingTime, endOfDay).plus(Duration.between(midnight, openTime));
+        if (gymIsOpen(currToOpening, currToClosing)) {
+            duration = currToClosing;
+            result = UNTIL_CLOSING;
+        } else if (gymIsClosedAndTimeBeforeMidnight(currToOpening, currToClosing)) {
+            duration = Duration.between(currentTime, LocalTime.MAX).plus(Duration.between(LocalTime.MIDNIGHT, tomorrowsHours.getOpening()));
             duration = duration.plusSeconds(1);
-            result = " Until Opening";
-        } else if (!currToClosing.isNegative() && !currToOpening.isNegative()) { // past midnight
+            result = UNTIL_OPENING;
+        } else { // gym is closed and the current time after midnight
             duration = currToOpening;
-            result = " Until Opening";
-        } else if (currToClosing.isNegative() && currToOpening.isNegative()) { // before midnight
-            duration = Duration.between(midnight, openTime).plus(Duration.between(currentTime, endOfDay));
-            duration = duration.plusSeconds(1);
-            result = " Until Opening";
+            result = UNTIL_OPENING;
         }
-
         return getFormattedTime(duration.toString()) + result;
+    }
+
+    private boolean gymIsOpen(Duration currToOpening, Duration currToClosing) {
+        boolean atOpening = currToOpening.isZero();
+        boolean betweenOpeningAndClosing = currToOpening.isNegative() && !currToClosing.isNegative() && !currToClosing.isZero();
+        return atOpening || betweenOpeningAndClosing;
+    }
+
+    private boolean gymIsClosedAndTimeBeforeMidnight(Duration currToOpening, Duration currToClosing)
+    {
+        boolean atClosing = currToClosing.isZero();
+        boolean afterClosingAndBeforeMidnight = currToClosing.isNegative() && currToOpening.isNegative();
+        return atClosing || afterClosingAndBeforeMidnight;
     }
 
     private String getFormattedTime(String durationToString) {
