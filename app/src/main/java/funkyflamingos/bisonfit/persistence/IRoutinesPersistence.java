@@ -6,7 +6,7 @@ import funkyflamingos.bisonfit.dso.Routine;
 import funkyflamingos.bisonfit.dso.RoutineHeader;
 
 public interface IRoutinesPersistence {
-    
+
     List<RoutineHeader> getAllRoutineHeaders();
 
     Routine getRoutineByID(int routineID);

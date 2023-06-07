@@ -1,6 +1,7 @@
 package funkyflamingos.bisonfit.logic;
 
 import funkyflamingos.bisonfit.persistence.stubs.WaterTrackerPersistenceStub;
+
 import java.time.LocalDate;
 
 public class WaterHandler {
