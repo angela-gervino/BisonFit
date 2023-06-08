@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import funkyflamingos.bisonfit.logic.WaterHandler;
 import funkyflamingos.bisonfit.persistence.stubs.WaterTrackerPersistenceStub;
 
 public class WaterHandlerTest {
