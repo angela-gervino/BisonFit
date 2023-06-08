@@ -32,22 +32,19 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        List<RoutineHeader> listOfWorkouts;
-        MyWorkoutsListAdapter adapter;
-        RecyclerView recyclerView;
-
-        RoutineHandler workoutManager = new RoutineHandler();
         waterHandler = new WaterHandler();
         gymStatusHandler = new GymStatusHandler();
         waterTrackerProgress = findViewById(R.id.circularProgressView);
         gymStatusLbl = findViewById(R.id.lblGymStatus);
+
+        RoutineHandler workoutManager = new RoutineHandler();
+        List<RoutineHeader> listOfWorkouts = workoutManager.getAllRoutineHeaders();
+        MyWorkoutsListAdapter adapter = new MyWorkoutsListAdapter(listOfWorkouts, this);
+        RecyclerView recyclerView = findViewById(R.id.lstMyWorkouts);
+
         waterTrackerProgress.setMax(waterHandler.getGoal());
-        listOfWorkouts = workoutManager.getAllRoutineHeaders();
 
-        gymStatusLbl.setText(gymStatusHandler.getGymStatus());
-
-        adapter = new MyWorkoutsListAdapter(listOfWorkouts, this);
-        recyclerView = findViewById(R.id.lstMyWorkouts);
+        //recyclerVew setup
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
@@ -56,7 +53,6 @@ public class HomePageActivity extends AppCompatActivity {
             public void run() {
                 while(true) {
                     try {
-                        Thread.sleep(1000);
                         String newStatus = gymStatusHandler.getGymStatus();
                         runOnUiThread(new Runnable() {
                             @Override
@@ -64,6 +60,7 @@ public class HomePageActivity extends AppCompatActivity {
                                 gymStatusLbl.setText(newStatus);
                             }
                         });
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
