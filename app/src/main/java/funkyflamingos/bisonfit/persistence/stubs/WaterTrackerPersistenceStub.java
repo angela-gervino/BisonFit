@@ -15,16 +15,16 @@ public class WaterTrackerPersistenceStub implements IWaterTrackerPersistence {
         goal = 8;
     }
 
-    public void increment(LocalDate date) {
-        int newValue = progress.containsKey(date) ? progress.get(date) + 1 : 1;
-        progress.put(date, newValue);
-    }
-
     public int getGoal() {
         return goal;
     }
 
+    public void increment(LocalDate date) {
+        Integer datesProgress = progress.getOrDefault(date, 0);
+        progress.put(date, datesProgress != null ? ++datesProgress : 1);
+    }
     public int getProgress(LocalDate date) {
-        return progress.containsKey(date) ? progress.get(date) : 0;
+        Integer datesProgress = progress.getOrDefault(date, 0);
+        return datesProgress != null ? datesProgress : 0;
     }
 }
