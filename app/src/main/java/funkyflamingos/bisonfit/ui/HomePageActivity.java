@@ -1,6 +1,7 @@
 package funkyflamingos.bisonfit.ui;
 
 import funkyflamingos.bisonfit.dso.RoutineHeader;
+import funkyflamingos.bisonfit.logic.GymStatusHandler;
 import funkyflamingos.bisonfit.logic.WaterHandler;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,9 +9,9 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import funkyflamingos.bisonfit.R;
 import funkyflamingos.bisonfit.logic.RoutineHandler;
@@ -22,26 +23,50 @@ import java.util.List;
 public class HomePageActivity extends AppCompatActivity {
     private CircularProgressIndicator waterTrackerProgress;
     private WaterHandler waterHandler;
+    private GymStatusHandler gymStatusHandler;
+    private TextView gymStatusLbl;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        List<RoutineHeader> listOfWorkouts;
-        MyWorkoutsListAdapter adapter;
-        RecyclerView recyclerView;
+        waterHandler = new WaterHandler();
+        gymStatusHandler = new GymStatusHandler();
+        waterTrackerProgress = findViewById(R.id.circularProgressView);
+        gymStatusLbl = findViewById(R.id.lblGymStatus);
 
         RoutineHandler workoutManager = new RoutineHandler();
-        waterHandler = new WaterHandler();
-        waterTrackerProgress = findViewById(R.id.circularProgressView);
-        waterTrackerProgress.setMax(waterHandler.getGoal());
-        listOfWorkouts = workoutManager.getAllRoutineHeaders();
+        List<RoutineHeader> listOfWorkouts = workoutManager.getAllRoutineHeaders();
+        MyWorkoutsListAdapter adapter = new MyWorkoutsListAdapter(listOfWorkouts, this);
+        RecyclerView recyclerView = findViewById(R.id.lstMyWorkouts);
 
-        adapter = new MyWorkoutsListAdapter(listOfWorkouts, this);
-        recyclerView = findViewById(R.id.lstMyWorkouts);
+        waterTrackerProgress.setMax(waterHandler.getGoal());
+
+        //recyclerVew setup
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+        // start refresher thread
+        new Thread() {
+            public void run() {
+                while(true) {
+                    try {
+                        String newStatus = gymStatusHandler.getGymStatus();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                gymStatusLbl.setText(newStatus);
+                            }
+                        });
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();
     }
 
     public void incrementAndUpdateWaterTracker(View v) {
