@@ -9,7 +9,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -24,7 +23,7 @@ import java.util.List;
 public class HomePageActivity extends AppCompatActivity {
     private CircularProgressIndicator waterTrackerProgress;
     private WaterHandler waterHandler;
-    private GymStatusHandler gymHoursHandler;
+    private GymStatusHandler gymStatusHandler;
     private TextView gymStatusLbl;
 
 
@@ -39,18 +38,38 @@ public class HomePageActivity extends AppCompatActivity {
 
         RoutineHandler workoutManager = new RoutineHandler();
         waterHandler = new WaterHandler();
-        gymHoursHandler = new GymStatusHandler();
+        gymStatusHandler = new GymStatusHandler();
         waterTrackerProgress = findViewById(R.id.circularProgressView);
         gymStatusLbl = findViewById(R.id.lblGymStatus);
         waterTrackerProgress.setMax(waterHandler.getGoal());
         listOfWorkouts = workoutManager.getAllRoutineHeaders();
 
-        gymStatusLbl.setText(gymHoursHandler.getGymStatus());
+        gymStatusLbl.setText(gymStatusHandler.getGymStatus());
 
         adapter = new MyWorkoutsListAdapter(listOfWorkouts, this);
         recyclerView = findViewById(R.id.lstMyWorkouts);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+        // start refresher thread
+        new Thread() {
+            public void run() {
+                while(true) {
+                    try {
+                        Thread.sleep(1000);
+                        String newStatus = gymStatusHandler.getGymStatus();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                gymStatusLbl.setText(newStatus);
+                            }
+                        });
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();
     }
 
     public void incrementAndUpdateWaterTracker(View v) {
