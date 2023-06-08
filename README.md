@@ -4,7 +4,7 @@ BisonFit is a new app to create a fitness companion app for U of M students tail
 
 ## The amazing team 
 
-![group](Group.jpg)
+![group](Docs/Group.jpg)
 
 
 ## Vision Statement
