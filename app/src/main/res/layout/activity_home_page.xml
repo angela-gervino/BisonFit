@@ -44,7 +44,7 @@
             app:indicatorColor="@color/water_blue"
             app:indicatorSize="58dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/lblHours"
+            app:layout_constraintEnd_toStartOf="@+id/lblGymStatus"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lblGreetings"
             app:trackColor="@color/white"
@@ -64,7 +64,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/lblHours"
+            android:id="@+id/lblGymStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="7h 23m Until Closing"

@@ -13,6 +13,15 @@ public class GymStatusHandler {
         this.persistence = persistence;
     }
 
+    public GymStatusHandler() {
+        this.persistence = new GymStatusPersistenceStub();
+    }
+
+    public String getGymStatus() {
+        Clock clock = Clock.systemDefaultZone();
+        return getGymStatus(clock);
+    }
+
     public String getGymStatus(Clock clock) {
         String result;
         String UNTIL_CLOSING = " Until Closing";
