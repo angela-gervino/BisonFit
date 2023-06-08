@@ -6,13 +6,10 @@ import funkyflamingos.bisonfit.dso.GymHours;
 import funkyflamingos.bisonfit.persistence.IGymStatusPersistence;
 import funkyflamingos.bisonfit.persistence.stubs.GymStatusPersistenceStub;
 
-public class HoursHandler {
+public class GymStatusHandler {
     private IGymStatusPersistence persistence;
 
-    public HoursHandler() {
-        persistence = new GymStatusPersistenceStub();
-    }
-    public HoursHandler(IGymStatusPersistence persistence) {
+    public GymStatusHandler(IGymStatusPersistence persistence) {
         this.persistence = persistence;
     }
 
