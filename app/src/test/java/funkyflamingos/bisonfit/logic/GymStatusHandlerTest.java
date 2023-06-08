@@ -20,6 +20,10 @@ public class GymStatusHandlerTest {
     }
 
     @Test
+    public void testGetGymStatus() {
+        assertNotNull(gymStatusHandler.getGymStatus());
+    }
+    @Test
     public void testGymIsOpen()
     {
         String output = gymStatusHandler.getGymStatus(getClockSetToAfternoon());
