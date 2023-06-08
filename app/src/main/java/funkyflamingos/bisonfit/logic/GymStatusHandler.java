@@ -64,8 +64,7 @@ public class GymStatusHandler {
         return atOpening || betweenOpeningAndClosing;
     }
 
-    private boolean gymIsClosedAndTimeBeforeMidnight(Duration currToOpening, Duration currToClosing)
-    {
+    private boolean gymIsClosedAndTimeBeforeMidnight(Duration currToOpening, Duration currToClosing) {
         boolean atClosing = currToClosing.isZero();
         boolean afterClosingAndBeforeMidnight = currToClosing.isNegative() && currToOpening.isNegative();
         return atClosing || afterClosingAndBeforeMidnight;
@@ -74,15 +73,12 @@ public class GymStatusHandler {
     private String getFormattedTime(String durationToString) {
         String output = durationToString.substring(2);
 
-        if (output.contains("M")){
+        if (output.contains("M")) {
             output = output.replaceAll("M[0-9.S]*", "m").toLowerCase().replaceAll("h", "h ");
-        }
-        else
-        {
+        } else {
             if (output.contains("H")) {
                 output = output.replaceAll("H[0-9.S]*", "h 0m");
-            }
-            else {
+            } else {
                 output = "<1 Minute";
             }
         }
