@@ -3,18 +3,18 @@ package funkyflamingos.bisonfit.logic;
 import java.time.*;
 
 import funkyflamingos.bisonfit.dso.GymHours;
-import funkyflamingos.bisonfit.persistence.IGymStatusPersistence;
-import funkyflamingos.bisonfit.persistence.stubs.GymStatusPersistenceStub;
+import funkyflamingos.bisonfit.persistence.IGymHoursPersistence;
+import funkyflamingos.bisonfit.persistence.stubs.GymHoursPersistenceStub;
 
 public class GymStatusHandler {
-    private IGymStatusPersistence persistence;
+    private IGymHoursPersistence persistence;
 
-    public GymStatusHandler(IGymStatusPersistence persistence) {
+    public GymStatusHandler(IGymHoursPersistence persistence) {
         this.persistence = persistence;
     }
 
     public GymStatusHandler() {
-        this.persistence = new GymStatusPersistenceStub();
+        this.persistence = new GymHoursPersistenceStub();
     }
 
     public String getGymStatus() {
@@ -37,8 +37,8 @@ public class GymStatusHandler {
         GymHours todaysHours = persistence.getHoursByID(dayOfWeekTodayAsInt);
         GymHours tomorrowsHours = persistence.getHoursByID(dayOfWeekTomorrowAsInt);
 
-        LocalTime closingTime = todaysHours.getClosing();
-        LocalTime openTime = todaysHours.getOpening();
+        LocalTime closingTime = todaysHours.getHours().get(0).getClosing();
+        LocalTime openTime = todaysHours.getHours().get(0).getOpening();
 
         Duration currToOpening = Duration.between(currentTime, openTime);
         Duration currToClosing = Duration.between(currentTime, closingTime);
@@ -48,7 +48,7 @@ public class GymStatusHandler {
             duration = currToClosing;
             result = UNTIL_CLOSING;
         } else if (gymIsClosedAndTimeBeforeMidnight(currToOpening, currToClosing)) {
-            duration = Duration.between(currentTime, LocalTime.MAX).plus(Duration.between(LocalTime.MIDNIGHT, tomorrowsHours.getOpening()));
+            duration = Duration.between(currentTime, LocalTime.MAX).plus(Duration.between(LocalTime.MIDNIGHT, tomorrowsHours.getHours().get(0).getOpening()));
             duration = duration.plusSeconds(1);
             result = UNTIL_OPENING;
         } else { // gym is closed and the current time after midnight
