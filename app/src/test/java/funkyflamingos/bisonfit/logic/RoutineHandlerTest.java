@@ -15,8 +15,8 @@ public class RoutineHandlerTest {
 
     @Before
     public void setup() {
-        RoutinesPersistenceStub persistence = new RoutinesPersistenceStub();
-        routineHandler = new RoutineHandler(persistence);
+       // RoutinesPersistenceStub persistence = new RoutinesPersistenceStub();
+       // routineHandler = new RoutineHandler(persistence);
     }
 
     @Test
