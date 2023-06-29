@@ -3,6 +3,7 @@ package funkyflamingos.bisonfit.ui;
 import funkyflamingos.bisonfit.dso.RoutineHeader;
 import funkyflamingos.bisonfit.logic.GymStatusHandler;
 import funkyflamingos.bisonfit.logic.WaterHandler;
+import funkyflamingos.bisonfit.persistence.utils.DBHelper;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -31,6 +32,9 @@ public class HomePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        //creating the Database
+        DBHelper.copyDatabaseToDevice(this);
 
         waterHandler = new WaterHandler();
         gymStatusHandler = new GymStatusHandler();
