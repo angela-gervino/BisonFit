@@ -2,6 +2,8 @@ package funkyflamingos.bisonfit.ui;
 
 import funkyflamingos.bisonfit.dso.RoutineHeader;
 import funkyflamingos.bisonfit.logic.GymStatusHandler;
+import funkyflamingos.bisonfit.logic.IUserNameHandler;
+import funkyflamingos.bisonfit.logic.UserNameHandler;
 import funkyflamingos.bisonfit.logic.WaterHandler;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -25,6 +28,8 @@ public class HomePageActivity extends AppCompatActivity {
     private WaterHandler waterHandler;
     private GymStatusHandler gymStatusHandler;
     private TextView gymStatusLbl;
+    private TextView lblGreetings;
+    private IUserNameHandler userNameHandler;
 
 
     @Override
@@ -36,6 +41,8 @@ public class HomePageActivity extends AppCompatActivity {
         gymStatusHandler = new GymStatusHandler();
         waterTrackerProgress = findViewById(R.id.circularProgressView);
         gymStatusLbl = findViewById(R.id.lblGymStatus);
+        lblGreetings = findViewById(R.id.lblGreetings);
+        userNameHandler = new UserNameHandler(this);
 
         RoutineHandler workoutManager = new RoutineHandler();
         List<RoutineHeader> listOfWorkouts = workoutManager.getAllRoutineHeaders();
@@ -44,7 +51,10 @@ public class HomePageActivity extends AppCompatActivity {
 
         waterTrackerProgress.setMax(waterHandler.getGoal());
 
-        //recyclerVew setup
+        // display user name
+        lblGreetings.setText(getGreetingsMessage());
+
+        // recyclerVew setup
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
@@ -75,5 +85,17 @@ public class HomePageActivity extends AppCompatActivity {
         if(waterHandler.reachedGoal()) { // set goal  as accomplished
             waterTrackerProgress.setIndicatorColor(ContextCompat.getColor(this, R.color.success_green));
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        // exit app on home press
+        Intent i = new Intent(Intent.ACTION_MAIN);
+        i.addCategory(Intent.CATEGORY_HOME);
+        startActivity(i);
+    }
+
+    public String getGreetingsMessage() {
+        return "Hi " + userNameHandler.getUserName() + "!";
     }
 }
