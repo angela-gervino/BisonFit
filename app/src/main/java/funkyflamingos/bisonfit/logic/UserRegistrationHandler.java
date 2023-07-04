@@ -12,6 +12,7 @@ public class UserRegistrationHandler implements IUserRegistrationHandler {
         persistence = new UserRegistrationPersistence(context);
     }
 
+    // constructor used for testing purposes
     public UserRegistrationHandler(Context context, String key) {
         persistence = new UserRegistrationPersistence(context, key);
     }
