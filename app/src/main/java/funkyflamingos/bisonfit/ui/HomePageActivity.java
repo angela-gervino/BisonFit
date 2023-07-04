@@ -2,8 +2,8 @@ package funkyflamingos.bisonfit.ui;
 
 import funkyflamingos.bisonfit.dso.RoutineHeader;
 import funkyflamingos.bisonfit.logic.GymStatusHandler;
-import funkyflamingos.bisonfit.logic.IUserNameHandler;
-import funkyflamingos.bisonfit.logic.UserNameHandler;
+import funkyflamingos.bisonfit.logic.IUserRegistrationHandler;
+import funkyflamingos.bisonfit.logic.UserRegistrationHandler;
 import funkyflamingos.bisonfit.logic.WaterHandler;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,7 +29,7 @@ public class HomePageActivity extends AppCompatActivity {
     private GymStatusHandler gymStatusHandler;
     private TextView gymStatusLbl;
     private TextView lblGreetings;
-    private IUserNameHandler userNameHandler;
+    private IUserRegistrationHandler userNameHandler;
 
 
     @Override
@@ -42,7 +42,7 @@ public class HomePageActivity extends AppCompatActivity {
         waterTrackerProgress = findViewById(R.id.circularProgressView);
         gymStatusLbl = findViewById(R.id.lblGymStatus);
         lblGreetings = findViewById(R.id.lblGreetings);
-        userNameHandler = new UserNameHandler(this);
+        userNameHandler = new UserRegistrationHandler(this);
 
         RoutineHandler workoutManager = new RoutineHandler();
         List<RoutineHeader> listOfWorkouts = workoutManager.getAllRoutineHeaders();

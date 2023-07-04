@@ -5,10 +5,10 @@ import android.content.Context;
 import funkyflamingos.bisonfit.persistence.IUserRegistrationPersistence;
 import funkyflamingos.bisonfit.persistence.UserRegistrationPersistence;
 
-public class UserNameHandler implements IUserNameHandler {
+public class UserRegistrationHandler implements IUserRegistrationHandler {
 
     private IUserRegistrationPersistence persistence;
-    public UserNameHandler(Context context) {
+    public UserRegistrationHandler(Context context) {
         persistence = new UserRegistrationPersistence(context);
     }
 

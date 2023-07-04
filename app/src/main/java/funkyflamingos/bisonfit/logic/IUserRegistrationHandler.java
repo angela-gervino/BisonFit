@@ -1,6 +1,6 @@
 package funkyflamingos.bisonfit.logic;
 
-public interface IUserNameHandler {
+public interface IUserRegistrationHandler {
 
     public boolean userHasRegistered();
     public void setUserName(String userName);

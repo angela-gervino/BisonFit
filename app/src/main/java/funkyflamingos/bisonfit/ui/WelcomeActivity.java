@@ -8,12 +8,12 @@ import android.view.View;
 import android.widget.EditText;
 
 import funkyflamingos.bisonfit.R;
-import funkyflamingos.bisonfit.logic.IUserNameHandler;
-import funkyflamingos.bisonfit.logic.UserNameHandler;
+import funkyflamingos.bisonfit.logic.IUserRegistrationHandler;
+import funkyflamingos.bisonfit.logic.UserRegistrationHandler;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    private IUserNameHandler userNameHandler;
+    private IUserRegistrationHandler userNameHandler;
     private String name;
     private EditText editText;
 
@@ -21,7 +21,7 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        userNameHandler = new UserNameHandler(this);
+        userNameHandler = new UserRegistrationHandler(this);
         editText = findViewById(R.id.nameEditText);
 
         if (userNameHandler.userHasRegistered()) {
