@@ -12,6 +12,10 @@ public class UserRegistrationHandler implements IUserRegistrationHandler {
         persistence = new UserRegistrationPersistence(context);
     }
 
+    public UserRegistrationHandler(Context context, String key) {
+        persistence = new UserRegistrationPersistence(context, key);
+    }
+
     @Override
     public boolean userHasRegistered() {
         return (persistence.getUserName() != null);

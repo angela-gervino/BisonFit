@@ -7,11 +7,19 @@ public class UserRegistrationPersistence implements IUserRegistrationPersistence
 
     SharedPreferences storage;
     Context context;
-    private final String KEY = "USER_NAME";
+    private final String KEY;
 
     public UserRegistrationPersistence(Context context) {
         this.context = context;
         storage = context.getSharedPreferences("registration", Context.MODE_PRIVATE);
+        KEY = "USER_NAME";
+    }
+
+    // constructor used for testing purposes
+    public UserRegistrationPersistence(Context context, String key) {
+        this.context = context;
+        storage = context.getSharedPreferences("registration", Context.MODE_PRIVATE);
+        KEY = key;
     }
 
     @Override
