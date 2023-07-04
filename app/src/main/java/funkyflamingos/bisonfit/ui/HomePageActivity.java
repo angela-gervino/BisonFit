@@ -89,7 +89,7 @@ public class HomePageActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        // exit app on home press
+        // exit app on back press
         Intent i = new Intent(Intent.ACTION_MAIN);
         i.addCategory(Intent.CATEGORY_HOME);
         startActivity(i);
