@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +23,9 @@ public class GymHoursPersistenceHSQLDB implements IGymHoursPersistence {
         this.dbPath = dbPathName;
     }
 
+
     @Override
-    public GymHours getHoursByID(int dayID) {
+    public List<GymHours> getNextWeekHours(LocalDate today) {
         return null;
     }
 }

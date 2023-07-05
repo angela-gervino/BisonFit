@@ -57,7 +57,6 @@ public class WaterTrackPersistenceHSQLDB implements IWaterTrackerPersistence {
     }
 
     public void insertWater(LocalDate date) {
-        System.out.println("hello");
         try (Connection connection = connect()) {
             final PreparedStatement statement = connection.prepareStatement("INSERT INTO WATERTRACKING VALUES(?, ?");
             statement.setTimestamp(1, Timestamp.valueOf(String.valueOf(date.atTime(LocalTime.MIDNIGHT))));
