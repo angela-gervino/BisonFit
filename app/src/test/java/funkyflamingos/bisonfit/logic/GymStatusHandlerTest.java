@@ -11,12 +11,12 @@ import funkyflamingos.bisonfit.persistence.stubs.GymHoursPersistenceStub;
 import static org.junit.Assert.*;
 
 public class GymStatusHandlerTest {
-    GymStatusHandler gymStatusHandler;
+    GymHoursHandler gymStatusHandler;
 
     @Before
     public void setup() {
         IGymHoursPersistence persistence = new GymHoursPersistenceStub();
-        gymStatusHandler = new GymStatusHandler(persistence);
+        gymStatusHandler = new GymHoursHandler(persistence);
     }
 
     @Test
@@ -29,194 +29,142 @@ public class GymStatusHandlerTest {
     }
 
     @Test
-    public void testBeforeFirstHoursMonday() {
+    public void testBeforeFirstHours() {
         try {
-            String output = gymStatusHandler.getGymStatus(getClockBeforeFirstHoursMonday());
+            String output = gymStatusHandler.getGymStatus(getClockBeforeFirstHours());
             assertEquals("30m Until Opening", output);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Clock getClockBeforeFirstHoursMonday() {
+    public Clock getClockBeforeFirstHours() {
         return Clock.fixed(Instant.parse("2023-06-26T05:29:30Z"), ZoneOffset.UTC);
     }
+
     @Test
-    public void testBeforeFirstHoursMondayMidnight() {
+    public void testBeforeFirstHoursMidnight() {
         try {
-            String output = gymStatusHandler.getGymStatus(getClockBeforeFirstHoursMondayMidnight());
+            String output = gymStatusHandler.getGymStatus(getClockBeforeFirstHoursMidnight());
             assertEquals("6h 0m Until Opening", output);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Clock getClockBeforeFirstHoursMondayMidnight() {
+    public Clock getClockBeforeFirstHoursMidnight() {
         return Clock.fixed(Instant.parse("2023-06-26T00:00:00Z"), ZoneOffset.UTC);
     }
+
     @Test
-    public void testDuringFirstHoursMonday() {
+    public void testDuringFirstHours() {
         try {
-            String output = gymStatusHandler.getGymStatus(getClockDuringFirstHoursMonday());
+            String output = gymStatusHandler.getGymStatus(getClockDuringFirstHours());
             assertEquals("5h 30m Until Closing", output);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Clock getClockDuringFirstHoursMonday() {
+    public Clock getClockDuringFirstHours() {
         return Clock.fixed(Instant.parse("2023-06-26T06:29:30Z"), ZoneOffset.UTC);
     }
 
     @Test
-    public void testBetweenHoursMonday() {
+    public void testBetweenHours() {
         try {
-            String output = gymStatusHandler.getGymStatus(getClockBetweenHoursMonday());
+            String output = gymStatusHandler.getGymStatus(getClockBetweenHours());
             assertEquals("30m Until Opening", output);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Clock getClockBetweenHoursMonday() {
+    public Clock getClockBetweenHours() {
         return Clock.fixed(Instant.parse("2023-06-26T12:29:30Z"), ZoneOffset.UTC);
     }
 
     @Test
-    public void testDuringLastHoursMonday() {
+    public void testDuringLastHours() {
         try {
-            String output = gymStatusHandler.getGymStatus(getClockDuringLastHoursMonday());
+            String output = gymStatusHandler.getGymStatus(getClockDuringLastHours());
             assertEquals("30m Until Closing", output);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Clock getClockDuringLastHoursMonday() {
+    public Clock getClockDuringLastHours() {
         return Clock.fixed(Instant.parse("2023-06-26T19:29:30Z"), ZoneOffset.UTC);
     }
 
     @Test
-    public void testAfterAllHoursMonday() {
+    public void testAfterAllHours() {
         try {
-            String output = gymStatusHandler.getGymStatus(getClockAfterAllHoursMonday());
+            String output = gymStatusHandler.getGymStatus(getClockAfterAllHours());
             assertEquals("Closed Till Wednesday", output);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Clock getClockAfterAllHoursMonday() {
+    public Clock getClockAfterAllHours() {
         return Clock.fixed(Instant.parse("2023-06-26T20:00:00Z"), ZoneOffset.UTC);
     }
 
     @Test
-    public void testNoHoursTodayTuesday() {
+    public void testNoHoursToday() {
         try {
-            String output = gymStatusHandler.getGymStatus(getClockNoHoursTodayTuesday());
+            String output = gymStatusHandler.getGymStatus(getClockNoHoursToday());
             assertEquals("17h 30m Until Opening", output);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Clock getClockNoHoursTodayTuesday() {
+    public Clock getClockNoHoursToday() {
         return Clock.fixed(Instant.parse("2023-06-27T12:29:30Z"), ZoneOffset.UTC);
     }
-//    @Test
-//    public void testOpenNowFirstHours() {
-//        try {
-//            String output = gymStatusHandler.getGymStatus(getClockSetToMondayFirstHours());
-//            assertEquals("5h 30m Until Closing", output);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    public Clock getClockSetToMondayFirstHours() {
-//        return Clock.fixed(Instant.parse("2023-06-26T06:29:30Z"), ZoneOffset.UTC);
-//    }
 
+    @Test
+    public void testClosingTomorrow() {
+        try {
+            String output = gymStatusHandler.getGymStatus(getClockClosingTomorrow());
+            assertEquals("27h 30m Until Closing", output);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    public Clock getClockClosingTomorrow() {
+        return Clock.fixed(Instant.parse("2023-06-28T06:29:30Z"), ZoneOffset.UTC);
+    }
 
-    /**
-     * currentTime == noon
-     *  opens today
-     *  opens today between hours
-     *  opens tomorrow
-     *  opens another day
-     *  closes today
-     *  closes today between hours
-     *  closes tomorrow
-     *  closes another day
-     * currentTime == midnight
-     */
+    @Test
+    public void testClosingMidnight() {
+        try {
+            String output = gymStatusHandler.getGymStatus(getClockClosingMidnight());
+            assertEquals("3h 30m Until Closing", output);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-//    @Test
-//    public void testGymIsOpen() {
-//        String output = gymStatusHandler.getGymStatus(getClockSetToAfternoon());
-//        assertEquals("9h 29m Until Closing", output);
-//    }
-//
-//    @Test
-//    public void testGymIsClosed() {
-//        String result = gymStatusHandler.getGymStatus(getClockSetToPastMidight());
-//        assertEquals("4h 33m Until Opening", result);
-//    }
-//
-//    @Test
-//    public void testGymIsClosed2() {
-//        String result = gymStatusHandler.getGymStatus(getClockSetToBeforeMidnight());
-//        assertEquals("6h 33m Until Opening", result);
-//    }
-//
-//    @Test
-//    public void testAtClosingTime() {
-//        String result = gymStatusHandler.getGymStatus(getClockSetToGymCloseTime());
-//        assertEquals("8h 0m Until Opening", result);
-//    }
-//
-//    @Test
-//    public void testAtOpeningTime() {
-//        String result = gymStatusHandler.getGymStatus(getClockSetToGymOpenTime());
-//        assertEquals("16h 0m Until Closing", result);
-//    }
-//
-//    @Test
-//    public void testGymAlmostClosed() {
-//        String result = gymStatusHandler.getGymStatus(getClockSetToGymAlmostClosed());
-//        assertEquals("<1 Minute Until Closing", result);
-//    }
-//
-//    @Test
-//    public void testGymAlmostOpened() {
-//        String result = gymStatusHandler.getGymStatus(getClockSetToGymAlmostOpened());
-//        assertEquals("<1 Minute Until Opening", result);
-//    }
-//
+    public Clock getClockClosingMidnight() {
+        return Clock.fixed(Instant.parse("2023-06-29T20:29:30Z"), ZoneOffset.UTC);
+    }
 
-//
-//    public Clock getClockSetToPastMidight() {
-//        return Clock.fixed(Instant.parse("2023-06-07T01:26:27Z"), ZoneOffset.UTC);
-//    }
-//
-//    public Clock getClockSetToBeforeMidnight() {
-//        return Clock.fixed(Instant.parse("2023-06-07T23:26:27Z"), ZoneOffset.UTC);
-//    }
-//
-//    public Clock getClockSetToGymCloseTime() {
-//        return Clock.fixed(Instant.parse("2023-06-08T22:00:00Z"), ZoneOffset.UTC);
-//    }
-//
-//    public Clock getClockSetToGymOpenTime() {
-//        return Clock.fixed(Instant.parse("2023-06-08T06:00:00Z"), ZoneOffset.UTC);
-//    }
-//
-//    public Clock getClockSetToGymAlmostClosed() {
-//        return Clock.fixed(Instant.parse("2023-06-06T21:59:01Z"), ZoneOffset.UTC);
-//    }
-//
-//    public Clock getClockSetToGymAlmostOpened() {
-//        return Clock.fixed(Instant.parse("2023-06-09T05:59:22Z"), ZoneOffset.UTC);
-//    }
+    @Test
+    public void testClosingLaterThisWeek() {
+        try {
+            String output = gymStatusHandler.getGymStatus(getClockClosingLaterThisWeek());
+            assertEquals("Open Till Sunday", output);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Clock getClockClosingLaterThisWeek() {
+        return Clock.fixed(Instant.parse("2023-06-30T06:29:30Z"), ZoneOffset.UTC);
+    }
 }

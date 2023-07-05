@@ -98,8 +98,7 @@ public class GymHoursPersistenceStub implements IGymHoursPersistence {
         return nextWeekHours;
     }
 
-    @Override
-    public GymHours getHoursByID(int dayID) {
+    private GymHours getHoursByID(int dayID) {
         for (GymHours weekday : gymHoursList)
             if (weekday.getDayID() == dayID)
                 return weekday;
