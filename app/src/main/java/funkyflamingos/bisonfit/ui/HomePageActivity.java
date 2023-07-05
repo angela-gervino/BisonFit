@@ -1,8 +1,13 @@
 package funkyflamingos.bisonfit.ui;
 
-import funkyflamingos.bisonfit.dso.RoutineHeader;
 import funkyflamingos.bisonfit.logic.GymHoursHandler;
+import funkyflamingos.bisonfit.logic.IUserRegistrationHandler;
+import funkyflamingos.bisonfit.logic.UserRegistrationHandler;
 import funkyflamingos.bisonfit.logic.WaterHandler;
+import funkyflamingos.bisonfit.logic.RoutineHandler;
+
+import funkyflamingos.bisonfit.dso.RoutineHeader;
+
 import funkyflamingos.bisonfit.persistence.utils.DBHelper;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +21,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import funkyflamingos.bisonfit.R;
-import funkyflamingos.bisonfit.logic.RoutineHandler;
 
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
