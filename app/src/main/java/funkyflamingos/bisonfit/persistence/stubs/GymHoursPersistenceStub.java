@@ -24,30 +24,38 @@ public class GymHoursPersistenceStub implements IGymHoursPersistence {
         List mondayHours = new ArrayList<Hours>();
         mondayHours.add(new Hours(
                 LocalTime.of(6, 0, 0),
-                LocalTime.of(22, 0, 0)
+                LocalTime.of(12, 0, 0)
+        ));
+        mondayHours.add(new Hours(
+                LocalTime.of(13, 0, 0),
+                LocalTime.of(14, 0, 0)
+        ));
+        mondayHours.add(new Hours(
+                LocalTime.of(15, 0, 0),
+                LocalTime.of(20, 0, 0)
         ));
         gymHoursList.add(new GymHours(1, mondayHours));
 
         // Tuesday
-        List tuesdayHours = new ArrayList<Hours>();
-        tuesdayHours.add(new Hours(
-                LocalTime.of(6, 0, 0),
-                LocalTime.of(22, 0, 0)
-        ));
+        List tuesdayHours = null;
         gymHoursList.add(new GymHours(2, tuesdayHours));
 
         // Wednesday
         List wednesdayHours = new ArrayList<Hours>();
         wednesdayHours.add(new Hours(
                 LocalTime.of(6, 0, 0),
-                LocalTime.of(22, 0, 0)
+                LocalTime.of(0, 0, 0)
         ));
         gymHoursList.add(new GymHours(3, wednesdayHours));
 
         // Thursday
         List thursdayHours = new ArrayList<Hours>();
         thursdayHours.add(new Hours(
-                LocalTime.of(6, 0, 0),
+                LocalTime.of(0, 0, 0),
+                LocalTime.of(10, 0, 0)
+        ));
+        thursdayHours.add(new Hours(
+                LocalTime.of(12, 0, 0),
                 LocalTime.of(0, 0, 0)
         ));
         gymHoursList.add(new GymHours(4, thursdayHours));
@@ -55,7 +63,7 @@ public class GymHoursPersistenceStub implements IGymHoursPersistence {
         // Friday
         List fridayHours = new ArrayList<Hours>();
         fridayHours.add(new Hours(
-                LocalTime.of(0, 0, 0),
+                LocalTime.of(6, 0, 0),
                 LocalTime.of(0, 0, 0)
         ));
         gymHoursList.add(new GymHours(5, fridayHours));
@@ -64,14 +72,14 @@ public class GymHoursPersistenceStub implements IGymHoursPersistence {
         List saturdayHours = new ArrayList<Hours>();
         saturdayHours.add(new Hours(
                 LocalTime.of(0, 0, 0),
-                LocalTime.of(20, 0, 0)
+                LocalTime.of(0, 0, 0)
         ));
         gymHoursList.add(new GymHours(6, saturdayHours));
 
         //Sunday
         List sundayHours = new ArrayList<Hours>();
         sundayHours.add(new Hours(
-                LocalTime.of(8, 0, 0),
+                LocalTime.of(0, 0, 0),
                 LocalTime.of(20, 0, 0)
         ));
         gymHoursList.add(new GymHours(7, sundayHours));

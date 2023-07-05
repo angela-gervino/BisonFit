@@ -25,7 +25,7 @@ public class GymStatusHandler {
 
     public String getGymStatus() throws Exception {
         Clock clock = Clock.systemDefaultZone();
-//        clock = Clock.fixed(Instant.parse("2023-06-07T01:26:27Z"), ZoneOffset.UTC); // *
+        clock = Clock.fixed(Instant.parse("2023-06-26T20:00:00Z"), ZoneOffset.UTC);
         return getGymStatus(clock);
     }
 
@@ -42,6 +42,133 @@ public class GymStatusHandler {
 
         else
             return getNextOpeningString(currentDate, currentTime, nextWeekHours);
+    }
+
+    private String getNextOpeningString(LocalDate currentDate, LocalTime currentTime, List<GymHours> nextWeekHours) {
+        Duration timeUntilClosing = null;
+        int currentDayOfWeek = getDayOfWeek(currentDate);
+        String nextOpenDay = null;
+        boolean found = false;
+
+        // traverse gymHours for next 7 days
+        for (int i = 0; i < nextWeekHours.size() && !found; i++) {
+            GymHours gymHours = nextWeekHours.get(i);
+            List<Hours> hoursList = gymHours.getHours();
+
+            if (hoursList != null) {
+                for(int j = 0; j < hoursList.size() && !found; j++) {
+                    Hours hours = hoursList.get(j);
+                    boolean isToday = gymHours.getDayID() == currentDayOfWeek;
+
+                    if (hours.getOpening().isAfter(currentTime) || !isToday) {
+                        if (isToday) {
+                            timeUntilClosing = getDurationBetween(currentTime, hours.getOpening());
+                        } else if (isTomorrow(currentDayOfWeek, gymHours.getDayID())) {
+                            timeUntilClosing = getDurationBetween(currentTime, LocalTime.MIDNIGHT)
+                                    .plus(Duration.between(LocalTime.MIN, hours.getOpening()));
+                        } else {
+                            nextOpenDay = dayIDToString(gymHours.getDayID());
+                        }
+                        found = true;
+                    }
+                }
+            }
+        }
+
+        if (timeUntilClosing != null) {
+            return getFormattedTime(timeUntilClosing.toString()) + " Until Opening";
+        } else if (nextOpenDay != null) {
+            return "Closed Till " + nextOpenDay;
+        } else {
+            return "Closed All Week";
+        }
+    }
+
+    private boolean isTomorrow(int today, int other) {
+        int tomorrow = getNextDayOfWeek(today);
+        return tomorrow == other;
+    }
+
+    private String getNextClosingString(Hours currentHours, LocalTime currentTime, List<GymHours> nextWeekHours) {
+        Duration timeUntilClosing;
+        List<Hours> tomorrowsHours = nextWeekHours.get(1).getHours();
+        List<Hours> dayAfterTomorrowHours = nextWeekHours.get(2).getHours();
+
+        timeUntilClosing = getDurationBetween(currentTime, currentHours.getClosing());
+
+        boolean isOpenTillTomorrow = currentHours.getClosing().equals(LocalTime.MIDNIGHT)
+                && tomorrowsHours != null
+                && tomorrowsHours.get(0).getOpening().equals(LocalTime.MIDNIGHT);
+        boolean isOpenTillDayAfterTomorrow = isOpenTillTomorrow
+                && tomorrowsHours.get(0).getClosing().equals(LocalTime.MIDNIGHT)
+                && dayAfterTomorrowHours != null
+                && dayAfterTomorrowHours.get(0).getOpening().equals(LocalTime.MIDNIGHT);
+
+        if (isOpenTillTomorrow)
+            if (!isOpenTillDayAfterTomorrow)
+                timeUntilClosing = timeUntilClosing.plus(getDurationBetween(LocalTime.MIDNIGHT, tomorrowsHours.get(0).getClosing()));
+            else
+                return getClosingDayString(nextWeekHours);
+
+        return getFormattedTime(timeUntilClosing.toString()) + " Until Closing";
+    }
+
+    private String getClosingDayString(List<GymHours> weekHours) {
+        GymHours curr;
+        GymHours prev = weekHours.get(1);
+
+        for (int i = 2; i < DAYS_PER_WEEK; i++) {
+            curr = weekHours.get(i);
+            if (curr.getHours() == null
+                    || !(prev.getHours().get(0).getClosing().equals(LocalTime.MIDNIGHT)
+                    && curr.getHours().get(0).getOpening().equals(LocalTime.MIDNIGHT))) {
+                return "Open Till " + dayIDToString(prev.getDayID());
+            }
+            prev = curr;
+        }
+        return "Open All Week";
+    }
+
+    private Duration getDurationBetween(LocalTime start, LocalTime end) {
+        Duration timeUntilClosing;
+        if (end.equals(LocalTime.MIDNIGHT)) {
+            timeUntilClosing = Duration.between(start, LocalTime.MAX);
+            timeUntilClosing = timeUntilClosing.plusSeconds(1);
+        } else
+            timeUntilClosing = Duration.between(start, end);
+        return timeUntilClosing;
+    }
+
+    private Hours getCurrentlyOpenHours(List<GymHours> nextWeekHours, LocalTime currentTime) {
+        List<Hours> todayHours = nextWeekHours.get(0).getHours();
+        if (todayHours != null)
+            for (Hours hours : todayHours)
+                if (currentTime.isAfter(hours.getOpening())
+                        && (currentTime.isBefore(hours.getClosing())
+                        || hours.getClosing().equals(LocalTime.MIDNIGHT)))
+                    return hours;
+        return null;
+    }
+
+    private String getFormattedTime(String durationToString) {
+        String output = durationToString.substring(2);
+
+        if (output.contains("M")) {
+            output = output.replaceAll("M[0-9.S]*", "m").toLowerCase().replaceAll("h", "h ");
+        } else {
+            if (output.contains("H")) {
+                output = output.replaceAll("H[0-9.S]*", "h 0m");
+            } else {
+                output = "<1 Minute";
+            }
+        }
+        return output;
+    }
+
+    private String dayIDToString(int dayID) {
+        String dayOfWeek = DayOfWeek.of(dayID).toString();
+        dayOfWeek = dayOfWeek.charAt(0) + dayOfWeek.substring(1).toLowerCase();
+        return dayOfWeek;
     }
 
     private void validateGymHours(List<GymHours> nextWeekHours, LocalDate today) throws Exception {
@@ -90,7 +217,7 @@ public class GymStatusHandler {
         // hours can be null
         if (hours != null) {
 
-            // hours shouldn't be empty
+            // hours should not be empty
             if (hours.size() == 0)
                 throw new Exception("Hours should not be empty.");
 
@@ -128,136 +255,5 @@ public class GymStatusHandler {
                 prev = curr;
             }
         }
-
-
-        // should not be null
-        // the only time that hours should be the same is if they are all day 0 to 0
-
-        // special case when
-    }
-
-    private String getNextOpeningString(LocalDate currentDate, LocalTime currentTime, List<GymHours> nextWeekHours) {
-        Duration timeUntilClosing = null;
-        int currentDayOfWeek = getDayOfWeek(currentDate);
-        String nextOpenDay = null;
-        boolean found = false;
-
-        // traverse gymHours for next 7 days
-        for (GymHours gymHours : nextWeekHours) {
-            List<Hours> hoursList = gymHours.getHours();
-            if (hoursList != null) {
-                for (Hours hours : hoursList) {
-                    if (hours.getOpening().isAfter(currentTime)
-                            || gymHours.getDayID() != currentDayOfWeek) {
-                        boolean isToday = gymHours.getDayID() == currentDayOfWeek;
-
-                        if (isToday) {
-                            timeUntilClosing = getDurationBetween(currentTime, hours.getOpening());
-                        } else if (isTomorrow(currentDayOfWeek, gymHours.getDayID())) {
-                            timeUntilClosing = getDurationBetween(currentTime, LocalTime.MIDNIGHT)
-                                    .plus(Duration.between(LocalTime.MIN, hours.getOpening()));
-                        } else {
-                            nextOpenDay = dayIDToString(gymHours.getDayID());
-                        }
-                        break; // don't need to keep looking
-                    }
-                }
-            }
-        }
-
-        if (timeUntilClosing != null) {
-            return getFormattedTime(timeUntilClosing.toString()) + " until opening";
-        } else if (nextOpenDay != null) {
-            return "Closed till " + nextOpenDay;
-        } else {
-            return "Closed all week";
-        }
-    }
-
-    private boolean isTomorrow(int today, int other) {
-        int tomorrow = getNextDayOfWeek(today);
-        return tomorrow == other;
-    }
-
-    private String getNextClosingString(Hours currentHours, LocalTime currentTime, List<GymHours> nextWeekHours) {
-        Duration timeUntilClosing;
-        List<Hours> tomorrowsHours = nextWeekHours.get(1).getHours();
-        List<Hours> dayAfterTomorrowHours = nextWeekHours.get(2).getHours();
-
-        timeUntilClosing = getDurationBetween(currentTime, currentHours.getClosing());
-
-        boolean isOpenTillTomorrow = currentHours.getClosing().equals(LocalTime.MIDNIGHT)
-                && tomorrowsHours != null
-                && tomorrowsHours.get(0).getOpening().equals(LocalTime.MIDNIGHT);
-        boolean isOpenTillDayAfterTomorrow = isOpenTillTomorrow
-                && tomorrowsHours.get(0).getClosing().equals(LocalTime.MIDNIGHT)
-                && dayAfterTomorrowHours != null
-                && dayAfterTomorrowHours.get(0).getOpening().equals(LocalTime.MIDNIGHT);
-
-        if (isOpenTillTomorrow)
-            if (!isOpenTillDayAfterTomorrow)
-                timeUntilClosing = timeUntilClosing.plus(getDurationBetween(LocalTime.MIDNIGHT, tomorrowsHours.get(0).getClosing()));
-            else
-                return getClosingDayString(nextWeekHours);
-
-        return getFormattedTime(timeUntilClosing.toString()) + " Until Closing";
-    }
-
-    private String getClosingDayString(List<GymHours> weekHours) {
-        GymHours curr;
-        GymHours prev = weekHours.get(1);
-
-        for (int i = 2; i < DAYS_PER_WEEK; i++) {
-            curr = weekHours.get(i);
-            if (curr.getHours() == null
-                    || !(prev.getHours().get(0).getClosing().equals(LocalTime.MIDNIGHT)
-                    && curr.getHours().get(0).getOpening().equals(LocalTime.MIDNIGHT))) {
-                return "Open till " + dayIDToString(prev.getDayID());
-            }
-            prev = curr;
-        }
-        return "Open all week";
-    }
-
-    private Duration getDurationBetween(LocalTime start, LocalTime end) {
-        Duration timeUntilClosing;
-        if (end.equals(LocalTime.MIDNIGHT)) {
-            timeUntilClosing = Duration.between(start, LocalTime.MAX);
-            timeUntilClosing = timeUntilClosing.plusSeconds(1);
-        } else
-            timeUntilClosing = Duration.between(start, end);
-        return timeUntilClosing;
-    }
-
-    private Hours getCurrentlyOpenHours(List<GymHours> nextWeekHours, LocalTime currentTime) {
-        List<Hours> todayHours = nextWeekHours.get(0).getHours();
-        if (todayHours != null)
-            for (Hours hours : todayHours)
-                if (currentTime.isAfter(hours.getOpening())
-                        && (currentTime.isBefore(hours.getClosing())
-                        || hours.getClosing().equals(LocalTime.MIDNIGHT)))
-                    return hours;
-        return null;
-    }
-
-    private String getFormattedTime(String durationToString) {
-        String output = durationToString.substring(2);
-
-        if (output.contains("M")) {
-            output = output.replaceAll("M[0-9.S]*", "m").toLowerCase().replaceAll("h", "h ");
-        } else {
-            if (output.contains("H")) {
-                output = output.replaceAll("H[0-9.S]*", "h 0m");
-            } else {
-                output = "<1 Minute";
-            }
-        }
-        return output;
-    }
-
-    private String dayIDToString(int dayID) {
-        String dayOfWeek = DayOfWeek.of(dayID).toString();
-        dayOfWeek = dayOfWeek.charAt(0) + dayOfWeek.substring(1).toLowerCase();
-        return dayOfWeek;
     }
 }
