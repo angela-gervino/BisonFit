@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import funkyflamingos.bisonfit.R;
@@ -29,9 +30,11 @@ import java.util.List;
 public class HomePageActivity extends AppCompatActivity {
     private CircularProgressIndicator waterTrackerProgress;
     private WaterHandler waterHandler;
-    private GymHoursHandler gymStatusHandler;
-    private TextView gymStatusLbl;
+    private GymHoursHandler gymHoursHandler;
+//    private TextView gymStatusLbl;
     private TextView lblGreetings;
+
+    private Button btnGymHours;
     private IUserRegistrationHandler userNameHandler;
 
 
@@ -44,9 +47,9 @@ public class HomePageActivity extends AppCompatActivity {
         DBHelper.copyDatabaseToDevice(this);
 
         waterHandler = new WaterHandler();
-        gymStatusHandler = new GymHoursHandler();
+        gymHoursHandler = new GymHoursHandler();
         waterTrackerProgress = findViewById(R.id.circularProgressView);
-        gymStatusLbl = findViewById(R.id.lblGymStatus);
+        btnGymHours = (Button) findViewById(R.id.btnGymHours);
         lblGreetings = findViewById(R.id.lblGreetings);
         userNameHandler = new UserRegistrationHandler(this);
 
@@ -64,16 +67,24 @@ public class HomePageActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
+        // gym hours listener setup  (currently not working)
+//        btnGymHours.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(HomePageActivity.this, GymHoursActivity.class));
+//            }
+//        });
+
         // start refresher thread
         new Thread() {
             public void run() {
                 while(true) {
                     try {
-                        String newStatus = gymStatusHandler.getGymStatus();
+                        String newStatus = gymHoursHandler.getGymStatus();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                gymStatusLbl.setText(newStatus);
+                                btnGymHours.setText(newStatus);
                             }
                         });
                         Thread.sleep(1000);
@@ -103,5 +114,10 @@ public class HomePageActivity extends AppCompatActivity {
 
     public String getGreetingsMessage() {
         return "Hi " + userNameHandler.getUserName() + "!";
+    }
+
+    public void openGymHoursActivity(View v) {
+        Intent intent = new Intent(HomePageActivity.this, GymHoursActivity.class);
+        startActivity(intent);
     }
 }
