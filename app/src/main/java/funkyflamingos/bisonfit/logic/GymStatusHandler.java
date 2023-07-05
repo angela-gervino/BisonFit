@@ -56,7 +56,7 @@ public class GymStatusHandler {
             List<Hours> hoursList = gymHours.getHours();
 
             if (hoursList != null) {
-                for(int j = 0; j < hoursList.size() && !found; j++) {
+                for (int j = 0; j < hoursList.size() && !found; j++) {
                     Hours hours = hoursList.get(j);
                     boolean isToday = gymHours.getDayID() == currentDayOfWeek;
 
@@ -249,7 +249,7 @@ public class GymStatusHandler {
 
                 if (i == hours.size() - 1 && curr.equals(LocalTime.MIDNIGHT))
                     continue;
-                if(curr.compareTo(prev) <= 0)
+                if (curr.compareTo(prev) <= 0)
                     throw new Exception("Closing should be after last opening.");
 
                 prev = curr;
