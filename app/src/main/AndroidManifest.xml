@@ -35,6 +35,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.ExerciseSelectionActivity"
+            android:exported="false"
+            android:label="ExerciseSelectionPage" />
+        <activity
+            android:name=".ui.ActiveWorkoutActivity"
+            android:exported="false"
+            android:label="ActiveWorkoutPage" />
     </application>
 
 </manifest>

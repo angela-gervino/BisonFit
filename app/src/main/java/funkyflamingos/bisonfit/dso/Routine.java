@@ -14,4 +14,9 @@ public class Routine {
     public RoutineHeader getHeader() {
         return header;
     }
+
+
+    //need a function that returns all exercise headers as an ArrayList
+
+    //need a function that takes an index and removed the exercise header at that index
 }

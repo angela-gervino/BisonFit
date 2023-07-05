@@ -5,6 +5,7 @@ import funkyflamingos.bisonfit.logic.GymStatusHandler;
 import funkyflamingos.bisonfit.logic.IUserRegistrationHandler;
 import funkyflamingos.bisonfit.logic.UserRegistrationHandler;
 import funkyflamingos.bisonfit.logic.WaterHandler;
+import funkyflamingos.bisonfit.persistence.utils.DBHelper;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -36,6 +37,9 @@ public class HomePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        //creating the Database
+        DBHelper.copyDatabaseToDevice(this);
 
         waterHandler = new WaterHandler();
         gymStatusHandler = new GymStatusHandler();
@@ -71,7 +75,7 @@ public class HomePageActivity extends AppCompatActivity {
                             }
                         });
                         Thread.sleep(1000);
-                    } catch (InterruptedException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
