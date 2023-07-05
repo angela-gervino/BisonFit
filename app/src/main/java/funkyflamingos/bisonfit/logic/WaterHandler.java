@@ -12,9 +12,9 @@ public class WaterHandler {
 
     // Constructor for the stub
 
-   // public WaterHandler() {
-   //     persistence = new WaterTrackerPersistenceStub();
-   // }
+  //  public WaterHandler() {
+  //      persistence = new WaterTrackerPersistenceStub();
+  //  }
 
     public WaterHandler(IWaterTrackerPersistence persistence) {
         this.persistence = persistence;
@@ -22,7 +22,7 @@ public class WaterHandler {
 
     // Constructor for the database
 
-    public WaterHandler(){
+   public WaterHandler(){
         persistence = Services.getWaterTrackPersistence();
     }
 

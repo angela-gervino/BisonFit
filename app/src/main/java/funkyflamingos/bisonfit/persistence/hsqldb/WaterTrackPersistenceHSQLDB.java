@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -43,8 +44,8 @@ public class WaterTrackPersistenceHSQLDB implements IWaterTrackerPersistence {
             final Statement statement = connection.createStatement();
             final ResultSet resultSet = statement.executeQuery("SELECT * FROM WATERTRACKING");
             while (resultSet.next()) {
-                Timestamp dateAsTimestamp = resultSet.getTimestamp("dateProgress");
-                LocalDate date = dateAsTimestamp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                Long dateAsTimestamp = resultSet.getLong("dateProgress");
+                LocalDate date = Instant.ofEpochMilli(dateAsTimestamp).atZone(ZoneId.systemDefault()).toLocalDate();
                 int cupsDrank = resultSet.getInt("cupsDrank");
                 this.progress.put(date, cupsDrank);
             }
@@ -58,15 +59,17 @@ public class WaterTrackPersistenceHSQLDB implements IWaterTrackerPersistence {
 
     public void insertWater(LocalDate date) {
         try (Connection connection = connect()) {
-            final PreparedStatement statement = connection.prepareStatement("INSERT INTO WATERTRACKING VALUES(?, ?");
-            statement.setTimestamp(1, Timestamp.valueOf(String.valueOf(date.atTime(LocalTime.MIDNIGHT))));
+            final PreparedStatement statement = connection.prepareStatement("INSERT INTO WATERTRACKING VALUES(?, ?)");
+           // statement.setTimestamp(1, Timestamp.valueOf(String.valueOf(date.atTime(LocalTime.MIDNIGHT))));
+            //statement.setTimestamp(1, Timestamp.valueOf(date.atTime(LocalTime.MIDNIGHT)));
+            statement.setLong(1,date.atStartOfDay(ZoneId.systemDefault()).toEpochSecond());
             statement.setInt(2, 0);
+            System.out.println("Insert water");
             statement.executeUpdate();
             statement.close();
         } catch (final SQLException e) {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
-
         }
     }
 
@@ -77,7 +80,8 @@ public class WaterTrackPersistenceHSQLDB implements IWaterTrackerPersistence {
     public void increment(LocalDate date) {
         try (Connection connection = connect()) {
             final PreparedStatement statement = connection.prepareStatement("UPDATE WATERTRACKING SET cupsDrank=cupsDrank+1 WHERE dateProgress = ?");
-            statement.setTimestamp(1, Timestamp.valueOf(String.valueOf(date.atTime(LocalTime.MIDNIGHT))));
+          //  statement.setTimestamp(1, Timestamp.valueOf(String.valueOf(date.atTime(LocalTime.MIDNIGHT))));
+            statement.setLong(1,date.atStartOfDay(ZoneId.systemDefault()).toEpochSecond());
             statement.executeQuery();
         } catch (final SQLException e) {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
@@ -95,7 +99,8 @@ public class WaterTrackPersistenceHSQLDB implements IWaterTrackerPersistence {
         int cupsDrank = 0;
         try (Connection connection = connect()) {
             final PreparedStatement statement = connection.prepareStatement("SELECT cupsDrank FROM WATERTRACKING WHERE dateProgress = ?");
-            statement.setTimestamp(1, Timestamp.valueOf(String.valueOf(date.atTime(LocalTime.MIDNIGHT))));
+            statement.setLong(1,date.atStartOfDay(ZoneId.systemDefault()).toEpochSecond());
+           // statement.setTimestamp(1, Timestamp.valueOf(String.valueOf(date.atTime(LocalTime.MIDNIGHT))));
             final ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 cupsDrank = resultSet.getInt("cupsDrank");
