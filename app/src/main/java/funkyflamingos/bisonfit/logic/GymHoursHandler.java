@@ -12,20 +12,19 @@ import funkyflamingos.bisonfit.dso.Hours;
 import funkyflamingos.bisonfit.persistence.IGymHoursPersistence;
 import funkyflamingos.bisonfit.persistence.stubs.GymHoursPersistenceStub;
 
-public class GymStatusHandler {
+public class GymHoursHandler {
     private IGymHoursPersistence persistence;
 
-    public GymStatusHandler(IGymHoursPersistence persistence) {
+    public GymHoursHandler(IGymHoursPersistence persistence) {
         this.persistence = persistence;
     }
 
-    public GymStatusHandler() {
+    public GymHoursHandler() {
         this.persistence = new GymHoursPersistenceStub();
     }
 
     public String getGymStatus() throws Exception {
         Clock clock = Clock.systemDefaultZone();
-        clock = Clock.fixed(Instant.parse("2023-06-26T20:00:00Z"), ZoneOffset.UTC);
         return getGymStatus(clock);
     }
 
@@ -194,7 +193,7 @@ public class GymStatusHandler {
 
             // should be truthy
             if (gymHours == null)
-                throw new Exception("Should not be null.");
+                throw new Exception("GymHours should not be null.");
 
             validateHours(gymHours.getHours());
         }

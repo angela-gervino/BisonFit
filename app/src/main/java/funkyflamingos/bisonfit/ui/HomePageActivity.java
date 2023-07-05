@@ -1,7 +1,7 @@
 package funkyflamingos.bisonfit.ui;
 
 import funkyflamingos.bisonfit.dso.RoutineHeader;
-import funkyflamingos.bisonfit.logic.GymStatusHandler;
+import funkyflamingos.bisonfit.logic.GymHoursHandler;
 import funkyflamingos.bisonfit.logic.WaterHandler;
 import funkyflamingos.bisonfit.persistence.utils.DBHelper;
 
@@ -24,7 +24,7 @@ import java.util.List;
 public class HomePageActivity extends AppCompatActivity {
     private CircularProgressIndicator waterTrackerProgress;
     private WaterHandler waterHandler;
-    private GymStatusHandler gymStatusHandler;
+    private GymHoursHandler gymStatusHandler;
     private TextView gymStatusLbl;
 
 
@@ -37,7 +37,7 @@ public class HomePageActivity extends AppCompatActivity {
         DBHelper.copyDatabaseToDevice(this);
 
         waterHandler = new WaterHandler();
-        gymStatusHandler = new GymStatusHandler();
+        gymStatusHandler = new GymHoursHandler();
         waterTrackerProgress = findViewById(R.id.circularProgressView);
         gymStatusLbl = findViewById(R.id.lblGymStatus);
 
