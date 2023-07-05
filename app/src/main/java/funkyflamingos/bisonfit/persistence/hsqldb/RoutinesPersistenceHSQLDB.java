@@ -3,6 +3,7 @@ package funkyflamingos.bisonfit.persistence.hsqldb;
 import funkyflamingos.bisonfit.dso.RoutineHeader;
 import funkyflamingos.bisonfit.dso.Routine;
 import funkyflamingos.bisonfit.persistence.IRoutinesPersistence;
+import funkyflamingos.bisonfit.persistence.utils.DBHelper;
 
 import android.util.Log;
 
@@ -32,10 +33,11 @@ public class RoutinesPersistenceHSQLDB implements IRoutinesPersistence {
     }
 
     private Routine fromResultSet(final ResultSet rs) throws SQLException{
-        String routineName = rs.getString("name");
+        String routineName = rs.getString("title");
         int routineID =  rs.getInt("id");
 
         return new Routine(new RoutineHeader(routineName,routineID));
+
     }
 
     private void loadRoutines() {
@@ -45,7 +47,6 @@ public class RoutinesPersistenceHSQLDB implements IRoutinesPersistence {
 
             while (resultSet.next()) {
                 final Routine oneRoutine = fromResultSet(resultSet);
-                //connectRecipeWithTags(recipe);
                 this.routines.add(oneRoutine);
             }
         } catch (final SQLException e) {
