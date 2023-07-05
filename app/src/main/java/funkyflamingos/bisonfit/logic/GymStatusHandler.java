@@ -2,6 +2,7 @@ package funkyflamingos.bisonfit.logic;
 
 import java.time.*;
 
+import funkyflamingos.bisonfit.application.Services;
 import funkyflamingos.bisonfit.dso.GymHours;
 import funkyflamingos.bisonfit.persistence.IGymHoursPersistence;
 import funkyflamingos.bisonfit.persistence.stubs.GymHoursPersistenceStub;
@@ -9,10 +10,19 @@ import funkyflamingos.bisonfit.persistence.stubs.GymHoursPersistenceStub;
 public class GymStatusHandler {
     private IGymHoursPersistence persistence;
 
+    // Constructor for the database
+
+  //  public GymStatusHandler() {
+  //      this.persistence = Services.getGymHoursPersistence();;
+ //   }
+
+
     public GymStatusHandler(IGymHoursPersistence persistence) {
         this.persistence = persistence;
     }
 
+
+    // Constructor for the stub
     public GymStatusHandler() {
         this.persistence = new GymHoursPersistenceStub();
     }

@@ -10,12 +10,17 @@ import funkyflamingos.bisonfit.persistence.stubs.RoutinesPersistenceStub;
 
 public class RoutineHandler {
 
+
     private IRoutinesPersistence persistence;
+
+    // Constructor for the stub
 
   //  public RoutineHandler() {
   //      persistence = new RoutinesPersistenceStub();
   //  }
 
+
+    // Constructor for the databse
     public RoutineHandler (){
         persistence = Services.getRoutinesPersistence();
     }
