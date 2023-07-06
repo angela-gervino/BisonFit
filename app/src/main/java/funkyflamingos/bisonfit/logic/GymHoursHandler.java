@@ -32,7 +32,7 @@ public class GymHoursHandler {
         validateGymHours(nextWeekHours, currentDate);
 
         String printableSchedule = "";
-        System.out.println(nextWeekHours.size());
+
         for (GymHours gymHours : nextWeekHours) {
             int dayID = gymHours.getDayID();
             printableSchedule += dayIDToString(dayID);
@@ -78,11 +78,14 @@ public class GymHoursHandler {
         return formattedTime;
     }
 
-    public String getGymStatus() throws Exception {
-        return getGymStatus(Clock.systemDefaultZone());
+    public String getTimeUntilOpenOrClose() throws Exception {
+        return getTimeUntilOpenOrCloseHelper(Clock.systemDefaultZone());
     }
 
-    public String getGymStatus(Clock clock) throws Exception {
+    /**
+     * Helper method is public so we can pass it a fixed clock for testing.
+     */
+    public String getTimeUntilOpenOrCloseHelper(Clock clock) throws Exception {
         LocalTime currentTime = LocalTime.now(clock);
         LocalDate currentDate = LocalDate.now(clock);
         List<GymHours> nextWeekHours = persistence.getNextWeekHours(LocalDate.now(clock));

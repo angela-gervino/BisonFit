@@ -35,7 +35,7 @@ public class HomePageActivity extends AppCompatActivity {
 
     private Button btnGymHours;
     private IUserRegistrationHandler userNameHandler;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +70,7 @@ public class HomePageActivity extends AppCompatActivity {
             public void run() {
                 while (true) {
                     try {
-                        String newStatus = gymHoursHandler.getGymStatus();
+                        String newStatus = gymHoursHandler.getTimeUntilOpenOrClose();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
