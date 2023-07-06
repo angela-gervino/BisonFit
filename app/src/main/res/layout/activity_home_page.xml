@@ -68,6 +68,7 @@
             android:id="@+id/btnGymHours"
             android:layout_width="250dp"
             android:layout_height="48dp"
+            android:onClick="openGymHoursActivity"
             android:text="Gym Hours"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="20sp"

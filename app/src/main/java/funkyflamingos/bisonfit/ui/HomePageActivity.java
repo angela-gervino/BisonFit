@@ -49,7 +49,13 @@ public class HomePageActivity extends AppCompatActivity {
         waterHandler = new WaterHandler();
         gymHoursHandler = new GymHoursHandler();
         waterTrackerProgress = findViewById(R.id.circularProgressView);
-        btnGymHours = (Button) findViewById(R.id.btnGymHours);
+        btnGymHours = findViewById(R.id.btnGymHours);
+//        btnGymHours.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                openGymHoursActivity();
+//            }
+//        });
         lblGreetings = findViewById(R.id.lblGreetings);
         userNameHandler = new UserRegistrationHandler(this);
 
@@ -66,14 +72,6 @@ public class HomePageActivity extends AppCompatActivity {
         // recyclerVew setup
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-
-        // gym hours listener setup  (currently not working)
-//        btnGymHours.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(HomePageActivity.this, GymHoursActivity.class));
-//            }
-//        });
 
         // start refresher thread
         new Thread() {
@@ -116,8 +114,8 @@ public class HomePageActivity extends AppCompatActivity {
         return "Hi " + userNameHandler.getUserName() + "!";
     }
 
-    public void openGymHoursActivity(View v) {
-        Intent intent = new Intent(HomePageActivity.this, GymHoursActivity.class);
+    public void openGymHoursActivity(View v){
+        Intent intent = new Intent (this, GymHoursActivity.class);
         startActivity(intent);
     }
 }
