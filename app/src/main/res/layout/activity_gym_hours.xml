@@ -8,9 +8,27 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="170dp"
-        android:layout_height="71dp"
-        android:text="Gym Hours"
-        tools:layout_editor_absoluteX="94dp"
-        tools:layout_editor_absoluteY="62dp" />
+        android:layout_width="276dp"
+        android:layout_height="668dp"
+        android:text="Hours"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="334dp"
+        android:layout_height="46dp"
+        android:text="Gym Schedule"
+        android:textAllCaps="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

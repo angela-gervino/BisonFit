@@ -22,7 +22,7 @@ public class GymStatusHandlerTest {
     @Test
     public void testNotNull() {
         try {
-            assertNotNull(gymStatusHandler.getGymStatus());
+            assertNotNull(gymStatusHandler.getTimeUntilOpenOrClose());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -31,7 +31,7 @@ public class GymStatusHandlerTest {
     @Test
     public void testBeforeFirstHours() {
         try {
-            String output = gymStatusHandler.getGymStatus(getClockBeforeFirstHours());
+            String output = gymStatusHandler.getTimeUntilOpenOrCloseHelper(getClockBeforeFirstHours());
             assertEquals("30m Until Opening", output);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -41,7 +41,7 @@ public class GymStatusHandlerTest {
     @Test
     public void testBeforeFirstHoursMidnight() {
         try {
-            String output = gymStatusHandler.getGymStatus(getClockBeforeFirstHoursMidnight());
+            String output = gymStatusHandler.getTimeUntilOpenOrCloseHelper(getClockBeforeFirstHoursMidnight());
             assertEquals("6h 0m Until Opening", output);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -51,7 +51,7 @@ public class GymStatusHandlerTest {
     @Test
     public void testDuringFirstHours() {
         try {
-            String output = gymStatusHandler.getGymStatus(getClockDuringFirstHours());
+            String output = gymStatusHandler.getTimeUntilOpenOrCloseHelper(getClockDuringFirstHours());
             assertEquals("5h 30m Until Closing", output);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -61,7 +61,7 @@ public class GymStatusHandlerTest {
     @Test
     public void testBetweenHours() {
         try {
-            String output = gymStatusHandler.getGymStatus(getClockBetweenHours());
+            String output = gymStatusHandler.getTimeUntilOpenOrCloseHelper(getClockBetweenHours());
             assertEquals("30m Until Opening", output);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -71,7 +71,7 @@ public class GymStatusHandlerTest {
     @Test
     public void testDuringLastHours() {
         try {
-            String output = gymStatusHandler.getGymStatus(getClockDuringLastHours());
+            String output = gymStatusHandler.getTimeUntilOpenOrCloseHelper(getClockDuringLastHours());
             assertEquals("30m Until Closing", output);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -81,7 +81,7 @@ public class GymStatusHandlerTest {
     @Test
     public void testAfterAllHours() {
         try {
-            String output = gymStatusHandler.getGymStatus(getClockAfterAllHours());
+            String output = gymStatusHandler.getTimeUntilOpenOrCloseHelper(getClockAfterAllHours());
             assertEquals("Closed Till Wednesday", output);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -91,7 +91,7 @@ public class GymStatusHandlerTest {
     @Test
     public void testNoHoursToday() {
         try {
-            String output = gymStatusHandler.getGymStatus(getClockNoHoursToday());
+            String output = gymStatusHandler.getTimeUntilOpenOrCloseHelper(getClockNoHoursToday());
             assertEquals("17h 30m Until Opening", output);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -101,7 +101,7 @@ public class GymStatusHandlerTest {
     @Test
     public void testClosingTomorrow() {
         try {
-            String output = gymStatusHandler.getGymStatus(getClockClosingTomorrow());
+            String output = gymStatusHandler.getTimeUntilOpenOrCloseHelper(getClockClosingTomorrow());
             assertEquals("27h 30m Until Closing", output);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -111,7 +111,7 @@ public class GymStatusHandlerTest {
     @Test
     public void testClosingMidnight() {
         try {
-            String output = gymStatusHandler.getGymStatus(getClockClosingMidnight());
+            String output = gymStatusHandler.getTimeUntilOpenOrCloseHelper(getClockClosingMidnight());
             assertEquals("3h 30m Until Closing", output);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -121,8 +121,18 @@ public class GymStatusHandlerTest {
     @Test
     public void testClosingLaterThisWeek() {
         try {
-            String output = gymStatusHandler.getGymStatus(getClockClosingLaterThisWeek());
+            String output = gymStatusHandler.getTimeUntilOpenOrCloseHelper(getClockClosingLaterThisWeek());
             assertEquals("Open Till Sunday", output);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void testGetGymSchedule() {
+        try {
+            String output = gymStatusHandler.getGymSchedule();
+            assertNotNull("getGymSchedule should return a non-null object.", output);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
