@@ -128,6 +128,16 @@ public class GymStatusHandlerTest {
         }
     }
 
+    @Test
+    public void testGetGymSchedule() {
+        try {
+            String output = gymStatusHandler.getGymSchedule();
+            assertNotNull("getGymSchedule should return a non-null object.", output);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public Clock getClockBeforeFirstHours() {
         return Clock.fixed(Instant.parse("2023-06-26T05:29:30Z"), ZoneOffset.UTC);
     }
