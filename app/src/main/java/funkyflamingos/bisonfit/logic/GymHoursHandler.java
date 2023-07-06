@@ -23,9 +23,63 @@ public class GymHoursHandler {
         this.persistence = new GymHoursPersistenceStub();
     }
 
-    public String getGymStatus() throws Exception {
+    public String getGymSchedule() throws Exception {
         Clock clock = Clock.systemDefaultZone();
-        return getGymStatus(clock);
+        LocalDate currentDate = LocalDate.now(clock);
+        int currentDayOfWeek = getDayOfWeek(currentDate);
+
+        List<GymHours> nextWeekHours = persistence.getNextWeekHours(LocalDate.now(clock));
+        validateGymHours(nextWeekHours, currentDate);
+
+        String printableSchedule = "";
+        System.out.println(nextWeekHours.size());
+        for (GymHours gymHours : nextWeekHours) {
+            int dayID = gymHours.getDayID();
+            printableSchedule += dayIDToString(dayID);
+            if (dayID == currentDayOfWeek)
+                printableSchedule += " **Today**";
+            printableSchedule += "\n";
+
+            List<Hours> hoursList = gymHours.getHours();
+            if (hoursList != null) {
+                for (Hours hours : hoursList) {
+                    printableSchedule += "\t";
+                    printableSchedule += getClockFormattedTime(hours.getOpening(), false);
+                    printableSchedule += " - ";
+                    printableSchedule += getClockFormattedTime(hours.getClosing(), true);
+                    printableSchedule += "\n";
+                }
+            } else {
+                printableSchedule += "\t";
+                printableSchedule += "Closed\n";
+            }
+            printableSchedule += "\n";
+        }
+        return printableSchedule;
+    }
+
+    private String getClockFormattedTime(LocalTime time, boolean isClosingTime) {
+        String formattedTime = "";
+        String hour = String.valueOf(time.getHour());
+
+        if (isClosingTime && hour.equals("0")) {
+            formattedTime += "24";
+        } else {
+            if (hour.length() < 2)
+                formattedTime += " ";
+            formattedTime += time.getHour();
+        }
+
+        formattedTime += ":";
+        String minute = String.valueOf(time.getMinute());
+        if (minute.length() < 2)
+            formattedTime += "0";
+        formattedTime += minute;
+        return formattedTime;
+    }
+
+    public String getGymStatus() throws Exception {
+        return getGymStatus(Clock.systemDefaultZone());
     }
 
     public String getGymStatus(Clock clock) throws Exception {

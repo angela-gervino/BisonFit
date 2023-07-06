@@ -31,13 +31,11 @@ public class HomePageActivity extends AppCompatActivity {
     private CircularProgressIndicator waterTrackerProgress;
     private WaterHandler waterHandler;
     private GymHoursHandler gymHoursHandler;
-//    private TextView gymStatusLbl;
     private TextView lblGreetings;
 
     private Button btnGymHours;
     private IUserRegistrationHandler userNameHandler;
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,12 +48,6 @@ public class HomePageActivity extends AppCompatActivity {
         gymHoursHandler = new GymHoursHandler();
         waterTrackerProgress = findViewById(R.id.circularProgressView);
         btnGymHours = findViewById(R.id.btnGymHours);
-//        btnGymHours.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                openGymHoursActivity();
-//            }
-//        });
         lblGreetings = findViewById(R.id.lblGreetings);
         userNameHandler = new UserRegistrationHandler(this);
 
@@ -76,7 +68,7 @@ public class HomePageActivity extends AppCompatActivity {
         // start refresher thread
         new Thread() {
             public void run() {
-                while(true) {
+                while (true) {
                     try {
                         String newStatus = gymHoursHandler.getGymStatus();
                         runOnUiThread(new Runnable() {
@@ -97,7 +89,7 @@ public class HomePageActivity extends AppCompatActivity {
     public void incrementAndUpdateWaterTracker(View v) {
         waterHandler.increment();
         waterTrackerProgress.setProgress(waterHandler.getProgress());
-        if(waterHandler.reachedGoal()) { // set goal  as accomplished
+        if (waterHandler.reachedGoal()) { // set goal  as accomplished
             waterTrackerProgress.setIndicatorColor(ContextCompat.getColor(this, R.color.success_green));
         }
     }
@@ -114,8 +106,8 @@ public class HomePageActivity extends AppCompatActivity {
         return "Hi " + userNameHandler.getUserName() + "!";
     }
 
-    public void openGymHoursActivity(View v){
-        Intent intent = new Intent (this, GymHoursActivity.class);
+    public void openGymHoursActivity(View v) {
+        Intent intent = new Intent(this, GymHoursActivity.class);
         startActivity(intent);
     }
 }
