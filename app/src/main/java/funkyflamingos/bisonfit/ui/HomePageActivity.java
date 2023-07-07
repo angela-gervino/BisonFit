@@ -59,6 +59,7 @@ public class HomePageActivity extends AppCompatActivity {
         MyWorkoutsListAdapter adapter = new MyWorkoutsListAdapter(listOfWorkouts, this);
         RecyclerView recyclerView = findViewById(R.id.lstMyWorkouts);
 
+        setWaterTrackerProgress();
         waterTrackerProgress.setMax(waterHandler.getGoal());
 
         // display user name
@@ -91,6 +92,10 @@ public class HomePageActivity extends AppCompatActivity {
 
     public void incrementAndUpdateWaterTracker(View v) {
         waterHandler.increment();
+        setWaterTrackerProgress();
+    }
+
+    private void setWaterTrackerProgress() {
         waterTrackerProgress.setProgress(waterHandler.getProgress());
         if (waterHandler.reachedGoal()) { // set goal  as accomplished
             waterTrackerProgress.setIndicatorColor(ContextCompat.getColor(this, R.color.success_green));
