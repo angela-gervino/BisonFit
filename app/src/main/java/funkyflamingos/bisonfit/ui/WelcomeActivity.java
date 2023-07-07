@@ -21,7 +21,10 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        //android database
         userNameHandler = new UserRegistrationHandler(this);
+        // new databse
+       // userNameHandler = new UserRegistrationHandler();
         editText = findViewById(R.id.nameEditText);
 
         if (userNameHandler.userHasRegistered()) {

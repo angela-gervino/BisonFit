@@ -33,8 +33,8 @@ public class RoutinesPersistenceHSQLDB implements IRoutinesPersistence {
     }
 
     private Routine fromResultSet(final ResultSet rs) throws SQLException{
-        String routineName = rs.getString("title");
-        int routineID =  rs.getInt("id");
+        int routineID =  rs.getInt("ID");
+        String routineName = rs.getString("TITLE");
 
         return new Routine(new RoutineHeader(routineName,routineID));
 
@@ -67,7 +67,7 @@ public class RoutinesPersistenceHSQLDB implements IRoutinesPersistence {
     @Override
     public Routine getRoutineByID(int routineID) {
         try (Connection connection = connect()) {
-            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM ROUTINES WHERE ROUTINES.id = ?");
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM ROUTINES WHERE ROUTINES.ID = ?");
             statement.setString(1, Integer.toString(routineID));
             final ResultSet resultSet = statement.executeQuery();
 
