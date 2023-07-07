@@ -17,9 +17,6 @@ public class WelcomeActivity extends AppCompatActivity {
     private IUserRegistrationHandler userNameHandler;
     private String name;
     private EditText editText;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

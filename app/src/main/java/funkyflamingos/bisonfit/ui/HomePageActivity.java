@@ -40,9 +40,6 @@ public class HomePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-
-
-
         waterHandler = new WaterHandler();
         gymHoursHandler = new GymHoursHandler();
         waterTrackerProgress = findViewById(R.id.circularProgressView);
