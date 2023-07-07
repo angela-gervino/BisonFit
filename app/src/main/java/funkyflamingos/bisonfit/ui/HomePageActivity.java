@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import funkyflamingos.bisonfit.R;
@@ -29,11 +30,11 @@ import java.util.List;
 public class HomePageActivity extends AppCompatActivity {
     private CircularProgressIndicator waterTrackerProgress;
     private WaterHandler waterHandler;
-    private GymHoursHandler gymStatusHandler;
-    private TextView gymStatusLbl;
+    private GymHoursHandler gymHoursHandler;
     private TextView lblGreetings;
-    private IUserRegistrationHandler userNameHandler;
 
+    private Button btnGymHours;
+    private IUserRegistrationHandler userNameHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +45,9 @@ public class HomePageActivity extends AppCompatActivity {
         DBHelper.copyDatabaseToDevice(this);
 
         waterHandler = new WaterHandler();
-        gymStatusHandler = new GymHoursHandler();
+        gymHoursHandler = new GymHoursHandler();
         waterTrackerProgress = findViewById(R.id.circularProgressView);
-        gymStatusLbl = findViewById(R.id.lblGymStatus);
+        btnGymHours = findViewById(R.id.btnGymHours);
         lblGreetings = findViewById(R.id.lblGreetings);
         // android database
         userNameHandler = new UserRegistrationHandler(this);
@@ -70,13 +71,13 @@ public class HomePageActivity extends AppCompatActivity {
         // start refresher thread
         new Thread() {
             public void run() {
-                while(true) {
+                while (true) {
                     try {
-                        String newStatus = gymStatusHandler.getGymStatus();
+                        String newStatus = gymHoursHandler.getTimeUntilOpenOrClose();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                gymStatusLbl.setText(newStatus);
+                                btnGymHours.setText(newStatus);
                             }
                         });
                         Thread.sleep(1000);
@@ -91,7 +92,7 @@ public class HomePageActivity extends AppCompatActivity {
     public void incrementAndUpdateWaterTracker(View v) {
         waterHandler.increment();
         waterTrackerProgress.setProgress(waterHandler.getProgress());
-        if(waterHandler.reachedGoal()) { // set goal  as accomplished
+        if (waterHandler.reachedGoal()) { // set goal  as accomplished
             waterTrackerProgress.setIndicatorColor(ContextCompat.getColor(this, R.color.success_green));
         }
     }
@@ -106,5 +107,10 @@ public class HomePageActivity extends AppCompatActivity {
 
     public String getGreetingsMessage() {
        return "Hi " + userNameHandler.getUserName() + "!";
+    }
+
+    public void openGymHoursActivity(View v) {
+        Intent intent = new Intent(this, GymHoursActivity.class);
+        startActivity(intent);
     }
 }
