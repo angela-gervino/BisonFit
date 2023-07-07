@@ -2,10 +2,10 @@ package funkyflamingos.bisonfit.dso;
 
 public class ExerciseHeader {
 
-    String name;
-    int id;
+    private String name;
+    private int id;
 
-    public ExerciseHeader(String name,int id) {
+    public ExerciseHeader(String name, int id) {
         this.name = name;
         this.id = id;
     }
