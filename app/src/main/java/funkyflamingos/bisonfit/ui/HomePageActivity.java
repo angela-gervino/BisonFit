@@ -48,7 +48,10 @@ public class HomePageActivity extends AppCompatActivity {
         waterTrackerProgress = findViewById(R.id.circularProgressView);
         gymStatusLbl = findViewById(R.id.lblGymStatus);
         lblGreetings = findViewById(R.id.lblGreetings);
+        // android database
         userNameHandler = new UserRegistrationHandler(this);
+        // new database
+       // userNameHandler = new UserRegistrationHandler();
 
         RoutineHandler workoutManager = new RoutineHandler();
         List<RoutineHeader> listOfWorkouts = workoutManager.getAllRoutineHeaders();
@@ -102,6 +105,6 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     public String getGreetingsMessage() {
-        return "Hi " + userNameHandler.getUserName() + "!";
+       return "Hi " + userNameHandler.getUserName() + "!";
     }
 }

@@ -20,7 +20,7 @@ public class RoutineHandler {
   //  }
 
 
-    // Constructor for the databse
+    // Constructor for the database
     public RoutineHandler (){
         persistence = Services.getRoutinesPersistence();
     }

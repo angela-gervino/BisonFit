@@ -1,5 +1,7 @@
 package funkyflamingos.bisonfit.persistence.hsqldb;
 
+import static java.lang.Long.parseLong;
+
 import android.util.Log;
 
 import funkyflamingos.bisonfit.persistence.IWaterTrackerPersistence;
@@ -28,7 +30,6 @@ public class WaterTrackPersistenceHSQLDB implements IWaterTrackerPersistence {
         this.dbPath = dbPath;
         progress = new HashMap<>();
         goal = 8;
-        insertWater(LocalDate.now());
         loadWaterTrack();
 
 
@@ -39,13 +40,15 @@ public class WaterTrackPersistenceHSQLDB implements IWaterTrackerPersistence {
     }
 
 
+
+    // if we are just using this for ite 3, we should save and delete!!!
     private void loadWaterTrack() {
         try (Connection connection = connect()) {
             final Statement statement = connection.createStatement();
             final ResultSet resultSet = statement.executeQuery("SELECT * FROM WATERTRACKING");
             while (resultSet.next()) {
-                Long dateAsTimestamp = resultSet.getLong("dateProgress");
-                LocalDate date = Instant.ofEpochMilli(dateAsTimestamp).atZone(ZoneId.systemDefault()).toLocalDate();
+                String dateAsString = resultSet.getString("dateProgress");
+                LocalDate date = Instant.ofEpochSecond(parseLong(dateAsString)).atZone(ZoneId.systemDefault()).toLocalDate();
                 int cupsDrank = resultSet.getInt("cupsDrank");
                 this.progress.put(date, cupsDrank);
             }
@@ -53,18 +56,13 @@ public class WaterTrackPersistenceHSQLDB implements IWaterTrackerPersistence {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
         }
-
-
     }
 
-    public void insertWater(LocalDate date) {
+    private void insertWater(LocalDate date) {
         try (Connection connection = connect()) {
             final PreparedStatement statement = connection.prepareStatement("INSERT INTO WATERTRACKING VALUES(?, ?)");
-           // statement.setTimestamp(1, Timestamp.valueOf(String.valueOf(date.atTime(LocalTime.MIDNIGHT))));
-            //statement.setTimestamp(1, Timestamp.valueOf(date.atTime(LocalTime.MIDNIGHT)));
-            statement.setLong(1,date.atStartOfDay(ZoneId.systemDefault()).toEpochSecond());
-            statement.setInt(2, 0);
-            System.out.println("Insert water");
+            statement.setString(1, Long.toString(date.atStartOfDay(ZoneId.systemDefault()).toEpochSecond()));
+            statement.setInt(2, 1);
             statement.executeUpdate();
             statement.close();
         } catch (final SQLException e) {
@@ -74,15 +72,22 @@ public class WaterTrackPersistenceHSQLDB implements IWaterTrackerPersistence {
     }
 
 
-
-
     @Override
     public void increment(LocalDate date) {
         try (Connection connection = connect()) {
-            final PreparedStatement statement = connection.prepareStatement("UPDATE WATERTRACKING SET cupsDrank=cupsDrank+1 WHERE dateProgress = ?");
-          //  statement.setTimestamp(1, Timestamp.valueOf(String.valueOf(date.atTime(LocalTime.MIDNIGHT))));
-            statement.setLong(1,date.atStartOfDay(ZoneId.systemDefault()).toEpochSecond());
-            statement.executeQuery();
+
+            final PreparedStatement selectStatement = connection.prepareStatement("SELECT * FROM WATERTRACKING WHERE dateProgress = ?");
+            selectStatement.setString(1, Long.toString(date.atStartOfDay(ZoneId.systemDefault()).toEpochSecond()));
+            final ResultSet resultSet = selectStatement.executeQuery();
+            if (resultSet.next()) {
+                final PreparedStatement statement = connection.prepareStatement("UPDATE WATERTRACKING SET cupsDrank=cupsDrank+1 WHERE dateProgress = ?");
+                statement.setString(1, Long.toString(date.atStartOfDay(ZoneId.systemDefault()).toEpochSecond()));
+                statement.executeUpdate();
+                loadWaterTrack();
+            } else {
+                insertWater(date);
+            }
+
         } catch (final SQLException e) {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
@@ -99,7 +104,7 @@ public class WaterTrackPersistenceHSQLDB implements IWaterTrackerPersistence {
         int cupsDrank = 0;
         try (Connection connection = connect()) {
             final PreparedStatement statement = connection.prepareStatement("SELECT cupsDrank FROM WATERTRACKING WHERE dateProgress = ?");
-            statement.setLong(1,date.atStartOfDay(ZoneId.systemDefault()).toEpochSecond());
+            statement.setString(1, Long.toString(date.atStartOfDay(ZoneId.systemDefault()).toEpochSecond()));
            // statement.setTimestamp(1, Timestamp.valueOf(String.valueOf(date.atTime(LocalTime.MIDNIGHT))));
             final ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -110,6 +115,5 @@ public class WaterTrackPersistenceHSQLDB implements IWaterTrackerPersistence {
         }
          return cupsDrank;
     }
-
 
 }

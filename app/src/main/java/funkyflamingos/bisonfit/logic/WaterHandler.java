@@ -12,16 +12,16 @@ public class WaterHandler {
 
     // Constructor for the stub
 
-  //  public WaterHandler() {
+   // public WaterHandler() {
   //      persistence = new WaterTrackerPersistenceStub();
-  //  }
+   // }
 
     public WaterHandler(IWaterTrackerPersistence persistence) {
         this.persistence = persistence;
     }
 
-    // Constructor for the database
 
+    // Constructor for the database
    public WaterHandler(){
         persistence = Services.getWaterTrackPersistence();
     }

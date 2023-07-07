@@ -23,6 +23,9 @@ public class GymHoursPersistenceHSQLDB implements IGymHoursPersistence {
         this.dbPath = dbPathName;
     }
 
+    private Connection connect() throws SQLException {
+        return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
+    }
 
     @Override
     public List<GymHours> getNextWeekHours(LocalDate today) {
