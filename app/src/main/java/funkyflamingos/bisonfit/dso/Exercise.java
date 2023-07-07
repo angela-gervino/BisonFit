@@ -12,9 +12,9 @@ public class Exercise {
         for(int i = 0; i < setCount; i++) {
             sets.add(new ExerciseSet(0, 0, (i + 1)));
         }
-
     }
 
+    // TODO: remove one of the constructors
     public Exercise(String name, int id) {
         this(new ExerciseHeader(name, id));
     }
