@@ -41,18 +41,14 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        //creating the Database
-        DBHelper.copyDatabaseToDevice(this);
+
 
         waterHandler = new WaterHandler();
         gymHoursHandler = new GymHoursHandler();
         waterTrackerProgress = findViewById(R.id.circularProgressView);
         btnGymHours = findViewById(R.id.btnGymHours);
         lblGreetings = findViewById(R.id.lblGreetings);
-        // android database
-        userNameHandler = new UserRegistrationHandler(this);
-        // new database
-       // userNameHandler = new UserRegistrationHandler();
+        userNameHandler = new UserRegistrationHandler();
 
         RoutineHandler workoutManager = new RoutineHandler();
         List<RoutineHeader> listOfWorkouts = workoutManager.getAllRoutineHeaders();

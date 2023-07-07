@@ -39,7 +39,6 @@ public class UserRegistrationPersistenceHSQLDB implements IUserRegistrationPersi
     @Override
     public void setUserName(String userName) {
         try (Connection connection = connect()) {
-            System.out.println("Entrei");
             final PreparedStatement statement = connection.prepareStatement("INSERT INTO USERREGISTRATION VALUES(?)");
             statement.setString(1,userName);
             statement.executeUpdate();

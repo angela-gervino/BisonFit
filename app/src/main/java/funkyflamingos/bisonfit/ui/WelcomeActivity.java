@@ -10,6 +10,7 @@ import android.widget.EditText;
 import funkyflamingos.bisonfit.R;
 import funkyflamingos.bisonfit.logic.IUserRegistrationHandler;
 import funkyflamingos.bisonfit.logic.UserRegistrationHandler;
+import funkyflamingos.bisonfit.persistence.utils.DBHelper;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -17,16 +18,15 @@ public class WelcomeActivity extends AppCompatActivity {
     private String name;
     private EditText editText;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        //android database
-        userNameHandler = new UserRegistrationHandler(this);
-        // new databse
-       // userNameHandler = new UserRegistrationHandler();
+        DBHelper.copyDatabaseToDevice(this);
+        userNameHandler = new UserRegistrationHandler();
         editText = findViewById(R.id.nameEditText);
-
         if (userNameHandler.userHasRegistered()) {
             startHomePageActivity();
         }
