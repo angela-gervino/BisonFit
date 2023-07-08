@@ -9,11 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import funkyflamingos.bisonfit.R;
-import funkyflamingos.bisonfit.dso.ExerciseHeader;
 import funkyflamingos.bisonfit.dso.Routine;
 import funkyflamingos.bisonfit.logic.RoutineHandler;
 
@@ -41,16 +37,8 @@ public class RoutineOverviewActivity extends AppCompatActivity {
             workoutNameHeader.setText(clickedRoutineName);
         }
 
-        //List<ExerciseHeader> exerciseList = routine.getAllExerciseHeaders();
-        List<ExerciseHeader> exerciseList = new ArrayList<ExerciseHeader>();
 
-        for (int i = 0; i < 50; i++)
-            exerciseList.add(new ExerciseHeader("Bicep Curls" + i, i));
-
-        exerciseList.add(new ExerciseHeader("Jumping Jacks", 100));
-        exerciseList.add(new ExerciseHeader("Yoga", 101));
-
-        WorkoutOverviewExercisesListAdapter adapter = new WorkoutOverviewExercisesListAdapter(exerciseList, this);
+        WorkoutOverviewExercisesListAdapter adapter = new WorkoutOverviewExercisesListAdapter(routine.getExerciseHeaders(), this);
         RecyclerView recyclerView = findViewById(R.id.lstMyExercises);
 
 
@@ -61,6 +49,7 @@ public class RoutineOverviewActivity extends AppCompatActivity {
 
     public void openExerciseSelectionActivity(View v) {
         Intent intent = new Intent(this, ExerciseSelectionActivity.class);
+        intent.putExtra("routineID", routine.getHeader().getId());
         startActivity(intent);
     }
 
