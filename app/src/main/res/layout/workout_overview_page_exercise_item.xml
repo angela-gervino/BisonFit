@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/card_background"
-    android:paddingVertical="5dp"
+    android:paddingVertical="10dp"
     android:layout_marginVertical="5dp"
     android:id="@+id/exercise_item_layout">
 
@@ -16,10 +16,23 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:text="Bicep Curls"
+        android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/setCountWorkoutOverview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/deleteExerciseButton"
+        android:layout_marginEnd="20dp"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:text="x2" />
 
     <ImageButton
         android:id="@+id/deleteExerciseButton"

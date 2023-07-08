@@ -32,9 +32,13 @@ public class ExerciseHeader {
         setCount = Math.max(1, setCount - 1);
     }
 
+    public String getSetCount()
+    {
+        return "x" + setCount;
+    }
     public String getSetCountText()
     {
-        return "x" + setCount + " SET" + (setCount > 1 ? "S" : "");
+        return getSetCount() + " SET" + (setCount > 1 ? "S" : "");
     }
 
     public boolean isSelected()

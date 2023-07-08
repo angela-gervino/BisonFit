@@ -39,6 +39,7 @@ public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<Wo
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         viewHolder.getLabel().setText(localDataSet.get(position).getName());
         viewHolder.setDataItem(localDataSet.get(position));
+        viewHolder.getSetCount().setText(localDataSet.get(position).getSetCount());
 
 
         // When the exercise itself is clicked
@@ -72,6 +73,7 @@ public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<Wo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private ExerciseHeader dataItem;
         private final TextView lblExercise;
+        private final TextView setCount;
         private final ConstraintLayout layout;
 
         private ImageButton deleteExerciseButton;
@@ -80,6 +82,7 @@ public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<Wo
             super(view);
             lblExercise = view.findViewById(R.id.lblExerciseName);
             layout = view.findViewById(R.id.exercise_item_layout);
+            setCount = view.findViewById(R.id.setCountWorkoutOverview);
             deleteExerciseButton = view.findViewById(R.id.deleteExerciseButton);
         }
 
@@ -96,6 +99,10 @@ public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<Wo
 
         public ConstraintLayout getLayout() {
             return layout;
+        }
+
+        public TextView getSetCount() {
+            return setCount;
         }
 
         public ImageButton getDeleteExerciseButton() {
