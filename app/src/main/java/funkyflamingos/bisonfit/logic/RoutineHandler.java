@@ -14,6 +14,9 @@ public class RoutineHandler {
 
 
     private IRoutinesPersistence persistence;
+
+    List<RoutineHeader> addedRoutines; //Delete this when "addNewRoutine()" has been implemented
+    int addedRoutinesCounter; //Delete this when "addNewRoutine()" has been implemented
     ArrayList<ExerciseHeader> exerciseList; //This is just for testing purposes (delete this later)
 
     // Constructor for the stub
@@ -36,6 +39,9 @@ public class RoutineHandler {
         exerciseList.add(new ExerciseHeader("Dancing", 4));
         exerciseList.add(new ExerciseHeader("Jogging", 5));
         exerciseList.add(new ExerciseHeader("Push ups", 6));
+
+        addedRoutines = new ArrayList<>(); //Delete this when "addNewRoutine()" has been implemented
+        addedRoutinesCounter = 3; //Delete this when "addNewRoutine()" has been implemented
     }
 
     public RoutineHandler(IRoutinesPersistence p) {
@@ -43,7 +49,11 @@ public class RoutineHandler {
     }
 
     public List<RoutineHeader> getAllRoutineHeaders() {
-        return persistence.getAllRoutineHeaders();
+        //return persistence.getAllRoutineHeaders(); //Uncomment this when "addNewRoutine()" has been implemented
+        List<RoutineHeader> allRoutineHeaders = new ArrayList<>(); //Delete this when "addNewRoutine()" has been implemented
+        allRoutineHeaders.addAll(persistence.getAllRoutineHeaders()); //Delete this when "addNewRoutine()" has been implemented
+        allRoutineHeaders.addAll(addedRoutines); //Delete this when "addNewRoutine()" has been implemented
+        return allRoutineHeaders; //Delete this when "addNewRoutine()" has been implemented
     }
 
     public ArrayList<ExerciseHeader> getAllExerciseHeaders()
@@ -65,5 +75,11 @@ public class RoutineHandler {
 
     public Routine getRoutineByID(int routineID) {
         return persistence.getRoutineByID(routineID);
+    }
+
+    public void addNewRoutine(String routineName)
+    {
+        // This function needs to add a new routine to the persistence
+        addedRoutines.add(new RoutineHeader(routineName, addedRoutinesCounter++)); //Delete this when "addNewRoutine()" has been implemented
     }
 }

@@ -27,14 +27,15 @@ import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import java.util.List;
 
-public class HomePageActivity extends AppCompatActivity {
+public class HomePageActivity extends AppCompatActivity implements AddWorkoutDialog.AddWorkoutDialogListener {
     private CircularProgressIndicator waterTrackerProgress;
     private WaterHandler waterHandler;
     private GymHoursHandler gymHoursHandler;
     private TextView lblGreetings;
-
     private Button btnGymHours;
     private IUserRegistrationHandler userNameHandler;
+    private RoutineHandler workoutManager;
+    private MyWorkoutsListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +48,9 @@ public class HomePageActivity extends AppCompatActivity {
         lblGreetings = findViewById(R.id.lblGreetings);
         userNameHandler = new UserRegistrationHandler();
 
-        RoutineHandler workoutManager = new RoutineHandler();
+        workoutManager = new RoutineHandler();
         List<RoutineHeader> listOfWorkouts = workoutManager.getAllRoutineHeaders();
-        MyWorkoutsListAdapter adapter = new MyWorkoutsListAdapter(listOfWorkouts, this);
+        adapter = new MyWorkoutsListAdapter(listOfWorkouts, this);
         RecyclerView recyclerView = findViewById(R.id.lstMyWorkouts);
 
         setWaterTrackerProgress();
@@ -110,5 +111,17 @@ public class HomePageActivity extends AppCompatActivity {
     public void openGymHoursActivity(View v) {
         Intent intent = new Intent(this, GymHoursActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void createNewWorkout(String newWorkoutName)
+    {
+        workoutManager.addNewRoutine(newWorkoutName);
+        adapter.updateWorkoutList(workoutManager.getAllRoutineHeaders());
+    }
+
+    public void newWorkoutDialog(View view) {
+        AddWorkoutDialog addWorkoutDialog = new AddWorkoutDialog();
+        addWorkoutDialog.show(getSupportFragmentManager(), "Add Workout Dialog");
     }
 }
