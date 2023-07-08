@@ -7,10 +7,12 @@ import static funkyflamingos.bisonfit.dso.GymHours.getNextDayOfWeek;
 import java.time.*;
 import java.util.List;
 
+import funkyflamingos.bisonfit.application.Services;
 import funkyflamingos.bisonfit.dso.GymHours;
 import funkyflamingos.bisonfit.dso.Hours;
 import funkyflamingos.bisonfit.persistence.IGymHoursPersistence;
 import funkyflamingos.bisonfit.persistence.stubs.GymHoursPersistenceStub;
+import funkyflamingos.bisonfit.application.Services;
 
 public class GymHoursHandler {
     private IGymHoursPersistence persistence;
@@ -19,9 +21,13 @@ public class GymHoursHandler {
         this.persistence = persistence;
     }
 
-    public GymHoursHandler() {
-        this.persistence = new GymHoursPersistenceStub();
+    //Constructor for the database for now
+   public GymHoursHandler() {
+        this.persistence = Services.getGymHoursPersistence();
     }
+   // public GymHoursHandler() {
+    //    this.persistence = new GymHoursPersistenceStub();
+   // }
 
     public String getGymSchedule() throws Exception {
         Clock clock = Clock.systemDefaultZone();

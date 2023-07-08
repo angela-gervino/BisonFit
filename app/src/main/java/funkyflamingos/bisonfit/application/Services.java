@@ -61,18 +61,6 @@ public class Services {
         return userRegistrationPersistence;
     }
 
-
-    public static synchronized IExerciseLookupPersistence getExerciseLookupPersistence() {
-        if(exerciseLookupPersistence == null) {
-            //  if (forProduction) {
-            exerciseLookupPersistence = new ExerciseLookupPersistenceHSQLDB(Main.getDBPathName());
-            //  } else {
-            //      routinesPersistence = new RoutinesPersistenceStub();
-            // }
-        }
-        return exerciseLookupPersistence;
-    }
-
     public static synchronized IGymHoursPersistence getGymHoursPersistence() {
         if(gymHoursPersistence == null) {
             //  if (forProduction) {
@@ -84,6 +72,16 @@ public class Services {
         return gymHoursPersistence;
     }
 
+    public static synchronized IExerciseLookupPersistence getExerciseLookupPersistence() {
+        if(exerciseLookupPersistence == null) {
+            //  if (forProduction) {
+            exerciseLookupPersistence = new ExerciseLookupPersistenceHSQLDB(Main.getDBPathName());
+            //  } else {
+            //      routinesPersistence = new RoutinesPersistenceStub();
+            // }
+        }
+        return exerciseLookupPersistence;
+    }
 
 
     /**
