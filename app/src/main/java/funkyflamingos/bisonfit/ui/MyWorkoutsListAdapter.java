@@ -25,6 +25,12 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
         this.parentActivity = parentActivity;
     }
 
+    public void updateWorkoutList(List<RoutineHeader> newWorkouts)
+    {
+        localDataSet = newWorkouts;
+        notifyDataSetChanged();
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
