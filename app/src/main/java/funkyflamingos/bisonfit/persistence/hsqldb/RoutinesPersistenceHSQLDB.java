@@ -70,11 +70,11 @@ public class RoutinesPersistenceHSQLDB implements IRoutinesPersistence {
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM ROUTINES WHERE ROUTINES.ID = ?");
             statement.setString(1, Integer.toString(routineID));
             final ResultSet resultSet = statement.executeQuery();
-
             if (resultSet.next()) {
                 return fromResultSet(resultSet);
             }
-
+            resultSet.close();
+            statement.close();
         } catch (final SQLException e) {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();

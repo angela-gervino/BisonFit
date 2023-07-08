@@ -27,7 +27,6 @@ public class UserRegistrationPersistenceHSQLDB implements IUserRegistrationPersi
         this.dbPath = dbPath;
     }
     private Connection connect() throws SQLException {
-        System.out.println(dbPath);
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
     @Override
@@ -37,7 +36,6 @@ public class UserRegistrationPersistenceHSQLDB implements IUserRegistrationPersi
             final PreparedStatement statement = connection.prepareStatement("INSERT INTO USERREGISTRATION VALUES(?)");
             statement.setString(1,userName);
             statement.executeUpdate();
-            statement.close();
         } catch (final SQLException e) {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
@@ -47,7 +45,6 @@ public class UserRegistrationPersistenceHSQLDB implements IUserRegistrationPersi
         try (Connection connection = connect()) {
             final PreparedStatement statement = connection.prepareStatement("DELETE FROM USERREGISTRATION");
             statement.executeUpdate();
-            statement.close();
         } catch (final SQLException e) {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
@@ -58,13 +55,13 @@ public class UserRegistrationPersistenceHSQLDB implements IUserRegistrationPersi
     public String getUserName() {
         String userName = null;
         try (Connection connection = connect()) {
-
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM USERREGISTRATION");
             final ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.next())
+            if (resultSet.next()) {
                 userName = resultSet.getString("userName");
-
+            }
+            resultSet.close();
+            statement.close();
         } catch (final SQLException e) {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
