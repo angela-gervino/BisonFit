@@ -22,26 +22,30 @@ import java.util.Map;
 import funkyflamingos.bisonfit.persistence.IUserRegistrationPersistence;
 
 public class UserRegistrationPersistenceHSQLDB implements IUserRegistrationPersistence {
-
     private final String dbPath;
-
     public UserRegistrationPersistenceHSQLDB(String dbPath) {
         this.dbPath = dbPath;
     }
-
-
     private Connection connect() throws SQLException {
         System.out.println(dbPath);
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
-
-
     @Override
     public void setUserName(String userName) {
+        deleteEntries();
         try (Connection connection = connect()) {
-            System.out.println("Entrei");
             final PreparedStatement statement = connection.prepareStatement("INSERT INTO USERREGISTRATION VALUES(?)");
             statement.setString(1,userName);
+            statement.executeUpdate();
+            statement.close();
+        } catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
+        }
+    }
+    private void deleteEntries(){
+        try (Connection connection = connect()) {
+            final PreparedStatement statement = connection.prepareStatement("DELETE FROM USERREGISTRATION");
             statement.executeUpdate();
             statement.close();
         } catch (final SQLException e) {
