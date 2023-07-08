@@ -21,12 +21,12 @@ public class GymHoursHandler {
         this.persistence = persistence;
     }
 
-    //Constructor for the database for now
+   //Constructor for the database for now
    public GymHoursHandler() {
         this.persistence = Services.getGymHoursPersistence();
     }
    // public GymHoursHandler() {
-    //    this.persistence = new GymHoursPersistenceStub();
+   //     this.persistence = new GymHoursPersistenceStub();
    // }
 
     public String getGymSchedule() throws Exception {
