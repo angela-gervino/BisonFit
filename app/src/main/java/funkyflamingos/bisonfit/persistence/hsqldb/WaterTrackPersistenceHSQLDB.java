@@ -47,6 +47,8 @@ public class WaterTrackPersistenceHSQLDB implements IWaterTrackerPersistence {
                 int cupsDrank = resultSet.getInt("cupsDrank");
                 this.progress.put(date, cupsDrank);
             }
+            resultSet.close();
+            statement.close();
         } catch (final SQLException e) {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();

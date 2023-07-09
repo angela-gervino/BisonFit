@@ -17,12 +17,12 @@ import funkyflamingos.bisonfit.persistence.IExerciseLookupPersistence;
 public class ExerciseLookupPersistenceHSQLDB implements IExerciseLookupPersistence {
 
     private final String dbPath;
-    private  List<ExerciseHeader> exercisesList;
+    private ArrayList<ExerciseHeader> exerciseHeaders;
 
 
     public ExerciseLookupPersistenceHSQLDB(String dbPath) {
         this.dbPath = dbPath;
-        this.exercisesList= new ArrayList<>();
+        this.exerciseHeaders = new ArrayList<>();
         loadExercises();
     }
 
@@ -31,27 +31,32 @@ public class ExerciseLookupPersistenceHSQLDB implements IExerciseLookupPersisten
     }
 
     private ExerciseHeader fromResultSet(final ResultSet rs) throws SQLException{
-        int exerciseID =  rs.getInt("EXERCISEID");
-        String exercise_name = rs.getString("EXERCISENAME");
+        int exerciseID =  rs.getInt("ID");
+        String exerciseName = rs.getString("NAME");
 
-        return new ExerciseHeader(exercise_name,exerciseID);
+        return new ExerciseHeader(exerciseName, exerciseID);
     }
 
     private void loadExercises() {
         try (Connection connection = connect()) {
             final Statement statement = connection.createStatement();
-            final ResultSet resultSet = statement.executeQuery("SELECT * FROM EXERCISES");
+            final ResultSet resultSet = statement.executeQuery("SELECT * FROM EXERCISELOOKUP");
 
             while (resultSet.next()) {
-                final ExerciseHeader oneExercise = fromResultSet(resultSet);
-                this.exercisesList.add(oneExercise);
+                final ExerciseHeader header = fromResultSet(resultSet);
+                this.exerciseHeaders.add(header);
             }
+            resultSet.close();
+            statement.close();
         } catch (final SQLException e) {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
         }
     }
 
-
+    @Override
+    public ArrayList<ExerciseHeader> getAllExerciseHeaders() {
+        return exerciseHeaders;
+    }
 }
 
