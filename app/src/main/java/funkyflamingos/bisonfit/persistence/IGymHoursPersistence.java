@@ -8,5 +8,5 @@ import funkyflamingos.bisonfit.dso.GymHours;
 public interface IGymHoursPersistence {
 
     List<GymHours> getNextWeekHours(LocalDate today);
-//    GymHours getHoursByID(int dayID);
+
 }

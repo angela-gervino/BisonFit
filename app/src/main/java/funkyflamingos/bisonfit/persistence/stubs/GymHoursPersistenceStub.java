@@ -6,19 +6,16 @@ import static funkyflamingos.bisonfit.dso.GymHours.getNextDayOfWeek;
 
 import funkyflamingos.bisonfit.dso.GymHours;
 import funkyflamingos.bisonfit.dso.Hours;
+import funkyflamingos.bisonfit.persistence.AbstractGymHoursPersistence;
 import funkyflamingos.bisonfit.persistence.IGymHoursPersistence;
 
 import java.time.*;
 import java.util.*;
 import java.util.ArrayList;
 
-public class GymHoursPersistenceStub implements IGymHoursPersistence {
-
-    private List<GymHours> gymHoursList;
-
-
+public class GymHoursPersistenceStub extends AbstractGymHoursPersistence implements IGymHoursPersistence {
     public GymHoursPersistenceStub() {
-        this.gymHoursList = new ArrayList<>();
+        super();
 
         // Monday
         List mondayHours = new ArrayList<Hours>();
@@ -34,11 +31,11 @@ public class GymHoursPersistenceStub implements IGymHoursPersistence {
                 LocalTime.of(15, 0, 0),
                 LocalTime.of(20, 0, 0)
         ));
-        gymHoursList.add(new GymHours(1, mondayHours));
+        super.getGymHoursList().add(new GymHours(1, mondayHours));
 
         // Tuesday
         List tuesdayHours = null;
-        gymHoursList.add(new GymHours(2, tuesdayHours));
+        super.getGymHoursList().add(new GymHours(2, tuesdayHours));
 
         // Wednesday
         List wednesdayHours = new ArrayList<Hours>();
@@ -46,7 +43,7 @@ public class GymHoursPersistenceStub implements IGymHoursPersistence {
                 LocalTime.of(6, 0, 0),
                 LocalTime.of(0, 0, 0)
         ));
-        gymHoursList.add(new GymHours(3, wednesdayHours));
+        super.getGymHoursList().add(new GymHours(3, wednesdayHours));
 
         // Thursday
         List thursdayHours = new ArrayList<Hours>();
@@ -58,7 +55,7 @@ public class GymHoursPersistenceStub implements IGymHoursPersistence {
                 LocalTime.of(12, 0, 0),
                 LocalTime.of(0, 0, 0)
         ));
-        gymHoursList.add(new GymHours(4, thursdayHours));
+        super.getGymHoursList().add(new GymHours(4, thursdayHours));
 
         // Friday
         List fridayHours = new ArrayList<Hours>();
@@ -66,7 +63,7 @@ public class GymHoursPersistenceStub implements IGymHoursPersistence {
                 LocalTime.of(6, 0, 0),
                 LocalTime.of(0, 0, 0)
         ));
-        gymHoursList.add(new GymHours(5, fridayHours));
+        super.getGymHoursList().add(new GymHours(5, fridayHours));
 
         //Saturday
         List saturdayHours = new ArrayList<Hours>();
@@ -74,7 +71,7 @@ public class GymHoursPersistenceStub implements IGymHoursPersistence {
                 LocalTime.of(0, 0, 0),
                 LocalTime.of(0, 0, 0)
         ));
-        gymHoursList.add(new GymHours(6, saturdayHours));
+        super.getGymHoursList().add(new GymHours(6, saturdayHours));
 
         //Sunday
         List sundayHours = new ArrayList<Hours>();
@@ -82,26 +79,6 @@ public class GymHoursPersistenceStub implements IGymHoursPersistence {
                 LocalTime.of(0, 0, 0),
                 LocalTime.of(20, 0, 0)
         ));
-        gymHoursList.add(new GymHours(7, sundayHours));
-    }
-
-    @Override
-    public List<GymHours> getNextWeekHours(LocalDate today) {
-        List<GymHours> nextWeekHours = new ArrayList<GymHours>();
-        int dayOfWeek = getDayOfWeek(today);
-
-        for (int i = 0; i < DAYS_PER_WEEK; i++) {
-            nextWeekHours.add(getHoursByID(dayOfWeek));
-            dayOfWeek = getNextDayOfWeek(dayOfWeek);
-        }
-
-        return nextWeekHours;
-    }
-
-    private GymHours getHoursByID(int dayID) {
-        for (GymHours weekday : gymHoursList)
-            if (weekday.getDayID() == dayID)
-                return weekday;
-        return null;
+        super.getGymHoursList().add(new GymHours(7, sundayHours));
     }
 }
