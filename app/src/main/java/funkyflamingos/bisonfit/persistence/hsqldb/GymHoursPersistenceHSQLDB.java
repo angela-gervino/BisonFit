@@ -65,42 +65,4 @@ public class GymHoursPersistenceHSQLDB extends AbstractGymHoursPersistence imple
         GymHours gymHours = new GymHours(dayWeek,hoursList);
         return gymHours;
     }
-
-    /*
-    @Override
-    public List<GymHours> getNextWeekHours(LocalDate today) {
-        List<GymHours> nextWeekHours = new ArrayList<GymHours>();
-        int dayOfWeek = getDayOfWeek(today);
-        for (int i = 0; i < DAYS_PER_WEEK; i++) {
-
-            nextWeekHours.add(getHoursByID(dayOfWeek));
-            dayOfWeek = getNextDayOfWeek(dayOfWeek);
-        }
-        return nextWeekHours;
-    }
-
-    private GymHours getHoursByID(int dayID) {
-        GymHours gymHoursDay = null;
-        try (Connection connection = connect()) {
-            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM GYMHOURS WHERE dayWeek = ?");
-            statement.setInt(1, dayID);
-            final ResultSet resultSet = statement.executeQuery();
-           System.out.println("The result is " + resultSet);
-            System.out.println("Day id is " + dayID );
-            if (resultSet.next()) {
-                gymHoursDay = fromResultSet(resultSet);
-                System.out.println("We go into the resultSet. " + gymHoursDay );
-            }
-            resultSet.close();
-            statement.close();
-        } catch (final SQLException e) {
-            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
-            e.printStackTrace();
-        }
-
-        return gymHoursDay;
-    }
-
-
-     */
 }
