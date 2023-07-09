@@ -19,16 +19,16 @@ import java.util.List;
 
 import funkyflamingos.bisonfit.dso.Hours;
 import funkyflamingos.bisonfit.dso.GymHours;
+import funkyflamingos.bisonfit.persistence.AbstractGymHoursPersistence;
 import funkyflamingos.bisonfit.persistence.IGymHoursPersistence;
 
-public class GymHoursPersistenceHSQLDB implements IGymHoursPersistence {
+public class GymHoursPersistenceHSQLDB extends AbstractGymHoursPersistence implements IGymHoursPersistence {
 
     private final String dbPath;
-    private List<GymHours> gymHoursList;
 
     public GymHoursPersistenceHSQLDB(String dbPathName) {
+        super();
         this.dbPath = dbPathName;
-        this.gymHoursList = new ArrayList<>();
         loadGymHours();
     }
 
@@ -42,14 +42,13 @@ public class GymHoursPersistenceHSQLDB implements IGymHoursPersistence {
             final ResultSet resultSet = statement.executeQuery("SELECT * FROM GYMHOURS");
             while (resultSet.next()) {
                 final GymHours hourOneDay = fromResultSet(resultSet);
-                this.gymHoursList.add(hourOneDay);
+                super.getGymHoursList().add(hourOneDay);
             }
         } catch (final SQLException e) {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
         }
     }
-
 
     private GymHours fromResultSet(final ResultSet rs) throws SQLException{
         int dayWeek =  rs.getInt("dayWeek");
@@ -66,62 +65,4 @@ public class GymHoursPersistenceHSQLDB implements IGymHoursPersistence {
         GymHours gymHours = new GymHours(dayWeek,hoursList);
         return gymHours;
     }
-
-    @Override
-    public List<GymHours> getNextWeekHours(LocalDate today) {
-        List<GymHours> nextWeekHours = new ArrayList<GymHours>();
-        int dayOfWeek = getDayOfWeek(today);
-
-        for (int i = 0; i < DAYS_PER_WEEK; i++) {
-            nextWeekHours.add(getHoursByID(dayOfWeek));
-            dayOfWeek = getNextDayOfWeek(dayOfWeek);
-        }
-
-        return nextWeekHours;
-    }
-
-    private GymHours getHoursByID(int dayID) {
-        for (GymHours weekday : gymHoursList)
-            if (weekday.getDayID() == dayID)
-                return weekday;
-        return null;
-    }
-
-    /*
-    @Override
-    public List<GymHours> getNextWeekHours(LocalDate today) {
-        List<GymHours> nextWeekHours = new ArrayList<GymHours>();
-        int dayOfWeek = getDayOfWeek(today);
-        for (int i = 0; i < DAYS_PER_WEEK; i++) {
-
-            nextWeekHours.add(getHoursByID(dayOfWeek));
-            dayOfWeek = getNextDayOfWeek(dayOfWeek);
-        }
-        return nextWeekHours;
-    }
-
-    private GymHours getHoursByID(int dayID) {
-        GymHours gymHoursDay = null;
-        try (Connection connection = connect()) {
-            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM GYMHOURS WHERE dayWeek = ?");
-            statement.setInt(1, dayID);
-            final ResultSet resultSet = statement.executeQuery();
-           System.out.println("The result is " + resultSet);
-            System.out.println("Day id is " + dayID );
-            if (resultSet.next()) {
-                gymHoursDay = fromResultSet(resultSet);
-                System.out.println("We go into the resultSet. " + gymHoursDay );
-            }
-            resultSet.close();
-            statement.close();
-        } catch (final SQLException e) {
-            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
-            e.printStackTrace();
-        }
-
-        return gymHoursDay;
-    }
-
-
-     */
 }
