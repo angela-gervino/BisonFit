@@ -11,16 +11,12 @@ public class UserRegistrationHandler implements IUserRegistrationHandler {
 
     private IUserRegistrationPersistence persistence;
 
-    public UserRegistrationHandler(Context context) {
-        persistence = new UserRegistrationPersistence(context);
+    public UserRegistrationHandler(IUserRegistrationPersistence persistence) {
+        this.persistence = persistence;
     }
 
     public UserRegistrationHandler(){
         persistence = Services.getUserRegistrationPersistence();
-    }
-
-    public UserRegistrationHandler(IUserRegistrationPersistence persistence) {
-        this.persistence = persistence;
     }
 
 
