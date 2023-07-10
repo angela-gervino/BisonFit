@@ -25,9 +25,6 @@ public class GymHoursHandler {
    public GymHoursHandler() {
         this.persistence = Services.getGymHoursPersistence();
     }
-   // public GymHoursHandler() {
-   //     this.persistence = new GymHoursPersistenceStub();
-   // }
 
     public String getGymSchedule() throws Exception {
         Clock clock = Clock.systemDefaultZone();
