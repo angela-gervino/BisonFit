@@ -49,6 +49,8 @@ public class RoutinesPersistenceHSQLDB implements IRoutinesPersistence {
                 final Routine oneRoutine = fromResultSet(resultSet);
                 this.routines.add(oneRoutine);
             }
+            resultSet.close();
+            statement.close();
         } catch (final SQLException e) {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();

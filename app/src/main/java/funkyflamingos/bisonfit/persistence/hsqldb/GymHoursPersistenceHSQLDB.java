@@ -44,6 +44,8 @@ public class GymHoursPersistenceHSQLDB extends AbstractGymHoursPersistence imple
                 final GymHours hourOneDay = fromResultSet(resultSet);
                 super.getGymHoursList().add(hourOneDay);
             }
+            resultSet.close();
+            statement.close();
         } catch (final SQLException e) {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
