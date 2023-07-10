@@ -9,10 +9,8 @@ import funkyflamingos.bisonfit.dso.Routine;
 import funkyflamingos.bisonfit.dso.RoutineHeader;
 import funkyflamingos.bisonfit.persistence.IExerciseLookupPersistence;
 import funkyflamingos.bisonfit.persistence.IRoutinesPersistence;
-import funkyflamingos.bisonfit.persistence.stubs.RoutinesPersistenceStub;
 
 public class RoutineHandler {
-
 
     private IRoutinesPersistence persistence;
     private IExerciseLookupPersistence exerciseLookupPersistence;
@@ -20,16 +18,9 @@ public class RoutineHandler {
     int addedRoutinesCounter; //Delete this when "addNewRoutine()" has been implemented
     ArrayList<ExerciseHeader> exerciseList; //This is just for testing purposes (delete this later)
 
-    // Constructor for the stub
-
-  //  public RoutineHandler() {
-  //      persistence = new RoutinesPersistenceStub();
-  //  }
-
-    // Constructor for the database
-    public RoutineHandler (){
-        persistence = Services.getRoutinesPersistence();
-        exerciseLookupPersistence = Services.getExerciseLookupPersistence();
+    public RoutineHandler (boolean forProduction){
+        persistence = Services.getRoutinesPersistence(forProduction);
+        exerciseLookupPersistence = Services.getExerciseLookupPersistence(forProduction);
         exerciseList = exerciseLookupPersistence.getAllExerciseHeaders();
 
         addedRoutines = new ArrayList<>(); //Delete this when "addNewRoutine()" has been implemented

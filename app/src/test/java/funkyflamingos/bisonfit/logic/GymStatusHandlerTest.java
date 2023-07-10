@@ -5,8 +5,8 @@ import org.junit.Test;
 
 import java.time.*;
 
+import funkyflamingos.bisonfit.application.Services;
 import funkyflamingos.bisonfit.persistence.IGymHoursPersistence;
-import funkyflamingos.bisonfit.persistence.stubs.GymHoursPersistenceStub;
 
 import static org.junit.Assert.*;
 
@@ -15,7 +15,7 @@ public class GymStatusHandlerTest {
 
     @Before
     public void setup() {
-        IGymHoursPersistence persistence = new GymHoursPersistenceStub();
+        IGymHoursPersistence persistence = Services.getGymHoursPersistence(false);
         gymStatusHandler = new GymHoursHandler(persistence);
     }
 

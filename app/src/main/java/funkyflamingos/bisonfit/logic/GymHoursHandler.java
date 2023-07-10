@@ -21,14 +21,9 @@ public class GymHoursHandler {
         this.persistence = persistence;
     }
 
-   //Constructor for the database for now
-   public GymHoursHandler() {
-        this.persistence = Services.getGymHoursPersistence();
+   public GymHoursHandler(boolean forProduction) {
+        this.persistence = Services.getGymHoursPersistence(forProduction);
     }
-   // public GymHoursHandler() {
-   //     this.persistence = new GymHoursPersistenceStub();
-   // }
-
     public String getGymSchedule() throws Exception {
         Clock clock = Clock.systemDefaultZone();
         LocalDate currentDate = LocalDate.now(clock);

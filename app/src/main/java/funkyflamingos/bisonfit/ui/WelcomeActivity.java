@@ -22,7 +22,7 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         DBHelper.copyDatabaseToDevice(this);
-        userNameHandler = new UserRegistrationHandler();
+        userNameHandler = new UserRegistrationHandler(true);
         editText = findViewById(R.id.nameEditText);
         if (userNameHandler.userHasRegistered()) {
             startHomePageActivity();

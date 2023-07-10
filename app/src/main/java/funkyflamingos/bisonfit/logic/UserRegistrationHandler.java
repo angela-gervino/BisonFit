@@ -14,8 +14,8 @@ public class UserRegistrationHandler implements IUserRegistrationHandler {
         this.persistence = persistence;
     }
 
-    public UserRegistrationHandler(){
-        persistence = Services.getUserRegistrationPersistence();
+    public UserRegistrationHandler(boolean forProduction){
+        persistence = Services.getUserRegistrationPersistence(forProduction);
     }
 
 

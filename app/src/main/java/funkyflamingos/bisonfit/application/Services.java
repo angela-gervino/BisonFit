@@ -18,6 +18,7 @@ import funkyflamingos.bisonfit.persistence.hsqldb.UserRegistrationPersistenceHSQ
 import funkyflamingos.bisonfit.persistence.stubs.WaterTrackerPersistenceStub;
 import funkyflamingos.bisonfit.persistence.stubs.RoutinesPersistenceStub;
 import funkyflamingos.bisonfit.persistence.stubs.GymHoursPersistenceStub;
+import funkyflamingos.bisonfit.persistence.stubs.ExerciseLookupPersistenceStub;
 
 
 public class Services {
@@ -28,57 +29,57 @@ public class Services {
     private static IUserRegistrationPersistence userRegistrationPersistence = null;
 
 
-    public static synchronized IRoutinesPersistence getRoutinesPersistence() {
+    public static synchronized IRoutinesPersistence getRoutinesPersistence(boolean forProduction) {
         if(routinesPersistence == null) {
-          //  if (forProduction) {
+            if (forProduction) {
                 routinesPersistence = new RoutinesPersistenceHSQLDB(Main.getDBPathName());
-          //  } else {
-          //      routinesPersistence = new RoutinesPersistenceStub();
-           // }
+            } else {
+                routinesPersistence = new RoutinesPersistenceStub();
+            }
         }
         return routinesPersistence;
     }
 
-    public static synchronized IWaterTrackerPersistence getWaterTrackPersistence() {
+    public static synchronized IWaterTrackerPersistence getWaterTrackPersistence(boolean forProduction) {
         if(waterTrackerPersistence == null) {
-            //  if (forProduction) {
+              if (forProduction) {
             waterTrackerPersistence = new WaterTrackPersistenceHSQLDB(Main.getDBPathName());
-            //  } else {
-            //      routinesPersistence = new RoutinesPersistenceStub();
-            // }
+              } else {
+                  waterTrackerPersistence = new WaterTrackerPersistenceStub();
+             }
         }
         return waterTrackerPersistence;
     }
 
-    public static synchronized IUserRegistrationPersistence getUserRegistrationPersistence() {
+    public static synchronized IUserRegistrationPersistence getUserRegistrationPersistence(boolean forProduction) {
         if(userRegistrationPersistence == null) {
-            //  if (forProduction) {
+              if (forProduction) {
             userRegistrationPersistence = new UserRegistrationPersistenceHSQLDB(Main.getDBPathName());
-            //  } else {
-            //      routinesPersistence = new RoutinesPersistenceStub();
-            // }
+              } else {
+                //  userRegistrationPersistence = ;
+             }
         }
         return userRegistrationPersistence;
     }
 
-    public static synchronized IGymHoursPersistence getGymHoursPersistence() {
+    public static synchronized IGymHoursPersistence getGymHoursPersistence(boolean forProduction) {
         if(gymHoursPersistence == null) {
-            //  if (forProduction) {
+              if (forProduction) {
             gymHoursPersistence = new GymHoursPersistenceHSQLDB(Main.getDBPathName());
-            //  } else {
-            //      routinesPersistence = new RoutinesPersistenceStub();
-            // }
+              } else {
+                  gymHoursPersistence = new GymHoursPersistenceStub();
+             }
         }
         return gymHoursPersistence;
     }
 
-    public static synchronized IExerciseLookupPersistence getExerciseLookupPersistence() {
+    public static synchronized IExerciseLookupPersistence getExerciseLookupPersistence(boolean forProduction) {
         if(exerciseLookupPersistence == null) {
-            //  if (forProduction) {
+              if (forProduction) {
             exerciseLookupPersistence = new ExerciseLookupPersistenceHSQLDB(Main.getDBPathName());
-            //  } else {
-            //      routinesPersistence = new RoutinesPersistenceStub();
-            // }
+              } else {
+                  exerciseLookupPersistence = new ExerciseLookupPersistenceStub();
+             }
         }
         return exerciseLookupPersistence;
     }
@@ -91,6 +92,10 @@ public class Services {
      */
     public static synchronized void clean() {
         routinesPersistence = null;
+        waterTrackerPersistence = null;
+        exerciseLookupPersistence=null;
+        gymHoursPersistence=null;
+        userRegistrationPersistence=null;
     }
 
 

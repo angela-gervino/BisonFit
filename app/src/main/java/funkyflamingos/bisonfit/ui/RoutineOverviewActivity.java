@@ -24,7 +24,7 @@ public class RoutineOverviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_routine_overview);
 
-        RoutineHandler routineHandler = new RoutineHandler();
+        RoutineHandler routineHandler = new RoutineHandler(true);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {

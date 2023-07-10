@@ -25,7 +25,7 @@ public class ExerciseSelectionActivity extends AppCompatActivity {
             routineID = extras.getInt("routineID");
         }
 
-        routineHandler = new RoutineHandler();
+        routineHandler = new RoutineHandler(true);
 
         ExerciseSelectionListAdapter adapter = new ExerciseSelectionListAdapter(routineHandler.getAllExerciseHeaders(), this);
 

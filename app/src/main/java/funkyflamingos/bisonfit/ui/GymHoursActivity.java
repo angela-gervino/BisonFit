@@ -18,7 +18,7 @@ public class GymHoursActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gym_hours);
 
-        gymHoursHandler = new GymHoursHandler();
+        gymHoursHandler = new GymHoursHandler(true);
 
         schedule = findViewById(R.id.textView2);
 

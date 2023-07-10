@@ -5,14 +5,15 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import funkyflamingos.bisonfit.persistence.stubs.WaterTrackerPersistenceStub;
+import funkyflamingos.bisonfit.application.Services;
+import funkyflamingos.bisonfit.persistence.IWaterTrackerPersistence;
 
 public class WaterHandlerTest {
     private WaterHandler waterHandler;
 
     @Before
     public void setup() {
-        WaterTrackerPersistenceStub persistence = new WaterTrackerPersistenceStub();
+        IWaterTrackerPersistence persistence = Services.getWaterTrackPersistence(false);
         waterHandler = new WaterHandler(persistence);
     }
 

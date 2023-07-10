@@ -41,14 +41,14 @@ public class HomePageActivity extends AppCompatActivity implements AddWorkoutDia
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        waterHandler = new WaterHandler();
-        gymHoursHandler = new GymHoursHandler();
+        waterHandler = new WaterHandler(true);
+        gymHoursHandler = new GymHoursHandler(true);
         waterTrackerProgress = findViewById(R.id.circularProgressView);
         btnGymHours = findViewById(R.id.btnGymHours);
         lblGreetings = findViewById(R.id.lblGreetings);
-        userNameHandler = new UserRegistrationHandler();
+        userNameHandler = new UserRegistrationHandler(true);
 
-        workoutManager = new RoutineHandler();
+        workoutManager = new RoutineHandler(true);
         List<RoutineHeader> listOfWorkouts = workoutManager.getAllRoutineHeaders();
         adapter = new MyWorkoutsListAdapter(listOfWorkouts, this);
         RecyclerView recyclerView = findViewById(R.id.lstMyWorkouts);

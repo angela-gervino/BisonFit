@@ -7,15 +7,16 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import funkyflamingos.bisonfit.application.Services;
 import funkyflamingos.bisonfit.dso.Routine;
-import funkyflamingos.bisonfit.persistence.stubs.RoutinesPersistenceStub;
+import funkyflamingos.bisonfit.persistence.IRoutinesPersistence;
 
 public class RoutineHandlerTest {
     RoutineHandler routineHandler;
 
     @Before
     public void setup() {
-        RoutinesPersistenceStub persistence = new RoutinesPersistenceStub();
+        IRoutinesPersistence persistence = Services.getRoutinesPersistence(false);
         routineHandler = new RoutineHandler(persistence);
     }
 
