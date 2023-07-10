@@ -12,7 +12,8 @@ import funkyflamingos.bisonfit.logic.WaterHandlerTest;
 @Suite.SuiteClasses({
         GymStatusHandlerTest.class,
         WaterHandlerTest.class,
-        RoutineHandlerTest.class
+        RoutineHandlerTest.class,
+        UserRegistration.class
 })
 
 public class AllTests {
