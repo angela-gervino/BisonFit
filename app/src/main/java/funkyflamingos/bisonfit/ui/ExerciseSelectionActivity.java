@@ -8,12 +8,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import funkyflamingos.bisonfit.R;
 import funkyflamingos.bisonfit.dso.Routine;
+import funkyflamingos.bisonfit.logic.IRoutineHandler;
 import funkyflamingos.bisonfit.logic.RoutineHandler;
 
 
 public class ExerciseSelectionActivity extends AppCompatActivity {
-    int routineID;
-    RoutineHandler routineHandler;
+    private int routineID;
+    private IRoutineHandler routineHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,7 +1,10 @@
 package funkyflamingos.bisonfit.ui;
 
 import funkyflamingos.bisonfit.logic.GymHoursHandler;
+import funkyflamingos.bisonfit.logic.IGymHoursHandler;
+import funkyflamingos.bisonfit.logic.IRoutineHandler;
 import funkyflamingos.bisonfit.logic.IUserRegistrationHandler;
+import funkyflamingos.bisonfit.logic.IWaterHandler;
 import funkyflamingos.bisonfit.logic.UserRegistrationHandler;
 import funkyflamingos.bisonfit.logic.WaterHandler;
 import funkyflamingos.bisonfit.logic.RoutineHandler;
@@ -29,12 +32,12 @@ import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity implements AddWorkoutDialog.AddWorkoutDialogListener {
     private CircularProgressIndicator waterTrackerProgress;
-    private WaterHandler waterHandler;
-    private GymHoursHandler gymHoursHandler;
+    private IWaterHandler waterHandler;
+    private IGymHoursHandler gymHoursHandler;
     private TextView lblGreetings;
     private Button btnGymHours;
     private IUserRegistrationHandler userNameHandler;
-    private RoutineHandler workoutManager;
+    private IRoutineHandler workoutManager;
     private MyWorkoutsListAdapter adapter;
 
     @Override

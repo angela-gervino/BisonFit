@@ -7,11 +7,12 @@ import android.widget.TextView;
 
 import funkyflamingos.bisonfit.R;
 import funkyflamingos.bisonfit.logic.GymHoursHandler;
+import funkyflamingos.bisonfit.logic.IGymHoursHandler;
 
 public class GymHoursActivity extends AppCompatActivity {
 
     private TextView schedule;
-    private GymHoursHandler gymHoursHandler;
+    private IGymHoursHandler gymHoursHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
