@@ -124,32 +124,17 @@ public class HomePageActivity extends AppCompatActivity implements AddWorkoutDia
 
         if (buttonText.equals("Edit"))
         {
-            toggleButtonVisibilities(recyclerView, View.GONE, View.VISIBLE);
+            adapter.toggleButtonVisibilities(recyclerView, View.GONE, View.VISIBLE);
             editButton.setText("Done");
         }
         else if (buttonText.equals("Done"))
         {
-            toggleButtonVisibilities(recyclerView, View.VISIBLE, View.GONE);
+            adapter.toggleButtonVisibilities(recyclerView, View.VISIBLE, View.GONE);
             editButton.setText("Edit");
         }
     }
 
-    public void toggleButtonVisibilities(RecyclerView recyclerView, int arrowImageVisibility, int deleteWorkoutVisibility)
-    {
-        int itemCount = recyclerView.getAdapter().getItemCount();
 
-        for (int i = 0; i < itemCount; i++) {
-            RecyclerView.ViewHolder viewHolder = recyclerView.findViewHolderForAdapterPosition(i);
-            if (viewHolder != null) {
-                View deleteWorkoutButton = viewHolder.itemView.findViewById(R.id.deleteWorkoutButton);
-                View arrowImage = viewHolder.itemView.findViewById(R.id.imgArrow);
-
-                arrowImage.setVisibility(arrowImageVisibility);
-                deleteWorkoutButton.setVisibility(deleteWorkoutVisibility);
-            }
-        }
-
-    }
 
     @Override
     public void createNewWorkout(String newWorkoutName)
