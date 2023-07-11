@@ -56,6 +56,7 @@ public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<Wo
         viewHolder.getDeleteExerciseButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int position = viewHolder.getAdapterPosition();
                 System.out.println("Deleting exercise at index " + position);
                 localDataSet.remove(position);
                 notifyItemRemoved(position);
