@@ -3,17 +3,19 @@ package funkyflamingos.bisonfit;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import funkyflamingos.bisonfit.logic.GymStatusHandlerTest;
+import funkyflamingos.bisonfit.logic.GymHoursHandlerTest;
 import funkyflamingos.bisonfit.logic.RoutineHandlerTest;
+import funkyflamingos.bisonfit.logic.UserRegistrationTest;
 import funkyflamingos.bisonfit.logic.WaterHandlerTest;
 
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
-        GymStatusHandlerTest.class,
+        GymHoursHandlerTest.class,
         WaterHandlerTest.class,
-        RoutineHandlerTest.class
+        RoutineHandlerTest.class,
+        UserRegistrationTest.class
 })
 
-public class AllTests {
+public class AllUnitTests {
 }

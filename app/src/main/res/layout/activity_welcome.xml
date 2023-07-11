@@ -44,9 +44,11 @@
         android:layout_marginTop="7dp"
         android:ems="10"
         android:inputType="text"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtWelcome2" />
+        app:layout_constraintTop_toBottomOf="@+id/txtWelcome2"
+        />
 
     <TextView
         android:id="@+id/txtWelcome2"
@@ -59,11 +61,12 @@
         app:layout_constraintTop_toBottomOf="@+id/lblWelcome" />
 
     <Button
-        android:id="@+id/btnStart"
+        android:id="@+id/btnStartWelcomeActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
         android:onClick="btnStartClicked"
+        android:enabled="false"
         android:text="Start"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

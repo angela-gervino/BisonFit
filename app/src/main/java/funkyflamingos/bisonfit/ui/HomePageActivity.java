@@ -18,7 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import funkyflamingos.bisonfit.R;
@@ -112,6 +114,27 @@ public class HomePageActivity extends AppCompatActivity implements AddWorkoutDia
         Intent intent = new Intent(this, GymHoursActivity.class);
         startActivity(intent);
     }
+
+    public void toggleEditMode(View v) {
+        Button editButton = (Button)v;
+        String buttonText = editButton.getText().toString();
+
+        ViewGroup parentView = (ViewGroup) v.getParent();
+        RecyclerView recyclerView = parentView.findViewById(R.id.lstMyWorkouts);
+
+        if (buttonText.equals("Edit"))
+        {
+            adapter.toggleButtonVisibilities(recyclerView, View.GONE, View.VISIBLE);
+            editButton.setText("Done");
+        }
+        else if (buttonText.equals("Done"))
+        {
+            adapter.toggleButtonVisibilities(recyclerView, View.VISIBLE, View.GONE);
+            editButton.setText("Edit");
+        }
+    }
+
+
 
     @Override
     public void createNewWorkout(String newWorkoutName)

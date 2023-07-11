@@ -3,8 +3,9 @@ package funkyflamingos.bisonfit.logic;
 import android.content.Context;
 
 import funkyflamingos.bisonfit.application.Services;
-import funkyflamingos.bisonfit.persistence.IGymHoursPersistence;
 import funkyflamingos.bisonfit.persistence.IUserRegistrationPersistence;
+import funkyflamingos.bisonfit.persistence.UserRegistrationPersistence;
+import funkyflamingos.bisonfit.application.Constants;
 
 public class UserRegistrationHandler implements IUserRegistrationHandler {
 
@@ -25,12 +26,24 @@ public class UserRegistrationHandler implements IUserRegistrationHandler {
     }
 
     @Override
-    public void setUserName(String userName) {
-        persistence.setUserName(userName);
+    public boolean setUserName(String userName) {
+        userName = userName.trim();
+        if(userNameValid(userName)) {
+            persistence.setUserName(userName);
+            return  true;
+        }
+        return false;
     }
 
     @Override
     public String getUserName() {
         return persistence.getUserName();
+    }
+
+    @Override
+    public boolean userNameValid(String userName) {
+        userName = userName.trim();
+        return (userName.length() >= Constants.MIN_USERNAME_LENGTH
+                && userName.length() <= Constants.MAX_USERNAME_LENGTH);
     }
 }

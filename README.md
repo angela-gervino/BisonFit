@@ -33,5 +33,3 @@ The planned [architecture](https://code.cs.umanitoba.ca/3350-summer2023/funkyfla
 ## Work Flow
 - Our document for [Work Flow](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/blob/main/Docs/Workflow.md) for git. Reference for [git](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/blob/main/Docs/Git%20Reference.md)
 
-## References 
-- Our [References](Docs/References.md)
