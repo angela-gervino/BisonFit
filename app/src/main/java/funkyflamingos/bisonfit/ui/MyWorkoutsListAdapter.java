@@ -1,5 +1,6 @@
 package funkyflamingos.bisonfit.ui;
 
+import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,8 +11,6 @@ import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.List;
 
 import funkyflamingos.bisonfit.R;
 import funkyflamingos.bisonfit.dso.RoutineHeader;
@@ -62,12 +61,13 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
         viewHolder.getDeleteButton().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int position = viewHolder.getAdapterPosition();
                 System.out.println("Deleting workout at index " + position);
-                localDataSet.remove(position);// I think this can be removed once the deleteRoutine() method is implemented in
+               // localDataSet.remove(position);// I think this can be removed once the deleteRoutine() method is implemented in
                 //the RoutineHandler
 
                 RoutineHandler routineHandler = new RoutineHandler();
-                routineHandler.deleteRoutine(localDataSet.get(position).getId());
+                //routineHandler.deleteRoutine(localDataSet.get(position).getId());
 
                 updateWorkoutList(localDataSet);
             }

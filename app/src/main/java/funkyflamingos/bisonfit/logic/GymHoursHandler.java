@@ -2,7 +2,6 @@ package funkyflamingos.bisonfit.logic;
 
 import static funkyflamingos.bisonfit.dso.GymHours.DAYS_PER_WEEK;
 import static funkyflamingos.bisonfit.dso.GymHours.getDayOfWeek;
-import static funkyflamingos.bisonfit.dso.GymHours.getNextDayOfWeek;
 
 import java.time.*;
 import java.util.List;
@@ -19,7 +18,7 @@ import funkyflamingos.bisonfit.exceptions.NullGymHoursException;
 import funkyflamingos.bisonfit.exceptions.NullHoursException;
 import funkyflamingos.bisonfit.persistence.IGymHoursPersistence;
 
-public class GymHoursHandler {
+public class GymHoursHandler implements IGymHoursHandler {
     private IGymHoursPersistence persistence;
 
     public GymHoursHandler(IGymHoursPersistence persistence) {
@@ -30,6 +29,7 @@ public class GymHoursHandler {
         this.persistence = Services.getGymHoursPersistence();
     }
 
+    @Override
     public String getGymSchedule() throws Exception {
         Clock clock = Clock.systemDefaultZone();
         LocalDate currentDate = LocalDate.now(clock);
@@ -65,6 +65,7 @@ public class GymHoursHandler {
         return printableSchedule;
     }
 
+    @Override
     public String getTimeUntilOpenOrClose() throws Exception {
         return getTimeUntilOpenOrCloseHelper(Clock.systemDefaultZone());
     }
@@ -72,6 +73,7 @@ public class GymHoursHandler {
     /**
      * Helper method is public so we can pass it a clock for testing.
      */
+    @Override
     public String getTimeUntilOpenOrCloseHelper(Clock clock) throws Exception {
         LocalTime currentTime = LocalTime.now(clock);
         LocalDate currentDate = LocalDate.now(clock);
@@ -90,6 +92,12 @@ public class GymHoursHandler {
     /**
      * Static helper methods
      */
+    public static int getNextDayOfWeek(int dayOfWeek) {
+        dayOfWeek++;
+        dayOfWeek = (dayOfWeek - 1) % DAYS_PER_WEEK + 1;
+        return dayOfWeek;
+    }
+
     private static String getNextOpeningString(LocalDate currentDate, LocalTime currentTime, List<GymHours> nextWeekHours) {
         Duration timeUntilClosing = null;
         int currentDayOfWeek = getDayOfWeek(currentDate);

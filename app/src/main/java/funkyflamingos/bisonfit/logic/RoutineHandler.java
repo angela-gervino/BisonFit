@@ -15,6 +15,7 @@ import funkyflamingos.bisonfit.persistence.stubs.RoutinesPersistenceStub;
 
 public class RoutineHandler {
 
+public class RoutineHandler implements IRoutineHandler {
 
     private IRoutinesPersistence persistence;
     private IExerciseLookupPersistence exerciseLookupPersistence;
@@ -22,14 +23,8 @@ public class RoutineHandler {
     private ISavedRoutineExercises savedRoutineExercisesPersistence;
     ArrayList<ExerciseHeader> exerciseList; //This is just for testing purposes (delete this later)
 
-    // Constructor for the stub
-
-  //  public RoutineHandler() {
-  //      persistence = new RoutinesPersistenceStub();
-  //  }
-
     // Constructor for the database
-    public RoutineHandler (){
+    public RoutineHandler() {
         persistence = Services.getRoutinesPersistence();
         exerciseLookupPersistence = Services.getExerciseLookupPersistence();
         exerciseList = exerciseLookupPersistence.getAllExerciseHeaders();
@@ -41,15 +36,18 @@ public class RoutineHandler {
         persistence = p;
     }
 
+    @Override
     public List<RoutineHeader> getAllRoutineHeaders() {
         return persistence.getAllRoutineHeaders();
     }
 
+    @Override
     public ArrayList<ExerciseHeader> getAllExerciseHeaders()
     {
         return exerciseList;
     }
 
+    @Override
     public ArrayList<ExerciseHeader> getAllSelectedExercises()
     {
         ArrayList<ExerciseHeader> selectedExerciseHeaders = new ArrayList<>();
@@ -62,10 +60,12 @@ public class RoutineHandler {
         return selectedExerciseHeaders;
     }
 
+    @Override
     public Routine getRoutineByID(int routineID) {
         return persistence.getRoutineByID(routineID);
     }
 
+    @Override
     public void addNewRoutine(String routineName)
     {
         System.out.println("adding routine" + routineName + " in logic");

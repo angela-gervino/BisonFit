@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import funkyflamingos.bisonfit.R;
 import funkyflamingos.bisonfit.dso.Routine;
+import funkyflamingos.bisonfit.logic.IRoutineHandler;
 import funkyflamingos.bisonfit.logic.RoutineHandler;
 
 public class RoutineOverviewActivity extends AppCompatActivity {
@@ -24,7 +25,7 @@ public class RoutineOverviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_routine_overview);
 
-        RoutineHandler routineHandler = new RoutineHandler();
+        IRoutineHandler routineHandler = new RoutineHandler();
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
