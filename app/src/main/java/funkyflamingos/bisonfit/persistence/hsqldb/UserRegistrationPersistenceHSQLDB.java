@@ -19,6 +19,7 @@ import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 
+import funkyflamingos.bisonfit.application.Constants;
 import funkyflamingos.bisonfit.persistence.IUserRegistrationPersistence;
 
 public class UserRegistrationPersistenceHSQLDB implements IUserRegistrationPersistence {
@@ -31,8 +32,8 @@ public class UserRegistrationPersistenceHSQLDB implements IUserRegistrationPersi
     }
     @Override
     public void setUserName(String userName) {
-        deleteEntries();
         try (Connection connection = connect()) {
+            deleteEntries(connection);
             final PreparedStatement statement = connection.prepareStatement("INSERT INTO USERREGISTRATION VALUES(?)");
             statement.setString(1,userName);
             statement.executeUpdate();
@@ -41,8 +42,8 @@ public class UserRegistrationPersistenceHSQLDB implements IUserRegistrationPersi
             e.printStackTrace();
         }
     }
-    private void deleteEntries(){
-        try (Connection connection = connect()) {
+    private void deleteEntries(Connection connection){
+        try {
             final PreparedStatement statement = connection.prepareStatement("DELETE FROM USERREGISTRATION");
             statement.executeUpdate();
         } catch (final SQLException e) {
