@@ -139,6 +139,14 @@ public class HomePageActivity extends AppCompatActivity implements AddWorkoutDia
     public void createNewWorkout(String newWorkoutName)
     {
         workoutManager.addNewRoutine(newWorkoutName);
+
+        System.out.println("Printing all the routines (after adding new routine):");
+        for (RoutineHeader r : workoutManager.getAllRoutineHeaders())
+        {
+            System.out.println("routine is called: " + r.getName());
+        }
+
+
         adapter.updateWorkoutList(workoutManager.getAllRoutineHeaders());
     }
 

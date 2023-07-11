@@ -40,6 +40,7 @@ public class RoutinesPersistenceHSQLDB implements IRoutinesPersistence {
 
     private void loadRoutines() {
         try (Connection connection = connect()) {
+            routines = new ArrayList<>();
             final Statement statement = connection.createStatement();
             final ResultSet resultSet = statement.executeQuery("SELECT * FROM ROUTINES");
 
@@ -86,7 +87,7 @@ public class RoutinesPersistenceHSQLDB implements IRoutinesPersistence {
     public void addRoutine(String name) {
         System.out.println("adding routine " + name + " in persistence");
         try (Connection connection = connect()) {
-            final PreparedStatement statement = connection.prepareStatement("INSERT INTO ROUTINES VALUES (?)");
+            final PreparedStatement statement = connection.prepareStatement("INSERT INTO ROUTINES VALUES (DEFAULT, ?)");
             statement.setString(1, name);
             statement.executeUpdate();
         } catch (final SQLException e) {

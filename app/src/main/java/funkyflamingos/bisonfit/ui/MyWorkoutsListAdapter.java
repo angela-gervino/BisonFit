@@ -28,11 +28,8 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
 
     public void updateWorkoutList(List<RoutineHeader> newWorkouts)
     {
-        System.out.println("updating workout list:");
-        for (RoutineHeader r : localDataSet)
-        {
-            System.out.println("routine name: " + r.getName());
-        }
+        System.out.println("updating workout list");
+
 
         localDataSet = newWorkouts;
         notifyDataSetChanged();
@@ -63,13 +60,14 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
             public void onClick(View view) {
                 int position = viewHolder.getAdapterPosition();
                 System.out.println("Deleting workout at index " + position);
-               // localDataSet.remove(position);// I think this can be removed once the deleteRoutine() method is implemented in
+                localDataSet.remove(position);// I think this can be removed once the deleteRoutine() method is implemented in
                 //the RoutineHandler
 
                 RoutineHandler routineHandler = new RoutineHandler();
-                //routineHandler.deleteRoutine(localDataSet.get(position).getId());
+                routineHandler.deleteRoutine(localDataSet.get(position).getId());
+                notifyDataSetChanged();
 
-                updateWorkoutList(localDataSet);
+                //updateWorkoutList(localDataSet);
             }
         });
     }
