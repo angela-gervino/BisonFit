@@ -11,7 +11,7 @@ import funkyflamingos.bisonfit.persistence.IExerciseLookupPersistence;
 import funkyflamingos.bisonfit.persistence.IRoutinesPersistence;
 import funkyflamingos.bisonfit.persistence.stubs.RoutinesPersistenceStub;
 
-public class RoutineHandler {
+public class RoutineHandler implements IRoutineHandler {
 
 
     private IRoutinesPersistence persistence;

@@ -18,7 +18,7 @@ import funkyflamingos.bisonfit.logic.exceptions.HoursOrderException;
 import funkyflamingos.bisonfit.logic.exceptions.NullGymHoursException;
 import funkyflamingos.bisonfit.logic.exceptions.NullHoursException;
 
-public class GymHoursValidator {
+public class GymHoursValidator implements IGymHoursValidator {
     public static void validateGymHours(List<GymHours> nextWeekHours, LocalDate today) throws Exception {
 
         // should be truthy
