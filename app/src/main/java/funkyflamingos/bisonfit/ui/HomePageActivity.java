@@ -1,5 +1,8 @@
 package funkyflamingos.bisonfit.ui;
 
+import com.google.android.material.progressindicator.CircularProgressIndicator;
+import java.util.List;
+
 import funkyflamingos.bisonfit.logic.GymHoursHandler;
 import funkyflamingos.bisonfit.logic.IGymHoursHandler;
 import funkyflamingos.bisonfit.logic.IRoutineHandler;
@@ -10,6 +13,7 @@ import funkyflamingos.bisonfit.logic.WaterHandler;
 import funkyflamingos.bisonfit.logic.RoutineHandler;
 
 import funkyflamingos.bisonfit.dso.RoutineHeader;
+import funkyflamingos.bisonfit.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -21,12 +25,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import funkyflamingos.bisonfit.R;
-
-import com.google.android.material.progressindicator.CircularProgressIndicator;
-
-import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity implements AddWorkoutDialog.AddWorkoutDialogListener {
     private CircularProgressIndicator waterTrackerProgress;

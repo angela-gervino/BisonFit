@@ -1,5 +1,6 @@
 package funkyflamingos.bisonfit.ui;
 
+import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -9,8 +10,6 @@ import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.List;
 
 import funkyflamingos.bisonfit.R;
 import funkyflamingos.bisonfit.dso.RoutineHeader;

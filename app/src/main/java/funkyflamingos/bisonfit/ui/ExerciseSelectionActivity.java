@@ -6,11 +6,11 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import funkyflamingos.bisonfit.R;
 import funkyflamingos.bisonfit.dso.Routine;
 import funkyflamingos.bisonfit.logic.IRoutineHandler;
 import funkyflamingos.bisonfit.logic.RoutineHandler;
-
 
 public class ExerciseSelectionActivity extends AppCompatActivity {
     private int routineID;
