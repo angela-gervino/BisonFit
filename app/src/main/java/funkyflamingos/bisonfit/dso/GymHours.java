@@ -27,10 +27,4 @@ public class GymHours {
     public static int getDayOfWeek(LocalDate date) {
         return date.getDayOfWeek().getValue();
     }
-
-    public static int getNextDayOfWeek(int dayOfWeek) {
-        dayOfWeek++;
-        dayOfWeek = (dayOfWeek - 1) % DAYS_PER_WEEK + 1;
-        return dayOfWeek;
-    }
 }

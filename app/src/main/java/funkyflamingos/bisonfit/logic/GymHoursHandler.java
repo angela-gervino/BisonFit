@@ -2,7 +2,6 @@ package funkyflamingos.bisonfit.logic;
 
 import static funkyflamingos.bisonfit.application.Constants.DAYS_PER_WEEK;
 import static funkyflamingos.bisonfit.dso.GymHours.getDayOfWeek;
-import static funkyflamingos.bisonfit.dso.GymHours.getNextDayOfWeek;
 
 import java.time.*;
 import java.util.List;
@@ -94,6 +93,12 @@ public class GymHoursHandler implements IGymHoursHandler {
     /**
      * Static helper methods
      */
+    public static int getNextDayOfWeek(int dayOfWeek) {
+        dayOfWeek++;
+        dayOfWeek = (dayOfWeek - 1) % DAYS_PER_WEEK + 1;
+        return dayOfWeek;
+    }
+
     private static String getNextOpeningString(LocalDate currentDate, LocalTime currentTime, List<GymHours> nextWeekHours) {
         Duration timeUntilClosing = null;
         int currentDayOfWeek = getDayOfWeek(currentDate);

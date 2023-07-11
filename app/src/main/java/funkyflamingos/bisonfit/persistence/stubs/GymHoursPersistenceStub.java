@@ -1,5 +1,8 @@
 package funkyflamingos.bisonfit.persistence.stubs;
 
+import static funkyflamingos.bisonfit.dso.GymHours.DAYS_PER_WEEK;
+import static funkyflamingos.bisonfit.dso.GymHours.getDayOfWeek;
+
 import funkyflamingos.bisonfit.dso.GymHours;
 import funkyflamingos.bisonfit.dso.Hours;
 import funkyflamingos.bisonfit.persistence.AbstractGymHoursPersistence;
