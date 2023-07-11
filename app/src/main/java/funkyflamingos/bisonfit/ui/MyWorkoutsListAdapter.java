@@ -1,5 +1,6 @@
 package funkyflamingos.bisonfit.ui;
 
+import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,8 +11,6 @@ import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.List;
 
 import funkyflamingos.bisonfit.R;
 import funkyflamingos.bisonfit.dso.RoutineHeader;
@@ -66,6 +65,22 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
                 updateWorkoutList(localDataSet);
             }
         });
+    }
+
+    public void toggleButtonVisibilities(RecyclerView recyclerView, int arrowImageVisibility, int deleteWorkoutVisibility)
+    {
+        int itemCount = recyclerView.getAdapter().getItemCount();
+
+        for (int i = 0; i < itemCount; i++) {
+            RecyclerView.ViewHolder viewHolder = recyclerView.findViewHolderForAdapterPosition(i);
+            if (viewHolder != null) {
+                View deleteWorkoutButton = viewHolder.itemView.findViewById(R.id.deleteWorkoutButton);
+                View arrowImage = viewHolder.itemView.findViewById(R.id.imgArrow);
+
+                arrowImage.setVisibility(arrowImageVisibility);
+                deleteWorkoutButton.setVisibility(deleteWorkoutVisibility);
+            }
+        }
     }
 
     @Override

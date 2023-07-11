@@ -9,10 +9,8 @@ import funkyflamingos.bisonfit.dso.Routine;
 import funkyflamingos.bisonfit.dso.RoutineHeader;
 import funkyflamingos.bisonfit.persistence.IExerciseLookupPersistence;
 import funkyflamingos.bisonfit.persistence.IRoutinesPersistence;
-import funkyflamingos.bisonfit.persistence.stubs.RoutinesPersistenceStub;
 
-public class RoutineHandler {
-
+public class RoutineHandler implements IRoutineHandler {
 
     private IRoutinesPersistence persistence;
     private IExerciseLookupPersistence exerciseLookupPersistence;
@@ -20,14 +18,8 @@ public class RoutineHandler {
     int addedRoutinesCounter; //Delete this when "addNewRoutine()" has been implemented
     ArrayList<ExerciseHeader> exerciseList; //This is just for testing purposes (delete this later)
 
-    // Constructor for the stub
-
-  //  public RoutineHandler() {
-  //      persistence = new RoutinesPersistenceStub();
-  //  }
-
     // Constructor for the database
-    public RoutineHandler (){
+    public RoutineHandler() {
         persistence = Services.getRoutinesPersistence();
         exerciseLookupPersistence = Services.getExerciseLookupPersistence();
         exerciseList = exerciseLookupPersistence.getAllExerciseHeaders();
@@ -40,6 +32,7 @@ public class RoutineHandler {
         persistence = p;
     }
 
+    @Override
     public List<RoutineHeader> getAllRoutineHeaders() {
         //return persistence.getAllRoutineHeaders(); //Uncomment this when "addNewRoutine()" has been implemented
         List<RoutineHeader> allRoutineHeaders = new ArrayList<>(); //Delete this when "addNewRoutine()" has been implemented
@@ -48,11 +41,13 @@ public class RoutineHandler {
         return allRoutineHeaders; //Delete this when "addNewRoutine()" has been implemented
     }
 
+    @Override
     public ArrayList<ExerciseHeader> getAllExerciseHeaders()
     {
         return exerciseList;
     }
 
+    @Override
     public ArrayList<ExerciseHeader> getAllSelectedExercises()
     {
         ArrayList<ExerciseHeader> selectedExerciseHeaders = new ArrayList<>();
@@ -65,10 +60,12 @@ public class RoutineHandler {
         return selectedExerciseHeaders;
     }
 
+    @Override
     public Routine getRoutineByID(int routineID) {
         return persistence.getRoutineByID(routineID);
     }
 
+    @Override
     public void addNewRoutine(String routineName)
     {
         // This function needs to add a new routine to the persistence

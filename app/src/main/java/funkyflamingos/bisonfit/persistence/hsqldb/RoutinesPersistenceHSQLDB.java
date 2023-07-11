@@ -25,7 +25,6 @@ public class RoutinesPersistenceHSQLDB implements IRoutinesPersistence {
     public RoutinesPersistenceHSQLDB (String dbPath ){
         this.dbPath = dbPath;
         this.routines = new ArrayList<>();
-        loadRoutines();
     }
 
     private Connection connect() throws SQLException {
@@ -37,7 +36,6 @@ public class RoutinesPersistenceHSQLDB implements IRoutinesPersistence {
         String routineName = rs.getString("TITLE");
 
         return new Routine(new RoutineHeader(routineName,routineID));
-
     }
 
     private void loadRoutines() {
@@ -55,12 +53,12 @@ public class RoutinesPersistenceHSQLDB implements IRoutinesPersistence {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
         }
-
     }
 
     @Override
     public List<RoutineHeader> getAllRoutineHeaders() {
         List<RoutineHeader> allHeaders = new ArrayList<>();
+        loadRoutines();
         for (Routine routine : routines)
             allHeaders.add(routine.getHeader());
         return allHeaders;
@@ -82,7 +80,30 @@ public class RoutinesPersistenceHSQLDB implements IRoutinesPersistence {
             e.printStackTrace();
         }
         return null;
+    }
 
+    @Override
+    public void addRoutine(String name) {
+        try (Connection connection = connect()) {
+            final PreparedStatement statement = connection.prepareStatement("INSERT INTO ROUTINES VALUES (?)");
+            statement.setString(1, name);
+            statement.executeUpdate();
+        } catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteRoutineById(int routineId) {
+        try (Connection connection = connect()) {
+            final PreparedStatement statement = connection.prepareStatement("DELETE FROM ROUTINES WHERE ROUTINES.ID = ?");
+            statement.setInt(1, routineId);
+            statement.executeUpdate();
+        } catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
+        }
     }
 }
 

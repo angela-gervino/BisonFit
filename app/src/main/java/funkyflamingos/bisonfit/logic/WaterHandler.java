@@ -2,11 +2,10 @@ package funkyflamingos.bisonfit.logic;
 
 import funkyflamingos.bisonfit.application.Services;
 import funkyflamingos.bisonfit.persistence.IWaterTrackerPersistence;
-import funkyflamingos.bisonfit.persistence.stubs.WaterTrackerPersistenceStub;
 
 import java.time.LocalDate;
 
-public class WaterHandler {
+public class WaterHandler implements IWaterHandler {
     IWaterTrackerPersistence persistence;
 
 
@@ -26,6 +25,7 @@ public class WaterHandler {
         persistence = Services.getWaterTrackPersistence();
     }
 
+    @Override
     public void increment() {
         LocalDate today = LocalDate.now();
 
@@ -33,14 +33,17 @@ public class WaterHandler {
             persistence.increment(today);
     }
 
+    @Override
     public int getProgress() {
         return persistence.getProgress(LocalDate.now());
     }
 
+    @Override
     public int getGoal() {
         return persistence.getGoal();
     }
 
+    @Override
     public boolean reachedGoal() {
         return getProgress() == getGoal();
     }
