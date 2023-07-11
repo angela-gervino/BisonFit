@@ -1,15 +1,14 @@
 package funkyflamingos.bisonfit.dso;
 
-import androidx.annotation.NonNull;
+import static funkyflamingos.bisonfit.application.Constants.DAYS_PER_WEEK;
+
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 public class GymHours {
     private int dayID;
 
-    public static final int DAYS_PER_WEEK = 7;
     private List<Hours> hours;
 
     public GymHours(int dayID, List<Hours> hours) {

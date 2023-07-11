@@ -20,6 +20,4 @@ public class Main {
     public static String getDBPathName() {
         return dbName;
     }
-
-
 }

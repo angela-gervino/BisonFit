@@ -1,6 +1,5 @@
 package funkyflamingos.bisonfit.persistence.hsqldb;
 
-
 import android.util.Log;
 
 import java.sql.Connection;
