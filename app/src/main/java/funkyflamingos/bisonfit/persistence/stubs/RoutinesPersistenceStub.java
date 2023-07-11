@@ -10,6 +10,7 @@ import funkyflamingos.bisonfit.persistence.IRoutinesPersistence;
 public class RoutinesPersistenceStub implements IRoutinesPersistence {
 
     List<Routine> allRoutines;
+    int nextId = 4;
 
     public RoutinesPersistenceStub() {
         allRoutines = new ArrayList<Routine>();
@@ -30,6 +31,26 @@ public class RoutinesPersistenceStub implements IRoutinesPersistence {
     public Routine getRoutineByID(int routineID) {
         return allRoutines.stream().filter(routine -> routine.getHeader().getId() == routineID)
                 .findFirst().orElse(null);
+    }
+
+    @Override
+    public void addRoutine(String routineName) {
+        allRoutines.add(new Routine(new RoutineHeader(routineName, nextId)));
+        nextId++;
+    }
+
+    @Override
+    public void deleteRoutineById(int routineId) {
+        allRoutines.remove(getIndexById(routineId));
+    }
+
+    private int getIndexById(int routineId) {
+        int index = -1;
+        for (int i = 0; i < allRoutines.size() && index == -1; i++) {
+            if (allRoutines.get(i).getHeader().getId() == routineId)
+                index = i;
+        }
+        return index;
     }
 
 }
