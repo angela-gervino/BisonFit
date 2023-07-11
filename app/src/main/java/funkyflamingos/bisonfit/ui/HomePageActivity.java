@@ -11,8 +11,6 @@ import funkyflamingos.bisonfit.logic.RoutineHandler;
 
 import funkyflamingos.bisonfit.dso.RoutineHeader;
 
-import funkyflamingos.bisonfit.persistence.utils.DBHelper;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
