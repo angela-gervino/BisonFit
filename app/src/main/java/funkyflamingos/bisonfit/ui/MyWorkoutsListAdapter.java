@@ -68,6 +68,22 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
         });
     }
 
+    public void toggleButtonVisibilities(RecyclerView recyclerView, int arrowImageVisibility, int deleteWorkoutVisibility)
+    {
+        int itemCount = recyclerView.getAdapter().getItemCount();
+
+        for (int i = 0; i < itemCount; i++) {
+            RecyclerView.ViewHolder viewHolder = recyclerView.findViewHolderForAdapterPosition(i);
+            if (viewHolder != null) {
+                View deleteWorkoutButton = viewHolder.itemView.findViewById(R.id.deleteWorkoutButton);
+                View arrowImage = viewHolder.itemView.findViewById(R.id.imgArrow);
+
+                arrowImage.setVisibility(arrowImageVisibility);
+                deleteWorkoutButton.setVisibility(deleteWorkoutVisibility);
+            }
+        }
+    }
+
     @Override
     public int getItemCount() {
         return localDataSet.size();
