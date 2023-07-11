@@ -74,4 +74,9 @@ public class RoutineHandler {
         // This function needs to add a new routine to the persistence
         addedRoutines.add(new RoutineHeader(routineName, addedRoutinesCounter++)); //Delete this when "addNewRoutine()" has been implemented
     }
+
+    public void deleteRoutine(int routineID)
+    {
+        //this needs to be implemented as well
+    }
 }
