@@ -72,7 +72,7 @@ public class RoutineHandler implements IRoutineHandler {
 
     public void deleteRoutine(int routineID)
     {
-        persistence.deleteRoutineById(routineID);
         savedRoutineExercisesPersistence.deleteRoutine(getRoutineByID(routineID).getHeader());
+        persistence.deleteRoutineById(routineID);
     }
 }
