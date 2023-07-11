@@ -51,7 +51,7 @@
                 android:padding="0dp"
                 android:layout_marginStart="0dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/add_icon"
+                app:srcCompat="@drawable/icon_subtract"
                 android:background="@null"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -76,7 +76,7 @@
                 android:paddingEnd="10dp"
                 android:scaleType="fitCenter"
                 android:background="@null"
-                app:srcCompat="@drawable/add_icon"
+                app:srcCompat="@drawable/icon_add"
                 app:layout_constraintStart_toEndOf="@id/setCountText"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
