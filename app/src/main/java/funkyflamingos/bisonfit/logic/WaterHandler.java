@@ -10,11 +10,6 @@ public class WaterHandler implements IWaterHandler {
 
 
     // Constructor for the stub
-
-   // public WaterHandler() {
-  //      persistence = new WaterTrackerPersistenceStub();
-   // }
-
     public WaterHandler(IWaterTrackerPersistence persistence) {
         this.persistence = persistence;
     }

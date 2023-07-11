@@ -16,12 +16,6 @@ import funkyflamingos.bisonfit.persistence.hsqldb.ExerciseLookupPersistenceHSQLD
 import funkyflamingos.bisonfit.persistence.hsqldb.GymHoursPersistenceHSQLDB;
 import funkyflamingos.bisonfit.persistence.hsqldb.UserRegistrationPersistenceHSQLDB;
 
-// the stubs
-import funkyflamingos.bisonfit.persistence.stubs.WaterTrackerPersistenceStub;
-import funkyflamingos.bisonfit.persistence.stubs.RoutinesPersistenceStub;
-import funkyflamingos.bisonfit.persistence.stubs.GymHoursPersistenceStub;
-
-
 public class Services {
     private static IRoutinesPersistence routinesPersistence = null;
     private static IWaterTrackerPersistence waterTrackerPersistence = null;
@@ -33,66 +27,42 @@ public class Services {
 
     public static synchronized IRoutinesPersistence getRoutinesPersistence() {
         if(routinesPersistence == null) {
-          //  if (forProduction) {
-                routinesPersistence = new RoutinesPersistenceHSQLDB(Main.getDBPathName());
-          //  } else {
-          //      routinesPersistence = new RoutinesPersistenceStub();
-           // }
+            routinesPersistence = new RoutinesPersistenceHSQLDB(Main.getDBPathName());
         }
         return routinesPersistence;
     }
 
     public static synchronized IWaterTrackerPersistence getWaterTrackPersistence() {
         if(waterTrackerPersistence == null) {
-            //  if (forProduction) {
             waterTrackerPersistence = new WaterTrackPersistenceHSQLDB(Main.getDBPathName());
-            //  } else {
-            //      routinesPersistence = new RoutinesPersistenceStub();
-            // }
         }
         return waterTrackerPersistence;
     }
 
     public static synchronized IUserRegistrationPersistence getUserRegistrationPersistence() {
         if(userRegistrationPersistence == null) {
-            //  if (forProduction) {
             userRegistrationPersistence = new UserRegistrationPersistenceHSQLDB(Main.getDBPathName());
-            //  } else {
-            //      routinesPersistence = new RoutinesPersistenceStub();
-            // }
         }
         return userRegistrationPersistence;
     }
 
     public static synchronized IGymHoursPersistence getGymHoursPersistence() {
         if(gymHoursPersistence == null) {
-            //  if (forProduction) {
             gymHoursPersistence = new GymHoursPersistenceHSQLDB(Main.getDBPathName());
-            //  } else {
-            //      routinesPersistence = new RoutinesPersistenceStub();
-            // }
         }
         return gymHoursPersistence;
     }
 
     public static synchronized IExerciseLookupPersistence getExerciseLookupPersistence() {
         if(exerciseLookupPersistence == null) {
-            //  if (forProduction) {
             exerciseLookupPersistence = new ExerciseLookupPersistenceHSQLDB(Main.getDBPathName());
-            //  } else {
-            //      routinesPersistence = new RoutinesPersistenceStub();
-            // }
         }
         return exerciseLookupPersistence;
     }
 
     public static synchronized ISavedRoutineExercises getSavedRoutineExercises() {
         if(savedRoutineExercises == null) {
-            //  if (forProduction) {
             savedRoutineExercises = new SavedRoutineExercisesPersistenceHSQLDB(Main.getDBPathName());
-            //  } else {
-            //      routinesPersistence = new RoutinesPersistenceStub();
-            // }
         }
         return savedRoutineExercises;
     }
