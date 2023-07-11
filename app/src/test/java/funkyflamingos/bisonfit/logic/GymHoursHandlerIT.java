@@ -8,6 +8,9 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneOffset;
 
 import funkyflamingos.bisonfit.persistence.IGymHoursPersistence;
 import funkyflamingos.bisonfit.persistence.hsqldb.GymHoursPersistenceHSQLDB;
@@ -26,9 +29,66 @@ public class GymHoursHandlerIT {
     }
 
     @Test
-    public void testNotNull() throws Exception {
-        String result = gymHoursHandler.getTimeUntilOpenOrClose();
-        assertEquals("hi", result);
+    public void testGetGymSchedule() {
+        try {
+            String output = gymHoursHandler.getGymSchedule();
+            assertNotNull("getGymSchedule should return a non-null object.", output);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testGymTimeNotNull() {
+        try {
+            assertNotNull("Should not return null.",gymHoursHandler.getTimeUntilOpenOrClose());
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testBeforeOpening() {
+        try {
+            String output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockBeforeOpening());
+            assertEquals("Should return string of time until opening.","30m Until Opening", output);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testAfterOpening() {
+        try {
+            String output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockAfterOpening());
+            assertEquals("Should return string of time until closing.","8h 30m Until Closing", output);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testAfterClosing() {
+        try {
+            String output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockAfterClosing());
+            assertEquals("Should return string of time until opening.","6h 30m Until Opening", output);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+
+    private Clock getClockBeforeOpening() {
+        return Clock.fixed(Instant.parse("2023-06-25T07:29:30Z"), ZoneOffset.UTC);
+    }
+
+    private Clock getClockAfterOpening() {
+        return Clock.fixed(Instant.parse("2023-06-25T11:29:30Z"), ZoneOffset.UTC);
+
+    }
+
+    private Clock getClockAfterClosing() {
+        return Clock.fixed(Instant.parse("2023-06-25T23:29:30Z"), ZoneOffset.UTC);
     }
 
     @After

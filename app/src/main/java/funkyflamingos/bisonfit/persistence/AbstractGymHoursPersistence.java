@@ -2,15 +2,13 @@ package funkyflamingos.bisonfit.persistence;
 
 import static funkyflamingos.bisonfit.dso.GymHours.DAYS_PER_WEEK;
 import static funkyflamingos.bisonfit.dso.GymHours.getDayOfWeek;
-import static funkyflamingos.bisonfit.dso.GymHours.getNextDayOfWeek;
+import static funkyflamingos.bisonfit.logic.GymHoursHandler.getNextDayOfWeek;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import funkyflamingos.bisonfit.dso.GymHours;
-import funkyflamingos.bisonfit.dso.Hours;
 
 public abstract class AbstractGymHoursPersistence implements IGymHoursPersistence {
     private List<GymHours> gymHoursList;
