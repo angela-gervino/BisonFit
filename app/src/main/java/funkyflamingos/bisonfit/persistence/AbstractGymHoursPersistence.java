@@ -1,6 +1,6 @@
 package funkyflamingos.bisonfit.persistence;
 
-import static funkyflamingos.bisonfit.dso.GymHours.DAYS_PER_WEEK;
+import static funkyflamingos.bisonfit.application.Constants.DAYS_PER_WEEK;
 import static funkyflamingos.bisonfit.dso.GymHours.getDayOfWeek;
 import static funkyflamingos.bisonfit.dso.GymHours.getNextDayOfWeek;
 

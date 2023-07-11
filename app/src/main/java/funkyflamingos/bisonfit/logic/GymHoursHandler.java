@@ -1,6 +1,6 @@
 package funkyflamingos.bisonfit.logic;
 
-import static funkyflamingos.bisonfit.dso.GymHours.DAYS_PER_WEEK;
+import static funkyflamingos.bisonfit.application.Constants.DAYS_PER_WEEK;
 import static funkyflamingos.bisonfit.dso.GymHours.getDayOfWeek;
 import static funkyflamingos.bisonfit.dso.GymHours.getNextDayOfWeek;
 
@@ -18,6 +18,7 @@ import funkyflamingos.bisonfit.exceptions.HoursOrderException;
 import funkyflamingos.bisonfit.exceptions.NullGymHoursException;
 import funkyflamingos.bisonfit.exceptions.NullHoursException;
 import funkyflamingos.bisonfit.persistence.IGymHoursPersistence;
+import funkyflamingos.bisonfit.persistence.hsqldb.GymHoursPersistenceHSQLDB;
 
 public class GymHoursHandler implements IGymHoursHandler {
     private IGymHoursPersistence persistence;

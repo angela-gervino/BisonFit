@@ -1,9 +1,6 @@
 package funkyflamingos.bisonfit.dso;
 
 import java.util.ArrayList;
-import java.util.Date;
-
-import funkyflamingos.bisonfit.R;
 
 public class Routine {
     private RoutineHeader header;

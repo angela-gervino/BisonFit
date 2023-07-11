@@ -1,10 +1,5 @@
 package funkyflamingos.bisonfit.persistence.hsqldb;
 
-
-import static funkyflamingos.bisonfit.dso.GymHours.DAYS_PER_WEEK;
-import static funkyflamingos.bisonfit.dso.GymHours.getDayOfWeek;
-import static funkyflamingos.bisonfit.dso.GymHours.getNextDayOfWeek;
-
 import android.util.Log;
 
 import java.sql.Connection;
