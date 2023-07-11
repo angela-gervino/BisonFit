@@ -19,7 +19,7 @@ import funkyflamingos.bisonfit.exceptions.NullGymHoursException;
 import funkyflamingos.bisonfit.exceptions.NullHoursException;
 import funkyflamingos.bisonfit.persistence.IGymHoursPersistence;
 
-public class GymHoursHandler {
+public class GymHoursHandler implements IGymHoursHandler {
     private IGymHoursPersistence persistence;
 
     public GymHoursHandler(IGymHoursPersistence persistence) {
@@ -30,6 +30,7 @@ public class GymHoursHandler {
         this.persistence = Services.getGymHoursPersistence();
     }
 
+    @Override
     public String getGymSchedule() throws Exception {
         Clock clock = Clock.systemDefaultZone();
         LocalDate currentDate = LocalDate.now(clock);
@@ -65,6 +66,7 @@ public class GymHoursHandler {
         return printableSchedule;
     }
 
+    @Override
     public String getTimeUntilOpenOrClose() throws Exception {
         return getTimeUntilOpenOrCloseHelper(Clock.systemDefaultZone());
     }
@@ -72,6 +74,7 @@ public class GymHoursHandler {
     /**
      * Helper method is public so we can pass it a clock for testing.
      */
+    @Override
     public String getTimeUntilOpenOrCloseHelper(Clock clock) throws Exception {
         LocalTime currentTime = LocalTime.now(clock);
         LocalDate currentDate = LocalDate.now(clock);
