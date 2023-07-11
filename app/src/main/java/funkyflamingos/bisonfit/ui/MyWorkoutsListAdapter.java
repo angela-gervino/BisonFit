@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import funkyflamingos.bisonfit.R;
 import funkyflamingos.bisonfit.dso.RoutineHeader;
+import funkyflamingos.bisonfit.logic.RoutineHandler;
 
 public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAdapter.ViewHolder> {
 
@@ -50,6 +52,20 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
                 parentActivity.startActivity(intent);
             }
         });
+
+        viewHolder.getDeleteButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("Deleting workout at index " + position);
+                localDataSet.remove(position);// I think this can be removed once the deleteRoutine() method is implemented in
+                //the RoutineHandler
+
+                RoutineHandler routineHandler = new RoutineHandler();
+                routineHandler.deleteRoutine(localDataSet.get(position).getId());
+
+                updateWorkoutList(localDataSet);
+            }
+        });
     }
 
     @Override
@@ -63,11 +79,13 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
         private RoutineHeader dataItem;
         private final TextView lblWorkout;
         private final ConstraintLayout layout;
+        private final ImageButton deleteButton;
 
         public ViewHolder(View view) {
             super(view);
             lblWorkout = view.findViewById(R.id.lblWorkoutName);
             layout = view.findViewById(R.id.workout_item_layout);
+            deleteButton = view.findViewById(R.id.deleteWorkoutButton);
         }
 
         public void setDataItem(RoutineHeader dataItem) {
@@ -83,6 +101,11 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
 
         public ConstraintLayout getLayout() {
             return layout;
+        }
+
+        public ImageButton getDeleteButton()
+        {
+            return deleteButton;
         }
     }
 }
