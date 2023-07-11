@@ -1,4 +1,4 @@
-package funkyflamingos.bisonfit.logic.exceptions;
+package funkyflamingos.bisonfit.exceptions;
 
 public class GymHoursNotConsecutiveException extends InvalidGymHoursException {
     public GymHoursNotConsecutiveException(String error) {
