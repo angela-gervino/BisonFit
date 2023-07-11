@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 
 import funkyflamingos.bisonfit.logic.GymHoursHandlerTest;
 import funkyflamingos.bisonfit.logic.RoutineHandlerTest;
+import funkyflamingos.bisonfit.logic.UserRegistrationTest;
 import funkyflamingos.bisonfit.logic.WaterHandlerTest;
 
 @RunWith(Suite.class)
@@ -13,7 +14,7 @@ import funkyflamingos.bisonfit.logic.WaterHandlerTest;
         GymHoursHandlerTest.class,
         WaterHandlerTest.class,
         RoutineHandlerTest.class,
-        UserRegistration.class
+        UserRegistrationTest.class
 })
 
 public class AllUnitTests {
