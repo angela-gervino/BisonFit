@@ -10,7 +10,7 @@ import funkyflamingos.bisonfit.persistence.stubs.GymHoursPersistenceStub;
 
 import static org.junit.Assert.*;
 
-public class GymStatusHandlerTest {
+public class GymHoursHandlerTest {
     GymHoursHandler gymStatusHandler;
 
     @Before
