@@ -28,6 +28,12 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
 
     public void updateWorkoutList(List<RoutineHeader> newWorkouts)
     {
+        System.out.println("updating workout list:");
+        for (RoutineHeader r : localDataSet)
+        {
+            System.out.println("routine name: " + r.getName());
+        }
+
         localDataSet = newWorkouts;
         notifyDataSetChanged();
     }

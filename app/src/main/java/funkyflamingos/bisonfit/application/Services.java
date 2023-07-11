@@ -1,6 +1,7 @@
 package funkyflamingos.bisonfit.application;
 
 // the interfaces
+import funkyflamingos.bisonfit.persistence.ISavedRoutineExercises;
 import funkyflamingos.bisonfit.persistence.IWaterTrackerPersistence;
 import funkyflamingos.bisonfit.persistence.IRoutinesPersistence;
 import funkyflamingos.bisonfit.persistence.IExerciseLookupPersistence;
@@ -9,6 +10,7 @@ import funkyflamingos.bisonfit.persistence.IUserRegistrationPersistence;
 
 //the DB
 import funkyflamingos.bisonfit.persistence.hsqldb.RoutinesPersistenceHSQLDB;
+import funkyflamingos.bisonfit.persistence.hsqldb.SavedRoutineExercisesPersistenceHSQLDB;
 import funkyflamingos.bisonfit.persistence.hsqldb.WaterTrackPersistenceHSQLDB;
 import funkyflamingos.bisonfit.persistence.hsqldb.ExerciseLookupPersistenceHSQLDB;
 import funkyflamingos.bisonfit.persistence.hsqldb.GymHoursPersistenceHSQLDB;
@@ -26,6 +28,7 @@ public class Services {
     private static IExerciseLookupPersistence exerciseLookupPersistence = null;
     private static IGymHoursPersistence gymHoursPersistence = null;
     private static IUserRegistrationPersistence userRegistrationPersistence = null;
+    private static ISavedRoutineExercises savedRoutineExercises = null;
 
 
     public static synchronized IRoutinesPersistence getRoutinesPersistence() {
@@ -81,6 +84,17 @@ public class Services {
             // }
         }
         return exerciseLookupPersistence;
+    }
+
+    public static synchronized ISavedRoutineExercises getSavedRoutineExercises() {
+        if(savedRoutineExercises == null) {
+            //  if (forProduction) {
+            savedRoutineExercises = new SavedRoutineExercisesPersistenceHSQLDB(Main.getDBPathName());
+            //  } else {
+            //      routinesPersistence = new RoutinesPersistenceStub();
+            // }
+        }
+        return savedRoutineExercises;
     }
 
 
