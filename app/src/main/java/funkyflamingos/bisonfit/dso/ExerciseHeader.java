@@ -6,11 +6,21 @@ public class ExerciseHeader {
     private int id;
     private int setCount;
     private boolean selected;
+    private int index;
 
     public ExerciseHeader(String name, int id) {
         this.name = name;
         this.id = id;
         this.setCount = 1;
+        selected = false;
+        index = -1;
+    }
+
+    public ExerciseHeader(String name, int id, int setCount, int index) {
+        this.name = name;
+        this.id = id;
+        this.setCount = setCount;
+        this.index = index;
         selected = false;
     }
 
@@ -21,6 +31,8 @@ public class ExerciseHeader {
     public int getId() {
         return id;
     }
+
+    public int getIndex() { return index; }
 
     public void incrementSet() //this should also edit the database as well?
     {

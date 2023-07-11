@@ -11,4 +11,7 @@ public interface IRoutinesPersistence {
 
     Routine getRoutineByID(int routineID);
 
+    void addRoutine(String routineName);
+
+    void deleteRoutineById(int routineId);
 }
