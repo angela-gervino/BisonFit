@@ -21,7 +21,6 @@ public class GymHoursHandler {
         this.persistence = persistence;
     }
 
-   //Constructor for the database for now
    public GymHoursHandler() {
         this.persistence = Services.getGymHoursPersistence();
     }
@@ -32,7 +31,7 @@ public class GymHoursHandler {
         int currentDayOfWeek = getDayOfWeek(currentDate);
 
         List<GymHours> nextWeekHours = persistence.getNextWeekHours(LocalDate.now(clock));
-        validateGymHours(nextWeekHours, currentDate);
+        GymHoursValidator.validateGymHours(nextWeekHours, currentDate);
 
         String printableSchedule = "";
 
@@ -61,38 +60,18 @@ public class GymHoursHandler {
         return printableSchedule;
     }
 
-    private String getClockFormattedTime(LocalTime time, boolean isClosingTime) {
-        String formattedTime = "";
-        String hour = String.valueOf(time.getHour());
-
-        if (isClosingTime && hour.equals("0")) {
-            formattedTime += "24";
-        } else {
-            if (hour.length() < 2)
-                formattedTime += " ";
-            formattedTime += time.getHour();
-        }
-
-        formattedTime += ":";
-        String minute = String.valueOf(time.getMinute());
-        if (minute.length() < 2)
-            formattedTime += "0";
-        formattedTime += minute;
-        return formattedTime;
-    }
-
     public String getTimeUntilOpenOrClose() throws Exception {
         return getTimeUntilOpenOrCloseHelper(Clock.systemDefaultZone());
     }
 
     /**
-     * Helper method is public so we can pass it a fixed clock for testing.
+     * Helper method is public so we can pass it a clock for testing.
      */
     public String getTimeUntilOpenOrCloseHelper(Clock clock) throws Exception {
         LocalTime currentTime = LocalTime.now(clock);
         LocalDate currentDate = LocalDate.now(clock);
         List<GymHours> nextWeekHours = persistence.getNextWeekHours(LocalDate.now(clock));
-        validateGymHours(nextWeekHours, currentDate);
+        GymHoursValidator.validateGymHours(nextWeekHours, currentDate);
 
         Hours currentHours = getCurrentlyOpenHours(nextWeekHours, currentTime);
 
@@ -103,7 +82,10 @@ public class GymHoursHandler {
             return getNextOpeningString(currentDate, currentTime, nextWeekHours);
     }
 
-    private String getNextOpeningString(LocalDate currentDate, LocalTime currentTime, List<GymHours> nextWeekHours) {
+    /**
+     * Static helper methods
+     */
+    private static String getNextOpeningString(LocalDate currentDate, LocalTime currentTime, List<GymHours> nextWeekHours) {
         Duration timeUntilClosing = null;
         int currentDayOfWeek = getDayOfWeek(currentDate);
         String nextOpenDay = null;
@@ -143,12 +125,12 @@ public class GymHoursHandler {
         }
     }
 
-    private boolean isTomorrow(int today, int other) {
+    private static boolean isTomorrow(int today, int other) {
         int tomorrow = getNextDayOfWeek(today);
         return tomorrow == other;
     }
 
-    private String getNextClosingString(Hours currentHours, LocalTime currentTime, List<GymHours> nextWeekHours) {
+    private static String getNextClosingString(Hours currentHours, LocalTime currentTime, List<GymHours> nextWeekHours) {
         Duration timeUntilClosing;
         List<Hours> tomorrowsHours = nextWeekHours.get(1).getHours();
         List<Hours> dayAfterTomorrowHours = nextWeekHours.get(2).getHours();
@@ -172,7 +154,7 @@ public class GymHoursHandler {
         return getFormattedTime(timeUntilClosing.toString()) + " Until Closing";
     }
 
-    private String getClosingDayString(List<GymHours> weekHours) {
+    private static String getClosingDayString(List<GymHours> weekHours) {
         GymHours curr;
         GymHours prev = weekHours.get(1);
 
@@ -188,7 +170,7 @@ public class GymHoursHandler {
         return "Open All Week";
     }
 
-    private Duration getDurationBetween(LocalTime start, LocalTime end) {
+    private static Duration getDurationBetween(LocalTime start, LocalTime end) {
         Duration timeUntilClosing;
         if (end.equals(LocalTime.MIDNIGHT)) {
             timeUntilClosing = Duration.between(start, LocalTime.MAX);
@@ -198,7 +180,7 @@ public class GymHoursHandler {
         return timeUntilClosing;
     }
 
-    private Hours getCurrentlyOpenHours(List<GymHours> nextWeekHours, LocalTime currentTime) {
+    private static Hours getCurrentlyOpenHours(List<GymHours> nextWeekHours, LocalTime currentTime) {
         List<Hours> todayHours = nextWeekHours.get(0).getHours();
         if (todayHours != null)
             for (Hours hours : todayHours)
@@ -209,7 +191,7 @@ public class GymHoursHandler {
         return null;
     }
 
-    private String getFormattedTime(String durationToString) {
+    private static String getFormattedTime(String durationToString) {
         String output = durationToString.substring(2);
 
         if (output.contains("M")) {
@@ -224,95 +206,30 @@ public class GymHoursHandler {
         return output;
     }
 
-    private String dayIDToString(int dayID) {
+    private static String getClockFormattedTime(LocalTime time, boolean isClosingTime) {
+        String formattedTime = "";
+        String hour = String.valueOf(time.getHour());
+
+        if (isClosingTime && hour.equals("0")) {
+            formattedTime += "24";
+        } else {
+            if (hour.length() < 2)
+                formattedTime += " ";
+            formattedTime += time.getHour();
+        }
+
+        formattedTime += ":";
+        String minute = String.valueOf(time.getMinute());
+        if (minute.length() < 2)
+            formattedTime += "0";
+        formattedTime += minute;
+        return formattedTime;
+    }
+
+
+    private static String dayIDToString(int dayID) {
         String dayOfWeek = DayOfWeek.of(dayID).toString();
         dayOfWeek = dayOfWeek.charAt(0) + dayOfWeek.substring(1).toLowerCase();
         return dayOfWeek;
-    }
-
-    private void validateGymHours(List<GymHours> nextWeekHours, LocalDate today) throws Exception {
-
-        // should be truthy
-        if (nextWeekHours == null)
-            throw new NullPointerException("Unexpected null pointer.");
-
-        // size should be one week
-        if (nextWeekHours.size() != DAYS_PER_WEEK)
-            throw new Exception("Expected: "
-                    + DAYS_PER_WEEK + " actual: " + nextWeekHours.size() + ".");
-
-        int todayID = getDayOfWeek(today);
-        int firstID = nextWeekHours.get(0).getDayID();
-
-        // first day should be today
-        if (todayID != firstID)
-            throw new Exception("First day ID does not match today.");
-
-        // validate hours
-        for (GymHours gymHours : nextWeekHours) {
-
-            // should be truthy
-            if (gymHours == null)
-                throw new Exception("GymHours should not be null.");
-
-            validateHours(gymHours.getHours());
-        }
-
-        // days should be consecutive
-        int currID = getNextDayOfWeek(todayID);
-
-        for (int i = 1; i < nextWeekHours.size(); i++) {
-
-            // days should be consecutive
-            if (nextWeekHours.get(i).getDayID() != currID)
-                throw new Exception("Days should be consecutive.");
-
-            currID = getNextDayOfWeek(currID);
-        }
-    }
-
-    private void validateHours(List<Hours> hours) throws Exception {
-
-        // hours can be null
-        if (hours != null) {
-
-            // hours should not be empty
-            if (hours.size() == 0)
-                throw new Exception("Hours should not be empty.");
-
-            // all opening and closing times should be consecutive and not equal
-            // except for the special case that the first opening and
-            // last closing times can be both be zero
-            LocalTime prev = LocalTime.MIN;
-            LocalTime curr = null;
-            for (int i = 0; i < hours.size(); i++) {
-
-                // check list
-                if (hours.get(i) == null)
-                    throw new Exception("Hours should not be null.");
-
-                // check opening
-                curr = hours.get(i).getOpening();
-                if (curr == null)
-                    throw new Exception("Opening should not be null.");
-
-                if (i != 0 && curr.compareTo(prev) <= 0)
-                    throw new Exception("Opening should be after last closing.");
-
-                prev = curr;
-
-                // check closing
-                curr = hours.get(i).getClosing();
-                if (curr == null)
-                    throw new Exception("Closing should not be null.");
-
-                if (i == hours.size() - 1 && curr.equals(LocalTime.MIDNIGHT))
-                    continue;
-                if (curr.compareTo(prev) <= 0)
-                    throw new Exception("Closing should be after last opening.");
-
-                prev = curr;
-            }
-        }
     }
 }

@@ -16,5 +16,5 @@ import funkyflamingos.bisonfit.logic.WaterHandlerTest;
         UserRegistration.class
 })
 
-public class AllTests {
+public class AllUnitTests {
 }
