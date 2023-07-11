@@ -13,7 +13,7 @@ import funkyflamingos.bisonfit.persistence.IGymHoursPersistence;
 import funkyflamingos.bisonfit.persistence.hsqldb.GymHoursPersistenceHSQLDB;
 import funkyflamingos.bisonfit.utils.TestUtils;
 
-public class GymHoursHandlerTestIT {
+public class GymHoursHandlerIT {
 
     private GymHoursHandler gymHoursHandler;
     private File tempDB;
