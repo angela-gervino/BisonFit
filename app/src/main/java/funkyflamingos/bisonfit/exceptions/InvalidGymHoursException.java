@@ -1,4 +1,4 @@
-package funkyflamingos.bisonfit.logic.exceptions;
+package funkyflamingos.bisonfit.exceptions;
 
 public class InvalidGymHoursException extends RuntimeException {
     public InvalidGymHoursException(String message) {

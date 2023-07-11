@@ -1,4 +1,4 @@
-package funkyflamingos.bisonfit.logic.exceptions;
+package funkyflamingos.bisonfit.exceptions;
 
 public class HoursEmptyException extends InvalidHoursException {
     public HoursEmptyException(String error) {

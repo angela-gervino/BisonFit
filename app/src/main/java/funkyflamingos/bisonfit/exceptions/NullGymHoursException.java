@@ -1,4 +1,4 @@
-package funkyflamingos.bisonfit.logic.exceptions;
+package funkyflamingos.bisonfit.exceptions;
 
 public class NullGymHoursException extends NullPointerException {
     public NullGymHoursException(String error) {
