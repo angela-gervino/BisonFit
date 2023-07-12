@@ -18,8 +18,6 @@ public class RoutineOverviewActivity extends AppCompatActivity {
 
     private Routine routine;
 
-    private TextView workoutNameHeader;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,15 +31,10 @@ public class RoutineOverviewActivity extends AppCompatActivity {
             routine = routineHandler.getRoutineByID(clickedRoutineID);
             String clickedRoutineName = routine.getHeader().getName();
             getActionBar().setTitle(clickedRoutineName);
-
-            workoutNameHeader = findViewById(R.id.lblWorkoutNameHeader);
-            workoutNameHeader.setText(clickedRoutineName);
         }
-
 
         WorkoutOverviewExercisesListAdapter adapter = new WorkoutOverviewExercisesListAdapter(routine.getExerciseHeaders(), this);
         RecyclerView recyclerView = findViewById(R.id.lstMyExercises);
-
 
         //recyclerVew setup
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
