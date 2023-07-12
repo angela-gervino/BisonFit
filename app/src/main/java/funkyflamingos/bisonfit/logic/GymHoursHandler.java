@@ -17,7 +17,6 @@ import funkyflamingos.bisonfit.exceptions.HoursOrderException;
 import funkyflamingos.bisonfit.exceptions.NullGymHoursException;
 import funkyflamingos.bisonfit.exceptions.NullHoursException;
 import funkyflamingos.bisonfit.persistence.IGymHoursPersistence;
-import funkyflamingos.bisonfit.persistence.hsqldb.GymHoursPersistenceHSQLDB;
 
 public class GymHoursHandler implements IGymHoursHandler {
     private IGymHoursPersistence persistence;
@@ -26,7 +25,7 @@ public class GymHoursHandler implements IGymHoursHandler {
         this.persistence = persistence;
     }
 
-   public GymHoursHandler() {
+    public GymHoursHandler() {
         this.persistence = Services.getGymHoursPersistence();
     }
 
