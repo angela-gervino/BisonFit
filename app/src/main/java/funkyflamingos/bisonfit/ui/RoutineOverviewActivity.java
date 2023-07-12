@@ -36,7 +36,7 @@ public class RoutineOverviewActivity extends AppCompatActivity {
             getActionBar().setTitle(clickedRoutineName);
         }
 
-        adapter = new WorkoutOverviewExercisesListAdapter(routine.getHeader(), routineHandler.getExerciseHeaders(routine.getHeader()), this);
+        adapter = new WorkoutOverviewExercisesListAdapter(routine.getHeader(), routineHandler.getExerciseHeaders(routine.getHeader()));
         recyclerView = findViewById(R.id.lstMyExercises);
 
         //recyclerVew setup

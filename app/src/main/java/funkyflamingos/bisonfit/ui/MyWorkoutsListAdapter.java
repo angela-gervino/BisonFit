@@ -19,7 +19,7 @@ import funkyflamingos.bisonfit.logic.RoutineHandler;
 public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAdapter.ViewHolder> {
 
     private List<RoutineHeader> localDataSet;
-    private Context parentActivity;
+    private final Context parentActivity;
 
     public MyWorkoutsListAdapter(List<RoutineHeader> dataSet, Context parentActivity) {
         localDataSet = dataSet;
@@ -28,9 +28,6 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
 
     public void updateWorkoutList(List<RoutineHeader> newWorkouts)
     {
-        System.out.println("updating workout list");
-
-
         localDataSet = newWorkouts;
         notifyDataSetChanged();
     }
@@ -65,7 +62,7 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
                 RoutineHandler routineHandler = new RoutineHandler();
                 RoutineHeader routineToDelete = localDataSet.get(position);
                 routineHandler.deleteRoutine(routineToDelete.getId());
-                localDataSet.remove(position);// I think this can be removed once the deleteRoutine() method is implemented in
+                localDataSet.remove(position);
 
                 notifyItemRemoved(position);
             }

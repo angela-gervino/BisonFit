@@ -31,7 +31,6 @@ public class ExerciseSelectionListAdapter extends RecyclerView.Adapter<ExerciseS
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         viewHolder.getExerciseName().setText(localDataSet.get(position).getName());
-        viewHolder.setDataItem(localDataSet.get(position));
         viewHolder.getSetCountText().setText(localDataSet.get(position).getSetCountText());
 
         ExerciseHeader exercise = localDataSet.get(position);
@@ -66,7 +65,6 @@ public class ExerciseSelectionListAdapter extends RecyclerView.Adapter<ExerciseS
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private ConstraintLayout layout;
-        private ExerciseHeader dataItem;
         private ImageButton addSet;
         private ImageButton subtractSet;
         private TextView exerciseName;
@@ -88,10 +86,6 @@ public class ExerciseSelectionListAdapter extends RecyclerView.Adapter<ExerciseS
             return layout;
         }
 
-        public void setDataItem(ExerciseHeader dataItem) {
-            this.dataItem = dataItem;
-        }
-
         public ImageButton getAddSetButton()
         {
             return addSet;
@@ -110,11 +104,6 @@ public class ExerciseSelectionListAdapter extends RecyclerView.Adapter<ExerciseS
         public TextView getSetCountText()
         {
             return setCountText;
-        }
-
-        public ImageButton getExerciseImage()
-        {
-            return exerciseImage;
         }
     }
 }

@@ -25,7 +25,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class HomePageActivity extends AppCompatActivity implements AddWorkoutDialog.AddWorkoutDialogListener {
@@ -105,7 +104,7 @@ public class HomePageActivity extends AppCompatActivity implements AddWorkoutDia
         startActivity(i);
     }
 
-    public String getGreetingsMessage() {
+    private String getGreetingsMessage() {
        return "Hi " + userNameHandler.getUserName() + "!";
     }
 
@@ -133,20 +132,10 @@ public class HomePageActivity extends AppCompatActivity implements AddWorkoutDia
         }
     }
 
-
-
     @Override
     public void createNewWorkout(String newWorkoutName)
     {
         workoutManager.addNewRoutine(newWorkoutName);
-
-        System.out.println("Printing all the routines (after adding new routine):");
-        for (RoutineHeader r : workoutManager.getAllRoutineHeaders())
-        {
-            System.out.println("routine is called: " + r.getName());
-        }
-
-
         adapter.updateWorkoutList(workoutManager.getAllRoutineHeaders());
     }
 

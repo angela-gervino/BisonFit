@@ -19,13 +19,11 @@ import funkyflamingos.bisonfit.logic.RoutineHandler;
 
 public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<WorkoutOverviewExercisesListAdapter.ViewHolder> {
     private List<ExerciseHeader> localDataSet;
-    private Context parentActivity;
 
     private RoutineHeader routineHeader;
 
-    public WorkoutOverviewExercisesListAdapter(RoutineHeader routineHeader, List<ExerciseHeader> dataSet, Context parentActivity) {
+    public WorkoutOverviewExercisesListAdapter(RoutineHeader routineHeader, List<ExerciseHeader> dataSet) {
         localDataSet = dataSet;
-        this.parentActivity = parentActivity;
         this.routineHeader = routineHeader;
     }
 
@@ -39,7 +37,6 @@ public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<Wo
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         viewHolder.getLabel().setText(localDataSet.get(position).getName());
-        viewHolder.setDataItem(localDataSet.get(position));
         viewHolder.getSetCount().setText(localDataSet.get(position).getSetCountTextShort());
 
         // When the delete button (garbage can icon) is clicked on an exercise
@@ -72,7 +69,6 @@ public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<Wo
 
     //ViewHolder object holds the individual UI item to display and interact with
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private ExerciseHeader dataItem;
         private final TextView lblExercise;
         private final TextView setCount;
         private final ConstraintLayout layout;
@@ -87,19 +83,8 @@ public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<Wo
             deleteExerciseButton = view.findViewById(R.id.deleteExerciseButton);
         }
 
-        public void setDataItem(ExerciseHeader dataItem) {
-            this.dataItem = dataItem;
-        }
-
-        public ExerciseHeader getDataItem() {
-            return dataItem;
-        }
         public TextView getLabel() {
             return lblExercise;
-        }
-
-        public ConstraintLayout getLayout() {
-            return layout;
         }
 
         public TextView getSetCount() {
