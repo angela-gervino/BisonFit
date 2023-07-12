@@ -89,20 +89,4 @@ public class SavedRoutineExercisesPersistenceHSQLDB implements ISavedRoutineExer
             e.printStackTrace();
         }
     }
-
-    public int getNumSets(RoutineHeader routineHeader) {
-        int numSets = 0;
-        try (Connection connection = connect()) {
-            final PreparedStatement statement = connection.prepareStatement("SELECT SUM(NUMSETS) AS SETCOUNT FROM SAVEDROUTINEEXERCISES WHERE ROUTINEID = ?");
-            statement.setInt(1, routineHeader.getId());
-            ResultSet resultSet = statement.executeQuery();
-            numSets = resultSet.getInt("SETCOUNT");
-            resultSet.close();
-            statement.close();
-        } catch (final SQLException e) {
-            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
-            e.printStackTrace();
-        }
-        return numSets;
-    }
 }

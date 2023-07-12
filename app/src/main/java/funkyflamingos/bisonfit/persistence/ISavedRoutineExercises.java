@@ -20,6 +20,4 @@ public interface ISavedRoutineExercises {
     public void deleteExercise(ExerciseHeader exerciseHeader, RoutineHeader routineHeader);
 
     public void deleteRoutine(RoutineHeader routineHeader);
-
-    public int getNumSets(RoutineHeader routineHeader);
 }
