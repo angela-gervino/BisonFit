@@ -1,8 +1,5 @@
 package funkyflamingos.bisonfit.dso;
 
-import static funkyflamingos.bisonfit.application.Constants.DAYS_PER_WEEK;
-
-
 import java.time.LocalDate;
 import java.util.List;
 

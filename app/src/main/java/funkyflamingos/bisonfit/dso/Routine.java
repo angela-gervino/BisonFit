@@ -1,7 +1,5 @@
 package funkyflamingos.bisonfit.dso;
 
-import java.util.ArrayList;
-
 public class Routine {
     private RoutineHeader header;
 
