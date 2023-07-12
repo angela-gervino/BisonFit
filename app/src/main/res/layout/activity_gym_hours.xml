@@ -7,7 +7,7 @@
     tools:context=".ui.GymHoursActivity">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/txtGymSchedule"
         android:layout_width="276dp"
         android:layout_height="668dp"
         android:text="Hours"
@@ -15,10 +15,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/txtGymScheduleTitle" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/txtGymScheduleTitle"
         android:layout_width="334dp"
         android:layout_height="46dp"
         android:text="Gym Schedule"
@@ -26,7 +26,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/txtGymSchedule"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
