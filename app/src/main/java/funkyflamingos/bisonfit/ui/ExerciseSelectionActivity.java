@@ -39,8 +39,6 @@ public class ExerciseSelectionActivity extends AppCompatActivity {
         Routine routine = routineHandler.getRoutineByID(routineID);
         routine.addExerciseHeaders(routineHandler.getAllSelectedExercises());
 
-        Intent intent = new Intent(this, RoutineOverviewActivity.class);
-        intent.putExtra("routineID", routineID);
-        startActivity(intent);
+        finish();
     }
 }
