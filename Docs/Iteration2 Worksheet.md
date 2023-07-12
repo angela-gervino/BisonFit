@@ -30,8 +30,16 @@ methods don't use these variables nor do they relate to these variables which lo
 I have two recommendations to improve this code. The first recommendation is to make a RequestHandler class and move all the request specific code to this class. My other recommendation is to consider making this more OO if possible. That is try to reduce the amount of static code. If you could use instance variables instead of static variables, it will be easier to see what is responsible for what. Like if you have lots of public static code that isn't called by any instance methods then perhaps it doesn't need to be in the same class.
 
 ## Retrospective 
+The most important change that was implemented from [Retrospective 1](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/blob/main/Docs/Retrospective1.md) is that our code review quality has went up. There are multiple instances where a merge request was not approved, but comments with suggestions where made.
+
+One instance is of this is
 
 ## Design Patterns
 We use a [Singleton](https://refactoring.guru/design-patterns/singleton) to manage our database instantiation [here](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/blob/8e603a38be9ba40ae619cb64946900ad8cc7b619/app/src/main/java/funkyflamingos/bisonfit/application/Services.java#L19). This is a singlton in that  the Service only instantiates a database if that database hasn't been instantiated yet. That is there is only one instance of it. 
 
-## Iteration 1 Feedback Fixes 
+## Iteration 1 Feedback Fixes (How we avoid technical debt)
+A vital practice that helps avoid technical debt is writing code that is easy to maintain. The first step in writing maintainable code is to write understandable code. This has been something that we have paid some attention to during code review.
+
+In [this](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/merge_requests/59#note_105922) instance, the Reviewer is making sure that the method name clearly describes what the method does. This ensures that when looking through code that employes this method, it is clear what is being done just by reading the method name. It's not neccessary to go into the method and try to figure out its purpose, becuase the name already clearly describes it. In the end, this makes the code easier to understand, and therefore, easier to maintain or expand. Technical debt avoided.
+
+[Here](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/merge_requests/59#note_105924), the Reviewer is again mindful of code redability and maintainablity. Rather than burring the loop exit condition somewhere in the middle of a block, it was placed at an obvious and intuitive location. Now, when we have to make a change, review or debug the loop, it is clear where the exit condition is changed, making future work that makes use of this code easier, which means the code is more maintainable. Technical debt avoided.
