@@ -34,8 +34,7 @@ public class ExerciseHeader {
 
     public int getIndex() { return index; }
 
-    public void incrementSet() //this should also edit the database as well?
-    {
+    public void incrementSet() {
         setCount++;
     }
 
@@ -54,8 +53,7 @@ public class ExerciseHeader {
         return "x" + setCount;
     }
 
-    public String getSetCountText()
-    {
+    public String getSetCountText() {
         return getSetCountTextShort() + " SET" + (setCount > 1 ? "S" : "");
     }
 
@@ -69,4 +67,3 @@ public class ExerciseHeader {
         selected = !selected;
     }
 }
-
