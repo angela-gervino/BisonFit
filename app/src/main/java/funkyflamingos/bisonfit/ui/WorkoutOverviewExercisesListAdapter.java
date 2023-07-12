@@ -14,15 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import funkyflamingos.bisonfit.R;
 import funkyflamingos.bisonfit.dso.ExerciseHeader;
+import funkyflamingos.bisonfit.logic.RoutineHandler;
 
 public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<WorkoutOverviewExercisesListAdapter.ViewHolder> {
     private List<ExerciseHeader> localDataSet;
     private Context parentActivity;
 
     public WorkoutOverviewExercisesListAdapter(List<ExerciseHeader> dataSet, Context parentActivity) {
-        if (dataSet == null) System.out.println("dataSet is null in constructor\n");
-        else System.out.println("dataSet is NOT null in constructor\n");
-
         localDataSet = dataSet;
         this.parentActivity = parentActivity;
     }
@@ -38,7 +36,7 @@ public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<Wo
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         viewHolder.getLabel().setText(localDataSet.get(position).getName());
         viewHolder.setDataItem(localDataSet.get(position));
-        viewHolder.getSetCount().setText(localDataSet.get(position).getSetCount());
+        viewHolder.getSetCount().setText(localDataSet.get(position).getSetCountTextShort());
 
         // When the delete button (garbage can icon) is clicked on an exercise
         viewHolder.getDeleteExerciseButton().setOnClickListener(new View.OnClickListener() {
@@ -55,6 +53,11 @@ public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<Wo
     @Override
     public int getItemCount() {
         return localDataSet.size();
+    }
+
+    public void updateData(int routineId) {
+        RoutineHandler routineHandler = new RoutineHandler();
+        localDataSet = routineHandler.getExerciseHeaders(routineHandler.getRoutineByID(routineId).getHeader());
     }
 
 

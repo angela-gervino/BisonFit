@@ -50,8 +50,4 @@ public class Routine {
     public void addExerciseHeaders(ArrayList<ExerciseHeader> newExerciseHeaders) {
         exerciseHeaders.addAll(newExerciseHeaders);
     }
-
-    public ArrayList<ExerciseHeader> getExerciseHeaders() {
-        return exerciseHeaders;
-    }
 }

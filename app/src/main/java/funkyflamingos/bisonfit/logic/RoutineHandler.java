@@ -71,4 +71,15 @@ public class RoutineHandler implements IRoutineHandler {
         savedRoutineExercisesPersistence.deleteRoutine(getRoutineByID(routineID).getHeader());
         persistence.deleteRoutineById(routineID);
     }
+
+    public void addSelectedExercisesToRoutine(RoutineHeader routineHeader)
+    {
+        System.out.println("Adding " + getAllSelectedExercises().size() + " exercises to " + routineHeader.getName());
+        savedRoutineExercisesPersistence.addExercises(getAllSelectedExercises(), routineHeader);
+    }
+
+    public ArrayList<ExerciseHeader> getExerciseHeaders(RoutineHeader routineHeader)
+    {
+        return savedRoutineExercisesPersistence.getExercisesByRoutine(routineHeader);
+    }
 }

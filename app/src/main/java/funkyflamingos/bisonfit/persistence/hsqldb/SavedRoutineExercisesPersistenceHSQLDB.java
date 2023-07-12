@@ -56,7 +56,7 @@ public class SavedRoutineExercisesPersistenceHSQLDB implements ISavedRoutineExer
                 final PreparedStatement statement = connection.prepareStatement("INSERT INTO SAVEDROUTINEEXERCISES VALUES(?, ?, DEFAULT, ?)");
                 statement.setInt(1, routineHeader.getId());
                 statement.setInt(2, exerciseHeaders.get(i).getId());
-                statement.setInt(3, Integer.parseInt(exerciseHeaders.get(i).getSetCount()));
+                statement.setInt(3, exerciseHeaders.get(i).getSetCount());
                 statement.executeUpdate();
             }
 

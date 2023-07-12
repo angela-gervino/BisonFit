@@ -18,6 +18,9 @@ public class RoutineOverviewActivity extends AppCompatActivity {
 
     private Routine routine;
 
+    private RecyclerView recyclerView;
+    private WorkoutOverviewExercisesListAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,12 +36,20 @@ public class RoutineOverviewActivity extends AppCompatActivity {
             getActionBar().setTitle(clickedRoutineName);
         }
 
-        WorkoutOverviewExercisesListAdapter adapter = new WorkoutOverviewExercisesListAdapter(routine.getExerciseHeaders(), this);
-        RecyclerView recyclerView = findViewById(R.id.lstMyExercises);
+        adapter = new WorkoutOverviewExercisesListAdapter(routineHandler.getExerciseHeaders(routine.getHeader()), this);
+        recyclerView = findViewById(R.id.lstMyExercises);
 
         //recyclerVew setup
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        adapter.updateData(routine.getHeader().getId());
+        adapter.notifyDataSetChanged();
     }
 
     public void openExerciseSelectionActivity(View v) {

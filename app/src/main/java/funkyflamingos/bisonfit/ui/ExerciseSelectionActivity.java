@@ -36,8 +36,7 @@ public class ExerciseSelectionActivity extends AppCompatActivity {
     }
 
     public void addExercises(View v) {
-        Routine routine = routineHandler.getRoutineByID(routineID);
-        routine.addExerciseHeaders(routineHandler.getAllSelectedExercises());
+        routineHandler.addSelectedExercisesToRoutine(routineHandler.getRoutineByID(routineID).getHeader());
 
         finish();
     }
