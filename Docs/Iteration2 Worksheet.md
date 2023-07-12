@@ -32,7 +32,10 @@ I have two recommendations to improve this code. The first recommendation is to 
 ## Retrospective 
 The most important change that was implemented from [Retrospective 1](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/blob/main/Docs/Retrospective1.md) is that our code review quality has went up. There are multiple instances where a merge request was not approved, but comments with suggestions where made.
 
-One instance is of this is
+In [one instance](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/merge_requests/62#note_106097), the Reviewer catches a potential inefficiency, which was fixed in the [next](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/merge_requests/62/diffs?commit_id=3a4c520fac13c856be4c194b7360f5b11ae5d643#36f45c8f15c31153693f12c316ff06b9400bf927_41_35) commit. Even though the current state of the app will never save the name more than once, there was nothing in the database layer that would delete the old entries when a new one is created.
+Only the most recent name entry is used, so leaving old entries creates data that 1) is never used and 2) cannot be deleted. This _could_ lead to dead and inaccesible data in the future.
+
+There was also [another](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/merge_requests/65#note_106288) time when the Reviewer caught a potentially dangerours mistake. Even though the unit tests were written, they were not added to `allTests`. This could have led to a situation where it seemed like all tests where passing, but in reality, some potentially failing tests are not being ran. If those tests would actually fail, we might have submitted code with bugs, not even knowing it. Thankfully, we are implementing [Retrospective 1](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/blob/main/Docs/Retrospective1.md) and doing code review.
 
 ## Design Patterns
 We use a [Singleton](https://refactoring.guru/design-patterns/singleton) to manage our database instantiation [here](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/blob/8e603a38be9ba40ae619cb64946900ad8cc7b619/app/src/main/java/funkyflamingos/bisonfit/application/Services.java#L19). This is a singlton in that  the Service only instantiates a database if that database hasn't been instantiated yet. That is there is only one instance of it. 
