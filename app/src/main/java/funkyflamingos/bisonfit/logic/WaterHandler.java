@@ -43,5 +43,4 @@ public class WaterHandler implements IWaterHandler {
         return getProgress() == getGoal();
     }
 
-    ;
 }

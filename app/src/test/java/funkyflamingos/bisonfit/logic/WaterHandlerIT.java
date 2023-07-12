@@ -1,23 +1,33 @@
 package funkyflamingos.bisonfit.logic;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import static funkyflamingos.bisonfit.logic.WaterHandlerTestHelper.initializeAlmostFullWaterHandler;
 import static funkyflamingos.bisonfit.logic.WaterHandlerTestHelper.initializeFullWaterHandler;
 import static funkyflamingos.bisonfit.logic.WaterHandlerTestHelper.initializeNonEmptyWaterHandler;
 
-import funkyflamingos.bisonfit.persistence.stubs.WaterTrackerPersistenceStub;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
-public class WaterHandlerTest {
+import java.io.File;
+import java.io.IOException;
+
+import funkyflamingos.bisonfit.persistence.IWaterTrackerPersistence;
+import funkyflamingos.bisonfit.persistence.hsqldb.WaterTrackPersistenceHSQLDB;
+import funkyflamingos.bisonfit.utils.TestUtils;
+
+public class WaterHandlerIT {
     private WaterHandler waterHandler;
+    private File tempDB;
 
     @Before
-    public void setup() {
-        WaterTrackerPersistenceStub persistence = new WaterTrackerPersistenceStub();
-        waterHandler = new WaterHandler(persistence);
+    public void setUp() throws IOException {
+        tempDB = TestUtils.copyDB();
+        final IWaterTrackerPersistence persistence = new WaterTrackPersistenceHSQLDB(this.tempDB.getAbsolutePath().replace(".script", ""));
+            waterHandler = new WaterHandler(persistence);
     }
 
     @Test
@@ -85,4 +95,11 @@ public class WaterHandlerTest {
         initializeAlmostFullWaterHandler(waterHandler);
         assertFalse(waterHandler.reachedGoal());
     }
+
+    @After
+    public void tearDown() {
+        // reset DB
+        this.tempDB.delete();
+    }
+
 }
