@@ -40,14 +40,12 @@ public class RoutineHandler implements IRoutineHandler {
     }
 
     @Override
-    public ArrayList<ExerciseHeader> getAllExerciseHeaders()
-    {
+    public ArrayList<ExerciseHeader> getAllExerciseHeaders() {
         return exerciseList;
     }
 
     @Override
-    public ArrayList<ExerciseHeader> getAllSelectedExercises()
-    {
+    public ArrayList<ExerciseHeader> getAllSelectedExercises() {
         ArrayList<ExerciseHeader> selectedExerciseHeaders = new ArrayList<>();
         exerciseList.forEach(exerciseHeader -> {
             if (exerciseHeader.isSelected()) {
@@ -64,14 +62,12 @@ public class RoutineHandler implements IRoutineHandler {
     }
 
     @Override
-    public void addNewRoutine(String routineName)
-    {
+    public void addNewRoutine(String routineName) {
         System.out.println("adding routine" + routineName + " in logic");
         persistence.addRoutine(routineName);
     }
 
-    public void deleteRoutine(int routineID)
-    {
+    public void deleteRoutine(int routineID) {
         savedRoutineExercisesPersistence.deleteRoutine(getRoutineByID(routineID).getHeader());
         persistence.deleteRoutineById(routineID);
     }

@@ -20,7 +20,7 @@ public class GymHoursActivity extends AppCompatActivity {
 
         gymHoursHandler = new GymHoursHandler();
 
-        schedule = findViewById(R.id.textView2);
+        schedule = findViewById(R.id.txtGymSchedule);
 
         try {
             schedule.setText(gymHoursHandler.getGymSchedule());
