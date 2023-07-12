@@ -16,6 +16,8 @@ public interface IRoutineHandler {
 
     Routine getRoutineByID(int routineID);
 
+    public void unselectAllExercises();
+
     void addNewRoutine(String routineName);
 
     public void addSelectedExercisesToRoutine(RoutineHeader routineHeader);

@@ -14,15 +14,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import funkyflamingos.bisonfit.R;
 import funkyflamingos.bisonfit.dso.ExerciseHeader;
+import funkyflamingos.bisonfit.dso.RoutineHeader;
 import funkyflamingos.bisonfit.logic.RoutineHandler;
 
 public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<WorkoutOverviewExercisesListAdapter.ViewHolder> {
     private List<ExerciseHeader> localDataSet;
     private Context parentActivity;
 
-    public WorkoutOverviewExercisesListAdapter(List<ExerciseHeader> dataSet, Context parentActivity) {
+    private RoutineHeader routineHeader;
+
+    public WorkoutOverviewExercisesListAdapter(RoutineHeader routineHeader, List<ExerciseHeader> dataSet, Context parentActivity) {
         localDataSet = dataSet;
         this.parentActivity = parentActivity;
+        this.routineHeader = routineHeader;
     }
 
     @Override
@@ -44,6 +48,10 @@ public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<Wo
             public void onClick(View view) {
                 int position = viewHolder.getAdapterPosition();
                 System.out.println("Deleting exercise at index " + position);
+
+                RoutineHandler routineHandler = new RoutineHandler();
+                routineHandler.deleteExercise(localDataSet.get(position), routineHeader);
+
                 localDataSet.remove(position);
                 notifyItemRemoved(position);
             }
@@ -55,9 +63,10 @@ public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<Wo
         return localDataSet.size();
     }
 
-    public void updateData(int routineId) {
+    public void refreshData() {
         RoutineHandler routineHandler = new RoutineHandler();
-        localDataSet = routineHandler.getExerciseHeaders(routineHandler.getRoutineByID(routineId).getHeader());
+        routineHandler.unselectAllExercises();
+        localDataSet = routineHandler.getExerciseHeaders(routineHeader);
     }
 
 

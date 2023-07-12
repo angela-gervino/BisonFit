@@ -19,7 +19,7 @@ public class RoutineHandler implements IRoutineHandler {
     private IExerciseLookupPersistence exerciseLookupPersistence;
 
     private ISavedRoutineExercises savedRoutineExercisesPersistence;
-    ArrayList<ExerciseHeader> exerciseList; //This is just for testing purposes (delete this later)
+    ArrayList<ExerciseHeader> exerciseList;
 
     // Constructor for the database
     public RoutineHandler() {
@@ -76,10 +76,27 @@ public class RoutineHandler implements IRoutineHandler {
     {
         System.out.println("Adding " + getAllSelectedExercises().size() + " exercises to " + routineHeader.getName());
         savedRoutineExercisesPersistence.addExercises(getAllSelectedExercises(), routineHeader);
+
+        unselectAllExercises();
+    }
+
+    public void unselectAllExercises()
+    {
+        exerciseList.forEach(exerciseHeader -> {
+            if (exerciseHeader.isSelected()) {
+                exerciseHeader.toggleSelected();
+            }
+        });
     }
 
     public ArrayList<ExerciseHeader> getExerciseHeaders(RoutineHeader routineHeader)
     {
         return savedRoutineExercisesPersistence.getExercisesByRoutine(routineHeader);
+    }
+
+    public void deleteExercise(ExerciseHeader exerciseHeader, RoutineHeader routineHeader)
+    {
+        System.out.println("deleting exercise " + exerciseHeader.getName() + " from routine in LOGIC");
+        savedRoutineExercisesPersistence.deleteExercise(exerciseHeader, routineHeader);
     }
 }
