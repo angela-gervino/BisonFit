@@ -40,17 +40,6 @@ public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<Wo
         viewHolder.setDataItem(localDataSet.get(position));
         viewHolder.getSetCount().setText(localDataSet.get(position).getSetCount());
 
-
-        // When the exercise itself is clicked
-        viewHolder.getLayout().setOnClickListener(new View.OnClickListener() {
-            //this needs to be edited so that it opens the Active Workout Page
-            @Override public void onClick(View view) {
-                Intent intent = new Intent(parentActivity, RoutineOverviewActivity.class);
-                intent.putExtra("routineID", viewHolder.getDataItem().getId());
-                parentActivity.startActivity(intent);
-            }
-        });
-
         // When the delete button (garbage can icon) is clicked on an exercise
         viewHolder.getDeleteExerciseButton().setOnClickListener(new View.OnClickListener() {
             @Override
