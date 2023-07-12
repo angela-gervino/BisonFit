@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import funkyflamingos.bisonfit.R;
 import funkyflamingos.bisonfit.logic.IUserRegistrationHandler;
@@ -17,9 +18,9 @@ import funkyflamingos.bisonfit.persistence.utils.DBHelper;
 public class WelcomeActivity extends AppCompatActivity {
 
     private IUserRegistrationHandler userNameHandler;
-    private String name;
     private EditText editText;
     private Button button;
+    private TextView welcomeLbl2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +30,15 @@ public class WelcomeActivity extends AppCompatActivity {
         userNameHandler = new UserRegistrationHandler();
         editText = findViewById(R.id.nameEditText);
         button = findViewById(R.id.btnStartWelcomeActivity);
+        welcomeLbl2 = findViewById(R.id.lblWelcome2);
 
         if (userNameHandler.userHasRegistered()) {
             startHomePageActivity();
+        }
+        else {
+            editText.setVisibility(View.VISIBLE);
+            button.setVisibility(View.VISIBLE);
+            welcomeLbl2.setVisibility(View.VISIBLE);
         }
 
         editText.addTextChangedListener(new TextWatcher() {
@@ -54,7 +61,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void btnStartClicked(View v) {
-        name = editText.getText().toString();
+        String name = editText.getText().toString();
         if (userNameHandler.setUserName(name)) {
             startHomePageActivity();
         }

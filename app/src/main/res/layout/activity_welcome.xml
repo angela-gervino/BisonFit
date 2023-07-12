@@ -45,30 +45,35 @@
         android:ems="10"
         android:inputType="text"
         android:textAlignment="center"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtWelcome2"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/lblWelcome2"
+        tools:visibility="visible" />
 
     <TextView
-        android:id="@+id/txtWelcome2"
+        android:id="@+id/lblWelcome2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
         android:text="Enter your name to get started"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblWelcome" />
+        app:layout_constraintTop_toBottomOf="@+id/lblWelcome"
+        tools:visibility="visible" />
 
     <Button
         android:id="@+id/btnStartWelcomeActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
-        android:onClick="btnStartClicked"
         android:enabled="false"
+        android:onClick="btnStartClicked"
         android:text="Start"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/nameEditText"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>
