@@ -1,7 +1,6 @@
 package funkyflamingos.bisonfit.dso;
 
 public class RoutineHeader {
-
     String name;
     int id;
 
