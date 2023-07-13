@@ -38,6 +38,7 @@ public class ExerciseLookupPersistenceStub implements IExerciseLookupPersistence
         exerciseHeaders.add(new ExerciseHeader("Walking", 26));
     }
 
+    @Override
     public ArrayList<ExerciseHeader> getAllExerciseHeaders() {
         return exerciseHeaders;
     }
