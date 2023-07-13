@@ -3,9 +3,9 @@ package funkyflamingos.bisonfit.logic;
 import java.time.Clock;
 
 public interface IGymHoursHandler {
-    String getGymSchedule() throws Exception;
+    String getGymSchedule();
 
-    String getTimeUntilOpenOrClose() throws Exception;
+    String getTimeUntilOpenOrClose();
 
-    String getTimeUntilOpenOrCloseHelper(Clock clock) throws Exception;
+    String getTimeUntilOpenOrCloseHelper(Clock clock);
 }
