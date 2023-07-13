@@ -34,35 +34,9 @@ public class GymHoursHandler implements IGymHoursHandler {
         Clock clock = Clock.systemDefaultZone();
         LocalDate currentDate = LocalDate.now(clock);
         int currentDayOfWeek = getDayOfWeek(currentDate);
-
         List<GymHours> nextWeekHours = persistence.getNextWeekHours(LocalDate.now(clock));
         validateGymHours(nextWeekHours, currentDate);
-
-        String printableSchedule = "";
-
-        for (GymHours gymHours : nextWeekHours) {
-            int dayID = gymHours.getDayID();
-            printableSchedule += dayIDToString(dayID);
-            if (dayID == currentDayOfWeek)
-                printableSchedule += " **Today**";
-            printableSchedule += "\n";
-
-            List<Hours> hoursList = gymHours.getHours();
-            if (hoursList != null) {
-                for (Hours hours : hoursList) {
-                    printableSchedule += "\t";
-                    printableSchedule += getClockFormattedTime(hours.getOpening(), false);
-                    printableSchedule += " - ";
-                    printableSchedule += getClockFormattedTime(hours.getClosing(), true);
-                    printableSchedule += "\n";
-                }
-            } else {
-                printableSchedule += "\t";
-                printableSchedule += "Closed\n";
-            }
-            printableSchedule += "\n";
-        }
-        return printableSchedule;
+        return getPrintableSchedule(nextWeekHours, currentDayOfWeek);
     }
 
     @Override
@@ -91,6 +65,34 @@ public class GymHoursHandler implements IGymHoursHandler {
     /**
      * static helper methods
      */
+    // builds a string of the schedule to be displayed
+    private static String getPrintableSchedule(List<GymHours> nextWeekHours, int currentDayOfWeek) {
+        String printableSchedule = "";
+
+        for (GymHours gymHours : nextWeekHours) {
+            int dayID = gymHours.getDayID();
+            printableSchedule += dayIDToString(dayID);
+            if (dayID == currentDayOfWeek)
+                printableSchedule += " **Today**";
+            printableSchedule += "\n";
+
+            List<Hours> hoursList = gymHours.getHours();
+            if (hoursList != null) {
+                for (Hours hours : hoursList) {
+                    printableSchedule += getClockFormattedTime(hours.getOpening(), false);
+                    printableSchedule += " - ";
+                    printableSchedule += getClockFormattedTime(hours.getClosing(), true);
+                    printableSchedule += "\n";
+                }
+            } else {
+                printableSchedule += "\t";
+                printableSchedule += "Closed\n";
+            }
+            printableSchedule += "\n";
+        }
+        return printableSchedule;
+    }
+
     // returns the day after dayOfWeek where Monday = 1, Tuesday = 2, etc
     public static int getNextDayOfWeek(int dayOfWeek) {
         dayOfWeek++;
