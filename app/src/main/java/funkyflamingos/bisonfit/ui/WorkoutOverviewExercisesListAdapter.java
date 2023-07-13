@@ -44,7 +44,6 @@ public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<Wo
             @Override
             public void onClick(View view) {
                 int position = viewHolder.getAdapterPosition();
-                System.out.println("Deleting exercise at index " + position);
 
                 RoutineHandler routineHandler = new RoutineHandler();
                 routineHandler.deleteExercise(localDataSet.get(position), routineHeader);
