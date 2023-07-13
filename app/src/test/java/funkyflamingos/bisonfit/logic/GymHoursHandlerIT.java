@@ -41,7 +41,7 @@ public class GymHoursHandlerIT {
     @Test
     public void testGymTimeNotNull() {
         try {
-            assertNotNull("Should not return null.",gymHoursHandler.getTimeUntilOpenOrClose());
+            assertNotNull("Should not return null.", gymHoursHandler.getTimeUntilOpenOrClose());
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -51,7 +51,7 @@ public class GymHoursHandlerIT {
     public void testBeforeOpening() {
         try {
             String output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockBeforeOpening());
-            assertEquals("Should return string of time until opening.","30m Until Opening", output);
+            assertEquals("Should return string of time until opening.", "30m Until Opening", output);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -61,7 +61,7 @@ public class GymHoursHandlerIT {
     public void testAfterOpening() {
         try {
             String output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockAfterOpening());
-            assertEquals("Should return string of time until closing.","8h 30m Until Closing", output);
+            assertEquals("Should return string of time until closing.", "8h 30m Until Closing", output);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -71,7 +71,7 @@ public class GymHoursHandlerIT {
     public void testAfterClosing() {
         try {
             String output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockAfterClosing());
-            assertEquals("Should return string of time until opening.","6h 30m Until Opening", output);
+            assertEquals("Should return string of time until opening.", "6h 30m Until Opening", output);
         } catch (Exception e) {
             fail(e.getMessage());
         }

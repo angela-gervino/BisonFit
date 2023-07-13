@@ -1,6 +1,7 @@
 package funkyflamingos.bisonfit.ui;
 
 import java.util.List;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,21 +37,24 @@ public class ExerciseSelectionListAdapter extends RecyclerView.Adapter<ExerciseS
         ExerciseHeader exercise = localDataSet.get(position);
 
         viewHolder.getAddSetButton().setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {
+            @Override
+            public void onClick(View view) {
                 exercise.incrementSet();
                 viewHolder.getSetCountText().setText(exercise.getSetCountText());
             }
         });
 
         viewHolder.getSubtractSetButton().setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {
+            @Override
+            public void onClick(View view) {
                 exercise.decrementSet();
                 viewHolder.getSetCountText().setText(exercise.getSetCountText());
             }
         });
 
         viewHolder.getLayout().setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {
+            @Override
+            public void onClick(View view) {
                 exercise.toggleSelected();
                 viewHolder.getLayout().setBackgroundResource(exercise.isSelected() ? R.drawable.card_background_selected : R.drawable.card_background);
             }
@@ -81,28 +85,23 @@ public class ExerciseSelectionListAdapter extends RecyclerView.Adapter<ExerciseS
             exerciseImage = view.findViewById(R.id.exerciseImage);
         }
 
-        public ConstraintLayout getLayout()
-        {
+        public ConstraintLayout getLayout() {
             return layout;
         }
 
-        public ImageButton getAddSetButton()
-        {
+        public ImageButton getAddSetButton() {
             return addSet;
         }
 
-        public ImageButton getSubtractSetButton()
-        {
+        public ImageButton getSubtractSetButton() {
             return subtractSet;
         }
 
-        public TextView getExerciseName()
-        {
+        public TextView getExerciseName() {
             return exerciseName;
         }
 
-        public TextView getSetCountText()
-        {
+        public TextView getSetCountText() {
             return setCountText;
         }
     }

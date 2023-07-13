@@ -16,7 +16,7 @@ public class WaterHandler implements IWaterHandler {
 
 
     // Constructor for the database
-   public WaterHandler(){
+    public WaterHandler() {
         persistence = Services.getWaterTrackPersistence();
     }
 

@@ -21,7 +21,7 @@ public class SavedWorkoutExercisesPersistenceStub implements ISavedWorkoutExerci
     @Override
     public ArrayList<ExerciseHeader> getExercisesByWorkout(WorkoutHeader workoutHeader) {
         ArrayList<ExerciseHeader> exerciseHeaders = new ArrayList<>();
-        for (int[] entry: table) {
+        for (int[] entry : table) {
             if (entry[0] == workoutHeader.getId()) {
                 ExerciseHeader exerciseHeader = new ExerciseHeader(idToExerciseName.get(entry[1]), entry[1], entry[3], entry[2]);
                 exerciseHeaders.add(exerciseHeader);
@@ -57,7 +57,7 @@ public class SavedWorkoutExercisesPersistenceStub implements ISavedWorkoutExerci
     @Override
     public void deleteWorkout(WorkoutHeader workoutHeader) {
         ArrayList<Integer> indices = getIndices(workoutHeader.getId());
-        for (int index: indices)
+        for (int index : indices)
             table.remove(index);
     }
 

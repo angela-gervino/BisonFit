@@ -5,6 +5,7 @@ import funkyflamingos.bisonfit.persistence.IUserRegistrationPersistence;
 public class UserRegistrationPersistenceStub implements IUserRegistrationPersistence {
 
     String name = null;
+
     public UserRegistrationPersistenceStub() {
 
     }

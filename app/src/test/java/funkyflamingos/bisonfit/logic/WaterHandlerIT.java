@@ -27,7 +27,7 @@ public class WaterHandlerIT {
     public void setUp() throws IOException {
         tempDB = TestUtils.copyDB();
         final IWaterTrackerPersistence persistence = new WaterTrackPersistenceHSQLDB(this.tempDB.getAbsolutePath().replace(".script", ""));
-            waterHandler = new WaterHandler(persistence);
+        waterHandler = new WaterHandler(persistence);
     }
 
     @Test

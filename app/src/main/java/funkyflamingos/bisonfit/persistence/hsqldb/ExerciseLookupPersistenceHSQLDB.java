@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import funkyflamingos.bisonfit.dso.ExerciseHeader;
 import funkyflamingos.bisonfit.persistence.IExerciseLookupPersistence;
@@ -30,8 +29,8 @@ public class ExerciseLookupPersistenceHSQLDB implements IExerciseLookupPersisten
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
 
-    private ExerciseHeader fromResultSet(final ResultSet rs) throws SQLException{
-        int exerciseID =  rs.getInt("ID");
+    private ExerciseHeader fromResultSet(final ResultSet rs) throws SQLException {
+        int exerciseID = rs.getInt("ID");
         String exerciseName = rs.getString("NAME");
 
         return new ExerciseHeader(exerciseName, exerciseID);
