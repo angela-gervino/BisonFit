@@ -1,10 +1,12 @@
 package funkyflamingos.bisonfit.logic;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,20 +16,35 @@ import funkyflamingos.bisonfit.dso.RoutineHeader;
 import funkyflamingos.bisonfit.persistence.IExerciseLookupPersistence;
 import funkyflamingos.bisonfit.persistence.IRoutinesPersistence;
 import funkyflamingos.bisonfit.persistence.ISavedRoutineExercises;
+import funkyflamingos.bisonfit.persistence.hsqldb.ExerciseLookupPersistenceHSQLDB;
+import funkyflamingos.bisonfit.persistence.hsqldb.RoutinesPersistenceHSQLDB;
+import funkyflamingos.bisonfit.persistence.hsqldb.SavedRoutineExercisesPersistenceHSQLDB;
 import funkyflamingos.bisonfit.persistence.stubs.ExerciseLookupPersistenceStub;
 import funkyflamingos.bisonfit.persistence.stubs.RoutinesPersistenceStub;
 import funkyflamingos.bisonfit.persistence.stubs.SavedRoutineExercisesPersistenceStub;
+import funkyflamingos.bisonfit.utils.TestUtils;
 
-public class RoutineHandlerTest {
+public class RoutineHandlerIT {
     private RoutineHandler routineHandler;
 
+    private File tempDB;
+
     @Before
-    public void setup() {
-        IRoutinesPersistence routinesPersistenceStub = new RoutinesPersistenceStub();
-        ISavedRoutineExercises savedRoutineExercisesPersistenceStub = new SavedRoutineExercisesPersistenceStub();
-        IExerciseLookupPersistence exerciseLookupPersistenceStub = new ExerciseLookupPersistenceStub();
+    public void setup() throws Exception {
+        tempDB = TestUtils.copyDB();
+
+        String dbPathName = this.tempDB.getAbsolutePath().replace(".script", "");
+
+        final IRoutinesPersistence routinesPersistenceStub = new RoutinesPersistenceHSQLDB(dbPathName);
+        final ISavedRoutineExercises savedRoutineExercisesPersistenceStub = new SavedRoutineExercisesPersistenceHSQLDB(dbPathName);
+        final IExerciseLookupPersistence exerciseLookupPersistenceStub = new ExerciseLookupPersistenceHSQLDB(dbPathName);
 
         routineHandler = new RoutineHandler(routinesPersistenceStub, savedRoutineExercisesPersistenceStub, exerciseLookupPersistenceStub);
+    }
+
+    @After
+    public void tearDown() {
+        this.tempDB.delete();
     }
 
     @Test
@@ -204,6 +221,11 @@ public class RoutineHandlerTest {
         assertTrue(routineHandler.getExerciseHeaders(funWorkout).isEmpty());
     }
 }
+
+
+
+
+
 
 
 

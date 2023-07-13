@@ -10,13 +10,10 @@ import funkyflamingos.bisonfit.persistence.IRoutinesPersistence;
 public class RoutinesPersistenceStub implements IRoutinesPersistence {
 
     List<Routine> allRoutines;
-    int nextId = 4;
+    int nextId = 0;
 
     public RoutinesPersistenceStub() {
         allRoutines = new ArrayList<Routine>();
-        allRoutines.add(new Routine(new RoutineHeader("Upper Body", 1)));
-        allRoutines.add(new Routine(new RoutineHeader("Always skip leg day", 2)));
-        allRoutines.add(new Routine(new RoutineHeader("Core", 3)));
     }
 
     @Override
@@ -52,5 +49,4 @@ public class RoutinesPersistenceStub implements IRoutinesPersistence {
         }
         return index;
     }
-
 }

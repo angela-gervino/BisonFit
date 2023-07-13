@@ -16,11 +16,15 @@ public interface IRoutineHandler {
 
     Routine getRoutineByID(int routineID);
 
-    public void unselectAllExercises();
+    void unselectAllExercises();
 
     void addNewRoutine(String routineName);
 
-    public void addSelectedExercisesToRoutine(RoutineHeader routineHeader);
+    void addSelectedExercisesToRoutine(RoutineHeader routineHeader);
 
-    public ArrayList<ExerciseHeader> getExerciseHeaders(RoutineHeader routineHeader);
+    ArrayList<ExerciseHeader> getExerciseHeaders(RoutineHeader routineHeader);
+
+    void deleteRoutine(int routineID);
+
+    void deleteExercise(ExerciseHeader exerciseHeader, RoutineHeader routineHeader);
 }
