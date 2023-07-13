@@ -31,9 +31,9 @@ public class SavedWorkoutExercisesPersistenceStub implements ISavedWorkoutExerci
     }
 
     @Override
-    public void addExercises(ArrayList<ExerciseHeader> exerciseHeaders, WorkoutHeader workoutHeader) {
+    public void addExercises(ArrayList<ExerciseHeader> exerciseHeaders, int workoutID) {
         for (ExerciseHeader exerciseHeader : exerciseHeaders) {
-            int[] temp = {workoutHeader.getId(), exerciseHeader.getId(), nextIndex, exerciseHeader.getSetCount()};
+            int[] temp = {workoutID, exerciseHeader.getId(), nextIndex, exerciseHeader.getSetCount()};
             table.add(temp);
             nextIndex++;
 

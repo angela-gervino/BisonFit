@@ -75,9 +75,9 @@ public class WorkoutHandler implements IWorkoutHandler {
     }
 
     @Override
-    public void addSelectedExercisesToWorkout(WorkoutHeader workoutHeader)
+    public void addSelectedExercisesToWorkout(int workoutID)
     {
-        savedWorkoutExercisesPersistence.addExercises(getAllSelectedExercises(), workoutHeader);
+        savedWorkoutExercisesPersistence.addExercises(getAllSelectedExercises(), workoutID);
 
         unselectAllExercises();
     }
