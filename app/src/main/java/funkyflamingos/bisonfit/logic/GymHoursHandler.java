@@ -30,7 +30,7 @@ public class GymHoursHandler implements IGymHoursHandler {
     }
 
     @Override
-    public String getGymSchedule() throws Exception {
+    public String getGymSchedule() {
         Clock clock = Clock.systemDefaultZone();
         LocalDate currentDate = LocalDate.now(clock);
         int currentDayOfWeek = getDayOfWeek(currentDate);
@@ -66,7 +66,7 @@ public class GymHoursHandler implements IGymHoursHandler {
     }
 
     @Override
-    public String getTimeUntilOpenOrClose() throws Exception {
+    public String getTimeUntilOpenOrClose() {
         return getTimeUntilOpenOrCloseHelper(Clock.systemDefaultZone());
     }
 
@@ -74,7 +74,7 @@ public class GymHoursHandler implements IGymHoursHandler {
      * Helper method is public so we can pass it a clock for testing.
      */
     @Override
-    public String getTimeUntilOpenOrCloseHelper(Clock clock) throws Exception {
+    public String getTimeUntilOpenOrCloseHelper(Clock clock) {
         LocalTime currentTime = LocalTime.now(clock);
         LocalDate currentDate = LocalDate.now(clock);
         List<GymHours> nextWeekHours = persistence.getNextWeekHours(LocalDate.now(clock));
