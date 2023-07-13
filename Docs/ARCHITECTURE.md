@@ -37,13 +37,24 @@ The _Domain Specific Object (DSO)_ does not represents a layer per se., but desc
 The following are the SQL tables that are required. Underlined attributes make up the primary key. Tables with same attribute names represent data of same category, linked according to the values of common attributes.
 
 #### Static Lookup Tables:
-Tables needed to lookup exercises. Not meant to be changed by the user.<br><br>
+Tables not meant to be changed by the user.
 **EXERCISELOOKUP**<br>
 |Attribute|Type|Description|
 |-|-|-|
 |<ins>ID<ins>|`int`|Unique exercise identifier
 |NAME|`varchar`|Display name of exercise
 |TYPE|`int`|`0` for weight exercise, `1` for other (eg.running)
+
+**GYMHOURS**<br>
+|Attribute|Type|Description|
+|-|-|-|
+|<ins>dayWeek<ins>|`int`|Unique integer corresponding to a day of the week
+|openingTimeHour|`int`|The hour the gym opens
+|openingTimeMin|`int`|The minute the gym opens
+|openingTimeSec|`int`|The second the gym opens
+|closingTimeHour|`int`|The hour the gym closes
+|closingTimeMin|`int`|The minute the gym closes
+|closingTimeSec|`int`|The second the gym closes
 
 #### Saved Workouts Tables:
 Tables that contain the workouts that have been created and saved by the user or exist by deafult.<br><br>
