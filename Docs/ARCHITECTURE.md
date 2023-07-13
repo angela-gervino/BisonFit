@@ -70,7 +70,7 @@ Tables that contain the workouts that have been created and saved by the user or
 |<ins>WORKOUTID</ins>|`int`|Identifier of workout to which this exercise belongs|
 |<ins>EXERCISEID</ins>|`int`|Identifier of exercise
 |<ins>INDEX</ins>|`int`|The position of this exercise in this workout
-|<ins>NUMSETS</ins>|`int`|The number of sets performed for an exercise
+|NUMSETS|`int`|The number of sets performed for an exercise
 
 #### Workout Record Tables:
 Tables that hold the record of workouts and exercises done by the user.<br><br>
