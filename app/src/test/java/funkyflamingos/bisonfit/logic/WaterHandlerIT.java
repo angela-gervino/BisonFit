@@ -16,7 +16,7 @@ import java.io.File;
 import java.io.IOException;
 
 import funkyflamingos.bisonfit.persistence.IWaterTrackerPersistence;
-import funkyflamingos.bisonfit.persistence.hsqldb.WaterTrackPersistenceHSQLDB;
+import funkyflamingos.bisonfit.persistence.hsqldb.WaterTrackerPersistenceHSQLDB;
 import funkyflamingos.bisonfit.utils.TestUtils;
 
 public class WaterHandlerIT {
@@ -26,7 +26,7 @@ public class WaterHandlerIT {
     @Before
     public void setUp() throws IOException {
         tempDB = TestUtils.copyDB();
-        final IWaterTrackerPersistence persistence = new WaterTrackPersistenceHSQLDB(this.tempDB.getAbsolutePath().replace(".script", ""));
+        final IWaterTrackerPersistence persistence = new WaterTrackerPersistenceHSQLDB(this.tempDB.getAbsolutePath().replace(".script", ""));
         waterHandler = new WaterHandler(persistence);
     }
 

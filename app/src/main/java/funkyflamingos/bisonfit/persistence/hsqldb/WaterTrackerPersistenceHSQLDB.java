@@ -18,12 +18,12 @@ import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WaterTrackPersistenceHSQLDB implements IWaterTrackerPersistence {
+public class WaterTrackerPersistenceHSQLDB implements IWaterTrackerPersistence {
     private Map<LocalDate, Integer> progress;
     private final String dbPath;
     private int goal;
 
-    public WaterTrackPersistenceHSQLDB(String dbPath) {
+    public WaterTrackerPersistenceHSQLDB(String dbPath) {
         this.dbPath = dbPath;
         progress = new HashMap<>();
         goal = 8;
