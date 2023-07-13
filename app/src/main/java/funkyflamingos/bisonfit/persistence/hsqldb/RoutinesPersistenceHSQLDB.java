@@ -85,7 +85,6 @@ public class RoutinesPersistenceHSQLDB implements IRoutinesPersistence {
 
     @Override
     public void addRoutine(String name) {
-        System.out.println("adding routine " + name + " in persistence");
         try (Connection connection = connect()) {
             final PreparedStatement statement = connection.prepareStatement("INSERT INTO ROUTINES VALUES (DEFAULT, ?)");
             statement.setString(1, name);
