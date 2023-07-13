@@ -1,12 +1,8 @@
 package funkyflamingos.bisonfit.logic;
 
 import funkyflamingos.bisonfit.application.Constants;
-import funkyflamingos.bisonfit.persistence.IGymHoursPersistence;
 import funkyflamingos.bisonfit.persistence.IUserRegistrationPersistence;
-import funkyflamingos.bisonfit.persistence.UserRegistrationPersistence;
-import funkyflamingos.bisonfit.persistence.hsqldb.GymHoursPersistenceHSQLDB;
 import funkyflamingos.bisonfit.persistence.hsqldb.UserRegistrationPersistenceHSQLDB;
-import funkyflamingos.bisonfit.persistence.stubs.UserRegistrationPersistenceStub;
 import funkyflamingos.bisonfit.utils.TestUtils;
 
 import static org.junit.Assert.*;

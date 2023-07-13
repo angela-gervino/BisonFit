@@ -1,10 +1,7 @@
 package funkyflamingos.bisonfit.logic;
 
-import android.content.Context;
-
 import funkyflamingos.bisonfit.application.Services;
 import funkyflamingos.bisonfit.persistence.IUserRegistrationPersistence;
-import funkyflamingos.bisonfit.persistence.UserRegistrationPersistence;
 import funkyflamingos.bisonfit.application.Constants;
 
 public class UserRegistrationHandler implements IUserRegistrationHandler {
