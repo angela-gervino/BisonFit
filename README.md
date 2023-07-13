@@ -15,6 +15,8 @@ BisonFit is a new app to create a fitness companion app for U of M students tail
 
 [Iteration 1](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/blob/main/Docs/Iteration1.md)
 
+[Iteration 2 worksheet](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/blob/main/Docs/Iteration2%20Worksheet.md)
+
 
 ## Architecture 
 

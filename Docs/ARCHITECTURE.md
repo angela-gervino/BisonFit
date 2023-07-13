@@ -37,28 +37,41 @@ The _Domain Specific Object (DSO)_ does not represents a layer per se., but desc
 The following are the SQL tables that are required. Underlined attributes make up the primary key. Tables with same attribute names represent data of same category, linked according to the values of common attributes.
 
 #### Static Lookup Tables:
-Tables needed to lookup exercises. Not meant to be changed by the user.<br><br>
-**exercise\_lookup**<br>
+Tables not meant to be changed by the user.
+
+**EXERCISELOOKUP**<br>
 |Attribute|Type|Description|
 |-|-|-|
-|<ins>exercise_id<ins>|`int`|Unique exercise identifier
-|exercise_name|`varchar`|Display name of exercise
-|exercise_type|`int`|`0` for weight exercise, `1` for other (eg.running)
+|<ins>ID<ins>|`int`|Unique exercise identifier
+|NAME|`varchar`|Display name of exercise
+|TYPE|`int`|`0` for weight exercise, `1` for other (eg.running)
+
+**GYMHOURS**<br>
+|Attribute|Type|Description|
+|-|-|-|
+|<ins>dayWeek<ins>|`int`|Unique integer corresponding to a day of the week
+|openingTimeHour|`int`|The hour the gym opens
+|openingTimeMin|`int`|The minute the gym opens
+|openingTimeSec|`int`|The second the gym opens
+|closingTimeHour|`int`|The hour the gym closes
+|closingTimeMin|`int`|The minute the gym closes
+|closingTimeSec|`int`|The second the gym closes
 
 #### Saved Workouts Tables:
 Tables that contain the workouts that have been created and saved by the user or exist by deafult.<br><br>
-**saved\_workouts**<br>
+**WORKOUTS**<br>
 |Attribute|Type|Description|
 |-|-|-|
-|<ins>workout\_id</ins>|`int`|Unique workout identifier
-|workout_name|`varchar`|Display name of workout
+|<ins>ID</ins>|`int`|Unique workout identifier
+|TITLE|`varchar`|Display name of workout
 
-**saved\_workout\_exercises**<br>
+**SAVEDWORKOUTEXERCISES**<br>
 |Attribute|Type|Description|
 |-|-|-|
-|<ins>workout\_id</ins>|`int`|Identifier of workout to which this exercise belongs|
-|<ins>exercise\_id</ins>|`int`|Identifier of exercise
-|<ins>index</ins>|`int`|The position of this exercise in this workout
+|<ins>WORKOUTID</ins>|`int`|Identifier of workout to which this exercise belongs|
+|<ins>EXERCISEID</ins>|`int`|Identifier of exercise
+|<ins>INDEX</ins>|`int`|The position of this exercise in this workout
+|NUMSETS|`int`|The number of sets performed for an exercise
 
 #### Workout Record Tables:
 Tables that hold the record of workouts and exercises done by the user.<br><br>
@@ -83,11 +96,20 @@ Tables that hold the record of workouts and exercises done by the user.<br><br>
 |time|`int`|The time in seconds it took to cover the distance, `-1` if not required
 
 
-#### Water Tracking Tables:
-Tables that hold data on daily water drinking goal progress.
+#### Water Tracking Table:
+Table that holds data on daily water drinking goal progress.
+**WATERTRACKING**<br>
 |Attribute|Type|Description|
 |-|-|-|
-|<ins>date\_timestamp<ins>|`timestamp`|Unix time stamp at 12:00AM of day in reference|
-|cups_drank|`int`|The number of cups drank this day
-|goal|`int`|The goal for this day 
+|<ins>dateProgress<ins>|`varchar`|Unix time stamp at 12:00AM of day in reference|
+|cupsDrank|`int`|The number of cups drank this day
+
+
+#### User Registration Table:
+Table that holds data on the registered user
+**USERREGISTRATION**<br>
+|Attribute|Type|Description|
+|-|-|-|
+|<ins>userName<ins>|`varchar`|The name of the registered user|
+
 
