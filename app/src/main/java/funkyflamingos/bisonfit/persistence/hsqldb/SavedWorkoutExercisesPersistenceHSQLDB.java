@@ -25,6 +25,7 @@ public class SavedWorkoutExercisesPersistenceHSQLDB implements ISavedWorkoutExer
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
 
+    @Override
     public ArrayList<ExerciseHeader> getExercisesByWorkout(WorkoutHeader workoutHeader) {
         ArrayList<ExerciseHeader> exercisesInOrder = new ArrayList<>();
         try (Connection connection = connect()) {
@@ -47,6 +48,7 @@ public class SavedWorkoutExercisesPersistenceHSQLDB implements ISavedWorkoutExer
         return exercisesInOrder;
     }
 
+    @Override
     public void addExercises(ArrayList<ExerciseHeader> exerciseHeaders, WorkoutHeader workoutHeader) {
         try (Connection connection = connect()) {
 
@@ -64,6 +66,7 @@ public class SavedWorkoutExercisesPersistenceHSQLDB implements ISavedWorkoutExer
         }
     }
 
+    @Override
     public void deleteExercise(ExerciseHeader exerciseHeader, WorkoutHeader workoutHeader) {
         try (Connection connection = connect()) {
             final PreparedStatement statement = connection.prepareStatement("DELETE FROM SAVEDWORKOUTEXERCISES WHERE WORKOUTID = ? AND EXERCISEID = ? AND INDEX = ?");
@@ -77,6 +80,7 @@ public class SavedWorkoutExercisesPersistenceHSQLDB implements ISavedWorkoutExer
         }
     }
 
+    @Override
     public void deleteWorkout(WorkoutHeader workoutHeader) {
         try (Connection connection = connect()) {
             final PreparedStatement statement = connection.prepareStatement("DELETE FROM SAVEDWORKOUTEXERCISES WHERE WORKOUTID = ?");

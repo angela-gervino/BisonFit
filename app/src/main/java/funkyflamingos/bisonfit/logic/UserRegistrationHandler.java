@@ -1,6 +1,5 @@
 package funkyflamingos.bisonfit.logic;
 
-
 import funkyflamingos.bisonfit.application.Services;
 import funkyflamingos.bisonfit.persistence.IUserRegistrationPersistence;
 import funkyflamingos.bisonfit.application.Constants;

@@ -111,5 +111,4 @@ public class WaterTrackPersistenceHSQLDB implements IWaterTrackerPersistence {
         }
         return cupsDrank;
     }
-
 }

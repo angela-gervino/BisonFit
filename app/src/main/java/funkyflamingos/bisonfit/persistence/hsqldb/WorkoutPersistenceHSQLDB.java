@@ -17,7 +17,6 @@ import java.util.List;
 
 
 public class WorkoutPersistenceHSQLDB implements IWorkoutPersistence {
-
     private final String dbPath;
     private List<Workout> workouts;
 
