@@ -17,19 +17,19 @@ import funkyflamingos.bisonfit.persistence.hsqldb.GymHoursPersistenceHSQLDB;
 import funkyflamingos.bisonfit.persistence.hsqldb.UserRegistrationPersistenceHSQLDB;
 
 public class Services {
-    private static IWorkoutPersistence routinesPersistence = null;
+    private static IWorkoutPersistence workoutsPersistence = null;
     private static IWaterTrackerPersistence waterTrackerPersistence = null;
     private static IExerciseLookupPersistence exerciseLookupPersistence = null;
     private static IGymHoursPersistence gymHoursPersistence = null;
     private static IUserRegistrationPersistence userRegistrationPersistence = null;
-    private static ISavedWorkoutExercises savedRoutineExercises = null;
+    private static ISavedWorkoutExercises savedWorkoutExercises = null;
 
 
-    public static synchronized IWorkoutPersistence getRoutinesPersistence() {
-        if(routinesPersistence == null) {
-            routinesPersistence = new WorkoutPersistenceHSQLDB(Main.getDBPathName());
+    public static synchronized IWorkoutPersistence getWorkoutsPersistence() {
+        if(workoutsPersistence == null) {
+            workoutsPersistence = new WorkoutPersistenceHSQLDB(Main.getDBPathName());
         }
-        return routinesPersistence;
+        return workoutsPersistence;
     }
 
     public static synchronized IWaterTrackerPersistence getWaterTrackPersistence() {
@@ -60,11 +60,11 @@ public class Services {
         return exerciseLookupPersistence;
     }
 
-    public static synchronized ISavedWorkoutExercises getSavedRoutineExercises() {
-        if(savedRoutineExercises == null) {
-            savedRoutineExercises = new SavedWorkoutExercisesPersistenceHSQLDB(Main.getDBPathName());
+    public static synchronized ISavedWorkoutExercises getSavedWorkoutExercises() {
+        if(savedWorkoutExercises == null) {
+            savedWorkoutExercises = new SavedWorkoutExercisesPersistenceHSQLDB(Main.getDBPathName());
         }
-        return savedRoutineExercises;
+        return savedWorkoutExercises;
     }
 
 
@@ -74,7 +74,7 @@ public class Services {
      * Reset all services so to be reloaded from scratch next time they are referenced
      */
     public static synchronized void clean() {
-        routinesPersistence = null;
+        workoutsPersistence = null;
     }
 
 

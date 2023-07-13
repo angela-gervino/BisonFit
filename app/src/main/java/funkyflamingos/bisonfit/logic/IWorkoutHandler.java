@@ -8,23 +8,23 @@ import funkyflamingos.bisonfit.dso.Workout;
 import funkyflamingos.bisonfit.dso.WorkoutHeader;
 
 public interface IWorkoutHandler {
-    List<WorkoutHeader> getAllRoutineHeaders();
+    List<WorkoutHeader> getAllWorkoutHeaders();
 
     ArrayList<ExerciseHeader> getAllExerciseHeaders();
 
     ArrayList<ExerciseHeader> getAllSelectedExercises();
 
-    Workout getRoutineByID(int routineID);
+    Workout getWorkoutByID(int workoutID);
 
     void unselectAllExercises();
 
-    void addNewRoutine(String routineName);
+    void addNewWorkout(String workoutName);
 
-    void addSelectedExercisesToRoutine(WorkoutHeader routineHeader);
+    void addSelectedExercisesToWorkout(WorkoutHeader workoutHeader);
 
-    ArrayList<ExerciseHeader> getExerciseHeaders(WorkoutHeader routineHeader);
+    ArrayList<ExerciseHeader> getExerciseHeaders(WorkoutHeader workoutHeader);
 
-    void deleteRoutine(int routineID);
+    void deleteWorkout(int workoutID);
 
-    void deleteExercise(ExerciseHeader exerciseHeader, WorkoutHeader routineHeader);
+    void deleteExercise(ExerciseHeader exerciseHeader, WorkoutHeader workoutHeader);
 }

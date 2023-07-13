@@ -19,11 +19,11 @@ import funkyflamingos.bisonfit.logic.WorkoutHandler;
 public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<WorkoutOverviewExercisesListAdapter.ViewHolder> {
     private List<ExerciseHeader> localDataSet;
 
-    private WorkoutHeader routineHeader;
+    private WorkoutHeader workoutHeader;
 
-    public WorkoutOverviewExercisesListAdapter(WorkoutHeader routineHeader, List<ExerciseHeader> dataSet) {
+    public WorkoutOverviewExercisesListAdapter(WorkoutHeader workoutHeader, List<ExerciseHeader> dataSet) {
         localDataSet = dataSet;
-        this.routineHeader = routineHeader;
+        this.workoutHeader = workoutHeader;
     }
 
     @Override
@@ -44,8 +44,8 @@ public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<Wo
             public void onClick(View view) {
                 int position = viewHolder.getAdapterPosition();
 
-                WorkoutHandler routineHandler = new WorkoutHandler();
-                routineHandler.deleteExercise(localDataSet.get(position), routineHeader);
+                WorkoutHandler workoutHandler = new WorkoutHandler();
+                workoutHandler.deleteExercise(localDataSet.get(position), workoutHeader);
 
                 localDataSet.remove(position);
                 notifyItemRemoved(position);
@@ -59,9 +59,9 @@ public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<Wo
     }
 
     public void refreshData() {
-        WorkoutHandler routineHandler = new WorkoutHandler();
-        routineHandler.unselectAllExercises();
-        localDataSet = routineHandler.getExerciseHeaders(routineHeader);
+        WorkoutHandler workoutHandler = new WorkoutHandler();
+        workoutHandler.unselectAllExercises();
+        localDataSet = workoutHandler.getExerciseHeaders(workoutHeader);
     }
 
 

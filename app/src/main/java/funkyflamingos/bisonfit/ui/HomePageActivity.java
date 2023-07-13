@@ -49,7 +49,7 @@ public class HomePageActivity extends AppCompatActivity implements AddWorkoutDia
         userNameHandler = new UserRegistrationHandler();
 
         workoutManager = new WorkoutHandler();
-        List<WorkoutHeader> listOfWorkouts = workoutManager.getAllRoutineHeaders();
+        List<WorkoutHeader> listOfWorkouts = workoutManager.getAllWorkoutHeaders();
         adapter = new MyWorkoutsListAdapter(listOfWorkouts, this);
         RecyclerView recyclerView = findViewById(R.id.lstMyWorkouts);
 
@@ -135,8 +135,8 @@ public class HomePageActivity extends AppCompatActivity implements AddWorkoutDia
     @Override
     public void createNewWorkout(String newWorkoutName)
     {
-        workoutManager.addNewRoutine(newWorkoutName);
-        adapter.updateWorkoutList(workoutManager.getAllRoutineHeaders());
+        workoutManager.addNewWorkout(newWorkoutName);
+        adapter.updateWorkoutList(workoutManager.getAllWorkoutHeaders());
     }
 
     public void newWorkoutDialog(View view) {

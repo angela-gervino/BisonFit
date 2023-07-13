@@ -11,8 +11,8 @@ import funkyflamingos.bisonfit.logic.IWorkoutHandler;
 import funkyflamingos.bisonfit.logic.WorkoutHandler;
 
 public class ExerciseSelectionActivity extends AppCompatActivity {
-    private int routineID;
-    private IWorkoutHandler routineHandler;
+    private int workoutID;
+    private IWorkoutHandler workoutHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +21,12 @@ public class ExerciseSelectionActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            routineID = extras.getInt("routineID");
+            workoutID = extras.getInt("workoutID");
         }
 
-        routineHandler = new WorkoutHandler();
+        workoutHandler = new WorkoutHandler();
 
-        ExerciseSelectionListAdapter adapter = new ExerciseSelectionListAdapter(routineHandler.getAllExerciseHeaders(), this);
+        ExerciseSelectionListAdapter adapter = new ExerciseSelectionListAdapter(workoutHandler.getAllExerciseHeaders(), this);
 
         RecyclerView recyclerView = findViewById(R.id.lstExercises);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -34,7 +34,7 @@ public class ExerciseSelectionActivity extends AppCompatActivity {
     }
 
     public void addExercises(View v) {
-        routineHandler.addSelectedExercisesToRoutine(routineHandler.getRoutineByID(routineID).getHeader());
+        workoutHandler.addSelectedExercisesToWorkout(workoutHandler.getWorkoutByID(workoutID).getHeader());
         finish();
     }
 }

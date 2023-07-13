@@ -47,7 +47,7 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
         viewHolder.getLayout().setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
                 Intent intent = new Intent(parentActivity, WorkoutOverviewActivity.class);
-                intent.putExtra("routineID", viewHolder.getDataItem().getId());
+                intent.putExtra("workoutID", viewHolder.getDataItem().getId());
                 parentActivity.startActivity(intent);
             }
         });
@@ -57,9 +57,9 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
             public void onClick(View view) {
                 int position = viewHolder.getAdapterPosition();
 
-                WorkoutHandler routineHandler = new WorkoutHandler();
-                WorkoutHeader routineToDelete = localDataSet.get(position);
-                routineHandler.deleteRoutine(routineToDelete.getId());
+                WorkoutHandler workoutHandler = new WorkoutHandler();
+                WorkoutHeader workoutToDelete = localDataSet.get(position);
+                workoutHandler.deleteWorkout(workoutToDelete.getId());
                 localDataSet.remove(position);
 
                 notifyItemRemoved(position);

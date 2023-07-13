@@ -45,37 +45,37 @@ Tables needed to lookup exercises. Not meant to be changed by the user.<br><br>
 |exercise_name|`varchar`|Display name of exercise
 |exercise_type|`int`|`0` for weight exercise, `1` for other (eg.running)
 
-#### Saved Routines Tables:
-Tables that contain the routines that have been created and saved by the user or exist by deafult.<br><br>
-**saved\_routines**<br>
+#### Saved Workouts Tables:
+Tables that contain the workouts that have been created and saved by the user or exist by deafult.<br><br>
+**saved\_workouts**<br>
 |Attribute|Type|Description|
 |-|-|-|
-|<ins>routine\_id</ins>|`int`|Unique routine identifier
-|routine_name|`varchar`|Display name of routine
+|<ins>workout\_id</ins>|`int`|Unique workout identifier
+|workout_name|`varchar`|Display name of workout
 
-**saved\_routine\_exercises**<br>
+**saved\_workout\_exercises**<br>
 |Attribute|Type|Description|
 |-|-|-|
-|<ins>routine\_id</ins>|`int`|Identifier of routine to which this exercise belongs|
+|<ins>workout\_id</ins>|`int`|Identifier of workout to which this exercise belongs|
 |<ins>exercise\_id</ins>|`int`|Identifier of exercise
-|<ins>index</ins>|`int`|The position of this exercise in this routine
+|<ins>index</ins>|`int`|The position of this exercise in this workout
 
 #### Workout Record Tables:
-Tables that hold the record of routines and exercises done by the user.<br><br>
+Tables that hold the record of workouts and exercises done by the user.<br><br>
 
-**performed\_routine\_record**<br>
+**performed\_workout\_record**<br>
 |Attribute|Type|Description|
 |-|-|-|
-|<ins>routine\_record\_id</ins>|`int`|Unique identifier of performed routine|
-|routine\_id|`int`|Identifier of routine performed
-|start_timestamp|`timestamp`|Unix time stamp at start of routine
-|end\_timestamp|`timestamp`|Unix time stamp at end of routine
+|<ins>workout\_record\_id</ins>|`int`|Unique identifier of performed workout|
+|workout\_id|`int`|Identifier of workout performed
+|start_timestamp|`timestamp`|Unix time stamp at start of workout
+|end\_timestamp|`timestamp`|Unix time stamp at end of workout
 
 **performed\_exercise\_record**<br>
 |Attribute|Type|Description|
 |-|-|-|
-|<ins>routine\_record\_id</ins|`int`|Identifier of performed routine
-|<ins>index</ins>|`int`|The position of exercise in performed routine
+|<ins>workout\_record\_id</ins|`int`|Identifier of performed workout
+|<ins>index</ins>|`int`|The position of exercise in performed workout
 |exercise\_id|`int`|Identifier of exercise
 |weight|`int`|The weight in lbs performed in this set, `-1` if not required
 |reps|`int`|The number of repitions performed in this set, `-1` if not required

@@ -25,11 +25,11 @@ public class SavedWorkoutExercisesPersistenceHSQLDB implements ISavedWorkoutExer
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
 
-    public ArrayList<ExerciseHeader> getExercisesByRoutine(WorkoutHeader routineHeader) {
+    public ArrayList<ExerciseHeader> getExercisesByWorkout(WorkoutHeader workoutHeader) {
         ArrayList<ExerciseHeader> exercisesInOrder = new ArrayList<>();
         try (Connection connection = connect()) {
-            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM SAVEDROUTINEEXERCISES JOIN EXERCISELOOKUP ON SAVEDROUTINEEXERCISES.EXERCISEID = EXERCISELOOKUP.ID WHERE ROUTINEID = ? ORDER BY INDEX ASC");
-            statement.setInt(1, routineHeader.getId());
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM SAVEDWORKOUTEXERCISES JOIN EXERCISELOOKUP ON SAVEDWORKOUTEXERCISES.EXERCISEID = EXERCISELOOKUP.ID WHERE WORKOUTID = ? ORDER BY INDEX ASC");
+            statement.setInt(1, workoutHeader.getId());
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 String name = resultSet.getString("NAME");
@@ -47,12 +47,12 @@ public class SavedWorkoutExercisesPersistenceHSQLDB implements ISavedWorkoutExer
         return exercisesInOrder;
     }
 
-    public void addExercises(ArrayList<ExerciseHeader> exerciseHeaders, WorkoutHeader routineHeader) {
+    public void addExercises(ArrayList<ExerciseHeader> exerciseHeaders, WorkoutHeader workoutHeader) {
         try (Connection connection = connect()) {
 
             for (int i = 0; i < exerciseHeaders.size(); i++){
-                final PreparedStatement statement = connection.prepareStatement("INSERT INTO SAVEDROUTINEEXERCISES VALUES(?, ?, DEFAULT, ?)");
-                statement.setInt(1, routineHeader.getId());
+                final PreparedStatement statement = connection.prepareStatement("INSERT INTO SAVEDWORKOUTEXERCISES VALUES(?, ?, DEFAULT, ?)");
+                statement.setInt(1, workoutHeader.getId());
                 statement.setInt(2, exerciseHeaders.get(i).getId());
                 statement.setInt(3, exerciseHeaders.get(i).getSetCount());
                 statement.executeUpdate();
@@ -64,10 +64,10 @@ public class SavedWorkoutExercisesPersistenceHSQLDB implements ISavedWorkoutExer
         }
     }
 
-    public void deleteExercise(ExerciseHeader exerciseHeader, WorkoutHeader routineHeader) {
+    public void deleteExercise(ExerciseHeader exerciseHeader, WorkoutHeader workoutHeader) {
         try (Connection connection = connect()) {
-            final PreparedStatement statement = connection.prepareStatement("DELETE FROM SAVEDROUTINEEXERCISES WHERE ROUTINEID = ? AND EXERCISEID = ? AND INDEX = ?");
-            statement.setInt(1, routineHeader.getId());
+            final PreparedStatement statement = connection.prepareStatement("DELETE FROM SAVEDWORKOUTEXERCISES WHERE WORKOUTID = ? AND EXERCISEID = ? AND INDEX = ?");
+            statement.setInt(1, workoutHeader.getId());
             statement.setInt(2, exerciseHeader.getId());
             statement.setInt(3, exerciseHeader.getIndex());
             statement.executeUpdate();
@@ -77,10 +77,10 @@ public class SavedWorkoutExercisesPersistenceHSQLDB implements ISavedWorkoutExer
         }
     }
 
-    public void deleteRoutine(WorkoutHeader routineHeader) {
+    public void deleteWorkout(WorkoutHeader workoutHeader) {
         try (Connection connection = connect()) {
-            final PreparedStatement statement = connection.prepareStatement("DELETE FROM SAVEDROUTINEEXERCISES WHERE ROUTINEID = ?");
-            statement.setInt(1, routineHeader.getId());
+            final PreparedStatement statement = connection.prepareStatement("DELETE FROM SAVEDWORKOUTEXERCISES WHERE WORKOUTID = ?");
+            statement.setInt(1, workoutHeader.getId());
             statement.executeUpdate();
         } catch (final SQLException e) {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());

@@ -9,42 +9,42 @@ import funkyflamingos.bisonfit.persistence.IWorkoutPersistence;
 
 public class WorkoutPersistenceStub implements IWorkoutPersistence {
 
-    List<Workout> allRoutines;
+    List<Workout> allWorkouts;
     int nextId = 0;
 
     public WorkoutPersistenceStub() {
-        allRoutines = new ArrayList<Workout>();
+        allWorkouts = new ArrayList<Workout>();
     }
 
     @Override
-    public List<WorkoutHeader> getAllRoutineHeaders() {
+    public List<WorkoutHeader> getAllWorkoutHeaders() {
         List<WorkoutHeader> allHeaders = new ArrayList<WorkoutHeader>();
-        for (Workout routine : allRoutines)
-            allHeaders.add(routine.getHeader());
+        for (Workout workout : allWorkouts)
+            allHeaders.add(workout.getHeader());
         return allHeaders;
     }
 
     @Override
-    public Workout getRoutineByID(int routineID) {
-        return allRoutines.stream().filter(routine -> routine.getHeader().getId() == routineID)
+    public Workout getWorkoutByID(int workoutID) {
+        return allWorkouts.stream().filter(workout -> workout.getHeader().getId() == workoutID)
                 .findFirst().orElse(null);
     }
 
     @Override
-    public void addRoutine(String routineName) {
-        allRoutines.add(new Workout(new WorkoutHeader(routineName, nextId)));
+    public void addWorkout(String workoutName) {
+        allWorkouts.add(new Workout(new WorkoutHeader(workoutName, nextId)));
         nextId++;
     }
 
     @Override
-    public void deleteRoutineById(int routineId) {
-        allRoutines.remove(getIndexById(routineId));
+    public void deleteWorkoutById(int workoutId) {
+        allWorkouts.remove(getIndexById(workoutId));
     }
 
-    private int getIndexById(int routineId) {
+    private int getIndexById(int workoutId) {
         int index = -1;
-        for (int i = 0; i < allRoutines.size() && index == -1; i++) {
-            if (allRoutines.get(i).getHeader().getId() == routineId)
+        for (int i = 0; i < allWorkouts.size() && index == -1; i++) {
+            if (allWorkouts.get(i).getHeader().getId() == workoutId)
                 index = i;
         }
         return index;

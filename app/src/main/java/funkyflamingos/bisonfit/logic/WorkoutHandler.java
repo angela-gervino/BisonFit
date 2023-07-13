@@ -12,31 +12,31 @@ import funkyflamingos.bisonfit.persistence.IWorkoutPersistence;
 import funkyflamingos.bisonfit.persistence.ISavedWorkoutExercises;
 
 public class WorkoutHandler implements IWorkoutHandler {
-    private IWorkoutPersistence routinesPersistence;
-    private ISavedWorkoutExercises savedRoutineExercisesPersistence;
+    private IWorkoutPersistence workoutsPersistence;
+    private ISavedWorkoutExercises savedWorkoutExercisesPersistence;
     private IExerciseLookupPersistence exerciseLookupPersistence;
     ArrayList<ExerciseHeader> exerciseList;
 
     // Constructor for the database
     public WorkoutHandler() {
-        routinesPersistence = Services.getRoutinesPersistence();
-        savedRoutineExercisesPersistence = Services.getSavedRoutineExercises();
+        workoutsPersistence = Services.getWorkoutsPersistence();
+        savedWorkoutExercisesPersistence = Services.getSavedWorkoutExercises();
         exerciseLookupPersistence = Services.getExerciseLookupPersistence();
 
         exerciseList = exerciseLookupPersistence.getAllExerciseHeaders();
     }
 
     public WorkoutHandler(IWorkoutPersistence r, ISavedWorkoutExercises s, IExerciseLookupPersistence e) {
-        routinesPersistence = r;
-        savedRoutineExercisesPersistence = s;
+        workoutsPersistence = r;
+        savedWorkoutExercisesPersistence = s;
         exerciseLookupPersistence = e;
 
         exerciseList = exerciseLookupPersistence.getAllExerciseHeaders();
     }
 
     @Override
-    public List<WorkoutHeader> getAllRoutineHeaders() {
-        return routinesPersistence.getAllRoutineHeaders();
+    public List<WorkoutHeader> getAllWorkoutHeaders() {
+        return workoutsPersistence.getAllWorkoutHeaders();
     }
 
     @Override
@@ -57,27 +57,27 @@ public class WorkoutHandler implements IWorkoutHandler {
     }
 
     @Override
-    public Workout getRoutineByID(int routineID) {
-        return routinesPersistence.getRoutineByID(routineID);
+    public Workout getWorkoutByID(int workoutID) {
+        return workoutsPersistence.getWorkoutByID(workoutID);
     }
 
     @Override
-    public void addNewRoutine(String routineName) {
-        routinesPersistence.addRoutine(routineName);
+    public void addNewWorkout(String workoutName) {
+        workoutsPersistence.addWorkout(workoutName);
     }
 
     @Override
-    public void deleteRoutine(int routineID) {
-        if (getRoutineByID(routineID) != null) {
-            savedRoutineExercisesPersistence.deleteRoutine(getRoutineByID(routineID).getHeader());
-            routinesPersistence.deleteRoutineById(routineID);
+    public void deleteWorkout(int workoutID) {
+        if (getWorkoutByID(workoutID) != null) {
+            savedWorkoutExercisesPersistence.deleteWorkout(getWorkoutByID(workoutID).getHeader());
+            workoutsPersistence.deleteWorkoutById(workoutID);
         }
     }
 
     @Override
-    public void addSelectedExercisesToRoutine(WorkoutHeader routineHeader)
+    public void addSelectedExercisesToWorkout(WorkoutHeader workoutHeader)
     {
-        savedRoutineExercisesPersistence.addExercises(getAllSelectedExercises(), routineHeader);
+        savedWorkoutExercisesPersistence.addExercises(getAllSelectedExercises(), workoutHeader);
 
         unselectAllExercises();
     }
@@ -93,14 +93,14 @@ public class WorkoutHandler implements IWorkoutHandler {
     }
 
     @Override
-    public ArrayList<ExerciseHeader> getExerciseHeaders(WorkoutHeader routineHeader)
+    public ArrayList<ExerciseHeader> getExerciseHeaders(WorkoutHeader workoutHeader)
     {
-        return savedRoutineExercisesPersistence.getExercisesByRoutine(routineHeader);
+        return savedWorkoutExercisesPersistence.getExercisesByWorkout(workoutHeader);
     }
 
     @Override
-    public void deleteExercise(ExerciseHeader exerciseHeader, WorkoutHeader routineHeader)
+    public void deleteExercise(ExerciseHeader exerciseHeader, WorkoutHeader workoutHeader)
     {
-        savedRoutineExercisesPersistence.deleteExercise(exerciseHeader, routineHeader);
+        savedWorkoutExercisesPersistence.deleteExercise(exerciseHeader, workoutHeader);
     }
 }

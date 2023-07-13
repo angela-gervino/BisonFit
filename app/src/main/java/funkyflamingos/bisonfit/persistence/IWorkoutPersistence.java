@@ -7,11 +7,11 @@ import funkyflamingos.bisonfit.dso.WorkoutHeader;
 
 public interface IWorkoutPersistence {
 
-    List<WorkoutHeader> getAllRoutineHeaders();
+    List<WorkoutHeader> getAllWorkoutHeaders();
 
-    Workout getRoutineByID(int routineID);
+    Workout getWorkoutByID(int workoutID);
 
-    void addRoutine(String routineName);
+    void addWorkout(String workoutName);
 
-    void deleteRoutineById(int routineId);
+    void deleteWorkoutById(int workoutId);
 }

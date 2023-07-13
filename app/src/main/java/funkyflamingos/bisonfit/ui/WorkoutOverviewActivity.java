@@ -15,7 +15,7 @@ import funkyflamingos.bisonfit.logic.WorkoutHandler;
 
 public class WorkoutOverviewActivity extends AppCompatActivity {
 
-    private Workout routine;
+    private Workout workout;
 
     private RecyclerView recyclerView;
     private WorkoutOverviewExercisesListAdapter adapter;
@@ -25,17 +25,17 @@ public class WorkoutOverviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_overview);
 
-        IWorkoutHandler routineHandler = new WorkoutHandler();
+        IWorkoutHandler workoutHandler = new WorkoutHandler();
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            int clickedRoutineID = extras.getInt("routineID");
-            routine = routineHandler.getRoutineByID(clickedRoutineID);
-            String clickedRoutineName = routine.getHeader().getName();
-            getActionBar().setTitle(clickedRoutineName);
+            int clickedWorkoutID = extras.getInt("workoutID");
+            workout = workoutHandler.getWorkoutByID(clickedWorkoutID);
+            String clickedWorkoutName = workout.getHeader().getName();
+            getActionBar().setTitle(clickedWorkoutName);
         }
 
-        adapter = new WorkoutOverviewExercisesListAdapter(routine.getHeader(), routineHandler.getExerciseHeaders(routine.getHeader()));
+        adapter = new WorkoutOverviewExercisesListAdapter(workout.getHeader(), workoutHandler.getExerciseHeaders(workout.getHeader()));
         recyclerView = findViewById(R.id.lstMyExercises);
 
         //recyclerVew setup
@@ -53,7 +53,7 @@ public class WorkoutOverviewActivity extends AppCompatActivity {
 
     public void openExerciseSelectionActivity(View v) {
         Intent intent = new Intent(this, ExerciseSelectionActivity.class);
-        intent.putExtra("routineID", routine.getHeader().getId());
+        intent.putExtra("workoutID", workout.getHeader().getId());
         startActivity(intent);
     }
 

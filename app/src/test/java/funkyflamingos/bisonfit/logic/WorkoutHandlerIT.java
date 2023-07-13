@@ -22,7 +22,7 @@ import funkyflamingos.bisonfit.persistence.hsqldb.SavedWorkoutExercisesPersisten
 import funkyflamingos.bisonfit.utils.TestUtils;
 
 public class WorkoutHandlerIT {
-    private WorkoutHandler routineHandler;
+    private WorkoutHandler workoutHandler;
 
     private File tempDB;
 
@@ -32,11 +32,11 @@ public class WorkoutHandlerIT {
 
         String dbPathName = this.tempDB.getAbsolutePath().replace(".script", "");
 
-        final IWorkoutPersistence routinesPersistenceStub = new WorkoutPersistenceHSQLDB(dbPathName);
-        final ISavedWorkoutExercises savedRoutineExercisesPersistenceStub = new SavedWorkoutExercisesPersistenceHSQLDB(dbPathName);
+        final IWorkoutPersistence workoutsPersistenceStub = new WorkoutPersistenceHSQLDB(dbPathName);
+        final ISavedWorkoutExercises savedWorkoutExercisesPersistenceStub = new SavedWorkoutExercisesPersistenceHSQLDB(dbPathName);
         final IExerciseLookupPersistence exerciseLookupPersistenceStub = new ExerciseLookupPersistenceHSQLDB(dbPathName);
 
-        routineHandler = new WorkoutHandler(routinesPersistenceStub, savedRoutineExercisesPersistenceStub, exerciseLookupPersistenceStub);
+        workoutHandler = new WorkoutHandler(workoutsPersistenceStub, savedWorkoutExercisesPersistenceStub, exerciseLookupPersistenceStub);
     }
 
     @After
@@ -46,176 +46,176 @@ public class WorkoutHandlerIT {
 
     @Test
     public void testGetByIDFound() {
-        routineHandler.addNewRoutine("My New Workout Routine");
-        assertNotNull(routineHandler.getRoutineByID(0));
+        workoutHandler.addNewWorkout("My New Workout Workout");
+        assertNotNull(workoutHandler.getWorkoutByID(0));
     }
 
     @Test
     public void testGetByIDNotFound() {
-        assertNull(routineHandler.getRoutineByID(0));
+        assertNull(workoutHandler.getWorkoutByID(0));
     }
 
     @Test
     public void testExpectedName() {
-        routineHandler.addNewRoutine("Upper Body");
-        Workout foundRoutine = routineHandler.getRoutineByID(0);
-        assertTrue(foundRoutine.getHeader().getName().equals("Upper Body"));
+        workoutHandler.addNewWorkout("Upper Body");
+        Workout foundWorkout = workoutHandler.getWorkoutByID(0);
+        assertTrue(foundWorkout.getHeader().getName().equals("Upper Body"));
     }
 
     @Test
     public void testGetByIDHeaderNotNull() {
-        routineHandler.addNewRoutine("Upper Body");
-        assertNotNull(routineHandler.getRoutineByID(0).getHeader());
+        workoutHandler.addNewWorkout("Upper Body");
+        assertNotNull(workoutHandler.getWorkoutByID(0).getHeader());
     }
 
     @Test
-    public void testGetAllRoutineHeadersNotNull() {
-        assertNotNull(routineHandler.getAllRoutineHeaders());
+    public void testGetAllWorkoutHeadersNotNull() {
+        assertNotNull(workoutHandler.getAllWorkoutHeaders());
     }
 
     @Test
-    public void testGetAllRoutineReturnsList() {
-        assertTrue(routineHandler.getAllRoutineHeaders() instanceof List);
+    public void testGetAllWorkoutReturnsList() {
+        assertTrue(workoutHandler.getAllWorkoutHeaders() instanceof List);
     }
 
     @Test
     public void testGetAllExerciseHeadersNotNull() {
-        assertNotNull(routineHandler.getAllExerciseHeaders());
+        assertNotNull(workoutHandler.getAllExerciseHeaders());
     }
 
     @Test
     public void testGetAllExerciseReturnsArrayList() {
-        assertTrue(routineHandler.getAllExerciseHeaders() instanceof ArrayList);
+        assertTrue(workoutHandler.getAllExerciseHeaders() instanceof ArrayList);
     }
 
     @Test
     public void testGetAllSelectedExercisesEmpty() {
-        assertTrue(routineHandler.getAllSelectedExercises().isEmpty());
+        assertTrue(workoutHandler.getAllSelectedExercises().isEmpty());
     }
 
     @Test
     public void testGetAllSelectedExercisesNonEmpty() {
-        ArrayList<ExerciseHeader> exercises = routineHandler.getAllExerciseHeaders();
+        ArrayList<ExerciseHeader> exercises = workoutHandler.getAllExerciseHeaders();
         exercises.forEach(exercise -> {
             if (!exercise.isSelected())
                 exercise.toggleSelected();
         });
 
-        assertFalse(routineHandler.getAllSelectedExercises().isEmpty());
+        assertFalse(workoutHandler.getAllSelectedExercises().isEmpty());
     }
 
     @Test
     public void testUnselectAllExercisesWhenNoneSelected() {
-        routineHandler.unselectAllExercises();
-        assertTrue(routineHandler.getAllSelectedExercises().isEmpty());
+        workoutHandler.unselectAllExercises();
+        assertTrue(workoutHandler.getAllSelectedExercises().isEmpty());
     }
 
     @Test
     public void testUnselectAllExercisesAllSelected() {
-        ArrayList<ExerciseHeader> exercises = routineHandler.getAllExerciseHeaders();
+        ArrayList<ExerciseHeader> exercises = workoutHandler.getAllExerciseHeaders();
         exercises.forEach(exercise -> {
             if (!exercise.isSelected())
                 exercise.toggleSelected();
         });
 
-        routineHandler.unselectAllExercises();
-        assertTrue(routineHandler.getAllSelectedExercises().isEmpty());
+        workoutHandler.unselectAllExercises();
+        assertTrue(workoutHandler.getAllSelectedExercises().isEmpty());
     }
 
     @Test
-    public void testAddNewRoutine() {
-        routineHandler.addNewRoutine("First Workout Routine!");
-        routineHandler.addNewRoutine("Second Workout Routine!");
-        routineHandler.addNewRoutine("Third Workout Routine!");
+    public void testAddNewWorkout() {
+        workoutHandler.addNewWorkout("First Workout Workout!");
+        workoutHandler.addNewWorkout("Second Workout Workout!");
+        workoutHandler.addNewWorkout("Third Workout Workout!");
 
-        assert(routineHandler.getAllRoutineHeaders().size() == 3);
+        assert(workoutHandler.getAllWorkoutHeaders().size() == 3);
     }
 
     @Test
-    public void testAddSelectedExercisesToRoutineWhenAllSelected() {
-        routineHandler.addNewRoutine("First Workout Routine!");
-        WorkoutHeader firstWorkout = routineHandler.getAllRoutineHeaders().get(0);
+    public void testAddSelectedExercisesToWorkoutWhenAllSelected() {
+        workoutHandler.addNewWorkout("First Workout Workout!");
+        WorkoutHeader firstWorkout = workoutHandler.getAllWorkoutHeaders().get(0);
 
-        ArrayList<ExerciseHeader> exercises = routineHandler.getAllExerciseHeaders();
+        ArrayList<ExerciseHeader> exercises = workoutHandler.getAllExerciseHeaders();
         exercises.forEach(exercise -> {
             if (!exercise.isSelected())
                 exercise.toggleSelected();
         });
 
-        routineHandler.addSelectedExercisesToRoutine(firstWorkout);
+        workoutHandler.addSelectedExercisesToWorkout(firstWorkout);
 
-        assertEquals(exercises.size(), routineHandler.getExerciseHeaders(firstWorkout).size());
+        assertEquals(exercises.size(), workoutHandler.getExerciseHeaders(firstWorkout).size());
     }
 
     @Test
-    public void testAddSelectedExercisesToRoutineWhenNoneSelected() {
-        routineHandler.addNewRoutine("First Workout Routine!");
-        WorkoutHeader firstWorkout = routineHandler.getAllRoutineHeaders().get(0);
+    public void testAddSelectedExercisesToWorkoutWhenNoneSelected() {
+        workoutHandler.addNewWorkout("First Workout Workout!");
+        WorkoutHeader firstWorkout = workoutHandler.getAllWorkoutHeaders().get(0);
 
-        routineHandler.addSelectedExercisesToRoutine(firstWorkout);
+        workoutHandler.addSelectedExercisesToWorkout(firstWorkout);
 
-        assertEquals(0, routineHandler.getExerciseHeaders(firstWorkout).size());
+        assertEquals(0, workoutHandler.getExerciseHeaders(firstWorkout).size());
     }
 
     @Test
     public void testGetExerciseHeadersWhenEmpty() {
-        routineHandler.addNewRoutine("First Workout Routine!");
-        WorkoutHeader firstWorkout = routineHandler.getAllRoutineHeaders().get(0);
+        workoutHandler.addNewWorkout("First Workout Workout!");
+        WorkoutHeader firstWorkout = workoutHandler.getAllWorkoutHeaders().get(0);
 
-        assertTrue(routineHandler.getExerciseHeaders(firstWorkout).isEmpty());
+        assertTrue(workoutHandler.getExerciseHeaders(firstWorkout).isEmpty());
     }
 
     @Test
     public void testGetExerciseHeadersWhenNotEmpty() {
-        routineHandler.addNewRoutine("First Workout Routine!");
-        WorkoutHeader firstWorkout = routineHandler.getAllRoutineHeaders().get(0);
+        workoutHandler.addNewWorkout("First Workout Workout!");
+        WorkoutHeader firstWorkout = workoutHandler.getAllWorkoutHeaders().get(0);
 
-        ArrayList<ExerciseHeader> exercises = routineHandler.getAllExerciseHeaders();
+        ArrayList<ExerciseHeader> exercises = workoutHandler.getAllExerciseHeaders();
         exercises.get(0).toggleSelected();
 
-        routineHandler.addSelectedExercisesToRoutine(firstWorkout);
+        workoutHandler.addSelectedExercisesToWorkout(firstWorkout);
 
-        assertEquals(1, routineHandler.getExerciseHeaders(firstWorkout).size());
+        assertEquals(1, workoutHandler.getExerciseHeaders(firstWorkout).size());
     }
 
     @Test
-    public void testDeleteRoutineWhenNonexistent() {
-        routineHandler.deleteRoutine(0);
+    public void testDeleteWorkoutWhenNonexistent() {
+        workoutHandler.deleteWorkout(0);
 
-        assertTrue(routineHandler.getAllRoutineHeaders().isEmpty());
+        assertTrue(workoutHandler.getAllWorkoutHeaders().isEmpty());
     }
 
     @Test
-    public void testDeleteRoutineWhenExists() {
-        routineHandler.addNewRoutine("Upper Body Workout");
-        routineHandler.deleteRoutine(0);
+    public void testDeleteWorkoutWhenExists() {
+        workoutHandler.addNewWorkout("Upper Body Workout");
+        workoutHandler.deleteWorkout(0);
 
-        assertTrue(routineHandler.getAllRoutineHeaders().isEmpty());
+        assertTrue(workoutHandler.getAllWorkoutHeaders().isEmpty());
     }
 
     @Test
     public void testDeleteExerciseWhenNonexistent() {
-        routineHandler.addNewRoutine("Fun Workout");
-        WorkoutHeader funWorkout = routineHandler.getRoutineByID(0).getHeader();
+        workoutHandler.addNewWorkout("Fun Workout");
+        WorkoutHeader funWorkout = workoutHandler.getWorkoutByID(0).getHeader();
 
-        ArrayList<ExerciseHeader> exercises = routineHandler.getAllExerciseHeaders();
-        routineHandler.deleteExercise(exercises.get(0), funWorkout);
+        ArrayList<ExerciseHeader> exercises = workoutHandler.getAllExerciseHeaders();
+        workoutHandler.deleteExercise(exercises.get(0), funWorkout);
 
-        assertTrue(routineHandler.getExerciseHeaders(funWorkout).isEmpty());
+        assertTrue(workoutHandler.getExerciseHeaders(funWorkout).isEmpty());
     }
 
     @Test
     public void testDeleteExerciseWhenExistent() {
-        routineHandler.addNewRoutine("Fun Workout");
-        WorkoutHeader funWorkout = routineHandler.getRoutineByID(0).getHeader();
+        workoutHandler.addNewWorkout("Fun Workout");
+        WorkoutHeader funWorkout = workoutHandler.getWorkoutByID(0).getHeader();
 
-        ArrayList<ExerciseHeader> exercises = routineHandler.getAllExerciseHeaders();
+        ArrayList<ExerciseHeader> exercises = workoutHandler.getAllExerciseHeaders();
         exercises.get(0).toggleSelected();
 
-        routineHandler.addSelectedExercisesToRoutine(funWorkout);
-        routineHandler.deleteExercise(routineHandler.getExerciseHeaders(funWorkout).get(0), funWorkout);
+        workoutHandler.addSelectedExercisesToWorkout(funWorkout);
+        workoutHandler.deleteExercise(workoutHandler.getExerciseHeaders(funWorkout).get(0), funWorkout);
 
-        assertTrue(routineHandler.getExerciseHeaders(funWorkout).isEmpty());
+        assertTrue(workoutHandler.getExerciseHeaders(funWorkout).isEmpty());
     }
 }
 

@@ -27,7 +27,7 @@
         <activity
             android:name=".ui.WorkoutOverviewActivity"
             android:exported="false"
-            android:label="@string/title_activity_routine_overview"
+            android:label="@string/title_activity_workout_overview"
             android:theme="@style/Base.Theme.BisonFit.ActionBar" />
         <activity
             android:name=".ui.HomePageActivity"

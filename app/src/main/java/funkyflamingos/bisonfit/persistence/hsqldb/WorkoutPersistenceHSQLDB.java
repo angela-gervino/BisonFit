@@ -19,11 +19,11 @@ import java.util.List;
 public class WorkoutPersistenceHSQLDB implements IWorkoutPersistence {
 
     private final String dbPath;
-    private  List<Workout> routines;
+    private  List<Workout> workouts;
 
     public WorkoutPersistenceHSQLDB(String dbPath ){
         this.dbPath = dbPath;
-        this.routines = new ArrayList<>();
+        this.workouts = new ArrayList<>();
     }
 
     private Connection connect() throws SQLException {
@@ -31,21 +31,21 @@ public class WorkoutPersistenceHSQLDB implements IWorkoutPersistence {
     }
 
     private Workout fromResultSet(final ResultSet rs) throws SQLException{
-        int routineID =  rs.getInt("ID");
-        String routineName = rs.getString("TITLE");
+        int workoutID =  rs.getInt("ID");
+        String workoutName = rs.getString("TITLE");
 
-        return new Workout(new WorkoutHeader(routineName,routineID));
+        return new Workout(new WorkoutHeader(workoutName,workoutID));
     }
 
-    private void loadRoutines() {
+    private void loadWorkouts() {
         try (Connection connection = connect()) {
-            routines = new ArrayList<>();
+            workouts = new ArrayList<>();
             final Statement statement = connection.createStatement();
-            final ResultSet resultSet = statement.executeQuery("SELECT * FROM ROUTINES");
+            final ResultSet resultSet = statement.executeQuery("SELECT * FROM WORKOUTS");
 
             while (resultSet.next()) {
-                final Workout oneRoutine = fromResultSet(resultSet);
-                this.routines.add(oneRoutine);
+                final Workout oneWorkout = fromResultSet(resultSet);
+                this.workouts.add(oneWorkout);
             }
             resultSet.close();
             statement.close();
@@ -56,19 +56,19 @@ public class WorkoutPersistenceHSQLDB implements IWorkoutPersistence {
     }
 
     @Override
-    public List<WorkoutHeader> getAllRoutineHeaders() {
+    public List<WorkoutHeader> getAllWorkoutHeaders() {
         List<WorkoutHeader> allHeaders = new ArrayList<>();
-        loadRoutines();
-        for (Workout routine : routines)
-            allHeaders.add(routine.getHeader());
+        loadWorkouts();
+        for (Workout workout : workouts)
+            allHeaders.add(workout.getHeader());
         return allHeaders;
     }
 
     @Override
-    public Workout getRoutineByID(int routineID) {
+    public Workout getWorkoutByID(int workoutID) {
         try (Connection connection = connect()) {
-            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM ROUTINES WHERE ROUTINES.ID = ?");
-            statement.setString(1, Integer.toString(routineID));
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM WORKOUTS WHERE WORKOUTS.ID = ?");
+            statement.setString(1, Integer.toString(workoutID));
             final ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 return fromResultSet(resultSet);
@@ -83,9 +83,9 @@ public class WorkoutPersistenceHSQLDB implements IWorkoutPersistence {
     }
 
     @Override
-    public void addRoutine(String name) {
+    public void addWorkout(String name) {
         try (Connection connection = connect()) {
-            final PreparedStatement statement = connection.prepareStatement("INSERT INTO ROUTINES VALUES (DEFAULT, ?)");
+            final PreparedStatement statement = connection.prepareStatement("INSERT INTO WORKOUTS VALUES (DEFAULT, ?)");
             statement.setString(1, name);
             statement.executeUpdate();
         } catch (final SQLException e) {
@@ -95,10 +95,10 @@ public class WorkoutPersistenceHSQLDB implements IWorkoutPersistence {
     }
 
     @Override
-    public void deleteRoutineById(int routineId) {
+    public void deleteWorkoutById(int workoutId) {
         try (Connection connection = connect()) {
-            final PreparedStatement statement = connection.prepareStatement("DELETE FROM ROUTINES WHERE ROUTINES.ID = ?");
-            statement.setInt(1, routineId);
+            final PreparedStatement statement = connection.prepareStatement("DELETE FROM WORKOUTS WHERE WORKOUTS.ID = ?");
+            statement.setInt(1, workoutId);
             statement.executeUpdate();
         } catch (final SQLException e) {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());

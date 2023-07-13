@@ -6,11 +6,11 @@ import funkyflamingos.bisonfit.dso.ExerciseHeader;
 import funkyflamingos.bisonfit.dso.WorkoutHeader;
 
 public interface ISavedWorkoutExercises {
-    public ArrayList<ExerciseHeader> getExercisesByRoutine(WorkoutHeader routineHeader);
+    public ArrayList<ExerciseHeader> getExercisesByWorkout(WorkoutHeader workoutHeader);
 
-    public void addExercises(ArrayList<ExerciseHeader> exerciseHeaders, WorkoutHeader routineHeader);
+    public void addExercises(ArrayList<ExerciseHeader> exerciseHeaders, WorkoutHeader workoutHeader);
 
-    public void deleteExercise(ExerciseHeader exerciseHeader, WorkoutHeader routineHeader);
+    public void deleteExercise(ExerciseHeader exerciseHeader, WorkoutHeader workoutHeader);
 
-    public void deleteRoutine(WorkoutHeader routineHeader);
+    public void deleteWorkout(WorkoutHeader workoutHeader);
 }
