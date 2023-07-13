@@ -33,6 +33,11 @@ The _Domain Specific Object (DSO)_ does not represents a layer per se., but desc
 
 ![architecture](Architecture1.jpg)
 
+### Iteration 2 Diagram
+
+![architecture](Architecture2.jpg)
+
+
 ## Database tables
 The following are the SQL tables that are required. Underlined attributes make up the primary key. Tables with same attribute names represent data of same category, linked according to the values of common attributes.
 
