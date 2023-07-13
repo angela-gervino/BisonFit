@@ -10,33 +10,33 @@ import funkyflamingos.bisonfit.dso.RoutineHeader;
 import funkyflamingos.bisonfit.persistence.IExerciseLookupPersistence;
 import funkyflamingos.bisonfit.persistence.IRoutinesPersistence;
 import funkyflamingos.bisonfit.persistence.ISavedRoutineExercises;
-import funkyflamingos.bisonfit.persistence.ISavedRoutineExercises;
-import funkyflamingos.bisonfit.persistence.stubs.RoutinesPersistenceStub;
 
 public class RoutineHandler implements IRoutineHandler {
-
-    private IRoutinesPersistence persistence;
-    private IExerciseLookupPersistence exerciseLookupPersistence;
-
+    private IRoutinesPersistence routinesPersistence;
     private ISavedRoutineExercises savedRoutineExercisesPersistence;
+    private IExerciseLookupPersistence exerciseLookupPersistence;
     ArrayList<ExerciseHeader> exerciseList;
 
     // Constructor for the database
     public RoutineHandler() {
-        persistence = Services.getRoutinesPersistence();
-        exerciseLookupPersistence = Services.getExerciseLookupPersistence();
-        exerciseList = exerciseLookupPersistence.getAllExerciseHeaders();
-
+        routinesPersistence = Services.getRoutinesPersistence();
         savedRoutineExercisesPersistence = Services.getSavedRoutineExercises();
+        exerciseLookupPersistence = Services.getExerciseLookupPersistence();
+
+        exerciseList = exerciseLookupPersistence.getAllExerciseHeaders();
     }
 
-    public RoutineHandler(IRoutinesPersistence p) {
-        persistence = p;
+    public RoutineHandler(IRoutinesPersistence r, ISavedRoutineExercises s, IExerciseLookupPersistence e) {
+        routinesPersistence = r;
+        savedRoutineExercisesPersistence = s;
+        exerciseLookupPersistence = e;
+
+        exerciseList = exerciseLookupPersistence.getAllExerciseHeaders();
     }
 
     @Override
     public List<RoutineHeader> getAllRoutineHeaders() {
-        return persistence.getAllRoutineHeaders();
+        return routinesPersistence.getAllRoutineHeaders();
     }
 
     @Override
@@ -58,28 +58,31 @@ public class RoutineHandler implements IRoutineHandler {
 
     @Override
     public Routine getRoutineByID(int routineID) {
-        return persistence.getRoutineByID(routineID);
+        return routinesPersistence.getRoutineByID(routineID);
     }
 
     @Override
     public void addNewRoutine(String routineName) {
-        System.out.println("adding routine" + routineName + " in logic");
-        persistence.addRoutine(routineName);
+        routinesPersistence.addRoutine(routineName);
     }
 
+    @Override
     public void deleteRoutine(int routineID) {
-        savedRoutineExercisesPersistence.deleteRoutine(getRoutineByID(routineID).getHeader());
-        persistence.deleteRoutineById(routineID);
+        if (getRoutineByID(routineID) != null) {
+            savedRoutineExercisesPersistence.deleteRoutine(getRoutineByID(routineID).getHeader());
+            routinesPersistence.deleteRoutineById(routineID);
+        }
     }
 
+    @Override
     public void addSelectedExercisesToRoutine(RoutineHeader routineHeader)
     {
-        System.out.println("Adding " + getAllSelectedExercises().size() + " exercises to " + routineHeader.getName());
         savedRoutineExercisesPersistence.addExercises(getAllSelectedExercises(), routineHeader);
 
         unselectAllExercises();
     }
 
+    @Override
     public void unselectAllExercises()
     {
         exerciseList.forEach(exerciseHeader -> {
@@ -89,14 +92,15 @@ public class RoutineHandler implements IRoutineHandler {
         });
     }
 
+    @Override
     public ArrayList<ExerciseHeader> getExerciseHeaders(RoutineHeader routineHeader)
     {
         return savedRoutineExercisesPersistence.getExercisesByRoutine(routineHeader);
     }
 
+    @Override
     public void deleteExercise(ExerciseHeader exerciseHeader, RoutineHeader routineHeader)
     {
-        System.out.println("deleting exercise " + exerciseHeader.getName() + " from routine in LOGIC");
         savedRoutineExercisesPersistence.deleteExercise(exerciseHeader, routineHeader);
     }
 }
