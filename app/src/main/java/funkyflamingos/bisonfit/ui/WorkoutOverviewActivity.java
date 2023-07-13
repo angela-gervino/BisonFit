@@ -7,16 +7,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import funkyflamingos.bisonfit.R;
-import funkyflamingos.bisonfit.dso.Routine;
-import funkyflamingos.bisonfit.logic.IRoutineHandler;
-import funkyflamingos.bisonfit.logic.RoutineHandler;
+import funkyflamingos.bisonfit.dso.Workout;
+import funkyflamingos.bisonfit.logic.IWorkoutHandler;
+import funkyflamingos.bisonfit.logic.WorkoutHandler;
 
-public class RoutineOverviewActivity extends AppCompatActivity {
+public class WorkoutOverviewActivity extends AppCompatActivity {
 
-    private Routine routine;
+    private Workout routine;
 
     private RecyclerView recyclerView;
     private WorkoutOverviewExercisesListAdapter adapter;
@@ -24,9 +23,9 @@ public class RoutineOverviewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_routine_overview);
+        setContentView(R.layout.activity_workout_overview);
 
-        IRoutineHandler routineHandler = new RoutineHandler();
+        IWorkoutHandler routineHandler = new WorkoutHandler();
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {

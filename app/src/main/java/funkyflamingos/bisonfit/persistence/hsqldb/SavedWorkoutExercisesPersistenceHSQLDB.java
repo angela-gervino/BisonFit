@@ -7,19 +7,17 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 import funkyflamingos.bisonfit.dso.ExerciseHeader;
-import funkyflamingos.bisonfit.dso.Routine;
-import funkyflamingos.bisonfit.dso.RoutineHeader;
-import funkyflamingos.bisonfit.persistence.ISavedRoutineExercises;
+import funkyflamingos.bisonfit.dso.WorkoutHeader;
+import funkyflamingos.bisonfit.persistence.ISavedWorkoutExercises;
 
-public class SavedRoutineExercisesPersistenceHSQLDB implements ISavedRoutineExercises {
+public class SavedWorkoutExercisesPersistenceHSQLDB implements ISavedWorkoutExercises {
     private final String dbPath;
     private int nextIndex;
 
-    public SavedRoutineExercisesPersistenceHSQLDB(String dbPath) {
+    public SavedWorkoutExercisesPersistenceHSQLDB(String dbPath) {
         this.dbPath = dbPath;
     }
 
@@ -27,7 +25,7 @@ public class SavedRoutineExercisesPersistenceHSQLDB implements ISavedRoutineExer
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
 
-    public ArrayList<ExerciseHeader> getExercisesByRoutine(RoutineHeader routineHeader) {
+    public ArrayList<ExerciseHeader> getExercisesByRoutine(WorkoutHeader routineHeader) {
         ArrayList<ExerciseHeader> exercisesInOrder = new ArrayList<>();
         try (Connection connection = connect()) {
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM SAVEDROUTINEEXERCISES JOIN EXERCISELOOKUP ON SAVEDROUTINEEXERCISES.EXERCISEID = EXERCISELOOKUP.ID WHERE ROUTINEID = ? ORDER BY INDEX ASC");
@@ -49,7 +47,7 @@ public class SavedRoutineExercisesPersistenceHSQLDB implements ISavedRoutineExer
         return exercisesInOrder;
     }
 
-    public void addExercises(ArrayList<ExerciseHeader> exerciseHeaders, RoutineHeader routineHeader) {
+    public void addExercises(ArrayList<ExerciseHeader> exerciseHeaders, WorkoutHeader routineHeader) {
         try (Connection connection = connect()) {
 
             for (int i = 0; i < exerciseHeaders.size(); i++){
@@ -66,7 +64,7 @@ public class SavedRoutineExercisesPersistenceHSQLDB implements ISavedRoutineExer
         }
     }
 
-    public void deleteExercise(ExerciseHeader exerciseHeader, RoutineHeader routineHeader) {
+    public void deleteExercise(ExerciseHeader exerciseHeader, WorkoutHeader routineHeader) {
         try (Connection connection = connect()) {
             final PreparedStatement statement = connection.prepareStatement("DELETE FROM SAVEDROUTINEEXERCISES WHERE ROUTINEID = ? AND EXERCISEID = ? AND INDEX = ?");
             statement.setInt(1, routineHeader.getId());
@@ -79,7 +77,7 @@ public class SavedRoutineExercisesPersistenceHSQLDB implements ISavedRoutineExer
         }
     }
 
-    public void deleteRoutine(RoutineHeader routineHeader) {
+    public void deleteRoutine(WorkoutHeader routineHeader) {
         try (Connection connection = connect()) {
             final PreparedStatement statement = connection.prepareStatement("DELETE FROM SAVEDROUTINEEXERCISES WHERE ROUTINEID = ?");
             statement.setInt(1, routineHeader.getId());

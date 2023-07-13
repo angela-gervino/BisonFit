@@ -1,10 +1,10 @@
 package funkyflamingos.bisonfit.dso;
 
-public class RoutineHeader {
+public class WorkoutHeader {
     String name;
     int id;
 
-    public RoutineHeader(String name, int id) {
+    public WorkoutHeader(String name, int id) {
         this.name = name;
         this.id = id;
     }

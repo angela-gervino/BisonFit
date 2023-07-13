@@ -1,50 +1,33 @@
 package funkyflamingos.bisonfit.logic;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import funkyflamingos.bisonfit.dso.ExerciseHeader;
-import funkyflamingos.bisonfit.dso.Routine;
-import funkyflamingos.bisonfit.dso.RoutineHeader;
+import funkyflamingos.bisonfit.dso.Workout;
+import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.persistence.IExerciseLookupPersistence;
-import funkyflamingos.bisonfit.persistence.IRoutinesPersistence;
-import funkyflamingos.bisonfit.persistence.ISavedRoutineExercises;
-import funkyflamingos.bisonfit.persistence.hsqldb.ExerciseLookupPersistenceHSQLDB;
-import funkyflamingos.bisonfit.persistence.hsqldb.RoutinesPersistenceHSQLDB;
-import funkyflamingos.bisonfit.persistence.hsqldb.SavedRoutineExercisesPersistenceHSQLDB;
+import funkyflamingos.bisonfit.persistence.IWorkoutPersistence;
+import funkyflamingos.bisonfit.persistence.ISavedWorkoutExercises;
 import funkyflamingos.bisonfit.persistence.stubs.ExerciseLookupPersistenceStub;
-import funkyflamingos.bisonfit.persistence.stubs.RoutinesPersistenceStub;
-import funkyflamingos.bisonfit.persistence.stubs.SavedRoutineExercisesPersistenceStub;
-import funkyflamingos.bisonfit.utils.TestUtils;
+import funkyflamingos.bisonfit.persistence.stubs.WorkoutPersistenceStub;
+import funkyflamingos.bisonfit.persistence.stubs.SavedWorkoutExercisesPersistenceStub;
 
-public class RoutineHandlerIT {
-    private RoutineHandler routineHandler;
-
-    private File tempDB;
+public class WorkoutHandlerTest {
+    private WorkoutHandler routineHandler;
 
     @Before
-    public void setup() throws Exception {
-        tempDB = TestUtils.copyDB();
+    public void setup() {
+        IWorkoutPersistence routinesPersistenceStub = new WorkoutPersistenceStub();
+        ISavedWorkoutExercises savedRoutineExercisesPersistenceStub = new SavedWorkoutExercisesPersistenceStub();
+        IExerciseLookupPersistence exerciseLookupPersistenceStub = new ExerciseLookupPersistenceStub();
 
-        String dbPathName = this.tempDB.getAbsolutePath().replace(".script", "");
-
-        final IRoutinesPersistence routinesPersistenceStub = new RoutinesPersistenceHSQLDB(dbPathName);
-        final ISavedRoutineExercises savedRoutineExercisesPersistenceStub = new SavedRoutineExercisesPersistenceHSQLDB(dbPathName);
-        final IExerciseLookupPersistence exerciseLookupPersistenceStub = new ExerciseLookupPersistenceHSQLDB(dbPathName);
-
-        routineHandler = new RoutineHandler(routinesPersistenceStub, savedRoutineExercisesPersistenceStub, exerciseLookupPersistenceStub);
-    }
-
-    @After
-    public void tearDown() {
-        this.tempDB.delete();
+        routineHandler = new WorkoutHandler(routinesPersistenceStub, savedRoutineExercisesPersistenceStub, exerciseLookupPersistenceStub);
     }
 
     @Test
@@ -61,7 +44,7 @@ public class RoutineHandlerIT {
     @Test
     public void testExpectedName() {
         routineHandler.addNewRoutine("Upper Body");
-        Routine foundRoutine = routineHandler.getRoutineByID(0);
+        Workout foundRoutine = routineHandler.getRoutineByID(0);
         assertTrue(foundRoutine.getHeader().getName().equals("Upper Body"));
     }
 
@@ -137,7 +120,7 @@ public class RoutineHandlerIT {
     @Test
     public void testAddSelectedExercisesToRoutineWhenAllSelected() {
         routineHandler.addNewRoutine("First Workout Routine!");
-        RoutineHeader firstWorkout = routineHandler.getAllRoutineHeaders().get(0);
+        WorkoutHeader firstWorkout = routineHandler.getAllRoutineHeaders().get(0);
 
         ArrayList<ExerciseHeader> exercises = routineHandler.getAllExerciseHeaders();
         exercises.forEach(exercise -> {
@@ -153,7 +136,7 @@ public class RoutineHandlerIT {
     @Test
     public void testAddSelectedExercisesToRoutineWhenNoneSelected() {
         routineHandler.addNewRoutine("First Workout Routine!");
-        RoutineHeader firstWorkout = routineHandler.getAllRoutineHeaders().get(0);
+        WorkoutHeader firstWorkout = routineHandler.getAllRoutineHeaders().get(0);
 
         routineHandler.addSelectedExercisesToRoutine(firstWorkout);
 
@@ -163,7 +146,7 @@ public class RoutineHandlerIT {
     @Test
     public void testGetExerciseHeadersWhenEmpty() {
         routineHandler.addNewRoutine("First Workout Routine!");
-        RoutineHeader firstWorkout = routineHandler.getAllRoutineHeaders().get(0);
+        WorkoutHeader firstWorkout = routineHandler.getAllRoutineHeaders().get(0);
 
         assertTrue(routineHandler.getExerciseHeaders(firstWorkout).isEmpty());
     }
@@ -171,7 +154,7 @@ public class RoutineHandlerIT {
     @Test
     public void testGetExerciseHeadersWhenNotEmpty() {
         routineHandler.addNewRoutine("First Workout Routine!");
-        RoutineHeader firstWorkout = routineHandler.getAllRoutineHeaders().get(0);
+        WorkoutHeader firstWorkout = routineHandler.getAllRoutineHeaders().get(0);
 
         ArrayList<ExerciseHeader> exercises = routineHandler.getAllExerciseHeaders();
         exercises.get(0).toggleSelected();
@@ -199,7 +182,7 @@ public class RoutineHandlerIT {
     @Test
     public void testDeleteExerciseWhenNonexistent() {
         routineHandler.addNewRoutine("Fun Workout");
-        RoutineHeader funWorkout = routineHandler.getRoutineByID(0).getHeader();
+        WorkoutHeader funWorkout = routineHandler.getRoutineByID(0).getHeader();
 
         ArrayList<ExerciseHeader> exercises = routineHandler.getAllExerciseHeaders();
         routineHandler.deleteExercise(exercises.get(0), funWorkout);
@@ -210,7 +193,7 @@ public class RoutineHandlerIT {
     @Test
     public void testDeleteExerciseWhenExistent() {
         routineHandler.addNewRoutine("Fun Workout");
-        RoutineHeader funWorkout = routineHandler.getRoutineByID(0).getHeader();
+        WorkoutHeader funWorkout = routineHandler.getRoutineByID(0).getHeader();
 
         ArrayList<ExerciseHeader> exercises = routineHandler.getAllExerciseHeaders();
         exercises.get(0).toggleSelected();
@@ -221,11 +204,6 @@ public class RoutineHandlerIT {
         assertTrue(routineHandler.getExerciseHeaders(funWorkout).isEmpty());
     }
 }
-
-
-
-
-
 
 
 

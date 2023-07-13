@@ -3,36 +3,36 @@ package funkyflamingos.bisonfit.persistence.stubs;
 import java.util.ArrayList;
 import java.util.List;
 
-import funkyflamingos.bisonfit.dso.Routine;
-import funkyflamingos.bisonfit.dso.RoutineHeader;
-import funkyflamingos.bisonfit.persistence.IRoutinesPersistence;
+import funkyflamingos.bisonfit.dso.Workout;
+import funkyflamingos.bisonfit.dso.WorkoutHeader;
+import funkyflamingos.bisonfit.persistence.IWorkoutPersistence;
 
-public class RoutinesPersistenceStub implements IRoutinesPersistence {
+public class WorkoutPersistenceStub implements IWorkoutPersistence {
 
-    List<Routine> allRoutines;
+    List<Workout> allRoutines;
     int nextId = 0;
 
-    public RoutinesPersistenceStub() {
-        allRoutines = new ArrayList<Routine>();
+    public WorkoutPersistenceStub() {
+        allRoutines = new ArrayList<Workout>();
     }
 
     @Override
-    public List<RoutineHeader> getAllRoutineHeaders() {
-        List<RoutineHeader> allHeaders = new ArrayList<RoutineHeader>();
-        for (Routine routine : allRoutines)
+    public List<WorkoutHeader> getAllRoutineHeaders() {
+        List<WorkoutHeader> allHeaders = new ArrayList<WorkoutHeader>();
+        for (Workout routine : allRoutines)
             allHeaders.add(routine.getHeader());
         return allHeaders;
     }
 
     @Override
-    public Routine getRoutineByID(int routineID) {
+    public Workout getRoutineByID(int routineID) {
         return allRoutines.stream().filter(routine -> routine.getHeader().getId() == routineID)
                 .findFirst().orElse(null);
     }
 
     @Override
     public void addRoutine(String routineName) {
-        allRoutines.add(new Routine(new RoutineHeader(routineName, nextId)));
+        allRoutines.add(new Workout(new WorkoutHeader(routineName, nextId)));
         nextId++;
     }
 

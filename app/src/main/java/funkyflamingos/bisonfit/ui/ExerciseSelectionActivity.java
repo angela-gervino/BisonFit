@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import funkyflamingos.bisonfit.R;
-import funkyflamingos.bisonfit.logic.IRoutineHandler;
-import funkyflamingos.bisonfit.logic.RoutineHandler;
+import funkyflamingos.bisonfit.logic.IWorkoutHandler;
+import funkyflamingos.bisonfit.logic.WorkoutHandler;
 
 public class ExerciseSelectionActivity extends AppCompatActivity {
     private int routineID;
-    private IRoutineHandler routineHandler;
+    private IWorkoutHandler routineHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class ExerciseSelectionActivity extends AppCompatActivity {
             routineID = extras.getInt("routineID");
         }
 
-        routineHandler = new RoutineHandler();
+        routineHandler = new WorkoutHandler();
 
         ExerciseSelectionListAdapter adapter = new ExerciseSelectionListAdapter(routineHandler.getAllExerciseHeaders(), this);
 

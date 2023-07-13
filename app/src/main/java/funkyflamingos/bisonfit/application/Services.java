@@ -1,33 +1,33 @@
 package funkyflamingos.bisonfit.application;
 
 // the interfaces
-import funkyflamingos.bisonfit.persistence.ISavedRoutineExercises;
+import funkyflamingos.bisonfit.persistence.ISavedWorkoutExercises;
 import funkyflamingos.bisonfit.persistence.IWaterTrackerPersistence;
-import funkyflamingos.bisonfit.persistence.IRoutinesPersistence;
+import funkyflamingos.bisonfit.persistence.IWorkoutPersistence;
 import funkyflamingos.bisonfit.persistence.IExerciseLookupPersistence;
 import funkyflamingos.bisonfit.persistence.IGymHoursPersistence;
 import funkyflamingos.bisonfit.persistence.IUserRegistrationPersistence;
 
 //the DB
-import funkyflamingos.bisonfit.persistence.hsqldb.RoutinesPersistenceHSQLDB;
-import funkyflamingos.bisonfit.persistence.hsqldb.SavedRoutineExercisesPersistenceHSQLDB;
+import funkyflamingos.bisonfit.persistence.hsqldb.WorkoutPersistenceHSQLDB;
+import funkyflamingos.bisonfit.persistence.hsqldb.SavedWorkoutExercisesPersistenceHSQLDB;
 import funkyflamingos.bisonfit.persistence.hsqldb.WaterTrackPersistenceHSQLDB;
 import funkyflamingos.bisonfit.persistence.hsqldb.ExerciseLookupPersistenceHSQLDB;
 import funkyflamingos.bisonfit.persistence.hsqldb.GymHoursPersistenceHSQLDB;
 import funkyflamingos.bisonfit.persistence.hsqldb.UserRegistrationPersistenceHSQLDB;
 
 public class Services {
-    private static IRoutinesPersistence routinesPersistence = null;
+    private static IWorkoutPersistence routinesPersistence = null;
     private static IWaterTrackerPersistence waterTrackerPersistence = null;
     private static IExerciseLookupPersistence exerciseLookupPersistence = null;
     private static IGymHoursPersistence gymHoursPersistence = null;
     private static IUserRegistrationPersistence userRegistrationPersistence = null;
-    private static ISavedRoutineExercises savedRoutineExercises = null;
+    private static ISavedWorkoutExercises savedRoutineExercises = null;
 
 
-    public static synchronized IRoutinesPersistence getRoutinesPersistence() {
+    public static synchronized IWorkoutPersistence getRoutinesPersistence() {
         if(routinesPersistence == null) {
-            routinesPersistence = new RoutinesPersistenceHSQLDB(Main.getDBPathName());
+            routinesPersistence = new WorkoutPersistenceHSQLDB(Main.getDBPathName());
         }
         return routinesPersistence;
     }
@@ -60,9 +60,9 @@ public class Services {
         return exerciseLookupPersistence;
     }
 
-    public static synchronized ISavedRoutineExercises getSavedRoutineExercises() {
+    public static synchronized ISavedWorkoutExercises getSavedRoutineExercises() {
         if(savedRoutineExercises == null) {
-            savedRoutineExercises = new SavedRoutineExercisesPersistenceHSQLDB(Main.getDBPathName());
+            savedRoutineExercises = new SavedWorkoutExercisesPersistenceHSQLDB(Main.getDBPathName());
         }
         return savedRoutineExercises;
     }

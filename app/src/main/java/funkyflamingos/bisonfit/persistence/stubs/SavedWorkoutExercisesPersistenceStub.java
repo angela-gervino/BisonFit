@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import funkyflamingos.bisonfit.dso.ExerciseHeader;
-import funkyflamingos.bisonfit.dso.RoutineHeader;
-import funkyflamingos.bisonfit.persistence.ISavedRoutineExercises;
+import funkyflamingos.bisonfit.dso.WorkoutHeader;
+import funkyflamingos.bisonfit.persistence.ISavedWorkoutExercises;
 
-public class SavedRoutineExercisesPersistenceStub implements ISavedRoutineExercises {
+public class SavedWorkoutExercisesPersistenceStub implements ISavedWorkoutExercises {
     private int nextIndex;
     private ArrayList<int[]> table;
     private HashMap<Integer, String> idToExerciseName;
 
-    public SavedRoutineExercisesPersistenceStub() {
+    public SavedWorkoutExercisesPersistenceStub() {
         nextIndex = 0;
         table = new ArrayList<>();
         idToExerciseName = new HashMap<>();
     }
 
     @Override
-    public ArrayList<ExerciseHeader> getExercisesByRoutine(RoutineHeader routineHeader) {
+    public ArrayList<ExerciseHeader> getExercisesByRoutine(WorkoutHeader routineHeader) {
         ArrayList<ExerciseHeader> exerciseHeaders = new ArrayList<>();
         for (int[] entry: table) {
             if (entry[0] == routineHeader.getId()) {
@@ -31,7 +31,7 @@ public class SavedRoutineExercisesPersistenceStub implements ISavedRoutineExerci
     }
 
     @Override
-    public void addExercises(ArrayList<ExerciseHeader> exerciseHeaders, RoutineHeader routineHeader) {
+    public void addExercises(ArrayList<ExerciseHeader> exerciseHeaders, WorkoutHeader routineHeader) {
         for (ExerciseHeader exerciseHeader : exerciseHeaders) {
             int[] temp = {routineHeader.getId(), exerciseHeader.getId(), nextIndex, exerciseHeader.getSetCount()};
             table.add(temp);
@@ -43,7 +43,7 @@ public class SavedRoutineExercisesPersistenceStub implements ISavedRoutineExerci
     }
 
     @Override
-    public void deleteExercise(ExerciseHeader exerciseHeader, RoutineHeader routineHeader) {
+    public void deleteExercise(ExerciseHeader exerciseHeader, WorkoutHeader routineHeader) {
         boolean found = false;
         for (int i = 0; i < table.size() && !found; i++) {
             int[] entry = table.get(i);
@@ -55,7 +55,7 @@ public class SavedRoutineExercisesPersistenceStub implements ISavedRoutineExerci
     }
 
     @Override
-    public void deleteRoutine(RoutineHeader routineHeader) {
+    public void deleteRoutine(WorkoutHeader routineHeader) {
         ArrayList<Integer> indices = getIndices(routineHeader.getId());
         for (int index: indices)
             table.remove(index);

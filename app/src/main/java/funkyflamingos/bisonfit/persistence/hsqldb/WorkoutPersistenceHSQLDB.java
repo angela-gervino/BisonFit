@@ -1,9 +1,8 @@
 package funkyflamingos.bisonfit.persistence.hsqldb;
 
-import funkyflamingos.bisonfit.dso.RoutineHeader;
-import funkyflamingos.bisonfit.dso.Routine;
-import funkyflamingos.bisonfit.persistence.IRoutinesPersistence;
-import funkyflamingos.bisonfit.persistence.utils.DBHelper;
+import funkyflamingos.bisonfit.dso.WorkoutHeader;
+import funkyflamingos.bisonfit.dso.Workout;
+import funkyflamingos.bisonfit.persistence.IWorkoutPersistence;
 
 import android.util.Log;
 
@@ -17,12 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class RoutinesPersistenceHSQLDB implements IRoutinesPersistence {
+public class WorkoutPersistenceHSQLDB implements IWorkoutPersistence {
 
     private final String dbPath;
-    private  List<Routine> routines;
+    private  List<Workout> routines;
 
-    public RoutinesPersistenceHSQLDB (String dbPath ){
+    public WorkoutPersistenceHSQLDB(String dbPath ){
         this.dbPath = dbPath;
         this.routines = new ArrayList<>();
     }
@@ -31,11 +30,11 @@ public class RoutinesPersistenceHSQLDB implements IRoutinesPersistence {
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
 
-    private Routine fromResultSet(final ResultSet rs) throws SQLException{
+    private Workout fromResultSet(final ResultSet rs) throws SQLException{
         int routineID =  rs.getInt("ID");
         String routineName = rs.getString("TITLE");
 
-        return new Routine(new RoutineHeader(routineName,routineID));
+        return new Workout(new WorkoutHeader(routineName,routineID));
     }
 
     private void loadRoutines() {
@@ -45,7 +44,7 @@ public class RoutinesPersistenceHSQLDB implements IRoutinesPersistence {
             final ResultSet resultSet = statement.executeQuery("SELECT * FROM ROUTINES");
 
             while (resultSet.next()) {
-                final Routine oneRoutine = fromResultSet(resultSet);
+                final Workout oneRoutine = fromResultSet(resultSet);
                 this.routines.add(oneRoutine);
             }
             resultSet.close();
@@ -57,16 +56,16 @@ public class RoutinesPersistenceHSQLDB implements IRoutinesPersistence {
     }
 
     @Override
-    public List<RoutineHeader> getAllRoutineHeaders() {
-        List<RoutineHeader> allHeaders = new ArrayList<>();
+    public List<WorkoutHeader> getAllRoutineHeaders() {
+        List<WorkoutHeader> allHeaders = new ArrayList<>();
         loadRoutines();
-        for (Routine routine : routines)
+        for (Workout routine : routines)
             allHeaders.add(routine.getHeader());
         return allHeaders;
     }
 
     @Override
-    public Routine getRoutineByID(int routineID) {
+    public Workout getRoutineByID(int routineID) {
         try (Connection connection = connect()) {
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM ROUTINES WHERE ROUTINES.ID = ?");
             statement.setString(1, Integer.toString(routineID));
