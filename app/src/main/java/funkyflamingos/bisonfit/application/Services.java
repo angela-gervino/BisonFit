@@ -12,7 +12,7 @@ import funkyflamingos.bisonfit.persistence.IUserRegistrationPersistence;
 //the DB
 import funkyflamingos.bisonfit.persistence.hsqldb.WorkoutPersistenceHSQLDB;
 import funkyflamingos.bisonfit.persistence.hsqldb.SavedWorkoutExercisesPersistenceHSQLDB;
-import funkyflamingos.bisonfit.persistence.hsqldb.WaterTrackPersistenceHSQLDB;
+import funkyflamingos.bisonfit.persistence.hsqldb.WaterTrackerPersistenceHSQLDB;
 import funkyflamingos.bisonfit.persistence.hsqldb.ExerciseLookupPersistenceHSQLDB;
 import funkyflamingos.bisonfit.persistence.hsqldb.GymHoursPersistenceHSQLDB;
 import funkyflamingos.bisonfit.persistence.hsqldb.UserRegistrationPersistenceHSQLDB;
@@ -35,7 +35,7 @@ public class Services {
 
     public static synchronized IWaterTrackerPersistence getWaterTrackPersistence() {
         if (waterTrackerPersistence == null) {
-            waterTrackerPersistence = new WaterTrackPersistenceHSQLDB(Main.getDBPathName());
+            waterTrackerPersistence = new WaterTrackerPersistenceHSQLDB(Main.getDBPathName());
         }
         return waterTrackerPersistence;
     }
