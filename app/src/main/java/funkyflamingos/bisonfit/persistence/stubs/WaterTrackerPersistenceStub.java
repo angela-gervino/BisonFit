@@ -7,8 +7,8 @@ import java.time.LocalDate;
 import funkyflamingos.bisonfit.persistence.IWaterTrackerPersistence;
 
 public class WaterTrackerPersistenceStub implements IWaterTrackerPersistence {
-    Map<LocalDate, Integer> progress;
-    int goal;
+    private Map<LocalDate, Integer> progress;
+    private int goal;
 
     public WaterTrackerPersistenceStub() {
         progress = new HashMap<>();

@@ -15,7 +15,7 @@ public class WorkoutHandler implements IWorkoutHandler {
     private IWorkoutPersistence workoutsPersistence;
     private ISavedWorkoutExercises savedWorkoutExercisesPersistence;
     private IExerciseLookupPersistence exerciseLookupPersistence;
-    ArrayList<ExerciseHeader> exerciseList;
+    private ArrayList<ExerciseHeader> exerciseList;
 
     // Constructor for the database
     public WorkoutHandler() {

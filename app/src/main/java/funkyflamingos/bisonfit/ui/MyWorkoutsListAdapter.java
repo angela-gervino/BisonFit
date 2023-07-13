@@ -18,7 +18,6 @@ import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.logic.WorkoutHandler;
 
 public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAdapter.ViewHolder> {
-
     private List<WorkoutHeader> localDataSet;
     private final Context parentActivity;
 

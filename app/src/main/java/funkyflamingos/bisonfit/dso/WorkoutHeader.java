@@ -1,8 +1,8 @@
 package funkyflamingos.bisonfit.dso;
 
 public class WorkoutHeader {
-    String name;
-    int id;
+    private String name;
+    private int id;
 
     public WorkoutHeader(String name, int id) {
         this.name = name;

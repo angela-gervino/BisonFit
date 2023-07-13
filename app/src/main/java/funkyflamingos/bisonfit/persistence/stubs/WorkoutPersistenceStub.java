@@ -8,12 +8,12 @@ import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.persistence.IWorkoutPersistence;
 
 public class WorkoutPersistenceStub implements IWorkoutPersistence {
-
-    List<Workout> allWorkouts;
-    int nextId = 0;
+    private List<Workout> allWorkouts;
+    private int nextId;
 
     public WorkoutPersistenceStub() {
         allWorkouts = new ArrayList<Workout>();
+        nextId = 0;
     }
 
     @Override
