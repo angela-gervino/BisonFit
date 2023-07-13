@@ -35,8 +35,6 @@ public class WaterTrackPersistenceHSQLDB implements IWaterTrackerPersistence {
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
 
-
-    // if we are just using this for ite 3, we should save and delete!!!
     private void loadWaterTrack() {
         try (Connection connection = connect()) {
             final Statement statement = connection.createStatement();
