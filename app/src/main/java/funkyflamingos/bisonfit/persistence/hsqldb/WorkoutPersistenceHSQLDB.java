@@ -1,9 +1,8 @@
 package funkyflamingos.bisonfit.persistence.hsqldb;
 
-import funkyflamingos.bisonfit.dso.RoutineHeader;
-import funkyflamingos.bisonfit.dso.Routine;
-import funkyflamingos.bisonfit.persistence.IRoutinesPersistence;
-import funkyflamingos.bisonfit.persistence.utils.DBHelper;
+import funkyflamingos.bisonfit.dso.WorkoutHeader;
+import funkyflamingos.bisonfit.dso.Workout;
+import funkyflamingos.bisonfit.persistence.IWorkoutPersistence;
 
 import android.util.Log;
 
@@ -17,36 +16,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class RoutinesPersistenceHSQLDB implements IRoutinesPersistence {
+public class WorkoutPersistenceHSQLDB implements IWorkoutPersistence {
 
     private final String dbPath;
-    private  List<Routine> routines;
+    private  List<Workout> workouts;
 
-    public RoutinesPersistenceHSQLDB (String dbPath ){
+    public WorkoutPersistenceHSQLDB(String dbPath ){
         this.dbPath = dbPath;
-        this.routines = new ArrayList<>();
+        this.workouts = new ArrayList<>();
     }
 
     private Connection connect() throws SQLException {
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
 
-    private Routine fromResultSet(final ResultSet rs) throws SQLException{
-        int routineID =  rs.getInt("ID");
-        String routineName = rs.getString("TITLE");
+    private Workout fromResultSet(final ResultSet rs) throws SQLException{
+        int workoutID =  rs.getInt("ID");
+        String workoutName = rs.getString("TITLE");
 
-        return new Routine(new RoutineHeader(routineName,routineID));
+        return new Workout(new WorkoutHeader(workoutName,workoutID));
     }
 
-    private void loadRoutines() {
+    private void loadWorkouts() {
         try (Connection connection = connect()) {
-            routines = new ArrayList<>();
+            workouts = new ArrayList<>();
             final Statement statement = connection.createStatement();
-            final ResultSet resultSet = statement.executeQuery("SELECT * FROM ROUTINES");
+            final ResultSet resultSet = statement.executeQuery("SELECT * FROM WORKOUTS");
 
             while (resultSet.next()) {
-                final Routine oneRoutine = fromResultSet(resultSet);
-                this.routines.add(oneRoutine);
+                final Workout oneWorkout = fromResultSet(resultSet);
+                this.workouts.add(oneWorkout);
             }
             resultSet.close();
             statement.close();
@@ -57,19 +56,19 @@ public class RoutinesPersistenceHSQLDB implements IRoutinesPersistence {
     }
 
     @Override
-    public List<RoutineHeader> getAllRoutineHeaders() {
-        List<RoutineHeader> allHeaders = new ArrayList<>();
-        loadRoutines();
-        for (Routine routine : routines)
-            allHeaders.add(routine.getHeader());
+    public List<WorkoutHeader> getAllWorkoutHeaders() {
+        List<WorkoutHeader> allHeaders = new ArrayList<>();
+        loadWorkouts();
+        for (Workout workout : workouts)
+            allHeaders.add(workout.getHeader());
         return allHeaders;
     }
 
     @Override
-    public Routine getRoutineByID(int routineID) {
+    public Workout getWorkoutByID(int workoutID) {
         try (Connection connection = connect()) {
-            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM ROUTINES WHERE ROUTINES.ID = ?");
-            statement.setString(1, Integer.toString(routineID));
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM WORKOUTS WHERE WORKOUTS.ID = ?");
+            statement.setString(1, Integer.toString(workoutID));
             final ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 return fromResultSet(resultSet);
@@ -84,9 +83,9 @@ public class RoutinesPersistenceHSQLDB implements IRoutinesPersistence {
     }
 
     @Override
-    public void addRoutine(String name) {
+    public void addWorkout(String name) {
         try (Connection connection = connect()) {
-            final PreparedStatement statement = connection.prepareStatement("INSERT INTO ROUTINES VALUES (DEFAULT, ?)");
+            final PreparedStatement statement = connection.prepareStatement("INSERT INTO WORKOUTS VALUES (DEFAULT, ?)");
             statement.setString(1, name);
             statement.executeUpdate();
         } catch (final SQLException e) {
@@ -96,10 +95,10 @@ public class RoutinesPersistenceHSQLDB implements IRoutinesPersistence {
     }
 
     @Override
-    public void deleteRoutineById(int routineId) {
+    public void deleteWorkoutById(int workoutId) {
         try (Connection connection = connect()) {
-            final PreparedStatement statement = connection.prepareStatement("DELETE FROM ROUTINES WHERE ROUTINES.ID = ?");
-            statement.setInt(1, routineId);
+            final PreparedStatement statement = connection.prepareStatement("DELETE FROM WORKOUTS WHERE WORKOUTS.ID = ?");
+            statement.setInt(1, workoutId);
             statement.executeUpdate();
         } catch (final SQLException e) {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());

@@ -1,13 +1,13 @@
 package funkyflamingos.bisonfit.dso;
 
-public class Routine {
-    private RoutineHeader header;
+public class Workout {
+    private WorkoutHeader header;
 
-    public Routine(RoutineHeader header) {
+    public Workout(WorkoutHeader header) {
         this.header = header;
     }
 
-    public RoutineHeader getHeader() {
+    public WorkoutHeader getHeader() {
         return header;
     }
 

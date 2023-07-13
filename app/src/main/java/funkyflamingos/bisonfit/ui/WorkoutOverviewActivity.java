@@ -7,16 +7,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import funkyflamingos.bisonfit.R;
-import funkyflamingos.bisonfit.dso.Routine;
-import funkyflamingos.bisonfit.logic.IRoutineHandler;
-import funkyflamingos.bisonfit.logic.RoutineHandler;
+import funkyflamingos.bisonfit.dso.Workout;
+import funkyflamingos.bisonfit.logic.IWorkoutHandler;
+import funkyflamingos.bisonfit.logic.WorkoutHandler;
 
-public class RoutineOverviewActivity extends AppCompatActivity {
+public class WorkoutOverviewActivity extends AppCompatActivity {
 
-    private Routine routine;
+    private Workout workout;
 
     private RecyclerView recyclerView;
     private WorkoutOverviewExercisesListAdapter adapter;
@@ -24,19 +23,19 @@ public class RoutineOverviewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_routine_overview);
+        setContentView(R.layout.activity_workout_overview);
 
-        IRoutineHandler routineHandler = new RoutineHandler();
+        IWorkoutHandler workoutHandler = new WorkoutHandler();
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            int clickedRoutineID = extras.getInt("routineID");
-            routine = routineHandler.getRoutineByID(clickedRoutineID);
-            String clickedRoutineName = routine.getHeader().getName();
-            getActionBar().setTitle(clickedRoutineName);
+            int clickedWorkoutID = extras.getInt("workoutID");
+            workout = workoutHandler.getWorkoutByID(clickedWorkoutID);
+            String clickedWorkoutName = workout.getHeader().getName();
+            getActionBar().setTitle(clickedWorkoutName);
         }
 
-        adapter = new WorkoutOverviewExercisesListAdapter(routine.getHeader(), routineHandler.getExerciseHeaders(routine.getHeader()));
+        adapter = new WorkoutOverviewExercisesListAdapter(workout.getHeader(), workoutHandler.getExerciseHeaders(workout.getHeader()));
         recyclerView = findViewById(R.id.lstMyExercises);
 
         //recyclerVew setup
@@ -54,7 +53,7 @@ public class RoutineOverviewActivity extends AppCompatActivity {
 
     public void openExerciseSelectionActivity(View v) {
         Intent intent = new Intent(this, ExerciseSelectionActivity.class);
-        intent.putExtra("routineID", routine.getHeader().getId());
+        intent.putExtra("workoutID", workout.getHeader().getId());
         startActivity(intent);
     }
 

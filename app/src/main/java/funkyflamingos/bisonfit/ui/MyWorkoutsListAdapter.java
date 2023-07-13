@@ -13,20 +13,20 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import funkyflamingos.bisonfit.R;
-import funkyflamingos.bisonfit.dso.RoutineHeader;
-import funkyflamingos.bisonfit.logic.RoutineHandler;
+import funkyflamingos.bisonfit.dso.WorkoutHeader;
+import funkyflamingos.bisonfit.logic.WorkoutHandler;
 
 public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAdapter.ViewHolder> {
 
-    private List<RoutineHeader> localDataSet;
+    private List<WorkoutHeader> localDataSet;
     private final Context parentActivity;
 
-    public MyWorkoutsListAdapter(List<RoutineHeader> dataSet, Context parentActivity) {
+    public MyWorkoutsListAdapter(List<WorkoutHeader> dataSet, Context parentActivity) {
         localDataSet = dataSet;
         this.parentActivity = parentActivity;
     }
 
-    public void updateWorkoutList(List<RoutineHeader> newWorkouts)
+    public void updateWorkoutList(List<WorkoutHeader> newWorkouts)
     {
         localDataSet = newWorkouts;
         notifyDataSetChanged();
@@ -46,8 +46,8 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
 
         viewHolder.getLayout().setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
-                Intent intent = new Intent(parentActivity, RoutineOverviewActivity.class);
-                intent.putExtra("routineID", viewHolder.getDataItem().getId());
+                Intent intent = new Intent(parentActivity, WorkoutOverviewActivity.class);
+                intent.putExtra("workoutID", viewHolder.getDataItem().getId());
                 parentActivity.startActivity(intent);
             }
         });
@@ -57,9 +57,9 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
             public void onClick(View view) {
                 int position = viewHolder.getAdapterPosition();
 
-                RoutineHandler routineHandler = new RoutineHandler();
-                RoutineHeader routineToDelete = localDataSet.get(position);
-                routineHandler.deleteRoutine(routineToDelete.getId());
+                WorkoutHandler workoutHandler = new WorkoutHandler();
+                WorkoutHeader workoutToDelete = localDataSet.get(position);
+                workoutHandler.deleteWorkout(workoutToDelete.getId());
                 localDataSet.remove(position);
 
                 notifyItemRemoved(position);
@@ -91,7 +91,7 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
 
     //ViewHolder object holds the individual UI item to display and interact with
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private RoutineHeader dataItem;
+        private WorkoutHeader dataItem;
         private final TextView lblWorkout;
         private final ConstraintLayout layout;
         private final ImageButton deleteButton;
@@ -103,11 +103,11 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
             deleteButton = view.findViewById(R.id.deleteWorkoutButton);
         }
 
-        public void setDataItem(RoutineHeader dataItem) {
+        public void setDataItem(WorkoutHeader dataItem) {
             this.dataItem = dataItem;
         }
 
-        public RoutineHeader getDataItem() {
+        public WorkoutHeader getDataItem() {
             return dataItem;
         }
         public TextView getLabel() {

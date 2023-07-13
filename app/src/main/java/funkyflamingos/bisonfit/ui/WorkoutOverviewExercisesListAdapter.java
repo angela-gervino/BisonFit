@@ -1,8 +1,7 @@
 package funkyflamingos.bisonfit.ui;
 
 import java.util.List;
-import android.content.Context;
-import android.content.Intent;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import funkyflamingos.bisonfit.R;
 import funkyflamingos.bisonfit.dso.ExerciseHeader;
-import funkyflamingos.bisonfit.dso.RoutineHeader;
-import funkyflamingos.bisonfit.logic.RoutineHandler;
+import funkyflamingos.bisonfit.dso.WorkoutHeader;
+import funkyflamingos.bisonfit.logic.WorkoutHandler;
 
 public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<WorkoutOverviewExercisesListAdapter.ViewHolder> {
     private List<ExerciseHeader> localDataSet;
 
-    private RoutineHeader routineHeader;
+    private WorkoutHeader workoutHeader;
 
-    public WorkoutOverviewExercisesListAdapter(RoutineHeader routineHeader, List<ExerciseHeader> dataSet) {
+    public WorkoutOverviewExercisesListAdapter(WorkoutHeader workoutHeader, List<ExerciseHeader> dataSet) {
         localDataSet = dataSet;
-        this.routineHeader = routineHeader;
+        this.workoutHeader = workoutHeader;
     }
 
     @Override
@@ -45,8 +44,8 @@ public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<Wo
             public void onClick(View view) {
                 int position = viewHolder.getAdapterPosition();
 
-                RoutineHandler routineHandler = new RoutineHandler();
-                routineHandler.deleteExercise(localDataSet.get(position), routineHeader);
+                WorkoutHandler workoutHandler = new WorkoutHandler();
+                workoutHandler.deleteExercise(localDataSet.get(position), workoutHeader);
 
                 localDataSet.remove(position);
                 notifyItemRemoved(position);
@@ -60,9 +59,9 @@ public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<Wo
     }
 
     public void refreshData() {
-        RoutineHandler routineHandler = new RoutineHandler();
-        routineHandler.unselectAllExercises();
-        localDataSet = routineHandler.getExerciseHeaders(routineHeader);
+        WorkoutHandler workoutHandler = new WorkoutHandler();
+        workoutHandler.unselectAllExercises();
+        localDataSet = workoutHandler.getExerciseHeaders(workoutHeader);
     }
 
 

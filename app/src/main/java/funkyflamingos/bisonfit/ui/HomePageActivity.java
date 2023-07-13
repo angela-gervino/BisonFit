@@ -5,14 +5,14 @@ import java.util.List;
 
 import funkyflamingos.bisonfit.logic.GymHoursHandler;
 import funkyflamingos.bisonfit.logic.IGymHoursHandler;
-import funkyflamingos.bisonfit.logic.IRoutineHandler;
+import funkyflamingos.bisonfit.logic.IWorkoutHandler;
 import funkyflamingos.bisonfit.logic.IUserRegistrationHandler;
 import funkyflamingos.bisonfit.logic.IWaterHandler;
 import funkyflamingos.bisonfit.logic.UserRegistrationHandler;
 import funkyflamingos.bisonfit.logic.WaterHandler;
-import funkyflamingos.bisonfit.logic.RoutineHandler;
+import funkyflamingos.bisonfit.logic.WorkoutHandler;
 
-import funkyflamingos.bisonfit.dso.RoutineHeader;
+import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.R;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,7 +34,7 @@ public class HomePageActivity extends AppCompatActivity implements AddWorkoutDia
     private TextView lblGreetings;
     private Button btnGymHours;
     private IUserRegistrationHandler userNameHandler;
-    private IRoutineHandler workoutManager;
+    private IWorkoutHandler workoutManager;
     private MyWorkoutsListAdapter adapter;
 
     @Override
@@ -48,8 +48,8 @@ public class HomePageActivity extends AppCompatActivity implements AddWorkoutDia
         lblGreetings = findViewById(R.id.lblGreetings);
         userNameHandler = new UserRegistrationHandler();
 
-        workoutManager = new RoutineHandler();
-        List<RoutineHeader> listOfWorkouts = workoutManager.getAllRoutineHeaders();
+        workoutManager = new WorkoutHandler();
+        List<WorkoutHeader> listOfWorkouts = workoutManager.getAllWorkoutHeaders();
         adapter = new MyWorkoutsListAdapter(listOfWorkouts, this);
         RecyclerView recyclerView = findViewById(R.id.lstMyWorkouts);
 
@@ -135,8 +135,8 @@ public class HomePageActivity extends AppCompatActivity implements AddWorkoutDia
     @Override
     public void createNewWorkout(String newWorkoutName)
     {
-        workoutManager.addNewRoutine(newWorkoutName);
-        adapter.updateWorkoutList(workoutManager.getAllRoutineHeaders());
+        workoutManager.addNewWorkout(newWorkoutName);
+        adapter.updateWorkoutList(workoutManager.getAllWorkoutHeaders());
     }
 
     public void newWorkoutDialog(View view) {
