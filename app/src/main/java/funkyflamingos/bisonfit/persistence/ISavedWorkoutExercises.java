@@ -8,7 +8,7 @@ import funkyflamingos.bisonfit.dso.WorkoutHeader;
 public interface ISavedWorkoutExercises {
     ArrayList<ExerciseHeader> getExercisesByWorkout(WorkoutHeader workoutHeader);
 
-    void addExercises(ArrayList<ExerciseHeader> exerciseHeaders, WorkoutHeader workoutHeader);
+    void addExercises(ArrayList<ExerciseHeader> exerciseHeaders, int workoutID);
 
     void deleteExercise(ExerciseHeader exerciseHeader, WorkoutHeader workoutHeader);
 

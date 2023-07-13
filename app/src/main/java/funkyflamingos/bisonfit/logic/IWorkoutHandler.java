@@ -20,7 +20,7 @@ public interface IWorkoutHandler {
 
     void addNewWorkout(String workoutName);
 
-    void addSelectedExercisesToWorkout(WorkoutHeader workoutHeader);
+    void addSelectedExercisesToWorkout(int workoutID);
 
     ArrayList<ExerciseHeader> getExerciseHeaders(WorkoutHeader workoutHeader);
 

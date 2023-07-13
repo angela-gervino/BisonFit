@@ -35,7 +35,7 @@ public class ExerciseSelectionActivity extends AppCompatActivity {
     }
 
     public void addExercises(View v) {
-        workoutHandler.addSelectedExercisesToWorkout(workoutHandler.getWorkoutByID(workoutID).getHeader());
+        workoutHandler.addSelectedExercisesToWorkout(workoutID);
         finish();
     }
 }

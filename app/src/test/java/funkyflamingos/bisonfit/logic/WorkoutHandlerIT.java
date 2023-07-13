@@ -142,7 +142,7 @@ public class WorkoutHandlerIT {
                 exercise.toggleSelected();
         });
 
-        workoutHandler.addSelectedExercisesToWorkout(firstWorkout);
+        workoutHandler.addSelectedExercisesToWorkout(firstWorkout.getId());
 
         assertEquals(exercises.size(), workoutHandler.getExerciseHeaders(firstWorkout).size());
     }
@@ -152,7 +152,7 @@ public class WorkoutHandlerIT {
         workoutHandler.addNewWorkout("First Workout Workout!");
         WorkoutHeader firstWorkout = workoutHandler.getAllWorkoutHeaders().get(0);
 
-        workoutHandler.addSelectedExercisesToWorkout(firstWorkout);
+        workoutHandler.addSelectedExercisesToWorkout(firstWorkout.getId());
 
         assertEquals(0, workoutHandler.getExerciseHeaders(firstWorkout).size());
     }
@@ -173,7 +173,7 @@ public class WorkoutHandlerIT {
         ArrayList<ExerciseHeader> exercises = workoutHandler.getAllExerciseHeaders();
         exercises.get(0).toggleSelected();
 
-        workoutHandler.addSelectedExercisesToWorkout(firstWorkout);
+        workoutHandler.addSelectedExercisesToWorkout(firstWorkout.getId());
 
         assertEquals(1, workoutHandler.getExerciseHeaders(firstWorkout).size());
     }
@@ -212,7 +212,7 @@ public class WorkoutHandlerIT {
         ArrayList<ExerciseHeader> exercises = workoutHandler.getAllExerciseHeaders();
         exercises.get(0).toggleSelected();
 
-        workoutHandler.addSelectedExercisesToWorkout(funWorkout);
+        workoutHandler.addSelectedExercisesToWorkout(funWorkout.getId());
         workoutHandler.deleteExercise(workoutHandler.getExerciseHeaders(funWorkout).get(0), funWorkout);
 
         assertTrue(workoutHandler.getExerciseHeaders(funWorkout).isEmpty());
