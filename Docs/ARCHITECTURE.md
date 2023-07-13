@@ -38,6 +38,7 @@ The following are the SQL tables that are required. Underlined attributes make u
 
 #### Static Lookup Tables:
 Tables not meant to be changed by the user.
+
 **EXERCISELOOKUP**<br>
 |Attribute|Type|Description|
 |-|-|-|
@@ -97,6 +98,7 @@ Tables that hold the record of workouts and exercises done by the user.<br><br>
 
 #### Water Tracking Table:
 Table that holds data on daily water drinking goal progress.
+**WATERTRACKING**<br>
 |Attribute|Type|Description|
 |-|-|-|
 |<ins>dateProgress<ins>|`varchar`|Unix time stamp at 12:00AM of day in reference|
@@ -105,6 +107,7 @@ Table that holds data on daily water drinking goal progress.
 
 #### User Registration Table:
 Table that holds data on the registered user
+**USERREGISTRATION**<br>
 |Attribute|Type|Description|
 |-|-|-|
 |<ins>userName<ins>|`varchar`|The name of the registered user|
