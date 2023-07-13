@@ -15,7 +15,6 @@ import funkyflamingos.bisonfit.persistence.ISavedWorkoutExercises;
 
 public class SavedWorkoutExercisesPersistenceHSQLDB implements ISavedWorkoutExercises {
     private final String dbPath;
-    private int nextIndex;
 
     public SavedWorkoutExercisesPersistenceHSQLDB(String dbPath) {
         this.dbPath = dbPath;

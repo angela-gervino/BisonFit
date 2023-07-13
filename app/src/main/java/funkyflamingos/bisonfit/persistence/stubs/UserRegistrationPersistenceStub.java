@@ -3,11 +3,10 @@ package funkyflamingos.bisonfit.persistence.stubs;
 import funkyflamingos.bisonfit.persistence.IUserRegistrationPersistence;
 
 public class UserRegistrationPersistenceStub implements IUserRegistrationPersistence {
-
-    String name = null;
+    private String name;
 
     public UserRegistrationPersistenceStub() {
-
+        name = null;
     }
 
     @Override

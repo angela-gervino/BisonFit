@@ -14,9 +14,7 @@ import funkyflamingos.bisonfit.logic.IWorkoutHandler;
 import funkyflamingos.bisonfit.logic.WorkoutHandler;
 
 public class WorkoutOverviewActivity extends AppCompatActivity {
-
     private Workout workout;
-
     private RecyclerView recyclerView;
     private WorkoutOverviewExercisesListAdapter adapter;
 

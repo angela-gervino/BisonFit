@@ -5,7 +5,6 @@ import java.util.List;
 
 public class GymHours {
     private int dayID;
-
     private List<Hours> hours;
 
     public GymHours(int dayID, List<Hours> hours) {
