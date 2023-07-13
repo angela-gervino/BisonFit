@@ -2,13 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/exercise_item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/card_background"
-    android:foregroundTint="@color/uofm_orange"
     android:layout_marginVertical="5dp"
-    android:id="@+id/exercise_item_layout"
-    android:clickable="true">
+    android:background="@drawable/card_background"
+    android:clickable="true"
+    android:foregroundTint="@color/uofm_orange">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/parentConstraintLayout"

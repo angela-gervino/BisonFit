@@ -52,7 +52,7 @@ public class SavedWorkoutExercisesPersistenceHSQLDB implements ISavedWorkoutExer
     public void addExercises(ArrayList<ExerciseHeader> exerciseHeaders, WorkoutHeader workoutHeader) {
         try (Connection connection = connect()) {
 
-            for (int i = 0; i < exerciseHeaders.size(); i++){
+            for (int i = 0; i < exerciseHeaders.size(); i++) {
                 final PreparedStatement statement = connection.prepareStatement("INSERT INTO SAVEDWORKOUTEXERCISES VALUES(?, ?, DEFAULT, ?)");
                 statement.setInt(1, workoutHeader.getId());
                 statement.setInt(2, exerciseHeaders.get(i).getId());

@@ -1,6 +1,7 @@
 package funkyflamingos.bisonfit.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -34,8 +35,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         if (userNameHandler.userHasRegistered()) {
             startHomePageActivity();
-        }
-        else {
+        } else {
             editText.setVisibility(View.VISIBLE);
             button.setVisibility(View.VISIBLE);
             welcomeLbl2.setVisibility(View.VISIBLE);

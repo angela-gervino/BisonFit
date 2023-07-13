@@ -128,7 +128,7 @@ public class WorkoutHandlerIT {
         workoutHandler.addNewWorkout("Second Workout Workout!");
         workoutHandler.addNewWorkout("Third Workout Workout!");
 
-        assert(workoutHandler.getAllWorkoutHeaders().size() == 3);
+        assert (workoutHandler.getAllWorkoutHeaders().size() == 3);
     }
 
     @Test

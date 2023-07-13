@@ -2,7 +2,9 @@ package funkyflamingos.bisonfit.logic;
 
 import funkyflamingos.bisonfit.application.Constants;
 import funkyflamingos.bisonfit.persistence.stubs.UserRegistrationPersistenceStub;
+
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 import org.junit.Before;
 
@@ -26,6 +28,7 @@ public class UserRegistrationTest {
         boolean registered = userRegistrationHandler.userHasRegistered();
         assertTrue(registered);
     }
+
     @Test
     public void testRegistrationReturnStatus() {
         boolean nameSet = userRegistrationHandler.setUserName(getNameProperLengthMedium('c'));
@@ -43,7 +46,7 @@ public class UserRegistrationTest {
     @Test
     public void testRegistrationReturnAfterSecondTime() {
         userRegistrationHandler.setUserName(getNameProperLengthMedium('i'));
-        boolean registered =  userRegistrationHandler.setUserName(getNameProperLengthMedium('l'));
+        boolean registered = userRegistrationHandler.setUserName(getNameProperLengthMedium('l'));
         assertTrue(registered);
     }
 
@@ -172,10 +175,10 @@ public class UserRegistrationTest {
     @Test
     public void testUserNameTooLongBecauseOfSpaces() {
         StringBuilder username = new StringBuilder(getNameProperLengthLong(' '));
-        for(int i = 0; i < Constants.MIN_USERNAME_LENGTH + 1; i++) {
+        for (int i = 0; i < Constants.MIN_USERNAME_LENGTH + 1; i++) {
             username.append('n');
         }
-        for(int i = 0; i < Constants.MAX_USERNAME_LENGTH; i++) {
+        for (int i = 0; i < Constants.MAX_USERNAME_LENGTH; i++) {
             username.append(' ');
         }
 
@@ -185,7 +188,7 @@ public class UserRegistrationTest {
 
     private String getNameTooLong() {
         StringBuilder username = new StringBuilder();
-        for(int i = 0; i < Constants.MAX_USERNAME_LENGTH; i++) {
+        for (int i = 0; i < Constants.MAX_USERNAME_LENGTH; i++) {
             username.append("i");
         }
         username.append("i");
@@ -195,7 +198,7 @@ public class UserRegistrationTest {
 
     private String getNameTooShort() {
         StringBuilder username = new StringBuilder("");
-        for(int i = 0; (i < Constants.MIN_USERNAME_LENGTH - 1); i++) {
+        for (int i = 0; (i < Constants.MIN_USERNAME_LENGTH - 1); i++) {
             username.append("i");
         }
 
@@ -204,7 +207,7 @@ public class UserRegistrationTest {
 
     private String getNameProperLengthShort(char c) {
         StringBuilder username = new StringBuilder("");
-        for(int i = 0; i < Constants.MIN_USERNAME_LENGTH; i++) {
+        for (int i = 0; i < Constants.MIN_USERNAME_LENGTH; i++) {
             username.append(c);
         }
 
@@ -213,7 +216,7 @@ public class UserRegistrationTest {
 
     private String getNameProperLengthLong(char c) {
         StringBuilder username = new StringBuilder("");
-        for(int i = 0; i < Constants.MAX_USERNAME_LENGTH; i++) {
+        for (int i = 0; i < Constants.MAX_USERNAME_LENGTH; i++) {
             username.append(c);
         }
 
@@ -224,7 +227,7 @@ public class UserRegistrationTest {
         StringBuilder username = new StringBuilder("");
         int length = Constants.MIN_USERNAME_LENGTH +
                 ((Constants.MAX_USERNAME_LENGTH - Constants.MIN_USERNAME_LENGTH) / 2);
-        for(int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             username.append(c);
         }
 

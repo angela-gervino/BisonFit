@@ -1,6 +1,7 @@
 package funkyflamingos.bisonfit.ui;
 
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import funkyflamingos.bisonfit.R;

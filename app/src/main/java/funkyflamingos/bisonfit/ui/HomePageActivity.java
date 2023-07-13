@@ -1,6 +1,7 @@
 package funkyflamingos.bisonfit.ui;
 
 import com.google.android.material.progressindicator.CircularProgressIndicator;
+
 import java.util.List;
 
 import funkyflamingos.bisonfit.logic.GymHoursHandler;
@@ -105,7 +106,7 @@ public class HomePageActivity extends AppCompatActivity implements AddWorkoutDia
     }
 
     private String getGreetingsMessage() {
-       return "Hi " + userNameHandler.getUserName() + "!";
+        return "Hi " + userNameHandler.getUserName() + "!";
     }
 
     public void openGymHoursActivity(View v) {
@@ -114,27 +115,23 @@ public class HomePageActivity extends AppCompatActivity implements AddWorkoutDia
     }
 
     public void toggleEditMode(View v) {
-        Button editButton = (Button)v;
+        Button editButton = (Button) v;
         String buttonText = editButton.getText().toString();
 
         ViewGroup parentView = (ViewGroup) v.getParent();
         RecyclerView recyclerView = parentView.findViewById(R.id.lstMyWorkouts);
 
-        if (buttonText.equals("Edit"))
-        {
+        if (buttonText.equals("Edit")) {
             adapter.toggleButtonVisibilities(recyclerView, View.GONE, View.VISIBLE);
             editButton.setText("Done");
-        }
-        else if (buttonText.equals("Done"))
-        {
+        } else if (buttonText.equals("Done")) {
             adapter.toggleButtonVisibilities(recyclerView, View.VISIBLE, View.GONE);
             editButton.setText("Edit");
         }
     }
 
     @Override
-    public void createNewWorkout(String newWorkoutName)
-    {
+    public void createNewWorkout(String newWorkoutName) {
         workoutManager.addNewWorkout(newWorkoutName);
         adapter.updateWorkoutList(workoutManager.getAllWorkoutHeaders());
     }

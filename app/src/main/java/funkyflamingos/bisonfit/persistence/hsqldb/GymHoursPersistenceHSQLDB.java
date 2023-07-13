@@ -7,7 +7,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,8 +46,8 @@ public class GymHoursPersistenceHSQLDB extends AbstractGymHoursPersistence imple
         }
     }
 
-    private GymHours fromResultSet(final ResultSet rs) throws SQLException{
-        int dayWeek =  rs.getInt("dayWeek");
+    private GymHours fromResultSet(final ResultSet rs) throws SQLException {
+        int dayWeek = rs.getInt("dayWeek");
         int openingTimeHour = rs.getInt("openingTimeHour");
         int openingTimeMin = rs.getInt("openingTimeMin");
         int openingTimeSec = rs.getInt("openingTimeSec");
@@ -59,7 +58,7 @@ public class GymHoursPersistenceHSQLDB extends AbstractGymHoursPersistence imple
                 LocalTime.of(closingTimeHour, closingTimeMin, closingTimeSec));
         List<Hours> hoursList = new ArrayList<>();
         hoursList.add(hours);
-        GymHours gymHours = new GymHours(dayWeek,hoursList);
+        GymHours gymHours = new GymHours(dayWeek, hoursList);
         return gymHours;
     }
 }

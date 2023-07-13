@@ -66,6 +66,7 @@ public class WaterTrackPersistenceHSQLDB implements IWaterTrackerPersistence {
             e.printStackTrace();
         }
     }
+
     @Override
     public void increment(LocalDate date) {
         try (Connection connection = connect()) {
@@ -87,6 +88,7 @@ public class WaterTrackPersistenceHSQLDB implements IWaterTrackerPersistence {
             e.printStackTrace();
         }
     }
+
     @Override
     public int getGoal() {
         return goal;
@@ -107,6 +109,6 @@ public class WaterTrackPersistenceHSQLDB implements IWaterTrackerPersistence {
         } catch (SQLException s) {
 
         }
-         return cupsDrank;
+        return cupsDrank;
     }
 }

@@ -2,6 +2,7 @@ package funkyflamingos.bisonfit.ui;
 
 import android.os.Bundle;
 import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +21,7 @@ public class ExerciseSelectionActivity extends AppCompatActivity {
         setContentView(R.layout.exercise_selection_page);
 
         Bundle extras = getIntent().getExtras();
-        if(extras != null) {
+        if (extras != null) {
             workoutID = extras.getInt("workoutID");
         }
 

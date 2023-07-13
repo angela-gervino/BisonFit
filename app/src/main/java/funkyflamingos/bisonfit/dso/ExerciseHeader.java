@@ -32,24 +32,23 @@ public class ExerciseHeader {
         return id;
     }
 
-    public int getIndex() { return index; }
+    public int getIndex() {
+        return index;
+    }
 
     public void incrementSet() {
         setCount++;
     }
 
-    public void decrementSet()
-    {
+    public void decrementSet() {
         setCount = Math.max(1, setCount - 1);
     }
 
-    public int getSetCount()
-    {
+    public int getSetCount() {
         return setCount;
     }
 
-    public String getSetCountTextShort()
-    {
+    public String getSetCountTextShort() {
         return "x" + setCount;
     }
 
@@ -57,13 +56,11 @@ public class ExerciseHeader {
         return getSetCountTextShort() + " SET" + (setCount > 1 ? "S" : "");
     }
 
-    public boolean isSelected()
-    {
+    public boolean isSelected() {
         return selected;
     }
 
-    public void toggleSelected()
-    {
+    public void toggleSelected() {
         selected = !selected;
     }
 }

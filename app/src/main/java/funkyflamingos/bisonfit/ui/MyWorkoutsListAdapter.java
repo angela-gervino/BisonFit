@@ -1,6 +1,7 @@
 package funkyflamingos.bisonfit.ui;
 
 import java.util.List;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -26,8 +27,7 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
         this.parentActivity = parentActivity;
     }
 
-    public void updateWorkoutList(List<WorkoutHeader> newWorkouts)
-    {
+    public void updateWorkoutList(List<WorkoutHeader> newWorkouts) {
         localDataSet = newWorkouts;
         notifyDataSetChanged();
     }
@@ -45,7 +45,8 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
         viewHolder.setDataItem(localDataSet.get(position));
 
         viewHolder.getLayout().setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View view) {
+            @Override
+            public void onClick(View view) {
                 Intent intent = new Intent(parentActivity, WorkoutOverviewActivity.class);
                 intent.putExtra("workoutID", viewHolder.getDataItem().getId());
                 parentActivity.startActivity(intent);
@@ -67,8 +68,7 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
         });
     }
 
-    public void toggleButtonVisibilities(RecyclerView recyclerView, int arrowImageVisibility, int deleteWorkoutVisibility)
-    {
+    public void toggleButtonVisibilities(RecyclerView recyclerView, int arrowImageVisibility, int deleteWorkoutVisibility) {
         int itemCount = recyclerView.getAdapter().getItemCount();
 
         for (int i = 0; i < itemCount; i++) {
@@ -110,6 +110,7 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
         public WorkoutHeader getDataItem() {
             return dataItem;
         }
+
         public TextView getLabel() {
             return lblWorkout;
         }
@@ -118,8 +119,7 @@ public class MyWorkoutsListAdapter extends RecyclerView.Adapter<MyWorkoutsListAd
             return layout;
         }
 
-        public ImageButton getDeleteButton()
-        {
+        public ImageButton getDeleteButton() {
             return deleteButton;
         }
     }

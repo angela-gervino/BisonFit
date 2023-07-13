@@ -59,9 +59,9 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:text="Hi Rob!"
-            android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="34sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -87,10 +87,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:textSize="30sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
         android:text="My Workouts"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topLayout" />
 
@@ -98,14 +98,14 @@
         android:id="@+id/editButton"
         android:layout_width="60dp"
         android:layout_height="25dp"
+        android:layout_marginStart="20dp"
         android:onClick="toggleEditMode"
+        android:padding="0dp"
         android:text="Edit"
         android:textSize="10sp"
-        android:padding="0dp"
-        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/txtMyWorkouts"
         app:layout_constraintStart_toEndOf="@id/txtMyWorkouts"
-        app:layout_constraintTop_toTopOf="@id/txtMyWorkouts"
-        app:layout_constraintBottom_toBottomOf="@id/txtMyWorkouts"/>
+        app:layout_constraintTop_toTopOf="@id/txtMyWorkouts" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lstMyWorkouts"
@@ -124,14 +124,13 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:clickable="true"
+        android:onClick="newWorkoutDialog"
         android:scaleType="fitCenter"
         app:fabCustomSize="60dp"
-        app:srcCompat="@drawable/add_icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_bias="0.9"
-        android:onClick="newWorkoutDialog"/>
-
+        app:srcCompat="@drawable/add_icon" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

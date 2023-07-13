@@ -18,9 +18,9 @@ import java.util.List;
 
 public class WorkoutPersistenceHSQLDB implements IWorkoutPersistence {
     private final String dbPath;
-    private  List<Workout> workouts;
+    private List<Workout> workouts;
 
-    public WorkoutPersistenceHSQLDB(String dbPath ){
+    public WorkoutPersistenceHSQLDB(String dbPath) {
         this.dbPath = dbPath;
         this.workouts = new ArrayList<>();
     }
@@ -29,11 +29,11 @@ public class WorkoutPersistenceHSQLDB implements IWorkoutPersistence {
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
 
-    private Workout fromResultSet(final ResultSet rs) throws SQLException{
-        int workoutID =  rs.getInt("ID");
+    private Workout fromResultSet(final ResultSet rs) throws SQLException {
+        int workoutID = rs.getInt("ID");
         String workoutName = rs.getString("TITLE");
 
-        return new Workout(new WorkoutHeader(workoutName,workoutID));
+        return new Workout(new WorkoutHeader(workoutName, workoutID));
     }
 
     private void loadWorkouts() {

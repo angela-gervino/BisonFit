@@ -28,7 +28,7 @@ public class WorkoutOverviewActivity extends AppCompatActivity {
         IWorkoutHandler workoutHandler = new WorkoutHandler();
 
         Bundle extras = getIntent().getExtras();
-        if(extras != null) {
+        if (extras != null) {
             int clickedWorkoutID = extras.getInt("workoutID");
             workout = workoutHandler.getWorkoutByID(clickedWorkoutID);
             String clickedWorkoutName = workout.getHeader().getName();

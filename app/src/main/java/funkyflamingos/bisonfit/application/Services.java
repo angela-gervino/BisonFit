@@ -1,6 +1,7 @@
 package funkyflamingos.bisonfit.application;
 
 // the interfaces
+
 import funkyflamingos.bisonfit.persistence.ISavedWorkoutExercises;
 import funkyflamingos.bisonfit.persistence.IWaterTrackerPersistence;
 import funkyflamingos.bisonfit.persistence.IWorkoutPersistence;
@@ -26,42 +27,42 @@ public class Services {
 
 
     public static synchronized IWorkoutPersistence getWorkoutsPersistence() {
-        if(workoutsPersistence == null) {
+        if (workoutsPersistence == null) {
             workoutsPersistence = new WorkoutPersistenceHSQLDB(Main.getDBPathName());
         }
         return workoutsPersistence;
     }
 
     public static synchronized IWaterTrackerPersistence getWaterTrackPersistence() {
-        if(waterTrackerPersistence == null) {
+        if (waterTrackerPersistence == null) {
             waterTrackerPersistence = new WaterTrackPersistenceHSQLDB(Main.getDBPathName());
         }
         return waterTrackerPersistence;
     }
 
     public static synchronized IUserRegistrationPersistence getUserRegistrationPersistence() {
-        if(userRegistrationPersistence == null) {
+        if (userRegistrationPersistence == null) {
             userRegistrationPersistence = new UserRegistrationPersistenceHSQLDB(Main.getDBPathName());
         }
         return userRegistrationPersistence;
     }
 
     public static synchronized IGymHoursPersistence getGymHoursPersistence() {
-        if(gymHoursPersistence == null) {
+        if (gymHoursPersistence == null) {
             gymHoursPersistence = new GymHoursPersistenceHSQLDB(Main.getDBPathName());
         }
         return gymHoursPersistence;
     }
 
     public static synchronized IExerciseLookupPersistence getExerciseLookupPersistence() {
-        if(exerciseLookupPersistence == null) {
+        if (exerciseLookupPersistence == null) {
             exerciseLookupPersistence = new ExerciseLookupPersistenceHSQLDB(Main.getDBPathName());
         }
         return exerciseLookupPersistence;
     }
 
     public static synchronized ISavedWorkoutExercises getSavedWorkoutExercises() {
-        if(savedWorkoutExercises == null) {
+        if (savedWorkoutExercises == null) {
             savedWorkoutExercises = new SavedWorkoutExercisesPersistenceHSQLDB(Main.getDBPathName());
         }
         return savedWorkoutExercises;
@@ -70,7 +71,7 @@ public class Services {
 
     /**
      * clean
-     *
+     * <p>
      * Reset all services so to be reloaded from scratch next time they are referenced
      */
     public static synchronized void clean() {
