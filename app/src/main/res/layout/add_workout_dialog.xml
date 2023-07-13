@@ -6,8 +6,10 @@
 
     <EditText
         android:id="@+id/new_workout_name"
+        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="New workout name" />
+        android:hint="New workout name"
+        android:maxLines="1" />
 
 </RelativeLayout>
