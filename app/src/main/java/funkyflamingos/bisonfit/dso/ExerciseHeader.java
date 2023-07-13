@@ -1,7 +1,6 @@
 package funkyflamingos.bisonfit.dso;
 
 public class ExerciseHeader {
-
     private String name;
     private int id;
     private int setCount;

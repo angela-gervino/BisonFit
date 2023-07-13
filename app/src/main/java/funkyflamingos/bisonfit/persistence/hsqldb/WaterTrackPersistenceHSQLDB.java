@@ -19,10 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WaterTrackPersistenceHSQLDB implements IWaterTrackerPersistence {
-
-    Map<LocalDate, Integer> progress;
+    private Map<LocalDate, Integer> progress;
     private final String dbPath;
-    int goal;
+    private int goal;
 
     public WaterTrackPersistenceHSQLDB(String dbPath) {
         this.dbPath = dbPath;

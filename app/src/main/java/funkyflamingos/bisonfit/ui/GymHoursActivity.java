@@ -10,7 +10,6 @@ import funkyflamingos.bisonfit.logic.GymHoursHandler;
 import funkyflamingos.bisonfit.logic.IGymHoursHandler;
 
 public class GymHoursActivity extends AppCompatActivity {
-
     private TextView schedule;
     private IGymHoursHandler gymHoursHandler;
 

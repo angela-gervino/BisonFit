@@ -17,7 +17,6 @@ import funkyflamingos.bisonfit.logic.UserRegistrationHandler;
 import funkyflamingos.bisonfit.persistence.utils.DBHelper;
 
 public class WelcomeActivity extends AppCompatActivity {
-
     private IUserRegistrationHandler userNameHandler;
     private EditText editText;
     private Button button;

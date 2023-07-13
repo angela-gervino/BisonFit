@@ -6,7 +6,7 @@ import funkyflamingos.bisonfit.persistence.IWaterTrackerPersistence;
 import java.time.LocalDate;
 
 public class WaterHandler implements IWaterHandler {
-    IWaterTrackerPersistence persistence;
+    private IWaterTrackerPersistence persistence;
 
 
     // Constructor for the stub
