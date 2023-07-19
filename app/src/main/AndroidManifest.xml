@@ -40,7 +40,8 @@
         <activity
             android:name=".ui.ActiveWorkoutActivity"
             android:exported="false"
-            android:label="ActiveWorkoutPage" />
+            android:label="ActiveWorkoutPage"
+            android:theme="@style/Base.Theme.BisonFit.ActionBar" />
     </application>
 
 </manifest>
