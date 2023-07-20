@@ -112,22 +112,20 @@ public class WorkoutHandler implements IWorkoutHandler {
     @Override
     public boolean savePerformedWorkout(Workout workout) {
         Workout workoutProcessed = new Workout(workout.getHeader());
-        for(int e = 0; e < workout.getAllExercises().size(); e++) {
-            Exercise curExercise = workout.getExercise(e);
+        for(Exercise curExercise : workout.getAllExercises()) {
             Exercise newExercise = new Exercise(curExercise.getHeader());
-            for(int s = 0; s < curExercise.getAllSets().size(); s++) {
-                ExerciseSet set = curExercise.getSet(s);
+            for(ExerciseSet currSet : curExercise.getAllSets()) {
                 ExerciseSet newSet;
 
                 // validate values: replace invalid (<0) values with 0s
-                if(set.getReps() < 0)
-                    set.setReps(0);
-                if(set.getWeight() < 0)
-                    set.setWeight(0);
+                if(currSet.getReps() < 0)
+                    currSet.setReps(0);
+                if(currSet.getWeight() < 0)
+                    currSet.setWeight(0);
 
                 // add this set to the exercise only if it has data
-                if(set.getWeight() > 0 && set.getReps() > 0) {
-                    newSet = new ExerciseSet(set.getWeight(), set.getReps());
+                if(currSet.getWeight() > 0 && currSet.getReps() > 0) {
+                    newSet = new ExerciseSet(currSet.getWeight(), currSet.getReps());
                     newExercise.addSet(newSet);
                 }
             }
