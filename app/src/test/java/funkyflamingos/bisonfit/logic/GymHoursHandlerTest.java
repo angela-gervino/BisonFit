@@ -4,7 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.*;
+import java.util.List;
 
+import funkyflamingos.bisonfit.dso.GymHours;
 import funkyflamingos.bisonfit.persistence.IGymHoursPersistence;
 import funkyflamingos.bisonfit.persistence.stubs.GymHoursPersistenceStub;
 
@@ -131,7 +133,7 @@ public class GymHoursHandlerTest {
     @Test
     public void testGetGymSchedule() {
         try {
-            String output = gymHoursHandler.getGymSchedule();
+            List<GymHours> output = gymHoursHandler.getGymSchedule();
             assertNotNull("getGymSchedule should return a non-null object.", output);
         } catch (Exception e) {
             fail(e.getMessage());

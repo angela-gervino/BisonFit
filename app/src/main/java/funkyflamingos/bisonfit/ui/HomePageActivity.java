@@ -4,6 +4,7 @@ import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import java.util.List;
 
+import funkyflamingos.bisonfit.dso.TimeUntilOpenOrClose;
 import funkyflamingos.bisonfit.logic.GymHoursHandler;
 import funkyflamingos.bisonfit.logic.IGymHoursHandler;
 import funkyflamingos.bisonfit.logic.IWorkoutHandler;
@@ -12,6 +13,7 @@ import funkyflamingos.bisonfit.logic.IWaterHandler;
 import funkyflamingos.bisonfit.logic.UserRegistrationHandler;
 import funkyflamingos.bisonfit.logic.WaterHandler;
 import funkyflamingos.bisonfit.logic.WorkoutHandler;
+import funkyflamingos.bisonfit.ui.GymHoursActivity;
 
 import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.R;
@@ -69,11 +71,26 @@ public class HomePageActivity extends AppCompatActivity implements AddWorkoutDia
             public void run() {
                 while (true) {
                     try {
-                        String newStatus = gymHoursHandler.getTimeUntilOpenOrClose();
+                        TimeUntilOpenOrClose newStatus = gymHoursHandler.getTimeUntilOpenOrClose();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                btnGymHours.setText(newStatus);
+                                if(newStatus.isOpen()) {
+                                    if(newStatus.getTimeUntilOpenOrClose() != null)
+                                        btnGymHours.setText(getFormattedTime(newStatus.getTimeUntilOpenOrClose().toString()) + " Until Closing");
+                                    else if(newStatus.getNextDay() > 0)
+                                        btnGymHours.setText("Open Till " + GymHoursActivity.dayIDToString(newStatus.getNextDay()));
+                                    else
+                                        btnGymHours.setText("Open All Week");
+                                }
+                                else {
+                                    if(newStatus.getTimeUntilOpenOrClose() != null)
+                                        btnGymHours.setText(getFormattedTime(newStatus.getTimeUntilOpenOrClose().toString()) + " Until Opening");
+                                    else if(newStatus.getNextDay() > 0)
+                                        btnGymHours.setText("Closed Till " + GymHoursActivity.dayIDToString(newStatus.getNextDay()));
+                                    else
+                                        btnGymHours.setText("Closed All Week");
+                                }
                             }
                         });
                         Thread.sleep(1000);
@@ -140,4 +157,22 @@ public class HomePageActivity extends AppCompatActivity implements AddWorkoutDia
         AddWorkoutDialog addWorkoutDialog = new AddWorkoutDialog();
         addWorkoutDialog.show(getSupportFragmentManager(), "Add Workout Dialog");
     }
+
+    // converts Duration.toString() to human readable
+    private static String getFormattedTime(String durationToString) {
+        String output = durationToString.substring(2);
+
+        if (output.contains("M")) {
+            output = output.replaceAll("M[0-9.S]*", "m").toLowerCase().replaceAll("h", "h ");
+        } else {
+            if (output.contains("H")) {
+                output = output.replaceAll("H[0-9.S]*", "h 0m");
+            } else {
+                output = "<1 Minute";
+            }
+        }
+        return output;
+    }
+
+
 }

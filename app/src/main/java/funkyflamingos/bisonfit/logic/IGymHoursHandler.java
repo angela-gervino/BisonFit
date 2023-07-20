@@ -1,11 +1,16 @@
 package funkyflamingos.bisonfit.logic;
 
 import java.time.Clock;
+import java.util.List;
+
+import funkyflamingos.bisonfit.dso.GymHours;
+import funkyflamingos.bisonfit.dso.TimeUntilOpenOrClose;
 
 public interface IGymHoursHandler {
-    String getGymSchedule();
+    List<GymHours> getGymSchedule();
 
-    String getTimeUntilOpenOrClose();
+    TimeUntilOpenOrClose getTimeUntilOpenOrClose();
 
-    String getTimeUntilOpenOrCloseHelper(Clock clock);
+    TimeUntilOpenOrClose getTimeUntilOpenOrCloseHelper(Clock clock);
+
 }

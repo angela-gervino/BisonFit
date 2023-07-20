@@ -2,6 +2,7 @@ package funkyflamingos.bisonfit.logic;
 
 import static funkyflamingos.bisonfit.application.Constants.DAYS_PER_WEEK;
 import static funkyflamingos.bisonfit.dso.GymHours.getDayOfWeek;
+import static funkyflamingos.bisonfit.ui.GymHoursActivity.dayIDToString;
 
 import java.time.*;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 import funkyflamingos.bisonfit.application.Services;
 import funkyflamingos.bisonfit.dso.GymHours;
 import funkyflamingos.bisonfit.dso.Hours;
+import funkyflamingos.bisonfit.dso.TimeUntilOpenOrClose;
 import funkyflamingos.bisonfit.exceptions.GymHoursNotConsecutiveException;
 import funkyflamingos.bisonfit.exceptions.GymHoursNotStartTodayException;
 import funkyflamingos.bisonfit.exceptions.GymHoursOverAWeekException;
@@ -30,17 +32,16 @@ public class GymHoursHandler implements IGymHoursHandler {
     }
 
     @Override
-    public String getGymSchedule() {
+    public List<GymHours> getGymSchedule() {
         Clock clock = Clock.systemDefaultZone();
         LocalDate currentDate = LocalDate.now(clock);
-        int currentDayOfWeek = getDayOfWeek(currentDate);
         List<GymHours> nextWeekHours = persistence.getNextWeekHours(LocalDate.now(clock));
         validateGymHours(nextWeekHours, currentDate);
-        return getPrintableSchedule(nextWeekHours, currentDayOfWeek);
+        return nextWeekHours;
     }
 
     @Override
-    public String getTimeUntilOpenOrClose() {
+    public TimeUntilOpenOrClose getTimeUntilOpenOrClose() {
         return getTimeUntilOpenOrCloseHelper(Clock.systemDefaultZone());
     }
 
@@ -48,50 +49,29 @@ public class GymHoursHandler implements IGymHoursHandler {
      * Helper method is public so we can pass it a clock for testing.
      */
     @Override
-    public String getTimeUntilOpenOrCloseHelper(Clock clock) {
+    public TimeUntilOpenOrClose getTimeUntilOpenOrCloseHelper(Clock clock) {
         LocalTime currentTime = LocalTime.now(clock);
         LocalDate currentDate = LocalDate.now(clock);
         List<GymHours> nextWeekHours = persistence.getNextWeekHours(LocalDate.now(clock));
         validateGymHours(nextWeekHours, currentDate);
 
         Hours currentHours = getCurrentlyOpenHours(nextWeekHours, currentTime);
+        TimeUntilOpenOrClose timeUntilOpenOrClose = new TimeUntilOpenOrClose();
 
-        if (currentHours != null) // is currently open
-            return getNextClosingString(currentHours, currentTime, nextWeekHours);
-        else
-            return getNextOpeningString(currentDate, currentTime, nextWeekHours);
+        if (currentHours != null) {// is currently open
+            timeUntilOpenOrClose.setOpen(true);
+            setNextClosingTime(currentHours, currentTime, nextWeekHours, timeUntilOpenOrClose);
+        }
+        else {
+            timeUntilOpenOrClose.setOpen(false);
+            setNextOpeningTime(currentDate, currentTime, nextWeekHours, timeUntilOpenOrClose);
+        }
+        return timeUntilOpenOrClose;
     }
 
     /**
      * static helper methods
      */
-    // builds a string of the schedule to be displayed
-    private static String getPrintableSchedule(List<GymHours> nextWeekHours, int currentDayOfWeek) {
-        StringBuilder printableSchedule = new StringBuilder();
-
-        for (GymHours gymHours : nextWeekHours) {
-            int dayID = gymHours.getDayID();
-            printableSchedule.append(dayIDToString(dayID));
-            if (dayID == currentDayOfWeek)
-                printableSchedule.append(" **Today**");
-            printableSchedule.append("\n");
-
-            List<Hours> hoursList = gymHours.getHours();
-            if (hoursList != null) {
-                for (Hours hours : hoursList) {
-                    printableSchedule.append(getClockFormattedTime(hours.getOpening(), false));
-                    printableSchedule.append(" - ");
-                    printableSchedule.append(getClockFormattedTime(hours.getClosing(), true));
-                    printableSchedule.append("\n");
-                }
-            } else {
-                printableSchedule.append("\t");
-                printableSchedule.append("Closed\n");
-            }
-            printableSchedule.append("\n");
-        }
-        return printableSchedule.toString();
-    }
 
     // returns the day after dayOfWeek where Monday = 1, Tuesday = 2, etc
     public static int getNextDayOfWeek(int dayOfWeek) {
@@ -101,8 +81,7 @@ public class GymHoursHandler implements IGymHoursHandler {
     }
 
     // returns a formatted string that says when the next time the gym is open
-    private static String getNextOpeningString(LocalDate currentDate, LocalTime currentTime, List<GymHours> nextWeekHours) {
-        Duration timeUntilClosing = null;
+    private static void setNextOpeningTime(LocalDate currentDate, LocalTime currentTime, List<GymHours> nextWeekHours, TimeUntilOpenOrClose timeUntilOpenOrClose) {
         int currentDayOfWeek = getDayOfWeek(currentDate);
         String nextOpenDay = null;
         boolean found = false;
@@ -120,28 +99,19 @@ public class GymHoursHandler implements IGymHoursHandler {
                     // is later today or later in the week
                     if (hours.getOpening().isAfter(currentTime) || !isToday) {
                         if (isToday) {
-                            timeUntilClosing = getDurationBetween(currentTime, hours.getOpening());
+                            timeUntilOpenOrClose.setTimeUntilOpenOrClose(getDurationBetween(currentTime, hours.getOpening()));
                         } else if (isTomorrow(currentDayOfWeek, gymHours.getDayID())) {
-                            timeUntilClosing = getDurationBetween(currentTime, LocalTime.MIDNIGHT)
-                                    .plus(Duration.between(LocalTime.MIN, hours.getOpening()));
+                            timeUntilOpenOrClose.setTimeUntilOpenOrClose(getDurationBetween(currentTime, LocalTime.MIDNIGHT)
+                                    .plus(Duration.between(LocalTime.MIN, hours.getOpening())));
                         } else {
                             // if the gym opens after tomorrow we just
                             // show the next day the gym is open
-                            nextOpenDay = dayIDToString(gymHours.getDayID());
+                            timeUntilOpenOrClose.setNextDay(gymHours.getDayID());
                         }
                         found = true;
                     }
                 }
             }
-        }
-
-        // return formatted string depending on when the gym is open next
-        if (timeUntilClosing != null) {
-            return getFormattedTime(timeUntilClosing.toString()) + " Until Opening";
-        } else if (nextOpenDay != null) {
-            return "Closed Till " + nextOpenDay;
-        } else {
-            return "Closed All Week";
         }
     }
 
@@ -151,13 +121,12 @@ public class GymHoursHandler implements IGymHoursHandler {
         return tomorrow == other;
     }
 
-    // returns a formatted string that says when the next time the is closed
-    private static String getNextClosingString(Hours currentHours, LocalTime currentTime, List<GymHours> nextWeekHours) {
-        Duration timeUntilClosing;
+    // sets the next time the gym is closed
+    private static void setNextClosingTime(Hours currentHours, LocalTime currentTime, List<GymHours> nextWeekHours, TimeUntilOpenOrClose timeUntilOpenOrClose) {
         List<Hours> tomorrowsHours = nextWeekHours.get(1).getHours();
         List<Hours> dayAfterTomorrowHours = nextWeekHours.get(2).getHours();
 
-        timeUntilClosing = getDurationBetween(currentTime, currentHours.getClosing());
+        timeUntilOpenOrClose.setTimeUntilOpenOrClose(getDurationBetween(currentTime, currentHours.getClosing()));
 
         boolean isOpenTillTomorrow = currentHours.getClosing().equals(LocalTime.MIDNIGHT)
                 && tomorrowsHours != null
@@ -170,16 +139,17 @@ public class GymHoursHandler implements IGymHoursHandler {
         if (isOpenTillTomorrow)
             if (!isOpenTillDayAfterTomorrow)
                 // add duration of tomorrow's first hours
-                timeUntilClosing = timeUntilClosing.plus(getDurationBetween(LocalTime.MIDNIGHT, tomorrowsHours.get(0).getClosing()));
+                 timeUntilOpenOrClose.setTimeUntilOpenOrClose(timeUntilOpenOrClose
+                         .getTimeUntilOpenOrClose()
+                         .plus(getDurationBetween(LocalTime.MIDNIGHT, tomorrowsHours.get(0).getClosing())));
             else
                 // not closing today or tomorrow so we just show the next day that the gym closes
-                return getClosingDayString(nextWeekHours);
+                setClosingDay(nextWeekHours, timeUntilOpenOrClose);
 
-        return getFormattedTime(timeUntilClosing.toString()) + " Until Closing";
     }
 
-    // returns message with the next day of the week the gym is closed
-    private static String getClosingDayString(List<GymHours> weekHours) {
+    // sets the next day of the week the gym is closed
+    private static void setClosingDay(List<GymHours> weekHours, TimeUntilOpenOrClose timeUntilOpenOrClose) {
         GymHours curr;
         GymHours prev = weekHours.get(1);
 
@@ -188,11 +158,10 @@ public class GymHoursHandler implements IGymHoursHandler {
             if (curr.getHours() == null
                     || !(prev.getHours().get(0).getClosing().equals(LocalTime.MIDNIGHT)
                     && curr.getHours().get(0).getOpening().equals(LocalTime.MIDNIGHT))) {
-                return "Open Till " + dayIDToString(prev.getDayID());
+                timeUntilOpenOrClose.setNextDay(prev.getDayID());
             }
             prev = curr;
         }
-        return "Open All Week";
     }
 
     private static Duration getDurationBetween(LocalTime start, LocalTime end) {
@@ -217,50 +186,8 @@ public class GymHoursHandler implements IGymHoursHandler {
         return null;
     }
 
-    // converts Duration.toString() to human readable
-    private static String getFormattedTime(String durationToString) {
-        String output = durationToString.substring(2);
-
-        if (output.contains("M")) {
-            output = output.replaceAll("M[0-9.S]*", "m").toLowerCase().replaceAll("h", "h ");
-        } else {
-            if (output.contains("H")) {
-                output = output.replaceAll("H[0-9.S]*", "h 0m");
-            } else {
-                output = "<1 Minute";
-            }
-        }
-        return output;
-    }
-
-    // converts LocalTime to 24 hour human readable: hh:mm
-    private static String getClockFormattedTime(LocalTime time, boolean isClosingTime) {
-        String formattedTime = "";
-        String hour = String.valueOf(time.getHour());
-
-        if (isClosingTime && hour.equals("0")) {
-            formattedTime += "24";
-        } else {
-            if (hour.length() < 2)
-                formattedTime += " ";
-            formattedTime += time.getHour();
-        }
-
-        formattedTime += ":";
-        String minute = String.valueOf(time.getMinute());
-        if (minute.length() < 2)
-            formattedTime += "0";
-        formattedTime += minute;
-        return formattedTime;
-    }
 
 
-    // Converts 1 to "Monday", 2 to "Tuesday", etc
-    private static String dayIDToString(int dayID) {
-        String dayOfWeek = DayOfWeek.of(dayID).toString();
-        dayOfWeek = dayOfWeek.charAt(0) + dayOfWeek.substring(1).toLowerCase();
-        return dayOfWeek;
-    }
 
 
     private static void validateGymHours(List<GymHours> nextWeekHours, LocalDate today) {

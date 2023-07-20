@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneOffset;
+import java.util.List;
 
+import funkyflamingos.bisonfit.dso.GymHours;
 import funkyflamingos.bisonfit.persistence.IGymHoursPersistence;
 import funkyflamingos.bisonfit.persistence.hsqldb.GymHoursPersistenceHSQLDB;
 import funkyflamingos.bisonfit.utils.TestUtils;
@@ -31,7 +33,7 @@ public class GymHoursHandlerIT {
     @Test
     public void testGetGymSchedule() {
         try {
-            String output = gymHoursHandler.getGymSchedule();
+            List<GymHours> output = gymHoursHandler.getGymSchedule();
             assertNotNull("getGymSchedule should return a non-null object.", output);
         } catch (Exception e) {
             fail(e.getMessage());
