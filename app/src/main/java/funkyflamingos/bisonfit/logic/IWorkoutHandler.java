@@ -27,4 +27,6 @@ public interface IWorkoutHandler {
     void deleteWorkout(int workoutID);
 
     void deleteExercise(ExerciseHeader exerciseHeader, WorkoutHeader workoutHeader);
+
+    boolean savePerformedWorkout(Workout workout);
 }

@@ -1,5 +1,10 @@
 package funkyflamingos.bisonfit.ui;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,6 +62,17 @@ public class WorkoutOverviewActivity extends AppCompatActivity {
 
     public void openActiveWorkoutActivity(View v) {
         Intent intent = new Intent(this, ActiveWorkoutActivity.class);
-        startActivity(intent);
+        intent.putExtra("workoutID", workout.getHeader().getId());
+        activeWorkoutResultLauncher.launch(intent);
     }
+
+    ActivityResultLauncher<Intent> activeWorkoutResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    finish();
+                }
+            }
+    );
 }
