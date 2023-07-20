@@ -44,4 +44,8 @@ public class Exercise {
     public int getID() {
         return header.getId();
     }
+
+    public void addSet(ExerciseSet set) {
+        sets.add(set);
+    }
 }

@@ -7,7 +7,6 @@ public class ExerciseSet {
     public ExerciseSet (double weight, int reps) {
         this.weight = weight;
         this.reps = reps;
-        this.setNumber = setNumber;
     }
 
     public double getWeight() {
@@ -18,7 +17,11 @@ public class ExerciseSet {
         return reps;
     }
 
-    public int getSetNumber() {
-        return  setNumber;
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public void setReps(int reps) {
+        this.reps = reps;
     }
 }

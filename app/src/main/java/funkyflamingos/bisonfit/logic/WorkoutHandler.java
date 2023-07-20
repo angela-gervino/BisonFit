@@ -1,10 +1,15 @@
 package funkyflamingos.bisonfit.logic;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import funkyflamingos.bisonfit.application.Services;
+import funkyflamingos.bisonfit.dso.Exercise;
 import funkyflamingos.bisonfit.dso.ExerciseHeader;
+import funkyflamingos.bisonfit.dso.ExerciseSet;
 import funkyflamingos.bisonfit.dso.Workout;
 import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.persistence.IExerciseLookupPersistence;
@@ -102,5 +107,41 @@ public class WorkoutHandler implements IWorkoutHandler {
     public void deleteExercise(ExerciseHeader exerciseHeader, WorkoutHeader workoutHeader)
     {
         savedWorkoutExercisesPersistence.deleteExercise(exerciseHeader, workoutHeader);
+    }
+
+    @Override
+    public boolean savePerformedWorkout(Workout workout) {
+        Workout workoutProcessed = new Workout(workout.getHeader());
+        for(int e = 0; e < workout.getAllExercises().size(); e++) {
+            Exercise curExercise = workout.getExercise(e);
+            Exercise newExercise = new Exercise(curExercise.getHeader());
+            for(int s = 0; s < curExercise.getAllSets().size(); s++) {
+                ExerciseSet set = curExercise.getSet(s);
+                ExerciseSet newSet;
+
+                // validate values: replace invalid (<0) values with 0s
+                if(set.getReps() < 0)
+                    set.setReps(0);
+                if(set.getWeight() < 0)
+                    set.setWeight(0);
+
+                // add this set to the exercise only if it has data
+                if(set.getWeight() > 0 && set.getReps() > 0) {
+                    newSet = new ExerciseSet(set.getWeight(), set.getReps());
+                    newExercise.addSet(newSet);
+                }
+            }
+
+            // add this exercise to the workout only if it has sets
+            if(newExercise.getAllSets().size() > 0)
+                workoutProcessed.addExercise(newExercise);
+        }
+
+        // only save this if the processed workout has exercises
+        if(workoutProcessed.getAllExercises().size() > 0) {
+            //TODO: Save to workoutProcessed to DB
+            return true;
+        }
+        return  false;
     }
 }

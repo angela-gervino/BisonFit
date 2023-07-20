@@ -27,6 +27,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:textSize="14sp"
         android:textAlignment="center"
+        android:nextFocusDown="@id/txtActiveWorkoutField2"
         />
 
     <EditText
