@@ -45,6 +45,16 @@ public class UserRegistrationPersistenceHSQLDB implements IUserRegistrationPersi
         }
     }
 
+    public void clearTable() {
+        try (Connection connection = connect()) {
+            final PreparedStatement statement = connection.prepareStatement("DELETE FROM USERREGISTRATION");
+            statement.executeUpdate();
+        } catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public String getUserName() {
         String userName = null;
