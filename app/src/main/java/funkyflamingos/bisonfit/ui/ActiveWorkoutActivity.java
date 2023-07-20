@@ -33,7 +33,7 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
         int workoutID = getIntent().getIntExtra("workoutID", 0);
 
         workoutHandler = new WorkoutHandler();
-        workout = workoutHandler.getWorkoutByID(workoutID);
+        workout = createStubRoutine();
         ActiveWorkoutExerciseListAdapter adapter = new ActiveWorkoutExerciseListAdapter(workout, this);
 
         rvExercises.setLayoutManager(new LinearLayoutManager(this));
