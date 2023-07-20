@@ -19,7 +19,7 @@ import funkyflamingos.bisonfit.exceptions.NullHoursException;
 import funkyflamingos.bisonfit.persistence.IGymHoursPersistence;
 
 public class GymHoursHandler implements IGymHoursHandler {
-    private IGymHoursPersistence persistence;
+    private final IGymHoursPersistence persistence;
 
     public GymHoursHandler(IGymHoursPersistence persistence) {
         this.persistence = persistence;
@@ -67,30 +67,30 @@ public class GymHoursHandler implements IGymHoursHandler {
      */
     // builds a string of the schedule to be displayed
     private static String getPrintableSchedule(List<GymHours> nextWeekHours, int currentDayOfWeek) {
-        String printableSchedule = "";
+        StringBuilder printableSchedule = new StringBuilder();
 
         for (GymHours gymHours : nextWeekHours) {
             int dayID = gymHours.getDayID();
-            printableSchedule += dayIDToString(dayID);
+            printableSchedule.append(dayIDToString(dayID));
             if (dayID == currentDayOfWeek)
-                printableSchedule += " **Today**";
-            printableSchedule += "\n";
+                printableSchedule.append(" **Today**");
+            printableSchedule.append("\n");
 
             List<Hours> hoursList = gymHours.getHours();
             if (hoursList != null) {
                 for (Hours hours : hoursList) {
-                    printableSchedule += getClockFormattedTime(hours.getOpening(), false);
-                    printableSchedule += " - ";
-                    printableSchedule += getClockFormattedTime(hours.getClosing(), true);
-                    printableSchedule += "\n";
+                    printableSchedule.append(getClockFormattedTime(hours.getOpening(), false));
+                    printableSchedule.append(" - ");
+                    printableSchedule.append(getClockFormattedTime(hours.getClosing(), true));
+                    printableSchedule.append("\n");
                 }
             } else {
-                printableSchedule += "\t";
-                printableSchedule += "Closed\n";
+                printableSchedule.append("\t");
+                printableSchedule.append("Closed\n");
             }
-            printableSchedule += "\n";
+            printableSchedule.append("\n");
         }
-        return printableSchedule;
+        return printableSchedule.toString();
     }
 
     // returns the day after dayOfWeek where Monday = 1, Tuesday = 2, etc
@@ -316,7 +316,7 @@ public class GymHoursHandler implements IGymHoursHandler {
             // except for the special case that the first opening and
             // last closing times can be both be zero
             LocalTime prev = LocalTime.MIN;
-            LocalTime curr = null;
+            LocalTime curr;
             for (int i = 0; i < hours.size(); i++) {
 
                 // check list
