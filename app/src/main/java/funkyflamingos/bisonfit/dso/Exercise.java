@@ -10,7 +10,7 @@ public class Exercise {
         this(name, id);
 
         for(int i = 0; i < setCount; i++) {
-            sets.add(new ExerciseSet(0, 0, (i + 1)));
+            sets.add(new ExerciseSet(0, 0));
         }
     }
 

@@ -36,7 +36,7 @@ public class ActiveWorkoutSetListAdapter extends RecyclerView.Adapter<ActiveWork
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.setTxtSetNum(localDataSet.getSet(position).getSetNumber());
+        holder.setTxtSetNum(position + 1);
     }
 
     @Override
