@@ -62,6 +62,7 @@ public class WorkoutOverviewActivity extends AppCompatActivity {
 
     public void openActiveWorkoutActivity(View v) {
         Intent intent = new Intent(this, ActiveWorkoutActivity.class);
+        intent.putExtra("workoutID", workout.getHeader().getId());
         activeWorkoutResultLauncher.launch(intent);
     }
 

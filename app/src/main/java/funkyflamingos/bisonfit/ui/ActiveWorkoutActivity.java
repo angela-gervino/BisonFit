@@ -1,5 +1,6 @@
 package funkyflamingos.bisonfit.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -28,8 +29,11 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.active_workout_page);
         RecyclerView rvExercises = findViewById(R.id.rvActiveWorkoutExerciseList);
+
+        int workoutID = getIntent().getIntExtra("workoutID", 0);
+
         workoutHandler = new WorkoutHandler();
-        workout = createStubRoutine(); // TODO: remove and draw from db
+        workout = workoutHandler.getWorkoutByID(workoutID);
         ActiveWorkoutExerciseListAdapter adapter = new ActiveWorkoutExerciseListAdapter(workout, this);
 
         rvExercises.setLayoutManager(new LinearLayoutManager(this));
