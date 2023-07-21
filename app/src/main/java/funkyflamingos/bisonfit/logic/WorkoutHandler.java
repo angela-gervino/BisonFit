@@ -62,8 +62,8 @@ public class WorkoutHandler implements IWorkoutHandler {
     }
 
     @Override
-    public Workout getWorkoutByID(int workoutID) {
-        return workoutsPersistence.getWorkoutByID(workoutID);
+    public WorkoutHeader getWorkoutByID(int workoutID) {
+        return workoutsPersistence.getWorkoutHeaderByID(workoutID);
     }
 
     @Override
@@ -74,7 +74,7 @@ public class WorkoutHandler implements IWorkoutHandler {
     @Override
     public void deleteWorkout(int workoutID) {
         if (getWorkoutByID(workoutID) != null) {
-            savedWorkoutExercisesPersistence.deleteWorkout(getWorkoutByID(workoutID).getHeader());
+            savedWorkoutExercisesPersistence.deleteWorkout(getWorkoutByID(workoutID));
             workoutsPersistence.deleteWorkoutById(workoutID);
         }
     }

@@ -8,31 +8,31 @@ import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.persistence.IWorkoutPersistence;
 
 public class WorkoutPersistenceStub implements IWorkoutPersistence {
-    private List<Workout> allWorkouts;
+    private List<WorkoutHeader> allWorkouts;
     private int nextId;
 
     public WorkoutPersistenceStub() {
-        allWorkouts = new ArrayList<Workout>();
+        allWorkouts = new ArrayList<>();
         nextId = 0;
     }
 
     @Override
     public List<WorkoutHeader> getAllWorkoutHeaders() {
-        List<WorkoutHeader> allHeaders = new ArrayList<WorkoutHeader>();
-        for (Workout workout : allWorkouts)
-            allHeaders.add(workout.getHeader());
+        List<WorkoutHeader> allHeaders = new ArrayList<>();
+        for (WorkoutHeader workoutHeader : allWorkouts)
+            allHeaders.add(workoutHeader);
         return allHeaders;
     }
 
     @Override
-    public Workout getWorkoutByID(int workoutID) {
-        return allWorkouts.stream().filter(workout -> workout.getHeader().getId() == workoutID)
+    public WorkoutHeader getWorkoutHeaderByID(int workoutID) {
+        return allWorkouts.stream().filter(workout -> workout.getId() == workoutID)
                 .findFirst().orElse(null);
     }
 
     @Override
     public void addWorkout(String workoutName) {
-        allWorkouts.add(new Workout(new WorkoutHeader(workoutName, nextId)));
+        allWorkouts.add(new WorkoutHeader(workoutName, nextId));
         nextId++;
     }
 
@@ -44,7 +44,7 @@ public class WorkoutPersistenceStub implements IWorkoutPersistence {
     private int getIndexById(int workoutId) {
         int index = -1;
         for (int i = 0; i < allWorkouts.size() && index == -1; i++) {
-            if (allWorkouts.get(i).getHeader().getId() == workoutId)
+            if (allWorkouts.get(i).getId() == workoutId)
                 index = i;
         }
         return index;

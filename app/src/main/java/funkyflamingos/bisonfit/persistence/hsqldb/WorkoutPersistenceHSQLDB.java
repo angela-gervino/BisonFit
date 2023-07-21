@@ -51,15 +51,15 @@ public class WorkoutPersistenceHSQLDB implements IWorkoutPersistence {
     }
 
     @Override
-    public Workout getWorkoutByID(int workoutID) {
-        Workout workout = null;
+    public WorkoutHeader getWorkoutHeaderByID(int workoutID) {
+        WorkoutHeader workoutHeader = null;
         try (Connection connection = connect()) {
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM WORKOUTS WHERE WORKOUTS.ID = ?");
             statement.setString(1, Integer.toString(workoutID));
             final ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 String workoutName = resultSet.getString("TITLE");
-                workout = new Workout(new WorkoutHeader(workoutName, workoutID));
+                workoutHeader = new WorkoutHeader(workoutName, workoutID);
             }
             resultSet.close();
             statement.close();
@@ -67,7 +67,7 @@ public class WorkoutPersistenceHSQLDB implements IWorkoutPersistence {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
         }
-        return workout;
+        return workoutHeader;
     }
 
     @Override

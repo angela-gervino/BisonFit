@@ -9,7 +9,7 @@ public interface IWorkoutPersistence {
 
     List<WorkoutHeader> getAllWorkoutHeaders();
 
-    Workout getWorkoutByID(int workoutID);
+    WorkoutHeader getWorkoutHeaderByID(int workoutID);
 
     void addWorkout(String workoutName);
 
