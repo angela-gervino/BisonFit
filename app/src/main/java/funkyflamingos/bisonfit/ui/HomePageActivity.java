@@ -158,7 +158,8 @@ public class HomePageActivity extends AppCompatActivity implements AddWorkoutDia
     }
 
     public void viewPreviousWorkoutsButtonClicked(View v) {
-
+        Intent intent = new Intent(HomePageActivity.this, PreviousWorkoutsActivity.class);
+        startActivity(intent);
     }
 
     // converts Duration.toString() to human readable
