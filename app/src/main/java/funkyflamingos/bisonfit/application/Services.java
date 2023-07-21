@@ -70,8 +70,6 @@ public class Services {
 
 
     /**
-     * clean
-     * <p>
      * Reset all services so to be reloaded from scratch next time they are referenced
      */
     public static synchronized void clean() {
