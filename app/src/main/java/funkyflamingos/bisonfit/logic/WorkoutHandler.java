@@ -1,5 +1,6 @@
 package funkyflamingos.bisonfit.logic;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import funkyflamingos.bisonfit.application.Services;
 import funkyflamingos.bisonfit.dso.Exercise;
 import funkyflamingos.bisonfit.dso.ExerciseHeader;
 import funkyflamingos.bisonfit.dso.ExerciseSet;
+import funkyflamingos.bisonfit.dso.PerformedWorkoutHeader;
 import funkyflamingos.bisonfit.dso.Workout;
 import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.persistence.IExerciseLookupPersistence;
@@ -138,5 +140,13 @@ public class WorkoutHandler implements IWorkoutHandler {
             return true;
         }
         return  false;
+    }
+
+    @Override
+    public Workout getWorkoutToPerform(int workoutID) {
+       Workout workoutToPerform =  workoutsPersistence.getWorkoutByID(workoutID);
+       LocalDateTime timeNow = LocalDateTime.now();
+       workoutToPerform.setHeader(new PerformedWorkoutHeader(workoutToPerform.getHeader(), timeNow));
+       return workoutToPerform;
     }
 }

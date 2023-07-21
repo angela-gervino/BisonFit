@@ -15,6 +15,10 @@ public class Workout {
         return header;
     }
 
+    public void setHeader(WorkoutHeader header) {
+        this.header = header;
+    }
+
     public String getName() {
         return header.getName();
     }
