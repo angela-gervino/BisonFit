@@ -47,5 +47,6 @@ public class Exercise {
 
     public void addSet(ExerciseSet set) {
         sets.add(set);
+        header.incrementSet();
     }
 }

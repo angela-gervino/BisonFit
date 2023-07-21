@@ -113,6 +113,7 @@ public class WorkoutHandler implements IWorkoutHandler {
         Workout workoutProcessed = new Workout(workout.getHeader());
         for(Exercise curExercise : workout.getAllExercises()) {
             Exercise newExercise = new Exercise(curExercise.getHeader());
+            newExercise.getHeader().resetSetCount();
             for(ExerciseSet currSet : curExercise.getAllSets()) {
                 ExerciseSet newSet;
 

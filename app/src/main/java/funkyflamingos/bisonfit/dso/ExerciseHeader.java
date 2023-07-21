@@ -62,4 +62,8 @@ public class ExerciseHeader {
     public void toggleSelected() {
         selected = !selected;
     }
+
+    public void resetSetCount() {
+        setCount = 0;
+    }
 }
