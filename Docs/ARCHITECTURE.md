@@ -97,8 +97,6 @@ Tables that hold the record of workouts and exercises done by the user.<br><br>
 |exercise\_id|`int`|Identifier of exercise
 |weight|`int`|The weight in lbs performed in this set, `-1` if not required
 |reps|`int`|The number of repitions performed in this set, `-1` if not required
-|distance|`int`|The distance in meters covered, `-1` if not required
-|time|`int`|The time in seconds it took to cover the distance, `-1` if not required
 
 
 #### Water Tracking Table:
