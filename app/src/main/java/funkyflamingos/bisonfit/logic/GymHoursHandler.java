@@ -152,14 +152,16 @@ public class GymHoursHandler implements IGymHoursHandler {
     private static void setClosingDay(List<GymHours> weekHours, TimeUntilOpenOrClose timeUntilOpenOrClose) {
         GymHours curr;
         GymHours prev = weekHours.get(1);
+        boolean found = false;
 
-        for (int i = 2; i < DAYS_PER_WEEK; i++) {
+        for (int i = 2; i < DAYS_PER_WEEK && !found; i++) {
             curr = weekHours.get(i);
             if (curr.getHours() == null
-                    || !(prev.getHours() != null
-                    && prev.getHours().get(0).getClosing().equals(LocalTime.MIDNIGHT)
-                    && curr.getHours().get(0).getOpening().equals(LocalTime.MIDNIGHT))) {
+                    || (prev.getHours() != null
+                    && !(prev.getHours().get(0).getClosing().equals(LocalTime.MIDNIGHT)
+                    && curr.getHours().get(0).getOpening().equals(LocalTime.MIDNIGHT)))) {
                 timeUntilOpenOrClose.setNextDay(prev.getDayID());
+                found = true;
             }
             prev = curr;
         }
