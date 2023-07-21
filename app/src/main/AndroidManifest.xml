@@ -13,6 +13,11 @@
         android:theme="@style/Theme.BisonFit"
         tools:targetApi="31">
         <activity
+            android:name=".ui.PreviousWorkoutsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_previous_workouts"
+            android:theme="@style/Base.Theme.BisonFit.ActionBar" />
+        <activity
             android:name=".ui.GymHoursActivity"
             android:exported="false" />
         <activity
@@ -31,8 +36,7 @@
             android:theme="@style/Base.Theme.BisonFit.ActionBar" />
         <activity
             android:name=".ui.HomePageActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".ui.ExerciseSelectionActivity"
             android:exported="false"
