@@ -2,7 +2,6 @@ package funkyflamingos.bisonfit.logic;
 
 import static funkyflamingos.bisonfit.application.Constants.DAYS_PER_WEEK;
 import static funkyflamingos.bisonfit.dso.GymHours.getDayOfWeek;
-import static funkyflamingos.bisonfit.ui.GymHoursActivity.dayIDToString;
 
 import java.time.*;
 import java.util.List;
@@ -61,8 +60,7 @@ public class GymHoursHandler implements IGymHoursHandler {
         if (currentHours != null) {// is currently open
             timeUntilOpenOrClose.setOpen(true);
             setNextClosingTime(currentHours, currentTime, nextWeekHours, timeUntilOpenOrClose);
-        }
-        else {
+        } else {
             timeUntilOpenOrClose.setOpen(false);
             setNextOpeningTime(currentDate, currentTime, nextWeekHours, timeUntilOpenOrClose);
         }
@@ -137,14 +135,16 @@ public class GymHoursHandler implements IGymHoursHandler {
                 && dayAfterTomorrowHours.get(0).getOpening().equals(LocalTime.MIDNIGHT);
 
         if (isOpenTillTomorrow)
-            if (!isOpenTillDayAfterTomorrow)
+            if (!isOpenTillDayAfterTomorrow) {
                 // add duration of tomorrow's first hours
-                 timeUntilOpenOrClose.setTimeUntilOpenOrClose(timeUntilOpenOrClose
-                         .getTimeUntilOpenOrClose()
-                         .plus(getDurationBetween(LocalTime.MIDNIGHT, tomorrowsHours.get(0).getClosing())));
-            else
+                timeUntilOpenOrClose.setTimeUntilOpenOrClose(timeUntilOpenOrClose
+                        .getTimeUntilOpenOrClose()
+                        .plus(getDurationBetween(LocalTime.MIDNIGHT, tomorrowsHours.get(0).getClosing())));
+            } else {
                 // not closing today or tomorrow so we just show the next day that the gym closes
+                timeUntilOpenOrClose.setTimeUntilOpenOrClose(null);
                 setClosingDay(nextWeekHours, timeUntilOpenOrClose);
+            }
 
     }
 
@@ -156,7 +156,8 @@ public class GymHoursHandler implements IGymHoursHandler {
         for (int i = 2; i < DAYS_PER_WEEK; i++) {
             curr = weekHours.get(i);
             if (curr.getHours() == null
-                    || !(prev.getHours().get(0).getClosing().equals(LocalTime.MIDNIGHT)
+                    || !(prev.getHours() != null
+                    && prev.getHours().get(0).getClosing().equals(LocalTime.MIDNIGHT)
                     && curr.getHours().get(0).getOpening().equals(LocalTime.MIDNIGHT))) {
                 timeUntilOpenOrClose.setNextDay(prev.getDayID());
             }
@@ -185,9 +186,6 @@ public class GymHoursHandler implements IGymHoursHandler {
                     return hours;
         return null;
     }
-
-
-
 
 
     private static void validateGymHours(List<GymHours> nextWeekHours, LocalDate today) {

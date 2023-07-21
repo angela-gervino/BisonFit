@@ -4,13 +4,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import funkyflamingos.bisonfit.dso.GymHours;
+import funkyflamingos.bisonfit.dso.TimeUntilOpenOrClose;
 import funkyflamingos.bisonfit.persistence.IGymHoursPersistence;
 import funkyflamingos.bisonfit.persistence.stubs.GymHoursPersistenceStub;
 
 import static org.junit.Assert.*;
+import static java.time.DayOfWeek.SUNDAY;
+import static java.time.DayOfWeek.WEDNESDAY;
 
 public class GymHoursHandlerTest {
     GymHoursHandler gymHoursHandler;
@@ -33,8 +37,9 @@ public class GymHoursHandlerTest {
     @Test
     public void testBeforeFirstHours() {
         try {
-            String output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockBeforeFirstHours());
-            assertEquals("30m Until Opening", output);
+            TimeUntilOpenOrClose output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockBeforeFirstHours());
+            assertFalse(output.isOpen());
+            assertEquals(Duration.ofMinutes(30), output.getTimeUntilOpenOrClose().truncatedTo(ChronoUnit.MINUTES));
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -43,8 +48,9 @@ public class GymHoursHandlerTest {
     @Test
     public void testBeforeFirstHoursMidnight() {
         try {
-            String output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockBeforeFirstHoursMidnight());
-            assertEquals("6h 0m Until Opening", output);
+            TimeUntilOpenOrClose output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockBeforeFirstHoursMidnight());
+            assertFalse(output.isOpen());
+            assertEquals(Duration.ofHours(6), output.getTimeUntilOpenOrClose().truncatedTo(ChronoUnit.MINUTES));
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -53,8 +59,9 @@ public class GymHoursHandlerTest {
     @Test
     public void testDuringFirstHours() {
         try {
-            String output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockDuringFirstHours());
-            assertEquals("5h 30m Until Closing", output);
+            TimeUntilOpenOrClose output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockDuringFirstHours());
+            assertTrue(output.isOpen());
+            assertEquals(Duration.ofHours(5).plusMinutes(30), output.getTimeUntilOpenOrClose().truncatedTo(ChronoUnit.MINUTES));
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -63,8 +70,9 @@ public class GymHoursHandlerTest {
     @Test
     public void testBetweenHours() {
         try {
-            String output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockBetweenHours());
-            assertEquals("30m Until Opening", output);
+            TimeUntilOpenOrClose output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockBetweenHours());
+            assertFalse(output.isOpen());
+            assertEquals(Duration.ofMinutes(30), output.getTimeUntilOpenOrClose().truncatedTo(ChronoUnit.MINUTES));
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -73,8 +81,9 @@ public class GymHoursHandlerTest {
     @Test
     public void testDuringLastHours() {
         try {
-            String output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockDuringLastHours());
-            assertEquals("30m Until Closing", output);
+            TimeUntilOpenOrClose output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockDuringLastHours());
+            assertTrue(output.isOpen());
+            assertEquals(Duration.ofMinutes(30), output.getTimeUntilOpenOrClose().truncatedTo(ChronoUnit.MINUTES));
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -83,8 +92,10 @@ public class GymHoursHandlerTest {
     @Test
     public void testAfterAllHours() {
         try {
-            String output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockAfterAllHours());
-            assertEquals("Closed Till Wednesday", output);
+            TimeUntilOpenOrClose output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockAfterAllHours());
+            assertFalse(output.isOpen());
+            assertNull(output.getTimeUntilOpenOrClose());
+            assertEquals(WEDNESDAY.getValue(), output.getNextDay());
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -93,8 +104,9 @@ public class GymHoursHandlerTest {
     @Test
     public void testNoHoursToday() {
         try {
-            String output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockNoHoursToday());
-            assertEquals("17h 30m Until Opening", output);
+            TimeUntilOpenOrClose output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockNoHoursToday());
+            assertFalse(output.isOpen());
+            assertEquals(Duration.ofHours(17).plusMinutes(30), output.getTimeUntilOpenOrClose().truncatedTo(ChronoUnit.MINUTES));
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -103,8 +115,9 @@ public class GymHoursHandlerTest {
     @Test
     public void testClosingTomorrow() {
         try {
-            String output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockClosingTomorrow());
-            assertEquals("27h 30m Until Closing", output);
+            TimeUntilOpenOrClose output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockClosingTomorrow());
+            assertTrue(output.isOpen());
+            assertEquals(Duration.ofHours(27).plusMinutes(30), output.getTimeUntilOpenOrClose().truncatedTo(ChronoUnit.MINUTES));
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -113,8 +126,9 @@ public class GymHoursHandlerTest {
     @Test
     public void testClosingMidnight() {
         try {
-            String output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockClosingMidnight());
-            assertEquals("3h 30m Until Closing", output);
+            TimeUntilOpenOrClose output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockClosingMidnight());
+            assertTrue(output.isOpen());
+            assertEquals(Duration.ofHours(3).plusMinutes(30), output.getTimeUntilOpenOrClose().truncatedTo(ChronoUnit.MINUTES));
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -123,8 +137,10 @@ public class GymHoursHandlerTest {
     @Test
     public void testClosingLaterThisWeek() {
         try {
-            String output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockClosingLaterThisWeek());
-            assertEquals("Open Till Sunday", output);
+            TimeUntilOpenOrClose output = gymHoursHandler.getTimeUntilOpenOrCloseHelper(getClockClosingLaterThisWeek());
+            assertTrue(output.isOpen());
+            assertNull(output.getTimeUntilOpenOrClose());
+            assertEquals(SUNDAY.getValue(), output.getNextDay());
         } catch (Exception e) {
             fail(e.getMessage());
         }
