@@ -13,7 +13,6 @@ import funkyflamingos.bisonfit.logic.IWaterHandler;
 import funkyflamingos.bisonfit.logic.UserRegistrationHandler;
 import funkyflamingos.bisonfit.logic.WaterHandler;
 import funkyflamingos.bisonfit.logic.WorkoutHandler;
-import funkyflamingos.bisonfit.ui.GymHoursActivity;
 
 import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.R;
@@ -76,16 +75,16 @@ public class HomePageActivity extends AppCompatActivity implements AddWorkoutDia
                             @Override
                             public void run() {
                                 if(newStatus.isOpen()) {
-                                    if(newStatus.getTimeUntilOpenOrClose() != null)
-                                        btnGymHours.setText(getFormattedTime(newStatus.getTimeUntilOpenOrClose().toString()) + " Until Closing");
+                                    if(newStatus.getDuration() != null)
+                                        btnGymHours.setText(getFormattedTime(newStatus.getDuration().toString()) + " Until Closing");
                                     else if(newStatus.getNextDay() > 0)
                                         btnGymHours.setText("Open Till " + GymHoursActivity.dayIDToString(newStatus.getNextDay()));
                                     else
                                         btnGymHours.setText("Open All Week");
                                 }
                                 else {
-                                    if(newStatus.getTimeUntilOpenOrClose() != null)
-                                        btnGymHours.setText(getFormattedTime(newStatus.getTimeUntilOpenOrClose().toString()) + " Until Opening");
+                                    if(newStatus.getDuration() != null)
+                                        btnGymHours.setText(getFormattedTime(newStatus.getDuration().toString()) + " Until Opening");
                                     else if(newStatus.getNextDay() > 0)
                                         btnGymHours.setText("Closed Till " + GymHoursActivity.dayIDToString(newStatus.getNextDay()));
                                     else

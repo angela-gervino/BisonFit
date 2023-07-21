@@ -97,9 +97,9 @@ public class GymHoursHandler implements IGymHoursHandler {
                     // is later today or later in the week
                     if (hours.getOpening().isAfter(currentTime) || !isToday) {
                         if (isToday) {
-                            timeUntilOpenOrClose.setTimeUntilOpenOrClose(getDurationBetween(currentTime, hours.getOpening()));
+                            timeUntilOpenOrClose.setDuration(getDurationBetween(currentTime, hours.getOpening()));
                         } else if (isTomorrow(currentDayOfWeek, gymHours.getDayID())) {
-                            timeUntilOpenOrClose.setTimeUntilOpenOrClose(getDurationBetween(currentTime, LocalTime.MIDNIGHT)
+                            timeUntilOpenOrClose.setDuration(getDurationBetween(currentTime, LocalTime.MIDNIGHT)
                                     .plus(Duration.between(LocalTime.MIN, hours.getOpening())));
                         } else {
                             // if the gym opens after tomorrow we just
@@ -124,7 +124,7 @@ public class GymHoursHandler implements IGymHoursHandler {
         List<Hours> tomorrowsHours = nextWeekHours.get(1).getHours();
         List<Hours> dayAfterTomorrowHours = nextWeekHours.get(2).getHours();
 
-        timeUntilOpenOrClose.setTimeUntilOpenOrClose(getDurationBetween(currentTime, currentHours.getClosing()));
+        timeUntilOpenOrClose.setDuration(getDurationBetween(currentTime, currentHours.getClosing()));
 
         boolean isOpenTillTomorrow = currentHours.getClosing().equals(LocalTime.MIDNIGHT)
                 && tomorrowsHours != null
@@ -137,12 +137,12 @@ public class GymHoursHandler implements IGymHoursHandler {
         if (isOpenTillTomorrow)
             if (!isOpenTillDayAfterTomorrow) {
                 // add duration of tomorrow's first hours
-                timeUntilOpenOrClose.setTimeUntilOpenOrClose(timeUntilOpenOrClose
-                        .getTimeUntilOpenOrClose()
+                timeUntilOpenOrClose.setDuration(timeUntilOpenOrClose
+                        .getDuration()
                         .plus(getDurationBetween(LocalTime.MIDNIGHT, tomorrowsHours.get(0).getClosing())));
             } else {
                 // not closing today or tomorrow so we just show the next day that the gym closes
-                timeUntilOpenOrClose.setTimeUntilOpenOrClose(null);
+                timeUntilOpenOrClose.setDuration(null);
                 setClosingDay(nextWeekHours, timeUntilOpenOrClose);
             }
 

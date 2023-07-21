@@ -3,22 +3,22 @@ package funkyflamingos.bisonfit.dso;
 import java.time.Duration;
 
 public class TimeUntilOpenOrClose {
-    private Duration timeUntilOpenOrClose;
+    private Duration duration;
     private boolean isOpen;
     private int nextDay;
 
     public TimeUntilOpenOrClose() {
-        this.timeUntilOpenOrClose = null;
+        this.duration = null;
         this.isOpen = false;
         this.nextDay = -1;
     }
 
-    public Duration getTimeUntilOpenOrClose() {
-        return timeUntilOpenOrClose;
+    public Duration getDuration() {
+        return duration;
     }
 
-    public void setTimeUntilOpenOrClose(Duration timeUntilOpenOrClose) {
-        this.timeUntilOpenOrClose = timeUntilOpenOrClose;
+    public void setDuration(Duration duration) {
+        this.duration = duration;
     }
 
     public boolean isOpen() {
