@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import funkyflamingos.bisonfit.application.Services;
+import funkyflamingos.bisonfit.dso.Exercise;
 import funkyflamingos.bisonfit.dso.ExerciseHeader;
+import funkyflamingos.bisonfit.dso.ExerciseSet;
 import funkyflamingos.bisonfit.dso.Workout;
 import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.persistence.IExerciseLookupPersistence;
@@ -57,8 +59,8 @@ public class WorkoutHandler implements IWorkoutHandler {
     }
 
     @Override
-    public Workout getWorkoutByID(int workoutID) {
-        return workoutsPersistence.getWorkoutByID(workoutID);
+    public WorkoutHeader getWorkoutHeaderByID(int workoutID) {
+        return workoutsPersistence.getWorkoutHeaderByID(workoutID);
     }
 
     @Override
@@ -68,8 +70,8 @@ public class WorkoutHandler implements IWorkoutHandler {
 
     @Override
     public void deleteWorkout(int workoutID) {
-        if (getWorkoutByID(workoutID) != null) {
-            savedWorkoutExercisesPersistence.deleteWorkout(getWorkoutByID(workoutID).getHeader());
+        if (this.getWorkoutHeaderByID(workoutID) != null) {
+            savedWorkoutExercisesPersistence.deleteWorkout(this.getWorkoutHeaderByID(workoutID));
             workoutsPersistence.deleteWorkoutById(workoutID);
         }
     }
@@ -102,5 +104,39 @@ public class WorkoutHandler implements IWorkoutHandler {
     public void deleteExercise(ExerciseHeader exerciseHeader, WorkoutHeader workoutHeader)
     {
         savedWorkoutExercisesPersistence.deleteExercise(exerciseHeader, workoutHeader);
+    }
+
+    @Override
+    public boolean savePerformedWorkout(Workout workout) {
+        Workout workoutProcessed = new Workout(workout.getHeader());
+        for(Exercise curExercise : workout.getAllExercises()) {
+            Exercise newExercise = new Exercise(curExercise.getHeader());
+            for(ExerciseSet currSet : curExercise.getAllSets()) {
+                ExerciseSet newSet;
+
+                // validate values: replace invalid (<0) values with 0s
+                if(currSet.getReps() < 0)
+                    currSet.setReps(0);
+                if(currSet.getWeight() < 0)
+                    currSet.setWeight(0);
+
+                // add this set to the exercise only if it has data
+                if(currSet.getWeight() > 0 && currSet.getReps() > 0) {
+                    newSet = new ExerciseSet(currSet.getWeight(), currSet.getReps());
+                    newExercise.addSet(newSet);
+                }
+            }
+
+            // add this exercise to the workout only if it has sets
+            if(newExercise.getAllSets().size() > 0)
+                workoutProcessed.addExercise(newExercise);
+        }
+
+        // only save this if the processed workout has exercises
+        if(workoutProcessed.getAllExercises().size() > 0) {
+            //TODO: Save to workoutProcessed to DB
+            return true;
+        }
+        return  false;
     }
 }

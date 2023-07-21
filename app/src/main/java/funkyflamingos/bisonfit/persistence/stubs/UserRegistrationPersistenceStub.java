@@ -18,4 +18,9 @@ public class UserRegistrationPersistenceStub implements IUserRegistrationPersist
     public String getUserName() {
         return name;
     }
+
+    @Override
+    public void clearTable() {
+        name = null;
+    }
 }

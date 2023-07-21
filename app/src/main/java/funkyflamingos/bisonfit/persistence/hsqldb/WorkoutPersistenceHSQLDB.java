@@ -1,5 +1,6 @@
 package funkyflamingos.bisonfit.persistence.hsqldb;
 
+import funkyflamingos.bisonfit.dso.Exercise;
 import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.dso.Workout;
 import funkyflamingos.bisonfit.persistence.IWorkoutPersistence;
@@ -18,33 +19,27 @@ import java.util.List;
 
 public class WorkoutPersistenceHSQLDB implements IWorkoutPersistence {
     private final String dbPath;
-    private List<Workout> workouts;
 
     public WorkoutPersistenceHSQLDB(String dbPath) {
         this.dbPath = dbPath;
-        this.workouts = new ArrayList<>();
     }
 
     private Connection connect() throws SQLException {
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
 
-    private Workout fromResultSet(final ResultSet rs) throws SQLException {
-        int workoutID = rs.getInt("ID");
-        String workoutName = rs.getString("TITLE");
+    @Override
+    public List<WorkoutHeader> getAllWorkoutHeaders() {
+        List<WorkoutHeader> workoutHeaders = new ArrayList<>();
 
-        return new Workout(new WorkoutHeader(workoutName, workoutID));
-    }
-
-    private void loadWorkouts() {
         try (Connection connection = connect()) {
-            workouts = new ArrayList<>();
             final Statement statement = connection.createStatement();
             final ResultSet resultSet = statement.executeQuery("SELECT * FROM WORKOUTS");
 
             while (resultSet.next()) {
-                final Workout oneWorkout = fromResultSet(resultSet);
-                this.workouts.add(oneWorkout);
+                String name = resultSet.getString("TITLE");
+                int id = resultSet.getInt("ID");
+                workoutHeaders.add(new WorkoutHeader(name, id));
             }
             resultSet.close();
             statement.close();
@@ -52,25 +47,20 @@ public class WorkoutPersistenceHSQLDB implements IWorkoutPersistence {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
         }
+
+        return workoutHeaders;
     }
 
     @Override
-    public List<WorkoutHeader> getAllWorkoutHeaders() {
-        List<WorkoutHeader> allHeaders = new ArrayList<>();
-        loadWorkouts();
-        for (Workout workout : workouts)
-            allHeaders.add(workout.getHeader());
-        return allHeaders;
-    }
-
-    @Override
-    public Workout getWorkoutByID(int workoutID) {
+    public WorkoutHeader getWorkoutHeaderByID(int workoutID) {
+        WorkoutHeader workoutHeader = null;
         try (Connection connection = connect()) {
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM WORKOUTS WHERE WORKOUTS.ID = ?");
             statement.setString(1, Integer.toString(workoutID));
             final ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return fromResultSet(resultSet);
+                String workoutName = resultSet.getString("TITLE");
+                workoutHeader = new WorkoutHeader(workoutName, workoutID);
             }
             resultSet.close();
             statement.close();
@@ -78,8 +68,35 @@ public class WorkoutPersistenceHSQLDB implements IWorkoutPersistence {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
         }
-        return null;
+        return workoutHeader;
     }
+
+    @Override
+    public Workout getWorkoutByID(int workoutID) {
+        Workout workout = null;
+        WorkoutHeader workoutHeader = getWorkoutHeaderByID(workoutID);
+        if (workoutHeader != null) {
+            workout = new Workout(workoutHeader);
+            try (Connection connection = connect()) {
+                final PreparedStatement statement = connection.prepareStatement("SELECT * FROM EXERCISELOOKUP JOIN SAVEDWORKOUTEXERCISES ON EXERCISELOOKUP.ID = SAVEDWORKOUTEXERCISES.EXERCISEID WHERE SAVEDWORKOUTEXERCISES.WORKOUTID = ? ORDER BY INDEX ASC");
+                statement.setInt(1, workoutID);
+                final ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    int numSets = resultSet.getInt("NUMSETS");
+                    String exerciseName = resultSet.getString("NAME");
+                    int exerciseId = resultSet.getInt("EXERCISEID");
+                    workout.addExercise(new Exercise(exerciseName, exerciseId, numSets));
+                }
+                resultSet.close();
+                statement.close();
+            } catch (final SQLException e) {
+                Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+                e.printStackTrace();
+            }
+        }
+        return workout;
+    }
+
 
     @Override
     public void addWorkout(String name) {

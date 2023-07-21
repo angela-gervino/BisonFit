@@ -5,7 +5,8 @@
     android:id="@+id/txtName"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.WelcomeActivity">
+    tools:context=".ui.WelcomeActivity"
+    >
 
     <ImageView
         android:id="@+id/imageView"

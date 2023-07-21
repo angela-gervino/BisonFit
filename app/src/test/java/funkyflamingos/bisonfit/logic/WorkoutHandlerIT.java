@@ -47,25 +47,25 @@ public class WorkoutHandlerIT {
     @Test
     public void testGetByIDFound() {
         workoutHandler.addNewWorkout("My New Workout Workout");
-        assertNotNull(workoutHandler.getWorkoutByID(0));
+        assertNotNull(workoutHandler.getWorkoutHeaderByID(0));
     }
 
     @Test
     public void testGetByIDNotFound() {
-        assertNull(workoutHandler.getWorkoutByID(0));
+        assertNull(workoutHandler.getWorkoutHeaderByID(0));
     }
 
     @Test
     public void testExpectedName() {
         workoutHandler.addNewWorkout("Upper Body");
-        Workout foundWorkout = workoutHandler.getWorkoutByID(0);
-        assertTrue(foundWorkout.getHeader().getName().equals("Upper Body"));
+        WorkoutHeader foundWorkout = workoutHandler.getWorkoutHeaderByID(0);
+        assertTrue(foundWorkout.getName().equals("Upper Body"));
     }
 
     @Test
     public void testGetByIDHeaderNotNull() {
         workoutHandler.addNewWorkout("Upper Body");
-        assertNotNull(workoutHandler.getWorkoutByID(0).getHeader());
+        assertNotNull(workoutHandler.getWorkoutHeaderByID(0));
     }
 
     @Test
@@ -196,7 +196,7 @@ public class WorkoutHandlerIT {
     @Test
     public void testDeleteExerciseWhenNonexistent() {
         workoutHandler.addNewWorkout("Fun Workout");
-        WorkoutHeader funWorkout = workoutHandler.getWorkoutByID(0).getHeader();
+        WorkoutHeader funWorkout = workoutHandler.getWorkoutHeaderByID(0);
 
         ArrayList<ExerciseHeader> exercises = workoutHandler.getAllExerciseHeaders();
         workoutHandler.deleteExercise(exercises.get(0), funWorkout);
@@ -207,7 +207,7 @@ public class WorkoutHandlerIT {
     @Test
     public void testDeleteExerciseWhenExistent() {
         workoutHandler.addNewWorkout("Fun Workout");
-        WorkoutHeader funWorkout = workoutHandler.getWorkoutByID(0).getHeader();
+        WorkoutHeader funWorkout = workoutHandler.getWorkoutHeaderByID(0);
 
         ArrayList<ExerciseHeader> exercises = workoutHandler.getAllExerciseHeaders();
         exercises.get(0).toggleSelected();

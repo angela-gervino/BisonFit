@@ -25,6 +25,10 @@ public class ActiveWorkoutExerciseListAdapter extends RecyclerView.Adapter<Activ
         this.parentActivity = parentActivity;
     }
 
+    public Workout getWorkoutObject() {
+        return workout;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -70,7 +74,7 @@ public class ActiveWorkoutExerciseListAdapter extends RecyclerView.Adapter<Activ
 
         public void setUpRecyclerView(Context context, Exercise exercise) {
             rv.setLayoutManager(new LinearLayoutManager(context));
-            rv.setAdapter(new ActiveWorkoutSetListAdapter(exercise, context));
+            rv.setAdapter(new ActiveWorkoutSetListAdapter(exercise));
         }
 
     }
