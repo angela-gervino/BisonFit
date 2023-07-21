@@ -11,8 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+import java.util.List;
 
 import funkyflamingos.bisonfit.R;
+import funkyflamingos.bisonfit.dso.Exercise;
+import funkyflamingos.bisonfit.dso.ExerciseHeader;
 import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.logic.IWorkoutHandler;
 import funkyflamingos.bisonfit.logic.WorkoutHandler;
@@ -21,13 +27,16 @@ public class WorkoutOverviewActivity extends AppCompatActivity {
     private WorkoutHeader workoutHeader;
     private RecyclerView recyclerView;
     private WorkoutOverviewExercisesListAdapter adapter;
+    private Button startBtn;
+    private IWorkoutHandler workoutHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_overview);
+        startBtn = findViewById(R.id.startWorkoutButton);
 
-        IWorkoutHandler workoutHandler = new WorkoutHandler();
+        workoutHandler = new WorkoutHandler();
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -60,9 +69,13 @@ public class WorkoutOverviewActivity extends AppCompatActivity {
     }
 
     public void openActiveWorkoutActivity(View v) {
-        Intent intent = new Intent(this, ActiveWorkoutActivity.class);
-        intent.putExtra("workoutID", workoutHeader.getId());
-        activeWorkoutResultLauncher.launch(intent);
+        if(startButtonEnabled()) {
+            Intent intent = new Intent(this, ActiveWorkoutActivity.class);
+            intent.putExtra("workoutID", workoutHeader.getId());
+            activeWorkoutResultLauncher.launch(intent);
+        }
+        else
+            Toast.makeText(this, "Add some workouts first", Toast.LENGTH_SHORT).show();
     }
 
     ActivityResultLauncher<Intent> activeWorkoutResultLauncher = registerForActivityResult(
@@ -74,4 +87,17 @@ public class WorkoutOverviewActivity extends AppCompatActivity {
                 }
             }
     );
+
+    private boolean startButtonEnabled() {
+        List<ExerciseHeader> exerciseHeaders = workoutHandler.getExerciseHeaders(workoutHeader);
+        boolean result = false;
+
+        for(ExerciseHeader header : exerciseHeaders)
+            if (header.getSetCount() > 0) {
+                result = true;
+                break;
+            }
+
+        return  result;
+    }
 }

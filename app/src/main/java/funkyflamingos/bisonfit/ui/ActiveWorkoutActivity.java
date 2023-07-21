@@ -33,13 +33,13 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
         int workoutID = getIntent().getIntExtra("workoutID", 0);
 
         workoutHandler = new WorkoutHandler();
-        workout = createStubRoutine();
+        workout = workoutHandler.getWorkoutToPerform(workoutID);
         ActiveWorkoutExerciseListAdapter adapter = new ActiveWorkoutExerciseListAdapter(workout, this);
 
         rvExercises.setLayoutManager(new LinearLayoutManager(this));
         rvExercises.setAdapter(adapter);
 
-        getActionBar().setTitle("Test");
+        getActionBar().setTitle(workout.getHeader().getName());
 
     }
 
@@ -54,18 +54,5 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Toast.makeText(this, "Finish this workout to exit", Toast.LENGTH_SHORT).show();
-    }
-
-    private Workout createStubRoutine() {
-        Workout routine = new Workout(new WorkoutHeader("Full Body", 1));
-
-        routine.addExercise(new Exercise("Biceps Curls", 0, 3));
-        routine.addExercise(new Exercise("Triceps Extensions", 1, 3));
-        routine.addExercise(new Exercise("Bench Press Curls", 2, 5));
-        routine.addExercise(new Exercise("Run", 3, 5));
-        routine.addExercise(new Exercise("Squats", 4, 1));
-        routine.addExercise(new Exercise("Push ups", 5, 1));
-
-        return  routine;
     }
 }
