@@ -55,17 +55,4 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
     public void onBackPressed() {
         Toast.makeText(this, "Finish this workout to exit", Toast.LENGTH_SHORT).show();
     }
-
-    private Workout createStubRoutine() {
-        Workout routine = new Workout(new WorkoutHeader("Full Body", 1));
-
-        routine.addExercise(new Exercise("Biceps Curls", 0, 3));
-        routine.addExercise(new Exercise("Triceps Extensions", 1, 3));
-        routine.addExercise(new Exercise("Bench Press Curls", 2, 5));
-        routine.addExercise(new Exercise("Run", 3, 5));
-        routine.addExercise(new Exercise("Squats", 4, 1));
-        routine.addExercise(new Exercise("Push ups", 5, 1));
-
-        return  routine;
-    }
 }
