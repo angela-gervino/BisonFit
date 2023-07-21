@@ -157,6 +157,10 @@ public class HomePageActivity extends AppCompatActivity implements AddWorkoutDia
         addWorkoutDialog.show(getSupportFragmentManager(), "Add Workout Dialog");
     }
 
+    public void viewPreviousWorkoutsButtonClicked(View v) {
+
+    }
+
     // converts Duration.toString() to human readable
     private static String getFormattedTime(String durationToString) {
         String output = durationToString.substring(2);
