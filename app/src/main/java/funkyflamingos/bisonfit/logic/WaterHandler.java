@@ -40,6 +40,6 @@ public class WaterHandler implements IWaterHandler {
 
     @Override
     public boolean reachedGoal() {
-        return getProgress() == getGoal();
+        return getProgress() >= getGoal();
     }
 }

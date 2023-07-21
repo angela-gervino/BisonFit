@@ -6,4 +6,6 @@ public interface IUserRegistrationPersistence {
     void setUserName(String userName);
 
     String getUserName();
+
+    void clearTable();
 }
