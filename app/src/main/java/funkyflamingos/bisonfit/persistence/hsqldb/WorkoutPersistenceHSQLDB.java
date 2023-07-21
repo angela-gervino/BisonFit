@@ -18,33 +18,27 @@ import java.util.List;
 
 public class WorkoutPersistenceHSQLDB implements IWorkoutPersistence {
     private final String dbPath;
-    private List<Workout> workouts;
 
     public WorkoutPersistenceHSQLDB(String dbPath) {
         this.dbPath = dbPath;
-        this.workouts = new ArrayList<>();
     }
 
     private Connection connect() throws SQLException {
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
 
-    private Workout fromResultSet(final ResultSet rs) throws SQLException {
-        int workoutID = rs.getInt("ID");
-        String workoutName = rs.getString("TITLE");
+    @Override
+    public List<WorkoutHeader> getAllWorkoutHeaders() {
+        List<WorkoutHeader> workoutHeaders = new ArrayList<>();
 
-        return new Workout(new WorkoutHeader(workoutName, workoutID));
-    }
-
-    private void loadWorkouts() {
         try (Connection connection = connect()) {
-            workouts = new ArrayList<>();
             final Statement statement = connection.createStatement();
             final ResultSet resultSet = statement.executeQuery("SELECT * FROM WORKOUTS");
 
             while (resultSet.next()) {
-                final Workout oneWorkout = fromResultSet(resultSet);
-                this.workouts.add(oneWorkout);
+                String name = resultSet.getString("TITLE");
+                int id = resultSet.getInt("ID");
+                workoutHeaders.add(new WorkoutHeader(name, id));
             }
             resultSet.close();
             statement.close();
@@ -52,25 +46,20 @@ public class WorkoutPersistenceHSQLDB implements IWorkoutPersistence {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
         }
-    }
 
-    @Override
-    public List<WorkoutHeader> getAllWorkoutHeaders() {
-        List<WorkoutHeader> allHeaders = new ArrayList<>();
-        loadWorkouts();
-        for (Workout workout : workouts)
-            allHeaders.add(workout.getHeader());
-        return allHeaders;
+        return workoutHeaders;
     }
 
     @Override
     public Workout getWorkoutByID(int workoutID) {
+        Workout workout = null;
         try (Connection connection = connect()) {
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM WORKOUTS WHERE WORKOUTS.ID = ?");
             statement.setString(1, Integer.toString(workoutID));
             final ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return fromResultSet(resultSet);
+                String workoutName = resultSet.getString("TITLE");
+                workout = new Workout(new WorkoutHeader(workoutName, workoutID));
             }
             resultSet.close();
             statement.close();
@@ -78,7 +67,7 @@ public class WorkoutPersistenceHSQLDB implements IWorkoutPersistence {
             Log.e("Connect SQL", e.getMessage() + e.getSQLState());
             e.printStackTrace();
         }
-        return null;
+        return workout;
     }
 
     @Override

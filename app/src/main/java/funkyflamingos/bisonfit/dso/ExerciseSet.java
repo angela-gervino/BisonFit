@@ -3,12 +3,10 @@ package funkyflamingos.bisonfit.dso;
 public class ExerciseSet {
     private double weight;
     private int reps;
-    private int setNumber;
 
-    public ExerciseSet (double weight, int reps, int setNumber) {
+    public ExerciseSet (double weight, int reps) {
         this.weight = weight;
         this.reps = reps;
-        this.setNumber = setNumber;
     }
 
     public double getWeight() {
@@ -19,7 +17,11 @@ public class ExerciseSet {
         return reps;
     }
 
-    public int getSetNumber() {
-        return  setNumber;
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public void setReps(int reps) {
+        this.reps = reps;
     }
 }
