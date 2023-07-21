@@ -81,13 +81,13 @@ Tables that contain the workouts that have been created and saved by the user or
 #### Workout Record Tables:
 Tables that hold the record of workouts and exercises done by the user.<br><br>
 
-**performed\_workout\_record**<br>
+**PERFORMEDWORKOUTRECORD**<br>
 |Attribute|Type|Description|
 |-|-|-|
-|<ins>workout\_record\_id</ins>|`int`|Unique identifier of performed workout|
-|workout\_id|`int`|Identifier of workout performed
-|start_timestamp|`timestamp`|Unix time stamp at start of workout
-|end\_timestamp|`timestamp`|Unix time stamp at end of workout
+|<ins>WORKOUTRECORDID</ins>|`int`|Unique identifier of performed workout|
+|WORKOUTID|`int`|Identifier of workout performed
+|START|`varchar`|Represents the start time of the workout
+|END|`varchar`|Represents the end time of the workout
 
 **performed\_exercise\_record**<br>
 |Attribute|Type|Description|
