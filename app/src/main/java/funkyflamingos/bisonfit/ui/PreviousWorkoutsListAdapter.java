@@ -26,6 +26,17 @@ public class PreviousWorkoutsListAdapter extends RecyclerView.Adapter<PreviousWo
         this.parentActivity = parentActivity;
     }
 
+    private String capitalizeFirstLetterOnly(String input) {
+        if(input.length() > 0) {
+            char[] output = input.toLowerCase().toCharArray();
+            output[0] = Character.toUpperCase(output[0]);
+
+            return new String(output);
+        }
+        else
+            return  input;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
@@ -39,8 +50,8 @@ public class PreviousWorkoutsListAdapter extends RecyclerView.Adapter<PreviousWo
         viewHolder.setExerciseID(performedWorkoutHeaderList.get(position).getId());
 
         LocalDateTime dateStarted = performedWorkoutHeaderList.get(position).getDateStarted();
-        String dateStartedString = dateStarted.getDayOfWeek().toString().toLowerCase() + ", "
-                + dateStarted.getMonth().toString().toLowerCase() + " "
+        String dateStartedString = capitalizeFirstLetterOnly(dateStarted.getDayOfWeek().toString()) + ", "
+                + capitalizeFirstLetterOnly(dateStarted.getMonth().toString()) + " "
                 + dateStarted.getDayOfMonth() + ", "
                 + dateStarted.getYear();
         viewHolder.setWorkoutDate(dateStartedString);
@@ -54,7 +65,6 @@ public class PreviousWorkoutsListAdapter extends RecyclerView.Adapter<PreviousWo
                 parentActivity.startActivity(intent);
             }
         });
-
     }
 
     @Override
