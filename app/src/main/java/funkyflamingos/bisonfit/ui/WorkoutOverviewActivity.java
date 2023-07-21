@@ -3,7 +3,6 @@ package funkyflamingos.bisonfit.ui;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,7 +13,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import funkyflamingos.bisonfit.R;
-import funkyflamingos.bisonfit.dso.Workout;
 import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.logic.IWorkoutHandler;
 import funkyflamingos.bisonfit.logic.WorkoutHandler;
@@ -34,7 +32,7 @@ public class WorkoutOverviewActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             int clickedWorkoutID = extras.getInt("workoutID");
-            workoutHeader = workoutHandler.getWorkoutByID(clickedWorkoutID);
+            workoutHeader = workoutHandler.getWorkoutHeaderByID(clickedWorkoutID);
             String clickedWorkoutName = workoutHeader.getName();
             getActionBar().setTitle(clickedWorkoutName);
         }
