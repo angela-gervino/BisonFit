@@ -11,6 +11,8 @@ public interface IWorkoutPersistence {
 
     WorkoutHeader getWorkoutHeaderByID(int workoutID);
 
+    Workout getWorkoutByID(int workoutID);
+
     void addWorkout(String workoutName);
 
     void deleteWorkoutById(int workoutId);

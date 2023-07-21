@@ -1,5 +1,6 @@
 package funkyflamingos.bisonfit.persistence.hsqldb;
 
+import funkyflamingos.bisonfit.dso.Exercise;
 import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.dso.Workout;
 import funkyflamingos.bisonfit.persistence.IWorkoutPersistence;
@@ -69,6 +70,33 @@ public class WorkoutPersistenceHSQLDB implements IWorkoutPersistence {
         }
         return workoutHeader;
     }
+
+    @Override
+    public Workout getWorkoutByID(int workoutID) {
+        Workout workout = null;
+        WorkoutHeader workoutHeader = getWorkoutHeaderByID(workoutID);
+        if (workoutHeader != null) {
+            workout = new Workout(workoutHeader);
+            try (Connection connection = connect()) {
+                final PreparedStatement statement = connection.prepareStatement("SELECT * FROM EXERCISELOOKUP JOIN SAVEDWORKOUTEXERCISES ON EXERCISELOOKUP.ID = SAVEDWORKOUTEXERCISES.EXERCISEID WHERE SAVEDWORKOUTEXERCISES.WORKOUTID = ? ORDER BY INDEX ASC");
+                statement.setInt(1, workoutID);
+                final ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    int numSets = resultSet.getInt("NUMSETS");
+                    String exerciseName = resultSet.getString("NAME");
+                    int exerciseId = resultSet.getInt("EXERCISEID");
+                    workout.addExercise(new Exercise(exerciseName, exerciseId, numSets));
+                }
+                resultSet.close();
+                statement.close();
+            } catch (final SQLException e) {
+                Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+                e.printStackTrace();
+            }
+        }
+        return workout;
+    }
+
 
     @Override
     public void addWorkout(String name) {

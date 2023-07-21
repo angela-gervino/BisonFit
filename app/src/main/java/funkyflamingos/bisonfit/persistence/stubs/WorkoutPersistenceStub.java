@@ -31,6 +31,12 @@ public class WorkoutPersistenceStub implements IWorkoutPersistence {
     }
 
     @Override
+    public Workout getWorkoutByID(int workoutID) {
+        WorkoutHeader header = getWorkoutHeaderByID(workoutID);
+        return header != null ? new Workout(header) : null;
+    }
+
+    @Override
     public void addWorkout(String workoutName) {
         allWorkouts.add(new WorkoutHeader(workoutName, nextId));
         nextId++;
