@@ -89,10 +89,10 @@ Tables that hold the record of workouts and exercises done by the user.<br><br>
 |START|`varchar`|Represents the start date and time of the workout
 |END|`varchar`|Represents the end date and time of the workout
 
-**performed\_exercise\_record**<br>
+**PERFORMEDEXERCISERECORD**<br>
 |Attribute|Type|Description|
 |-|-|-|
-|<ins>WORKOUTRECORDID</ins|`int`|Identifier of performed workout
+|<ins>WORKOUTRECORDID</ins>|`int`|Identifier of performed workout
 |<ins>INDEX</ins>|`int`|The position of exercise in performed workout
 |EXERCISEID|`int`|Identifier of exercise
 |WEIGHT|`int`|The weight in lbs performed in this set, `-1` if not required
