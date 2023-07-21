@@ -1,8 +1,5 @@
 package funkyflamingos.bisonfit.logic;
 
-import android.util.Log;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,8 +59,8 @@ public class WorkoutHandler implements IWorkoutHandler {
     }
 
     @Override
-    public Workout getWorkoutByID(int workoutID) {
-        return workoutsPersistence.getWorkoutByID(workoutID);
+    public WorkoutHeader getWorkoutHeaderByID(int workoutID) {
+        return workoutsPersistence.getWorkoutHeaderByID(workoutID);
     }
 
     @Override
@@ -73,8 +70,8 @@ public class WorkoutHandler implements IWorkoutHandler {
 
     @Override
     public void deleteWorkout(int workoutID) {
-        if (getWorkoutByID(workoutID) != null) {
-            savedWorkoutExercisesPersistence.deleteWorkout(getWorkoutByID(workoutID).getHeader());
+        if (this.getWorkoutHeaderByID(workoutID) != null) {
+            savedWorkoutExercisesPersistence.deleteWorkout(this.getWorkoutHeaderByID(workoutID));
             workoutsPersistence.deleteWorkoutById(workoutID);
         }
     }

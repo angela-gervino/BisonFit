@@ -14,7 +14,7 @@ public interface IWorkoutHandler {
 
     ArrayList<ExerciseHeader> getAllSelectedExercises();
 
-    Workout getWorkoutByID(int workoutID);
+    WorkoutHeader getWorkoutHeaderByID(int workoutID);
 
     void unselectAllExercises();
 
