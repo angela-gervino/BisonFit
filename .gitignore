@@ -11,3 +11,4 @@ app/SC.*
 /.idea/misc.xml
 .idea/misc.xml
 .idea/modules.xml
+.idea/androidTestResultsUserPreferences.xml
