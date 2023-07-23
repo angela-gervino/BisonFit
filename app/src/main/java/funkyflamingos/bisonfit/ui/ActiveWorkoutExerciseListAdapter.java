@@ -17,12 +17,14 @@ import funkyflamingos.bisonfit.dso.WorkoutHeader;
 
 public class ActiveWorkoutExerciseListAdapter extends RecyclerView.Adapter<ActiveWorkoutExerciseListAdapter.ViewHolder> {
 
-    private Workout workout;
-    private Context parentActivity;
+    private final Workout workout;
+    private final Context parentActivity;
+    private final boolean showPreviousWorkoutData;
 
-    public ActiveWorkoutExerciseListAdapter(Workout dataSet, Context parentActivity) {
+    public ActiveWorkoutExerciseListAdapter(Workout dataSet, Context parentActivity, boolean previousWorkout) {
         workout = dataSet;
         this.parentActivity = parentActivity;
+        showPreviousWorkoutData = previousWorkout;
     }
 
     public Workout getWorkoutObject() {
@@ -41,7 +43,7 @@ public class ActiveWorkoutExerciseListAdapter extends RecyclerView.Adapter<Activ
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.setDataItem(workout.getHeader());
         holder.getLabel().setText(workout.getExercise(position).getName());
-        holder.setUpRecyclerView(parentActivity, workout.getExercise(position));
+        holder.setUpRecyclerView(parentActivity, workout.getExercise(position), showPreviousWorkoutData);
     }
 
     @Override
@@ -72,9 +74,9 @@ public class ActiveWorkoutExerciseListAdapter extends RecyclerView.Adapter<Activ
             return lblExerciseName;
         }
 
-        public void setUpRecyclerView(Context context, Exercise exercise) {
+        public void setUpRecyclerView(Context context, Exercise exercise, boolean previousWorkout) {
             rv.setLayoutManager(new LinearLayoutManager(context));
-            rv.setAdapter(new ActiveWorkoutSetListAdapter(exercise));
+            rv.setAdapter(new ActiveWorkoutSetListAdapter(exercise, previousWorkout));
         }
 
     }

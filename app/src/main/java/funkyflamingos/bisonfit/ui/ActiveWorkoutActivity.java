@@ -3,6 +3,7 @@ package funkyflamingos.bisonfit.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,23 +25,30 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
 
     Workout workout;
     IWorkoutHandler workoutHandler;
+    Button finishButton;
+    boolean showPreviousWorkout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.active_workout_page);
         RecyclerView rvExercises = findViewById(R.id.rvActiveWorkoutExerciseList);
+        finishButton = findViewById(R.id.btnFinishWorkout);
 
         int workoutID = getIntent().getIntExtra("workoutID", 0);
+        showPreviousWorkout = getIntent().getBooleanExtra("previous", false);
 
         workoutHandler = new WorkoutHandler();
         workout = workoutHandler.getWorkoutToPerform(workoutID);
-        ActiveWorkoutExerciseListAdapter adapter = new ActiveWorkoutExerciseListAdapter(workout, this);
+        ActiveWorkoutExerciseListAdapter adapter = new ActiveWorkoutExerciseListAdapter(workout, this, showPreviousWorkout);
 
         rvExercises.setLayoutManager(new LinearLayoutManager(this));
         rvExercises.setAdapter(adapter);
 
         getActionBar().setTitle(workout.getHeader().getName());
 
+        if(showPreviousWorkout)
+            finishButton.setVisibility(View.GONE);
     }
 
     public void finishWorkoutBtnClicked(View v) {
@@ -53,6 +61,9 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Toast.makeText(this, "Finish this workout to exit", Toast.LENGTH_SHORT).show();
+        if(!showPreviousWorkout)
+            Toast.makeText(this, "Finish this workout to exit", Toast.LENGTH_SHORT).show();
+        else
+            super.onBackPressed();
     }
 }

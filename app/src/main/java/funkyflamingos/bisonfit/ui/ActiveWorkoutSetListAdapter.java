@@ -11,18 +11,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import javax.xml.transform.dom.DOMLocator;
-
 import funkyflamingos.bisonfit.R;
 import funkyflamingos.bisonfit.dso.Exercise;
-import funkyflamingos.bisonfit.exceptions.InvalidGymHoursException;
 
 public class ActiveWorkoutSetListAdapter extends RecyclerView.Adapter<ActiveWorkoutSetListAdapter.ViewHolder> {
 
     private final Exercise localExercise;
+    private final boolean showPreviousWorkoutData;
 
-    public ActiveWorkoutSetListAdapter(Exercise dataSet) {
+    public ActiveWorkoutSetListAdapter(Exercise dataSet, boolean previousWorkout) {
         localExercise = dataSet;
+        showPreviousWorkoutData = previousWorkout;
     }
 
     @NonNull
@@ -30,7 +29,7 @@ public class ActiveWorkoutSetListAdapter extends RecyclerView.Adapter<ActiveWork
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.active_workout_set_list_item, viewGroup, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, showPreviousWorkoutData);
     }
 
     @Override
@@ -56,7 +55,7 @@ public class ActiveWorkoutSetListAdapter extends RecyclerView.Adapter<ActiveWork
             public void afterTextChanged(Editable editable) {}
         });
 
-        holder.getTxtFiled2().addTextChangedListener(new TextWatcher() {
+        holder.getTxtField2().addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 int position = holder.getAdapterPosition();
@@ -84,14 +83,19 @@ public class ActiveWorkoutSetListAdapter extends RecyclerView.Adapter<ActiveWork
     //ViewHolder object holds the individual UI item to display and interact with
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView txtSetNum;
-        private final EditText txtField1, txtFiled2;
+        private final EditText txtField1, txtField2;
 
 
-        public ViewHolder(View view) {
+        public ViewHolder(View view, boolean previousWorkout) {
             super(view);
             txtSetNum = view.findViewById(R.id.lblActiveWorkoutSetNum);
             txtField1 = view.findViewById(R.id.txtActiveWorkoutField1);
-            txtFiled2 = view.findViewById(R.id.txtActiveWorkoutField2);
+            txtField2 = view.findViewById(R.id.txtActiveWorkoutField2);
+
+            txtField1.setFocusable(!previousWorkout);
+            txtField2.setFocusable(!previousWorkout);
+
+
         }
 
         public void setTxtSetNum(int num) {
@@ -102,8 +106,8 @@ public class ActiveWorkoutSetListAdapter extends RecyclerView.Adapter<ActiveWork
             return txtField1;
         }
 
-        public EditText getTxtFiled2() {
-            return txtFiled2;
+        public EditText getTxtField2() {
+            return txtField2;
         }
     }
 }
