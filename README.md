@@ -26,7 +26,10 @@ The planned [architecture](https://code.cs.umanitoba.ca/3350-summer2023/funkyfla
 ## Iteration Milestones
 
 [Iteration 1](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/milestones/1#tab-issues)
+
 [Iteration 2](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/milestones/2#tab-issues)
+
+[Iteration 3](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/milestones/3#tab-issues)
 
 ## Programming Standards
 
