@@ -20,6 +20,7 @@ public class WaterTrackerPersistenceStub implements IWaterTrackerPersistence {
         return goal;
     }
 
+
     /* This function takes a LocalDate and increments the amount of water
     * drank on that day (by updating the progress map. */
     @Override
@@ -35,4 +36,10 @@ public class WaterTrackerPersistenceStub implements IWaterTrackerPersistence {
         Integer datesProgress = progress.getOrDefault(date, 0);
         return datesProgress != null ? datesProgress : 0;
     }
+
+    @Override
+    public void clear(LocalDate date) {
+        progress.put(date, 0);
+    }
+
 }
