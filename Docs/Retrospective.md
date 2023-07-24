@@ -12,3 +12,4 @@ Looking ahead to the final iteration, we have set some specific points to evalua
 
 ![Retrospective](ProjectVelocity.png)
 
+During our team's discussion, one important topic was analyzing the velocity from iteration 1 and iteration 2 to make more accurate predictions for the dev tasks in iteration 3. In the initial iteration, we overestimated our work because it was our first time using Android Studio. We wanted to ensure we had extra time to set up the environment and plan the entire project. However, after completing the first sprint, we gained valuable insights and were able to plan more effectively in iteration 2. We identified how much we could realistically accomplish and used the same approach to plan for iteration 3, leveraging our improved understanding. 
