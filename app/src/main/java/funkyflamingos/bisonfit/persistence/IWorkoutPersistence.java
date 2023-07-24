@@ -16,4 +16,6 @@ public interface IWorkoutPersistence {
     void addWorkout(String workoutName);
 
     void deleteWorkoutById(int workoutId);
+
+    void clear();
 }

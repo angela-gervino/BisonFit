@@ -121,6 +121,17 @@ public class WorkoutPersistenceHSQLDB implements IWorkoutPersistence {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void clear() {
+        try (Connection connection = connect()) {
+            final PreparedStatement statement = connection.prepareStatement("DELETE FROM WORKOUTS");
+            statement.executeUpdate();
+        } catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
+        }
+    }
 }
 
 
