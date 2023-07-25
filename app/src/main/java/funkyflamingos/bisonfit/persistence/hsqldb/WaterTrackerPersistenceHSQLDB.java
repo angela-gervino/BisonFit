@@ -2,6 +2,8 @@ package funkyflamingos.bisonfit.persistence.hsqldb;
 
 import static java.lang.Long.parseLong;
 
+import static funkyflamingos.bisonfit.application.Constants.RECOMMENDED_CUPS_OF_WATER_PER_DAY;
+
 import android.util.Log;
 
 import funkyflamingos.bisonfit.persistence.IWaterTrackerPersistence;
@@ -20,11 +22,11 @@ import java.util.Map;
 
 public class WaterTrackerPersistenceHSQLDB implements IWaterTrackerPersistence {
     private final String dbPath;
-    private int goal;
 
     public WaterTrackerPersistenceHSQLDB(String dbPath) {
         this.dbPath = dbPath;
-        goal = 8;
+        progress = new HashMap<>();
+        loadWaterTrack();
     }
 
     private Connection connect() throws SQLException {
@@ -68,7 +70,7 @@ public class WaterTrackerPersistenceHSQLDB implements IWaterTrackerPersistence {
 
     @Override
     public int getGoal() {
-        return goal;
+        return RECOMMENDED_CUPS_OF_WATER_PER_DAY;
     }
 
     @Override
@@ -87,5 +89,18 @@ public class WaterTrackerPersistenceHSQLDB implements IWaterTrackerPersistence {
 
         }
         return cupsDrank;
+    }
+
+    @Override
+    public void clear(LocalDate date) {
+        try (Connection connection = connect()) {
+            final PreparedStatement statement = connection.prepareStatement("DELETE FROM WATERTRACKING WHERE dateProgress = ?");
+            statement.setString(1, Long.toString(date.atStartOfDay(ZoneId.systemDefault()).toEpochSecond()));
+
+            statement.executeUpdate();
+        } catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
+        }
     }
 }
