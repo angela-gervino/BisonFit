@@ -109,6 +109,16 @@ public class WorkoutHandler implements IWorkoutHandler {
     }
 
     @Override
+    public List<PerformedWorkoutHeader> getPerformedWorkoutHeaders() {
+        ArrayList<PerformedWorkoutHeader> list = new ArrayList<>();
+        list.add(new PerformedWorkoutHeader("Upper Body", 0, LocalDateTime.now()));
+        list.add(new PerformedWorkoutHeader("Lower Body", 1, LocalDateTime.now()));
+        list.add(new PerformedWorkoutHeader("Full Body", 1, LocalDateTime.now()));
+
+        return list;
+    }
+
+    @Override
     public boolean savePerformedWorkout(Workout workout) {
         Workout workoutProcessed = new Workout(workout.getHeader());
         for(Exercise curExercise : workout.getAllExercises()) {
