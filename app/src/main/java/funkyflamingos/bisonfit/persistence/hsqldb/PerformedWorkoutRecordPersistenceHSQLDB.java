@@ -50,22 +50,6 @@ public class PerformedWorkoutRecordPersistenceHSQLDB implements IPerformedWorkou
         }
     }
 
-    private void addPerformedExercises(Workout workout, Connection connection) throws SQLException {
-        for (Exercise exercise : workout.getAllExercises()) {
-            for (ExerciseSet exerciseSet: exercise.getAllSets()) {
-                final PreparedStatement statement = connection.prepareStatement("INSERT INTO PERFORMEDEXERCISERECORD VALUES (?, DEFAULT, ?, ?, ?, ?)");
-                int workoutRecordId = getPerformedWorkoutRecordId(((PerformedWorkoutHeader)workout.getHeader()).getDateStarted());
-                statement.setInt(1, workoutRecordId);
-                statement.setInt(2, exercise.getID());
-                statement.setDouble(3, exerciseSet.getWeight());
-                statement.setInt(4, exerciseSet.getReps());
-                statement.setInt(5, exerciseSetIdentifier);
-                statement.executeUpdate();
-            }
-            exerciseSetIdentifier++;
-        }
-    }
-
     @Override
     public ArrayList<PerformedWorkoutHeader> getPerformedWorkoutHeaders() {
         ArrayList<PerformedWorkoutHeader> headers = new ArrayList<>();
@@ -136,6 +120,22 @@ public class PerformedWorkoutRecordPersistenceHSQLDB implements IPerformedWorkou
         return workout;
     }
 
+    private void addPerformedExercises(Workout workout, Connection connection) throws SQLException {
+        for (Exercise exercise : workout.getAllExercises()) {
+            for (ExerciseSet exerciseSet: exercise.getAllSets()) {
+                final PreparedStatement statement = connection.prepareStatement("INSERT INTO PERFORMEDEXERCISERECORD VALUES (?, DEFAULT, ?, ?, ?, ?)");
+                int workoutRecordId = getPerformedWorkoutRecordId(((PerformedWorkoutHeader)workout.getHeader()).getDateStarted());
+                statement.setInt(1, workoutRecordId);
+                statement.setInt(2, exercise.getID());
+                statement.setDouble(3, exerciseSet.getWeight());
+                statement.setInt(4, exerciseSet.getReps());
+                statement.setInt(5, exerciseSetIdentifier);
+                statement.executeUpdate();
+            }
+            exerciseSetIdentifier++;
+        }
+    }
+
     private PerformedWorkoutHeader getPerformedWorkoutHeaderById(int id) {
         PerformedWorkoutHeader header = null;
         try (Connection connection = connect()) {
@@ -191,6 +191,5 @@ public class PerformedWorkoutRecordPersistenceHSQLDB implements IPerformedWorkou
             dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(date)), ZoneId.systemDefault());
         return dateTime;
     }
-
-
+    
 }
