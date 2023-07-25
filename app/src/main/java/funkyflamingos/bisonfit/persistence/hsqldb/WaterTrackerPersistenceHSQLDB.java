@@ -2,6 +2,8 @@ package funkyflamingos.bisonfit.persistence.hsqldb;
 
 import static java.lang.Long.parseLong;
 
+import static funkyflamingos.bisonfit.application.Constants.RECOMMENDED_CUPS_OF_WATER_PER_DAY;
+
 import android.util.Log;
 
 import funkyflamingos.bisonfit.persistence.IWaterTrackerPersistence;
@@ -21,12 +23,10 @@ import java.util.Map;
 public class WaterTrackerPersistenceHSQLDB implements IWaterTrackerPersistence {
     private Map<LocalDate, Integer> progress;
     private final String dbPath;
-    private int goal;
 
     public WaterTrackerPersistenceHSQLDB(String dbPath) {
         this.dbPath = dbPath;
         progress = new HashMap<>();
-        goal = 8;
         loadWaterTrack();
     }
 
@@ -88,7 +88,7 @@ public class WaterTrackerPersistenceHSQLDB implements IWaterTrackerPersistence {
 
     @Override
     public int getGoal() {
-        return goal;
+        return RECOMMENDED_CUPS_OF_WATER_PER_DAY;
     }
 
     @Override
