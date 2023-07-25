@@ -47,6 +47,11 @@ public class WorkoutPersistenceStub implements IWorkoutPersistence {
         allWorkouts.remove(getIndexById(workoutId));
     }
 
+    @Override
+    public void clear() {
+        allWorkouts.clear();
+    }
+
     private int getIndexById(int workoutId) {
         int index = -1;
         for (int i = 0; i < allWorkouts.size() && index == -1; i++) {
