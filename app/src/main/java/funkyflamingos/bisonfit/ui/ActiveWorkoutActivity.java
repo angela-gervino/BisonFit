@@ -1,6 +1,5 @@
 package funkyflamingos.bisonfit.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,13 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 import funkyflamingos.bisonfit.R;
-import funkyflamingos.bisonfit.dso.Exercise;
 import funkyflamingos.bisonfit.dso.Workout;
-import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.logic.IWorkoutHandler;
 import funkyflamingos.bisonfit.logic.WorkoutHandler;
 
@@ -59,6 +53,7 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
     }
 
     public void finishWorkoutBtnClicked(View v) {
+        // TODO: save finish time
         boolean saved = workoutHandler.savePerformedWorkout(workout);
         if (!saved) {
             Toast.makeText(this, "There was nothing to save", Toast.LENGTH_SHORT).show();
