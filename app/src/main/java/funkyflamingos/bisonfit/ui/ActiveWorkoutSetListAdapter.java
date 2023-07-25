@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import funkyflamingos.bisonfit.R;
 import funkyflamingos.bisonfit.dso.Exercise;
+import funkyflamingos.bisonfit.dso.ExerciseSet;
 
 public class ActiveWorkoutSetListAdapter extends RecyclerView.Adapter<ActiveWorkoutSetListAdapter.ViewHolder> {
 
@@ -29,12 +30,32 @@ public class ActiveWorkoutSetListAdapter extends RecyclerView.Adapter<ActiveWork
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.active_workout_set_list_item, viewGroup, false);
-        return new ViewHolder(view, showPreviousWorkoutData);
+
+            return new ViewHolder(view, showPreviousWorkoutData);
     }
+
+    // the decimal point is added only if it is necessary (no .0 shown)
+    private String formatWeight(double weightDouble) {
+        int weightInt = (int) weightDouble;
+        String result = "";
+        if(weightInt == weightDouble)
+            result = Integer.toString(weightInt);
+        else
+            result = Double.toString(weightDouble);
+
+        return result;
+    }
+
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.setTxtSetNum(position + 1);
+
+        if(showPreviousWorkoutData) {
+            ExerciseSet curSet = localExercise.getSet(position);
+            holder.setTxtField1Text(formatWeight(curSet.getWeight()));
+            holder.setTxtField2Text(Integer.toString(curSet.getReps()));
+        }
 
         holder.getTxtField1().addTextChangedListener(new TextWatcher() {
             @Override
@@ -85,7 +106,6 @@ public class ActiveWorkoutSetListAdapter extends RecyclerView.Adapter<ActiveWork
         private final TextView txtSetNum;
         private final EditText txtField1, txtField2;
 
-
         public ViewHolder(View view, boolean previousWorkout) {
             super(view);
             txtSetNum = view.findViewById(R.id.lblActiveWorkoutSetNum);
@@ -94,8 +114,6 @@ public class ActiveWorkoutSetListAdapter extends RecyclerView.Adapter<ActiveWork
 
             txtField1.setFocusable(!previousWorkout);
             txtField2.setFocusable(!previousWorkout);
-
-
         }
 
         public void setTxtSetNum(int num) {
@@ -108,6 +126,14 @@ public class ActiveWorkoutSetListAdapter extends RecyclerView.Adapter<ActiveWork
 
         public EditText getTxtField2() {
             return txtField2;
+        }
+
+        public void setTxtField1Text(String txt) {
+            txtField1.setText(txt);
+        }
+
+        public void setTxtField2Text(String txt) {
+            txtField2.setText(txt);
         }
     }
 }

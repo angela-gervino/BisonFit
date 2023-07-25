@@ -150,4 +150,18 @@ public class WorkoutHandler implements IWorkoutHandler {
        workoutToPerform.setHeader(new PerformedWorkoutHeader(workoutToPerform.getHeader(), timeNow));
        return workoutToPerform;
     }
+
+    @Override
+    public Workout getPerformedWorkout(int workoutID) {
+        Workout performedWorkout = getWorkoutToPerform(workoutID);
+
+        for(Exercise exercise: performedWorkout.getAllExercises()) {
+            for (ExerciseSet set : exercise.getAllSets()) {
+                set.setWeight(100);
+                set.setReps(5);
+            }
+        }
+
+        return performedWorkout;
+    }
 }

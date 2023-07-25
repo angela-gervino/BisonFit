@@ -19,38 +19,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WaterTrackerPersistenceHSQLDB implements IWaterTrackerPersistence {
-    private Map<LocalDate, Integer> progress;
     private final String dbPath;
     private int goal;
 
     public WaterTrackerPersistenceHSQLDB(String dbPath) {
         this.dbPath = dbPath;
-        progress = new HashMap<>();
         goal = 8;
-        loadWaterTrack();
     }
 
     private Connection connect() throws SQLException {
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
 
-    private void loadWaterTrack() {
-        try (Connection connection = connect()) {
-            final Statement statement = connection.createStatement();
-            final ResultSet resultSet = statement.executeQuery("SELECT * FROM WATERTRACKING");
-            while (resultSet.next()) {
-                String dateAsString = resultSet.getString("dateProgress");
-                LocalDate date = Instant.ofEpochSecond(parseLong(dateAsString)).atZone(ZoneId.systemDefault()).toLocalDate();
-                int cupsDrank = resultSet.getInt("cupsDrank");
-                this.progress.put(date, cupsDrank);
-            }
-            resultSet.close();
-            statement.close();
-        } catch (final SQLException e) {
-            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
-            e.printStackTrace();
-        }
-    }
+
 
     private void insertWater(LocalDate date) {
         try (Connection connection = connect()) {
@@ -74,7 +55,6 @@ public class WaterTrackerPersistenceHSQLDB implements IWaterTrackerPersistence {
                 final PreparedStatement statement = connection.prepareStatement("UPDATE WATERTRACKING SET cupsDrank=cupsDrank+1 WHERE dateProgress = ?");
                 statement.setString(1, Long.toString(date.atStartOfDay(ZoneId.systemDefault()).toEpochSecond()));
                 statement.executeUpdate();
-                loadWaterTrack();
             } else {
                 insertWater(date);
             }

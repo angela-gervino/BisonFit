@@ -39,7 +39,14 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
         showPreviousWorkout = getIntent().getBooleanExtra("previous", false);
 
         workoutHandler = new WorkoutHandler();
-        workout = workoutHandler.getWorkoutToPerform(workoutID);
+
+        if(showPreviousWorkout) {
+            workout = workoutHandler.getPerformedWorkout(workoutID);
+        }
+        else {
+            workout = workoutHandler.getWorkoutToPerform(workoutID);
+        }
+
         ActiveWorkoutExerciseListAdapter adapter = new ActiveWorkoutExerciseListAdapter(workout, this, showPreviousWorkout);
 
         rvExercises.setLayoutManager(new LinearLayoutManager(this));

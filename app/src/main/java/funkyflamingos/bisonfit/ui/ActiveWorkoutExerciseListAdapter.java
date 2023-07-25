@@ -27,10 +27,6 @@ public class ActiveWorkoutExerciseListAdapter extends RecyclerView.Adapter<Activ
         showPreviousWorkoutData = previousWorkout;
     }
 
-    public Workout getWorkoutObject() {
-        return workout;
-    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
@@ -41,7 +37,6 @@ public class ActiveWorkoutExerciseListAdapter extends RecyclerView.Adapter<Activ
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.setDataItem(workout.getHeader());
         holder.getLabel().setText(workout.getExercise(position).getName());
         holder.setUpRecyclerView(parentActivity, workout.getExercise(position), showPreviousWorkoutData);
     }
@@ -53,7 +48,6 @@ public class ActiveWorkoutExerciseListAdapter extends RecyclerView.Adapter<Activ
 
     //ViewHolder object holds the individual UI item to display and interact with
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private WorkoutHeader dataItem;
         private final TextView lblExerciseName;
         private final RecyclerView rv;
 
@@ -63,13 +57,6 @@ public class ActiveWorkoutExerciseListAdapter extends RecyclerView.Adapter<Activ
             rv = view.findViewById(R.id.rvSetList);
         }
 
-        public void setDataItem(WorkoutHeader dataItem) {
-            this.dataItem = dataItem;
-        }
-
-        public WorkoutHeader getDataItem() {
-            return dataItem;
-        }
         public TextView getLabel() {
             return lblExerciseName;
         }
@@ -78,6 +65,5 @@ public class ActiveWorkoutExerciseListAdapter extends RecyclerView.Adapter<Activ
             rv.setLayoutManager(new LinearLayoutManager(context));
             rv.setAdapter(new ActiveWorkoutSetListAdapter(exercise, previousWorkout));
         }
-
     }
 }
