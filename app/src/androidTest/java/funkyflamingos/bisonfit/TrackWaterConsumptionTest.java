@@ -46,7 +46,7 @@ public class TrackWaterConsumptionTest {
     }
 
     @Test
-    public void gymScheduleTest() {
+    public void trackWaterConsumptionTest() {
 
         LocalDate today = LocalDate.now();
         IWaterTrackerPersistence waterTrackerPersistence = Services.getWaterTrackPersistence();
