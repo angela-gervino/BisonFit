@@ -18,8 +18,14 @@ In the iteration 3 we decided to cut the feature [substitute an exercise](https:
 ## Acceptance test/end-to-end
 Write a discussion about an end-to-end test that you wrote. What did you test, how did you set up the test so it was not flaky? Provide a link to that test.
 
+We wrote an end-to-end system test for our Add Exercise [feature](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/issues/3). The details of the associated acceptance test are in this [dev task](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/issues/100). In short, we tested that we could select an exercise from the exercise list and add it to a workout. That is, after selecting a particular exercise, we check that the same exercise was added to the previously empty workout. Here is the [test](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/blob/main/app/src/androidTest/java/funkyflamingos/bisonfit/AddExerciseTest.java). To make sure the test isn't flaky, we clear the username and workout databases so that the test runs from the same point  every time. This is simulating a fresh install for all features that are touched by the test. 
+
 ## Acceptance test, untestable
 What challenges did you face when creating acceptance tests? What was difficult or impossible to test?
+
+One of our [features](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/issues/8) had no text or text inputs which made it extremely difficult to end-to-end test. The issue was that the only change in the UI was an animation and writing dynamic tests for animations in Android is a [known issue](https://stackoverflow.com/questions/35186902/testing-progress-bar-on-android-with-espresso). In the end, we opted for a 'single direction' end-to-end test. That is, we click the water tracker to increment it and instead of checking the UI to make sure it increments we only check that the database. Here is the [test](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/blob/9a5037d70c20005fc54e86c222ba217ea966f984/app/src/androidTest/java/funkyflamingos/bisonfit/TrackWaterConsumptionTest.java#L69). 
+
+
 
 ## n+1 Acceptance test
 From class, every team must post an acceptance test script to the forum. Look at team n+1’s acceptance test, and record yourself performing it (the android emulator can do screen recordings!). Post that recording to the forum, link to it here.
