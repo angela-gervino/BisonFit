@@ -31,4 +31,6 @@ public interface IWorkoutHandler {
     boolean savePerformedWorkout(Workout workout);
 
     Workout getWorkoutToPerform(int workoutID);
+
+    Workout getPerformedWorkout(int workoutID);
 }

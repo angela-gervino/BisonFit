@@ -22,13 +22,12 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="numberDecimal"
+        android:nextFocusDown="@id/txtActiveWorkoutField2"
+        android:textAlignment="center"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/space1"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="14sp"
-        android:textAlignment="center"
-        android:nextFocusDown="@id/txtActiveWorkoutField2"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/txtActiveWorkoutField2"
