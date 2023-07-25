@@ -1,9 +1,14 @@
 # Iteration 3 Worksheet
+
 ## What technical debt has been cleaned up
 Show links to a commit where you paid off technical debt. Write 2-5 sentences that explain what debt was paid, and what its classification is.
 
+We cleaned up technical debt in this [commit](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/commit/e3bd245b261d892d0dbe08041839d1d65a6519e7?merge_request_iid=113) as a part of this [Merge Request](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/merge_requests/113/diffs?commit_id=e3bd245b261d892d0dbe08041839d1d65a6519e7). We moved string manipulation from the logic layer to the UI. This was inadvertent wreckeless debt. Inadvertent because we were trying to keep the UI clean and we didn't realize how many UI opeations we were doing in the logic layer. This was wreckless because it violates the Single Responsibility Principle meaning that our app logic is tightly coupled with Android. If we wanted to make the app cross platform we may have to decouple the front end since we are making assumptions about how strings are displayed. Additionally, any changes we make in the future would take more time than otherwise since we are mixing logic with string manipulation. Both of these technical debt effects were paid off. 
+
 ## What technical debt did you leave?
 What one item would you like to fix, and can’t? Anything you write will not be marked negatively. Classify this debt.
+
+
 
 ## Discuss a Feature or User Story that was cut/re-prioritized
 When did you change the priority of a Feature or User Story? Why was it re-prioritized? Provide a link to the Feature or User Story. This can be from any iteration.
