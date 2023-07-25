@@ -10,4 +10,5 @@ public interface IWaterTrackerPersistence {
 
     int getProgress(LocalDate date);
 
+    void clear(LocalDate date);
 }

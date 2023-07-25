@@ -108,4 +108,17 @@ public class WaterTrackerPersistenceHSQLDB implements IWaterTrackerPersistence {
         }
         return cupsDrank;
     }
+
+    @Override
+    public void clear(LocalDate date) {
+        try (Connection connection = connect()) {
+            final PreparedStatement statement = connection.prepareStatement("DELETE FROM WATERTRACKING WHERE dateProgress = ?");
+            statement.setString(1, Long.toString(date.atStartOfDay(ZoneId.systemDefault()).toEpochSecond()));
+
+            statement.executeUpdate();
+        } catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
+        }
+    }
 }
