@@ -12,3 +12,4 @@ app/SC.*
 .idea/misc.xml
 .idea/modules.xml
 .idea/androidTestResultsUserPreferences.xml
+.idea/deploymentTargetDropDown.xml
