@@ -46,7 +46,7 @@ public class DoWorkoutTest {
     }
 
     @Test
-    public void gymScheduleTest() {
+    public void doAWorkoutTest() {
         // we need to close and reopen the app because otherwise the test is flaky since there
         // is a race condition between the @Before and the @Rule so sometimes the username will
         // be accessed before it is deleted in the @Before so we never see the sign in page
