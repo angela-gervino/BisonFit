@@ -13,6 +13,8 @@ What one item would you like to fix, and can’t? Anything you write will not be
 ## Discuss a Feature or User Story that was cut/re-prioritized
 When did you change the priority of a Feature or User Story? Why was it re-prioritized? Provide a link to the Feature or User Story. This can be from any iteration.
 
+In the iteration 3 we decided to cut the feature [substitute an exercise](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/issues/10) , because it’s a lot of work for the short 2 weeks that we have. In this iteration we decided to focus on making less code but better quality and excellent documentation. 
+
 ## Acceptance test/end-to-end
 Write a discussion about an end-to-end test that you wrote. What did you test, how did you set up the test so it was not flaky? Provide a link to that test.
 
@@ -25,3 +27,4 @@ From class, every team must post an acceptance test script to the forum. Look at
 ## Velocity/teamwork
 Did your estimates get better or worse through the course? Show some evidence of the estimates/actuals from tasks.
 
+The estimate got better, in iteration one we overestimated, because being the first sprint we didn’t know how much work we are actually capable to do and how to separate between all the members. A good example is this [dev task](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/issues/28) where we estimated 2 hours but we actually finished in 30 minutes. And in the iteration 2 with the information we learned after the first sprint, we are more capable to do better better estimations on how much work we wanted to get done. A lot of our dev tasks the estimated time is the same as the actual for example this [UI issue](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/issues/80) and the [code smell](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/issues/73).
