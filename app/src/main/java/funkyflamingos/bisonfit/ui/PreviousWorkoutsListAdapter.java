@@ -46,7 +46,7 @@ public class PreviousWorkoutsListAdapter extends RecyclerView.Adapter<PreviousWo
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         viewHolder.setWorkoutName(performedWorkoutHeaderList.get(position).getName());
-        viewHolder.setPerformedWorkoutID(performedWorkoutHeaderList.get(position).getPerformedWorkoutId());
+        viewHolder.setPerformedWorkoutID(performedWorkoutHeaderList.get(position).getId());
 
         LocalDateTime dateStarted = performedWorkoutHeaderList.get(position).getDateStarted();
         String dateStartedString = capitalizeFirstLetterOnly(dateStarted.getDayOfWeek().toString()) + ", "
