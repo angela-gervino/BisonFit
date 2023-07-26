@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import funkyflamingos.bisonfit.R;
-import funkyflamingos.bisonfit.dso.ExerciseHeader;
 import funkyflamingos.bisonfit.dso.PerformedWorkoutHeader;
 
 public class PreviousWorkoutsListAdapter extends RecyclerView.Adapter<PreviousWorkoutsListAdapter.ViewHolder> {
@@ -47,7 +46,7 @@ public class PreviousWorkoutsListAdapter extends RecyclerView.Adapter<PreviousWo
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         viewHolder.setWorkoutName(performedWorkoutHeaderList.get(position).getName());
-        viewHolder.setExerciseID(performedWorkoutHeaderList.get(position).getId());
+        viewHolder.setPerformedWorkoutID(performedWorkoutHeaderList.get(position).getPerformedWorkoutId());
 
         LocalDateTime dateStarted = performedWorkoutHeaderList.get(position).getDateStarted();
         String dateStartedString = capitalizeFirstLetterOnly(dateStarted.getDayOfWeek().toString()) + ", "
@@ -60,7 +59,7 @@ public class PreviousWorkoutsListAdapter extends RecyclerView.Adapter<PreviousWo
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(parentActivity, ActiveWorkoutActivity.class);
-                intent.putExtra("workoutID", viewHolder.getExerciseID());
+                intent.putExtra("workoutID", viewHolder.getPerformedWorkoutID());
                 intent.putExtra("previous", true);
                 parentActivity.startActivity(intent);
             }
@@ -75,7 +74,7 @@ public class PreviousWorkoutsListAdapter extends RecyclerView.Adapter<PreviousWo
 
     //ViewHolder object holds the individual UI item to display and interact with
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private int exerciseID;
+        private int performedWorkoutID;
         private final TextView lblWorkoutName;
         private final TextView lblWorkoutDate;
         private final ConstraintLayout layout;
@@ -87,12 +86,12 @@ public class PreviousWorkoutsListAdapter extends RecyclerView.Adapter<PreviousWo
             layout = view.findViewById(R.id.layoutPrevWorkoutListItem);
         }
 
-        public void setExerciseID(int id) {
-            exerciseID = id;
+        public void setPerformedWorkoutID(int id) {
+            performedWorkoutID = id;
         }
 
-        public int getExerciseID() {
-            return  exerciseID;
+        public int getPerformedWorkoutID() {
+            return performedWorkoutID;
         }
 
         public void setWorkoutName(String name) {
