@@ -23,11 +23,9 @@ import funkyflamingos.bisonfit.persistence.IPerformedWorkoutRecordPersistence;
 
 public class PerformedWorkoutRecordPersistenceHSQLDB implements IPerformedWorkoutRecordPersistence {
     private String dbPath;
-    private int exerciseSetIdentifier;
 
     public PerformedWorkoutRecordPersistenceHSQLDB(String dbPath){
         this.dbPath = dbPath;
-        exerciseSetIdentifier = 1;
     }
 
     private Connection connect() throws SQLException {
@@ -104,6 +102,7 @@ public class PerformedWorkoutRecordPersistenceHSQLDB implements IPerformedWorkou
                                     workout.addExercise(currentExercise);
 
                                 currentExercise = new Exercise(exerciseName, exerciseId);
+                                previousIdentifier = currIdentifier;
                             }
                             currentExercise.addSet(new ExerciseSet(weight, reps));
                         }
@@ -121,6 +120,7 @@ public class PerformedWorkoutRecordPersistenceHSQLDB implements IPerformedWorkou
     }
 
     private void addPerformedExercises(Workout workout, Connection connection) throws SQLException {
+        int exerciseSetIdentifier = 1;
         for (Exercise exercise : workout.getAllExercises()) {
             for (ExerciseSet exerciseSet: exercise.getAllSets()) {
                 final PreparedStatement statement = connection.prepareStatement("INSERT INTO PERFORMEDEXERCISERECORD VALUES (?, DEFAULT, ?, ?, ?, ?)");

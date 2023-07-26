@@ -25,8 +25,6 @@ public class WaterTrackerPersistenceHSQLDB implements IWaterTrackerPersistence {
 
     public WaterTrackerPersistenceHSQLDB(String dbPath) {
         this.dbPath = dbPath;
-        progress = new HashMap<>();
-        loadWaterTrack();
     }
 
     private Connection connect() throws SQLException {
