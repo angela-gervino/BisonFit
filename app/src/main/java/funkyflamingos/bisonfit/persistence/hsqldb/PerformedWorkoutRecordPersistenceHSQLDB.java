@@ -26,6 +26,14 @@ public class PerformedWorkoutRecordPersistenceHSQLDB implements IPerformedWorkou
 
     public PerformedWorkoutRecordPersistenceHSQLDB(String dbPath){
         this.dbPath = dbPath;
+        Workout obj = getPerformedWorkoutById(1);
+        System.out.println("Testing if getPerformedWorkoutById is working");
+        System.out.println("This should be false: " + obj == null);
+        System.out.println("This should be false: " + obj.getHeader().getName());
+        System.out.println("This should be false: " + obj.getAllExercises() == null);
+        for (Exercise e: obj.getAllExercises())
+            for (ExerciseSet es: e.getAllSets())
+                System.out.println(es.getWeight());
     }
 
     private Connection connect() throws SQLException {
@@ -77,9 +85,11 @@ public class PerformedWorkoutRecordPersistenceHSQLDB implements IPerformedWorkou
 
     @Override
     public Workout getPerformedWorkoutById(int id) {
+        System.out.println("In getPerformedWorkoutById, id = " + id);
         Workout workout = null;
         PerformedWorkoutHeader header = getPerformedWorkoutHeaderById(id);
         if (header != null) {
+            System.out.println("Successfully made header!");
             workout = new Workout(header);
 
             try (Connection connection = connect()) {
@@ -90,6 +100,7 @@ public class PerformedWorkoutRecordPersistenceHSQLDB implements IPerformedWorkou
                 int previousIdentifier = -1;
                 Exercise currentExercise = null;
                 while (resultSet.next()) {
+                    System.out.println("Thing in result set found!");
                     double weight = resultSet.getDouble("WEIGHT");
                     int reps = resultSet.getInt("REPS");
                     int currIdentifier = resultSet.getInt("SETIDENTIFIER");
@@ -114,7 +125,7 @@ public class PerformedWorkoutRecordPersistenceHSQLDB implements IPerformedWorkou
                 e.printStackTrace();
             }
         }
-
+        System.out.println("Leaving getPerformedWorkoutById");
         return workout;
     }
 
@@ -136,6 +147,7 @@ public class PerformedWorkoutRecordPersistenceHSQLDB implements IPerformedWorkou
     }
 
     private PerformedWorkoutHeader getPerformedWorkoutHeaderById(int id) {
+        System.out.println("in getPerformedWorkoutHeaderById, id=" + id);
         PerformedWorkoutHeader header = null;
         try (Connection connection = connect()) {
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM PERFORMEDWORKOUTRECORD WHERE WORKOUTRECORDID = ?");
