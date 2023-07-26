@@ -32,6 +32,4 @@ public class PerformedWorkoutHeader extends WorkoutHeader {
     public void setDateEnded(LocalDateTime dateEnded) { this.dateEnded = dateEnded; }
 
     public int getPerformedWorkoutId() { return performedWorkoutId; }
-
-    public void setPerformedWorkoutId(int performedWorkoutId) { this.performedWorkoutId = performedWorkoutId; }
 }

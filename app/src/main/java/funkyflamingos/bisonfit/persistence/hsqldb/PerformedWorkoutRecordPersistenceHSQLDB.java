@@ -37,7 +37,7 @@ public class PerformedWorkoutRecordPersistenceHSQLDB implements IPerformedWorkou
         try (Connection connection = connect()) {
             final PreparedStatement statement = connection.prepareStatement("INSERT INTO PERFORMEDWORKOUTRECORD VALUES (DEFAULT, ?, ?, ?)");
             PerformedWorkoutHeader header = (PerformedWorkoutHeader) workout.getHeader();
-            statement.setInt(1, header.getId());
+            statement.setString(1, header.getName());
             statement.setString(2, LocalDateTimeToString(header.getDateStarted()));
             statement.setString(3, LocalDateTimeToString(header.getDateEnded()));
             statement.executeUpdate();
@@ -54,17 +54,15 @@ public class PerformedWorkoutRecordPersistenceHSQLDB implements IPerformedWorkou
 
         try (Connection connection = connect()) {
             final Statement statement = connection.createStatement();
-            final ResultSet resultSet = statement.executeQuery("SELECT * FROM PERFORMEDWORKOUTRECORD JOIN WORKOUTS ON PERFORMEDWORKOUTRECORD.WORKOUTID = WORKOUTS.ID ORDER BY PERFORMEDWORKOUTRECORD.WORKOUTRECORDID DESC");
+            final ResultSet resultSet = statement.executeQuery("SELECT * FROM PERFORMEDWORKOUTRECORD ORDER BY WORKOUTRECORDID DESC");
             while (resultSet.next()) {
                 String workoutName = resultSet.getString("TITLE");
-                int workoutId = resultSet.getInt("ID");
                 int workoutRecordId = resultSet.getInt("WORKOUTRECORDID");
                 LocalDateTime start = StringToLocalDateTime(resultSet.getString("START"));
                 LocalDateTime end = StringToLocalDateTime(resultSet.getString("END"));
-                PerformedWorkoutHeader header = new PerformedWorkoutHeader(workoutName, workoutId);
+                PerformedWorkoutHeader header = new PerformedWorkoutHeader(workoutName, workoutRecordId);
                 header.setDateStarted(start);
                 header.setDateEnded(end);
-                header.setPerformedWorkoutId(workoutRecordId);
                 headers.add(header);
             }
             resultSet.close();
@@ -89,25 +87,25 @@ public class PerformedWorkoutRecordPersistenceHSQLDB implements IPerformedWorkou
                 statement.setInt(1, id);
                 final ResultSet resultSet = statement.executeQuery();
 
-                        int previousIdentifier = -1;
-                        Exercise currentExercise = null;
-                        while (resultSet.next()) {
-                            double weight = resultSet.getDouble("WEIGHT");
-                            int reps = resultSet.getInt("REPS");
-                            int currIdentifier = resultSet.getInt("SETIDENTIFIER");
-                            if (previousIdentifier != currIdentifier) {
-                                int exerciseId = resultSet.getInt("EXERCISEID");
-                                String exerciseName = resultSet.getString("NAME");
+                int previousIdentifier = -1;
+                Exercise currentExercise = null;
+                while (resultSet.next()) {
+                    double weight = resultSet.getDouble("WEIGHT");
+                    int reps = resultSet.getInt("REPS");
+                    int currIdentifier = resultSet.getInt("SETIDENTIFIER");
+                    if (previousIdentifier != currIdentifier) {
+                        int exerciseId = resultSet.getInt("EXERCISEID");
+                        String exerciseName = resultSet.getString("NAME");
 
-                                if (previousIdentifier != -1)
-                                    workout.addExercise(currentExercise);
+                        if (previousIdentifier != -1)
+                            workout.addExercise(currentExercise);
 
-                                currentExercise = new Exercise(exerciseName, exerciseId);
-                                previousIdentifier = currIdentifier;
-                            }
-                            currentExercise.addSet(new ExerciseSet(weight, reps));
-                        }
-                        workout.addExercise(currentExercise);
+                        currentExercise = new Exercise(exerciseName, exerciseId);
+                        previousIdentifier = currIdentifier;
+                    }
+                    currentExercise.addSet(new ExerciseSet(weight, reps));
+                }
+                workout.addExercise(currentExercise);
 
                 resultSet.close();
                 statement.close();
@@ -140,18 +138,16 @@ public class PerformedWorkoutRecordPersistenceHSQLDB implements IPerformedWorkou
     private PerformedWorkoutHeader getPerformedWorkoutHeaderById(int id) {
         PerformedWorkoutHeader header = null;
         try (Connection connection = connect()) {
-            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM WORKOUTS JOIN PERFORMEDWORKOUTRECORD ON WORKOUTS.ID = PERFORMEDWORKOUTRECORD.WORKOUTID WHERE WORKOUTRECORDID = ?");
+            final PreparedStatement statement = connection.prepareStatement("SELECT * FROM PERFORMEDWORKOUTRECORD WHERE WORKOUTRECORDID = ?");
             statement.setInt(1, id);
             final ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 LocalDateTime start = StringToLocalDateTime(resultSet.getString("START"));
                 LocalDateTime end = StringToLocalDateTime(resultSet.getString("END"));
                 String workoutName = resultSet.getString("TITLE");
-                int workoutId = resultSet.getInt("WORKOUTID");
-                header = new PerformedWorkoutHeader(workoutName, workoutId);
+                header = new PerformedWorkoutHeader(workoutName, id);
                 header.setDateStarted(start);
                 header.setDateEnded(end);
-                header.setPerformedWorkoutId(id);
             }
             resultSet.close();
             statement.close();
