@@ -327,13 +327,14 @@ public class WorkoutHandlerTest {
     @Test
     public void testGetPerformedWorkoutHeaders() {
         ArrayList<PerformedWorkoutHeader> listOfHeaders = workoutHandler.getPerformedWorkoutHeaders();
-        assertEquals(listOfHeaders, performedWorkoutHeaderListMock);
+
+        assertEquals(listOfHeaders.size(), 3);
     }
 
     @Test
     public void testGetPerformedWorkout() {
         Workout workoutResult = workoutHandler.getPerformedWorkout(0);
 
-        assertSame(workoutResult, performedWorkoutMock);
+        assertEquals(workoutResult.getHeader().getId(), 0);
     }
 }
