@@ -7,5 +7,5 @@ public interface IUserRegistrationPersistence {
 
     String getUserName();
 
-    void clearTable();
+    void clear();
 }

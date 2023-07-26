@@ -11,4 +11,6 @@ public interface IPerformedWorkoutRecordPersistence {
     ArrayList<PerformedWorkoutHeader> getPerformedWorkoutHeaders();
 
     Workout getPerformedWorkoutById(int id);
+
+    void clear();
 }

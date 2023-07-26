@@ -9,6 +9,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import androidx.test.core.app.ActivityScenario;
+import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
@@ -19,13 +20,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import funkyflamingos.bisonfit.application.Services;
+import funkyflamingos.bisonfit.persistence.IPerformedWorkoutRecordPersistence;
 import funkyflamingos.bisonfit.persistence.IUserRegistrationPersistence;
 import funkyflamingos.bisonfit.persistence.IWorkoutPersistence;
 import funkyflamingos.bisonfit.ui.WelcomeActivity;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class ListOfWorkoutsTest {
+public class ViewPastWorkoutsTest {
     @Rule
     public ActivityScenarioRule<WelcomeActivity> activityRule = new ActivityScenarioRule<>(WelcomeActivity.class);
 
@@ -38,11 +40,14 @@ public class ListOfWorkoutsTest {
         // delete all current workouts
         IWorkoutPersistence workoutPersistence = Services.getWorkoutsPersistence();
         workoutPersistence.clear();
+
+        //clear workout history
+        IPerformedWorkoutRecordPersistence performedWorkoutRecordPersistence = Services.getPerformedWorkoutRecordPersistence();
+        performedWorkoutRecordPersistence.clear();
     }
 
     @Test
-    public void gymScheduleTest() {
-
+    public void doAWorkoutTest() {
         // we need to close and reopen the app because otherwise the test is flaky since there
         // is a race condition between the @Before and the @Rule so sometimes the username will
         // be accessed before it is deleted in the @Before so we never see the sign in page
@@ -54,16 +59,42 @@ public class ListOfWorkoutsTest {
         onView(withId(R.id.nameEditText)).perform(typeText("user1"));
         onView(withId(R.id.btnStartWelcomeActivity)).perform(click());
 
-        // add a workouts
+        // check if list is empty
+        onView(withId(R.id.workout_item_layout)).check(ViewAssertions.doesNotExist());
+
+        // add a workout
         onView(withId(R.id.addWorkoutButton)).perform(click());
         onView(withId(R.id.new_workout_name)).perform(typeText("workout1"));
         onView(withText("CREATE WORKOUT")).perform(click());
-        onView(withId(R.id.addWorkoutButton)).perform(click());
-        onView(withId(R.id.new_workout_name)).perform(typeText("workout2"));
-        onView(withText("CREATE WORKOUT")).perform(click());
 
-        // check for list of workouts
-        onView(withText("workout1")).check(matches(isDisplayed()));
-        onView(withText("workout2")).check(matches(isDisplayed()));
+        // click the workout
+        onView(withText("workout1")).perform(click());
+
+        // add exercise
+        onView(withId(R.id.addExerciseButton)).perform(click());
+        onView(withText("Bench Press")).perform(click());
+        onView(withId(R.id.addExerciseSubmitButton)).perform(click());
+
+        // start workout
+        onView(withId(R.id.startWorkoutButton)).perform(click());
+
+        //add weights and reps
+        onView(withId(R.id.txtActiveWorkoutField1)).perform(click());
+        onView(withId(R.id.txtActiveWorkoutField1)).perform(typeText("2"));
+        onView(withId(R.id.txtActiveWorkoutField2)).perform(click());
+        onView(withId(R.id.txtActiveWorkoutField2)).perform(typeText("3"));
+
+        // click save
+        onView(withId(R.id.btnFinishWorkout)).perform(click());
+
+        // view past workouts
+        onView(withId(R.id.btnViewPrevWorkouts)).perform(click());
+
+        // click workout
+        onView(withId(R.id.layoutPrevWorkoutListItem)).perform(click());
+
+        // check for correct weights and reps
+        onView(withId(R.id.txtActiveWorkoutField1)).check(matches(withText("2")));
+        onView(withId(R.id.txtActiveWorkoutField2)).check(matches(withText("3")));
     }
 }

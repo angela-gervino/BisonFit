@@ -34,7 +34,7 @@ public class AddWorkoutTest {
     public void setupDatabase() {
         // clear username from the database
         IUserRegistrationPersistence userRegistrationPersistence = Services.getUserRegistrationPersistence();
-        userRegistrationPersistence.clearTable();
+        userRegistrationPersistence.clear();
 
         // delete all current workouts
         IWorkoutPersistence workoutPersistence = Services.getWorkoutsPersistence();
