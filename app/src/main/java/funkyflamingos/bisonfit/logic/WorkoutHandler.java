@@ -33,11 +33,11 @@ public class WorkoutHandler implements IWorkoutHandler {
         exerciseList = exerciseLookupPersistence.getAllExerciseHeaders();
     }
 
-    public WorkoutHandler(IWorkoutPersistence r, ISavedWorkoutExercises s, IExerciseLookupPersistence e) {
+    public WorkoutHandler(IWorkoutPersistence r, ISavedWorkoutExercises s, IExerciseLookupPersistence e, IPerformedWorkoutRecordPersistence p) {
         workoutsPersistence = r;
         savedWorkoutExercisesPersistence = s;
         exerciseLookupPersistence = e;
-        //TODO: add performedWorkoutRecordPersistence here too
+        performedWorkoutRecordPersistence = p;
 
         exerciseList = exerciseLookupPersistence.getAllExerciseHeaders();
     }

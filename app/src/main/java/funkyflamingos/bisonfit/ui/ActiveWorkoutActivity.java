@@ -57,7 +57,7 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
     }
 
     public void finishWorkoutBtnClicked(View v) {
-        // TODO: save finish time
+        ((PerformedWorkoutHeader)workout.getHeader()).setDateEnded(LocalDateTime.now());
         boolean saved = workoutHandler.savePerformedWorkout(workout);
         if (!saved) {
             Toast.makeText(this, "There was nothing to save", Toast.LENGTH_SHORT).show();
