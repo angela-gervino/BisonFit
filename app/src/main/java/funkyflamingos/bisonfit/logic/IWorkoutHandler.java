@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import funkyflamingos.bisonfit.dso.ExerciseHeader;
+import funkyflamingos.bisonfit.dso.PerformedWorkoutHeader;
 import funkyflamingos.bisonfit.dso.Workout;
 import funkyflamingos.bisonfit.dso.WorkoutHeader;
 
@@ -27,6 +28,8 @@ public interface IWorkoutHandler {
     void deleteWorkout(int workoutID);
 
     void deleteExercise(ExerciseHeader exerciseHeader, WorkoutHeader workoutHeader);
+
+    List<PerformedWorkoutHeader> getPerformedWorkoutHeaders();
 
     boolean savePerformedWorkout(Workout workout);
 
