@@ -8,7 +8,9 @@ We cleaned up technical debt in this [commit](https://code.cs.umanitoba.ca/3350-
 ## What technical debt did you leave?
 What one item would you like to fix, and can’t? Anything you write will not be marked negatively. Classify this debt.
 
+We left technical debt in the form of bugs. One example of this is this [dev task](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/issues/97). This bug doesn't make the app unusable but rather makes the app awkward to use from a user expereience point of view. This goes for the other bugs as well. 
 
+I would classify this as prudent, deliberate debt. Deliberate because we intentionally moved quickly to push out features in order to have a usable app by the end of this course. The consequence of moving quickly is that we couldn't polish the features as much as we would like. The features were implemented but if we wanted to release the app to the public we'd want some of the core features to be cleaned up. That is, we'd need to pay off some of this debt before deploying. I believe this was a prudent decision because, for the purposes of this class, we wanted to implement at least two features per iteration and we also wanted to have something that was usable at the end. 'Moving quick', served us in both of these areas because we were able to do a lot and most of our core features were implemented. 
 
 ## Discuss a Feature or User Story that was cut/re-prioritized
 When did you change the priority of a Feature or User Story? Why was it re-prioritized? Provide a link to the Feature or User Story. This can be from any iteration.
