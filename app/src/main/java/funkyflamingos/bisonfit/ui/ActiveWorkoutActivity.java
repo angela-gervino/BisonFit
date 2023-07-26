@@ -9,7 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.LocalDateTime;
+
 import funkyflamingos.bisonfit.R;
+import funkyflamingos.bisonfit.dso.PerformedWorkoutHeader;
 import funkyflamingos.bisonfit.dso.Workout;
 import funkyflamingos.bisonfit.logic.IWorkoutHandler;
 import funkyflamingos.bisonfit.logic.WorkoutHandler;
@@ -39,6 +42,7 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
         }
         else {
             workout = workoutHandler.getWorkoutToPerform(workoutID);
+            ((PerformedWorkoutHeader)workout.getHeader()).setDateStarted(LocalDateTime.now());
         }
 
         ActiveWorkoutExerciseListAdapter adapter = new ActiveWorkoutExerciseListAdapter(workout, this, showPreviousWorkout);

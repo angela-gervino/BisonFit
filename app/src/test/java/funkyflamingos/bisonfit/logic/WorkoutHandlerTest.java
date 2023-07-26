@@ -11,6 +11,7 @@ import java.util.List;
 import funkyflamingos.bisonfit.dso.Exercise;
 import funkyflamingos.bisonfit.dso.ExerciseHeader;
 import funkyflamingos.bisonfit.dso.ExerciseSet;
+import funkyflamingos.bisonfit.dso.PerformedWorkoutHeader;
 import funkyflamingos.bisonfit.dso.Workout;
 import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.persistence.IExerciseLookupPersistence;
@@ -256,7 +257,7 @@ public class WorkoutHandlerTest {
 
     @Test
     public void testSavePerformedWorkoutSuccess() {
-        Workout workout = new Workout(new WorkoutHeader("fakeworkout", 0));
+        Workout workout = new Workout(new PerformedWorkoutHeader("fakeworkout", 0));
         workout.addExercise(new Exercise("E1", 1));
         workout.addExercise(new Exercise("E2", 2));
         Exercise E3 = new Exercise("E3", 3);

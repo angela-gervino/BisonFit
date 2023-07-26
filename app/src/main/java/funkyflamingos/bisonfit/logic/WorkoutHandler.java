@@ -158,8 +158,7 @@ public class WorkoutHandler implements IWorkoutHandler {
     @Override
     public Workout getWorkoutToPerform(int workoutID) {
        Workout workoutToPerform =  workoutsPersistence.getWorkoutByID(workoutID);
-       LocalDateTime timeNow = LocalDateTime.now();
-       workoutToPerform.setHeader(new PerformedWorkoutHeader(workoutToPerform.getHeader(), timeNow));
+       workoutToPerform.setHeader(new PerformedWorkoutHeader(workoutToPerform.getHeader()));
        return workoutToPerform;
     }
 
