@@ -10,7 +10,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import funkyflamingos.bisonfit.dso.Exercise;
 import funkyflamingos.bisonfit.dso.ExerciseHeader;
+import funkyflamingos.bisonfit.dso.ExerciseSet;
+import funkyflamingos.bisonfit.dso.PerformedWorkoutHeader;
 import funkyflamingos.bisonfit.dso.Workout;
 import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.persistence.IExerciseLookupPersistence;
@@ -219,6 +222,133 @@ public class WorkoutHandlerIT {
         workoutHandler.deleteExercise(workoutHandler.getExerciseHeaders(funWorkout).get(0), funWorkout);
 
         assertTrue(workoutHandler.getExerciseHeaders(funWorkout).isEmpty());
+    }
+
+    @Test
+    public void testSavePerformedWorkoutNoSets() {
+        Workout workout = new Workout(new WorkoutHeader("fakeworkout", 0));
+        workout.addExercise(new Exercise("E1", 1));
+        workout.addExercise(new Exercise("E2", 2));
+        workout.addExercise(new Exercise("E3", 3));
+        workout.addExercise(new Exercise("E4", 4));
+
+        boolean result = workoutHandler.savePerformedWorkout(workout);
+        assertFalse(result);
+    }
+
+    @Test
+    public void testSavePerformedWorkoutNoExercises() {
+        Workout workout = new Workout(new WorkoutHeader("fakeworkout", 0));
+
+        boolean result = workoutHandler.savePerformedWorkout(workout);
+        assertFalse(result);
+    }
+
+    @Test
+    public void testSavePerformedWorkoutNoWeight() {
+        Workout workout = new Workout(new WorkoutHeader("fakeworkout", 0));
+        workout.addExercise(new Exercise("E1", 1));
+        workout.addExercise(new Exercise("E2", 2));
+        Exercise E3 = new Exercise("E3", 3);
+        E3.addSet(new ExerciseSet(0, 5));
+        workout.addExercise(E3);
+        workout.addExercise(new Exercise("E4", 4));
+
+        boolean result = workoutHandler.savePerformedWorkout(workout);
+        assertFalse(result);
+    }
+
+    @Test
+    public void testSavePerformedWorkoutNoReps() {
+        Workout workout = new Workout(new WorkoutHeader("fakeworkout", 0));
+        workout.addExercise(new Exercise("E1", 1));
+        workout.addExercise(new Exercise("E2", 2));
+        Exercise E3 = new Exercise("E3", 3);
+        E3.addSet(new ExerciseSet(15, 0));
+        workout.addExercise(E3);
+        workout.addExercise(new Exercise("E4", 4));
+
+        boolean result = workoutHandler.savePerformedWorkout(workout);
+        assertFalse(result);
+    }
+
+    @Test
+    public void testSavePerformedWorkoutSuccess() {
+        Workout workout = new Workout(new PerformedWorkoutHeader("fakeworkout", 0));
+        workout.addExercise(new Exercise("E1", 1));
+        workout.addExercise(new Exercise("E2", 2));
+        Exercise E3 = new Exercise("E3", 3);
+        E3.addSet(new ExerciseSet(15, 9));
+        workout.addExercise(E3);
+        workout.addExercise(new Exercise("E4", 4));
+
+        boolean result = workoutHandler.savePerformedWorkout(workout);
+        assertTrue(result);
+    }
+
+    @Test
+    public void testWorkoutToPerformNotNull() {
+        final int ID = 0;
+        workoutHandler.addNewWorkout("Fun Workout");
+        WorkoutHeader funWorkout = workoutHandler.getWorkoutHeaderByID(ID);
+
+        ArrayList<ExerciseHeader> exercises = workoutHandler.getAllExerciseHeaders();
+        exercises.get(0).toggleSelected();
+
+        workoutHandler.addSelectedExercisesToWorkout(funWorkout.getId());
+
+        Workout workout = workoutHandler.getWorkoutToPerform(ID);
+
+        assertNotNull(workout);
+    }
+
+    @Test
+    public void testWorkoutToPerformCorrectHeader() {
+        final int ID = 0;
+        workoutHandler.addNewWorkout("Fun Workout");
+        WorkoutHeader funWorkout = workoutHandler.getWorkoutHeaderByID(ID);
+
+        ArrayList<ExerciseHeader> exercises = workoutHandler.getAllExerciseHeaders();
+        exercises.get(0).toggleSelected();
+
+        workoutHandler.addSelectedExercisesToWorkout(funWorkout.getId());
+
+        WorkoutHeader header = workoutHandler.getWorkoutToPerform(ID).getHeader();
+
+        assertTrue(header instanceof PerformedWorkoutHeader);
+    }
+
+    @Test
+    public void testGetPerformedWorkoutHeaders() {
+        Workout workout = new Workout(new PerformedWorkoutHeader("fakeworkout", 0));
+        workout.addExercise(new Exercise("E1", 1));
+        workout.addExercise(new Exercise("E2", 2));
+        Exercise E3 = new Exercise("E3", 3);
+        E3.addSet(new ExerciseSet(15, 9));
+        workout.addExercise(E3);
+        workout.addExercise(new Exercise("E4", 4));
+
+        workoutHandler.savePerformedWorkout(workout);
+        ArrayList<PerformedWorkoutHeader> listOfHeaders = workoutHandler.getPerformedWorkoutHeaders();
+
+        assertEquals(listOfHeaders.size(), 1);
+    }
+
+    @Test
+    public void testGetPerformedWorkout() {
+        Workout workout = new Workout(new PerformedWorkoutHeader("fakeworkout", 0));
+        workout.addExercise(new Exercise("E1", 1));
+        workout.addExercise(new Exercise("E2", 2));
+        Exercise E3 = new Exercise("E3", 3);
+        E3.addSet(new ExerciseSet(15, 9));
+        workout.addExercise(E3);
+        workout.addExercise(new Exercise("E4", 4));
+
+        workoutHandler.savePerformedWorkout(workout);
+
+        Workout result = workoutHandler.getPerformedWorkout(0);
+
+        assertNotNull(result);
     }
 }
 
