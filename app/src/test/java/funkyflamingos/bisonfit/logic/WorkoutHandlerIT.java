@@ -14,9 +14,11 @@ import funkyflamingos.bisonfit.dso.ExerciseHeader;
 import funkyflamingos.bisonfit.dso.Workout;
 import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.persistence.IExerciseLookupPersistence;
+import funkyflamingos.bisonfit.persistence.IPerformedWorkoutRecordPersistence;
 import funkyflamingos.bisonfit.persistence.IWorkoutPersistence;
 import funkyflamingos.bisonfit.persistence.ISavedWorkoutExercises;
 import funkyflamingos.bisonfit.persistence.hsqldb.ExerciseLookupPersistenceHSQLDB;
+import funkyflamingos.bisonfit.persistence.hsqldb.PerformedWorkoutRecordPersistenceHSQLDB;
 import funkyflamingos.bisonfit.persistence.hsqldb.WorkoutPersistenceHSQLDB;
 import funkyflamingos.bisonfit.persistence.hsqldb.SavedWorkoutExercisesPersistenceHSQLDB;
 import funkyflamingos.bisonfit.utils.TestUtils;
@@ -35,7 +37,7 @@ public class WorkoutHandlerIT {
         final IWorkoutPersistence workoutsPersistenceStub = new WorkoutPersistenceHSQLDB(dbPathName);
         final ISavedWorkoutExercises savedWorkoutExercisesPersistenceStub = new SavedWorkoutExercisesPersistenceHSQLDB(dbPathName);
         final IExerciseLookupPersistence exerciseLookupPersistenceStub = new ExerciseLookupPersistenceHSQLDB(dbPathName);
-
+        // TODO: What to do about performedWorkoutPersistenceStub? Try to replace the whole thing with Mockito?
         workoutHandler = new WorkoutHandler(workoutsPersistenceStub, savedWorkoutExercisesPersistenceStub, exerciseLookupPersistenceStub);
     }
 

@@ -3,24 +3,28 @@ package funkyflamingos.bisonfit.dso;
 import java.time.LocalDateTime;
 
 public class PerformedWorkoutHeader extends WorkoutHeader {
-    private final LocalDateTime dateStarted;
+    private LocalDateTime dateStarted;
     private LocalDateTime dateEnded;
     private int performedWorkoutId;
 
     // TODO: Remove one of the constructors. Only one will be needed, not sure which one yet.
-    public PerformedWorkoutHeader(String name, int id, LocalDateTime dateStarted) {
+    public PerformedWorkoutHeader(String name, int id) {
+        // TODO: Remove dateStarted from constructor, make it a set method
         super(name, id);
-        this.dateStarted = dateStarted;
         this.dateEnded = null;
         performedWorkoutId = -1;
     }
 
-    public PerformedWorkoutHeader(WorkoutHeader workoutHeader, LocalDateTime dateStarted) {
-        this(workoutHeader.getName(), workoutHeader.getId(), dateStarted);
+    public PerformedWorkoutHeader(WorkoutHeader workoutHeader) {
+        this(workoutHeader.getName(), workoutHeader.getId());
     }
 
     public LocalDateTime getDateStarted() {
         return dateStarted;
+    }
+
+    public void setDateStarted(LocalDateTime dateStarted) {
+        this.dateStarted = dateStarted;
     }
 
     public LocalDateTime getDateEnded() { return dateEnded; }

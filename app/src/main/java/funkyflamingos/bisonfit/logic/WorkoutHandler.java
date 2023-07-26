@@ -12,6 +12,7 @@ import funkyflamingos.bisonfit.dso.PerformedWorkoutHeader;
 import funkyflamingos.bisonfit.dso.Workout;
 import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.persistence.IExerciseLookupPersistence;
+import funkyflamingos.bisonfit.persistence.IPerformedWorkoutRecordPersistence;
 import funkyflamingos.bisonfit.persistence.IWorkoutPersistence;
 import funkyflamingos.bisonfit.persistence.ISavedWorkoutExercises;
 
@@ -19,6 +20,7 @@ public class WorkoutHandler implements IWorkoutHandler {
     private IWorkoutPersistence workoutsPersistence;
     private ISavedWorkoutExercises savedWorkoutExercisesPersistence;
     private IExerciseLookupPersistence exerciseLookupPersistence;
+    private IPerformedWorkoutRecordPersistence performedWorkoutRecordPersistence;
     private ArrayList<ExerciseHeader> exerciseList;
 
     // Constructor for the database
@@ -26,14 +28,16 @@ public class WorkoutHandler implements IWorkoutHandler {
         workoutsPersistence = Services.getWorkoutsPersistence();
         savedWorkoutExercisesPersistence = Services.getSavedWorkoutExercises();
         exerciseLookupPersistence = Services.getExerciseLookupPersistence();
+        performedWorkoutRecordPersistence = Services.getPerformedWorkoutRecordPersistence();
 
         exerciseList = exerciseLookupPersistence.getAllExerciseHeaders();
     }
 
-    public WorkoutHandler(IWorkoutPersistence r, ISavedWorkoutExercises s, IExerciseLookupPersistence e) {
+    public WorkoutHandler(IWorkoutPersistence r, ISavedWorkoutExercises s, IExerciseLookupPersistence e, IPerformedWorkoutRecordPersistence p) {
         workoutsPersistence = r;
         savedWorkoutExercisesPersistence = s;
         exerciseLookupPersistence = e;
+        performedWorkoutRecordPersistence = p;
 
         exerciseList = exerciseLookupPersistence.getAllExerciseHeaders();
     }
@@ -110,11 +114,7 @@ public class WorkoutHandler implements IWorkoutHandler {
 
     @Override
     public List<PerformedWorkoutHeader> getPerformedWorkoutHeaders() {
-        ArrayList<PerformedWorkoutHeader> list = new ArrayList<>();
-        list.add(new PerformedWorkoutHeader("Upper Body", 0, LocalDateTime.now()));
-        list.add(new PerformedWorkoutHeader("Lower Body", 1, LocalDateTime.now()));
-        list.add(new PerformedWorkoutHeader("Full Body", 1, LocalDateTime.now()));
-
+        ArrayList<PerformedWorkoutHeader> list = performedWorkoutRecordPersistence.getPerformedWorkoutHeaders();
         return list;
     }
 
@@ -147,7 +147,9 @@ public class WorkoutHandler implements IWorkoutHandler {
 
         // only save this if the processed workout has exercises
         if(workoutProcessed.getAllExercises().size() > 0) {
-            //TODO: Save to workoutProcessed to DB
+            PerformedWorkoutHeader performedHeader = (PerformedWorkoutHeader) workoutProcessed.getHeader();
+            performedHeader.setDateEnded(LocalDateTime.now());
+            performedWorkoutRecordPersistence.addPerformedWorkout(workoutProcessed);
             return true;
         }
         return  false;
@@ -156,22 +158,12 @@ public class WorkoutHandler implements IWorkoutHandler {
     @Override
     public Workout getWorkoutToPerform(int workoutID) {
        Workout workoutToPerform =  workoutsPersistence.getWorkoutByID(workoutID);
-       LocalDateTime timeNow = LocalDateTime.now();
-       workoutToPerform.setHeader(new PerformedWorkoutHeader(workoutToPerform.getHeader(), timeNow));
+       workoutToPerform.setHeader(new PerformedWorkoutHeader(workoutToPerform.getHeader()));
        return workoutToPerform;
     }
 
     @Override
     public Workout getPerformedWorkout(int workoutID) {
-        Workout performedWorkout = getWorkoutToPerform(workoutID);
-
-        for(Exercise exercise: performedWorkout.getAllExercises()) {
-            for (ExerciseSet set : exercise.getAllSets()) {
-                set.setWeight(100);
-                set.setReps(5);
-            }
-        }
-
-        return performedWorkout;
+        return performedWorkoutRecordPersistence.getPerformedWorkoutById(workoutID);
     }
 }

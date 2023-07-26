@@ -61,7 +61,8 @@ public class PerformedWorkoutRecordPersistenceHSQLDB implements IPerformedWorkou
                 int workoutRecordId = resultSet.getInt("WORKOUTRECORDID");
                 LocalDateTime start = StringToLocalDateTime(resultSet.getString("START"));
                 LocalDateTime end = StringToLocalDateTime(resultSet.getString("END"));
-                PerformedWorkoutHeader header = new PerformedWorkoutHeader(workoutName, workoutId, start);
+                PerformedWorkoutHeader header = new PerformedWorkoutHeader(workoutName, workoutId);
+                header.setDateStarted(start);
                 header.setDateEnded(end);
                 header.setPerformedWorkoutId(workoutRecordId);
                 headers.add(header);
@@ -147,7 +148,8 @@ public class PerformedWorkoutRecordPersistenceHSQLDB implements IPerformedWorkou
                 LocalDateTime end = StringToLocalDateTime(resultSet.getString("END"));
                 String workoutName = resultSet.getString("TITLE");
                 int workoutId = resultSet.getInt("WORKOUTID");
-                header = new PerformedWorkoutHeader(workoutName, workoutId, start);
+                header = new PerformedWorkoutHeader(workoutName, workoutId);
+                header.setDateStarted(start);
                 header.setDateEnded(end);
                 header.setPerformedWorkoutId(id);
             }
