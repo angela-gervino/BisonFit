@@ -27,9 +27,6 @@ One of our [features](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingo
 
 
 
-## n+1 Acceptance test
-From class, every team must post an acceptance test script to the forum. Look at team n+1’s acceptance test, and record yourself performing it (the android emulator can do screen recordings!). Post that recording to the forum, link to it here.
-
 ## Velocity/teamwork
 Did your estimates get better or worse through the course? Show some evidence of the estimates/actuals from tasks.
 

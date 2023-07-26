@@ -17,16 +17,14 @@ import funkyflamingos.bisonfit.dso.WorkoutHeader;
 
 public class ActiveWorkoutExerciseListAdapter extends RecyclerView.Adapter<ActiveWorkoutExerciseListAdapter.ViewHolder> {
 
-    private Workout workout;
-    private Context parentActivity;
+    private final Workout workout;
+    private final Context parentActivity;
+    private final boolean showPreviousWorkoutData;
 
-    public ActiveWorkoutExerciseListAdapter(Workout dataSet, Context parentActivity) {
+    public ActiveWorkoutExerciseListAdapter(Workout dataSet, Context parentActivity, boolean previousWorkout) {
         workout = dataSet;
         this.parentActivity = parentActivity;
-    }
-
-    public Workout getWorkoutObject() {
-        return workout;
+        showPreviousWorkoutData = previousWorkout;
     }
 
     @NonNull
@@ -39,9 +37,8 @@ public class ActiveWorkoutExerciseListAdapter extends RecyclerView.Adapter<Activ
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.setDataItem(workout.getHeader());
         holder.getLabel().setText(workout.getExercise(position).getName());
-        holder.setUpRecyclerView(parentActivity, workout.getExercise(position));
+        holder.setUpRecyclerView(parentActivity, workout.getExercise(position), showPreviousWorkoutData);
     }
 
     @Override
@@ -51,7 +48,6 @@ public class ActiveWorkoutExerciseListAdapter extends RecyclerView.Adapter<Activ
 
     //ViewHolder object holds the individual UI item to display and interact with
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private WorkoutHeader dataItem;
         private final TextView lblExerciseName;
         private final RecyclerView rv;
 
@@ -61,21 +57,13 @@ public class ActiveWorkoutExerciseListAdapter extends RecyclerView.Adapter<Activ
             rv = view.findViewById(R.id.rvSetList);
         }
 
-        public void setDataItem(WorkoutHeader dataItem) {
-            this.dataItem = dataItem;
-        }
-
-        public WorkoutHeader getDataItem() {
-            return dataItem;
-        }
         public TextView getLabel() {
             return lblExerciseName;
         }
 
-        public void setUpRecyclerView(Context context, Exercise exercise) {
+        public void setUpRecyclerView(Context context, Exercise exercise, boolean previousWorkout) {
             rv.setLayoutManager(new LinearLayoutManager(context));
-            rv.setAdapter(new ActiveWorkoutSetListAdapter(exercise));
+            rv.setAdapter(new ActiveWorkoutSetListAdapter(exercise, previousWorkout));
         }
-
     }
 }
