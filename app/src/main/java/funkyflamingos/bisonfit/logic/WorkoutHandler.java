@@ -12,6 +12,7 @@ import funkyflamingos.bisonfit.dso.PerformedWorkoutHeader;
 import funkyflamingos.bisonfit.dso.Workout;
 import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.persistence.IExerciseLookupPersistence;
+import funkyflamingos.bisonfit.persistence.IPerformedWorkoutRecordPersistence;
 import funkyflamingos.bisonfit.persistence.IWorkoutPersistence;
 import funkyflamingos.bisonfit.persistence.ISavedWorkoutExercises;
 
@@ -19,6 +20,7 @@ public class WorkoutHandler implements IWorkoutHandler {
     private IWorkoutPersistence workoutsPersistence;
     private ISavedWorkoutExercises savedWorkoutExercisesPersistence;
     private IExerciseLookupPersistence exerciseLookupPersistence;
+    private IPerformedWorkoutRecordPersistence performedWorkoutRecordPersistence;
     private ArrayList<ExerciseHeader> exerciseList;
 
     // Constructor for the database
@@ -26,6 +28,7 @@ public class WorkoutHandler implements IWorkoutHandler {
         workoutsPersistence = Services.getWorkoutsPersistence();
         savedWorkoutExercisesPersistence = Services.getSavedWorkoutExercises();
         exerciseLookupPersistence = Services.getExerciseLookupPersistence();
+        performedWorkoutRecordPersistence = Services.getPerformedWorkoutRecordPersistence();
 
         exerciseList = exerciseLookupPersistence.getAllExerciseHeaders();
     }
@@ -34,6 +37,7 @@ public class WorkoutHandler implements IWorkoutHandler {
         workoutsPersistence = r;
         savedWorkoutExercisesPersistence = s;
         exerciseLookupPersistence = e;
+        //TODO: add performedWorkoutRecordPersistence here too
 
         exerciseList = exerciseLookupPersistence.getAllExerciseHeaders();
     }
@@ -147,7 +151,7 @@ public class WorkoutHandler implements IWorkoutHandler {
 
         // only save this if the processed workout has exercises
         if(workoutProcessed.getAllExercises().size() > 0) {
-            //TODO: Save to workoutProcessed to DB
+            performedWorkoutRecordPersistence.addPerformedWorkout(workoutProcessed);
             return true;
         }
         return  false;
