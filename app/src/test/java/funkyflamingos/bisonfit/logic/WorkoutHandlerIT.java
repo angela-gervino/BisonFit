@@ -37,8 +37,9 @@ public class WorkoutHandlerIT {
         final IWorkoutPersistence workoutsPersistenceStub = new WorkoutPersistenceHSQLDB(dbPathName);
         final ISavedWorkoutExercises savedWorkoutExercisesPersistenceStub = new SavedWorkoutExercisesPersistenceHSQLDB(dbPathName);
         final IExerciseLookupPersistence exerciseLookupPersistenceStub = new ExerciseLookupPersistenceHSQLDB(dbPathName);
-        // TODO: What to do about performedWorkoutPersistenceStub? Try to replace the whole thing with Mockito?
-        workoutHandler = new WorkoutHandler(workoutsPersistenceStub, savedWorkoutExercisesPersistenceStub, exerciseLookupPersistenceStub);
+        final IPerformedWorkoutRecordPersistence performedWorkoutRecordPersistence = new PerformedWorkoutRecordPersistenceHSQLDB(dbPathName);
+        workoutHandler = new WorkoutHandler(workoutsPersistenceStub, savedWorkoutExercisesPersistenceStub,
+                exerciseLookupPersistenceStub, performedWorkoutRecordPersistence);
     }
 
     @After
