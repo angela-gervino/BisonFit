@@ -147,6 +147,8 @@ public class WorkoutHandler implements IWorkoutHandler {
 
         // only save this if the processed workout has exercises
         if(workoutProcessed.getAllExercises().size() > 0) {
+            PerformedWorkoutHeader performedHeader = (PerformedWorkoutHeader) workoutProcessed.getHeader();
+            performedHeader.setDateEnded(LocalDateTime.now());
             performedWorkoutRecordPersistence.addPerformedWorkout(workoutProcessed);
             return true;
         }
