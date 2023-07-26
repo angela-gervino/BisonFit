@@ -165,15 +165,6 @@ public class WorkoutHandler implements IWorkoutHandler {
 
     @Override
     public Workout getPerformedWorkout(int workoutID) {
-        Workout performedWorkout = getWorkoutToPerform(workoutID);
-
-        for(Exercise exercise: performedWorkout.getAllExercises()) {
-            for (ExerciseSet set : exercise.getAllSets()) {
-                set.setWeight(100);
-                set.setReps(5);
-            }
-        }
-
-        return performedWorkout;
+        return performedWorkoutRecordPersistence.getPerformedWorkoutById(workoutID);
     }
 }
