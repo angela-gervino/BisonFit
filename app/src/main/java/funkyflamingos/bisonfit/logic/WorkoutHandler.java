@@ -114,11 +114,7 @@ public class WorkoutHandler implements IWorkoutHandler {
 
     @Override
     public List<PerformedWorkoutHeader> getPerformedWorkoutHeaders() {
-        ArrayList<PerformedWorkoutHeader> list = new ArrayList<>();
-        list.add(new PerformedWorkoutHeader("Upper Body", 0, LocalDateTime.now()));
-        list.add(new PerformedWorkoutHeader("Lower Body", 1, LocalDateTime.now()));
-        list.add(new PerformedWorkoutHeader("Full Body", 1, LocalDateTime.now()));
-
+        ArrayList<PerformedWorkoutHeader> list = performedWorkoutRecordPersistence.getPerformedWorkoutHeaders();
         return list;
     }
 
