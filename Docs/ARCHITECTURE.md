@@ -85,7 +85,7 @@ Tables that hold the record of workouts and exercises done by the user.<br><br>
 |Attribute|Type|Description|
 |-|-|-|
 |<ins>WORKOUTRECORDID</ins>|`int`|Unique identifier of performed workout|
-|WORKOUTID|`int`|Identifier of workout performed
+|TITLE|`varchar`|Title of workout performed
 |START|`varchar`|Represents the start date and time of the workout
 |END|`varchar`|Represents the end date and time of the workout
 
