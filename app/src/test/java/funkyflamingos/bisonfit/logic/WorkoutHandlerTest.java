@@ -1,9 +1,11 @@
 package funkyflamingos.bisonfit.logic;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ import funkyflamingos.bisonfit.dso.PerformedWorkoutHeader;
 import funkyflamingos.bisonfit.dso.Workout;
 import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.persistence.IExerciseLookupPersistence;
+import funkyflamingos.bisonfit.persistence.IPerformedWorkoutRecordPersistence;
 import funkyflamingos.bisonfit.persistence.IWorkoutPersistence;
 import funkyflamingos.bisonfit.persistence.ISavedWorkoutExercises;
 import funkyflamingos.bisonfit.persistence.stubs.ExerciseLookupPersistenceStub;
@@ -24,15 +27,35 @@ import funkyflamingos.bisonfit.persistence.stubs.SavedWorkoutExercisesPersistenc
 public class WorkoutHandlerTest {
     private WorkoutHandler workoutHandler;
 
+    private Workout performedWorkoutMock;
+    private ArrayList<PerformedWorkoutHeader> performedWorkoutHeaderListMock;
     @Before
     public void setup() {
         IWorkoutPersistence workoutsPersistenceStub = new WorkoutPersistenceStub();
         ISavedWorkoutExercises savedWorkoutExercisesPersistenceStub = new SavedWorkoutExercisesPersistenceStub();
         IExerciseLookupPersistence exerciseLookupPersistenceStub = new ExerciseLookupPersistenceStub();
+        IPerformedWorkoutRecordPersistence performedWorkoutRecordPersistence = mock(IPerformedWorkoutRecordPersistence.class);
+        workoutHandler = new WorkoutHandler(workoutsPersistenceStub, savedWorkoutExercisesPersistenceStub,
+                exerciseLookupPersistenceStub, performedWorkoutRecordPersistence);
 
-        workoutHandler = new WorkoutHandler(workoutsPersistenceStub, savedWorkoutExercisesPersistenceStub, exerciseLookupPersistenceStub);
+        // mockito tests setup for getPerformedWorkoutById()
+        performedWorkoutMock = new Workout(new PerformedWorkoutHeader("Workout", 0));
+        Exercise e1Mock = new Exercise("E1", 0);
+        e1Mock.addSet(new ExerciseSet(5, 19));
+        e1Mock.addSet(new ExerciseSet(7, 12));
+        Exercise e2Mock = new Exercise("E2", 1);
+        e2Mock.addSet(new ExerciseSet(3,5));
+        performedWorkoutMock.addExercise(e1Mock);
+        performedWorkoutMock.addExercise(e2Mock);
+        when(performedWorkoutRecordPersistence.getPerformedWorkoutById(0)).thenReturn(performedWorkoutMock);
+
+        performedWorkoutHeaderListMock = new ArrayList<>();
+        performedWorkoutHeaderListMock.add(new PerformedWorkoutHeader("W1", 0));
+        performedWorkoutHeaderListMock.add(new PerformedWorkoutHeader("W2", 1));
+        performedWorkoutHeaderListMock.add(new PerformedWorkoutHeader("W3", 2));
+        when(performedWorkoutRecordPersistence.getPerformedWorkoutHeaders()).thenReturn(performedWorkoutHeaderListMock);
+
     }
-
     @Test
     public void testGetByIDFound() {
         workoutHandler.addNewWorkout("My New Workout Workout");
@@ -267,5 +290,51 @@ public class WorkoutHandlerTest {
 
         boolean result = workoutHandler.savePerformedWorkout(workout);
         assertTrue(result);
+    }
+
+    @Test
+    public void testWorkoutToPerformNotNull() {
+        final int ID = 0;
+        workoutHandler.addNewWorkout("Fun Workout");
+        WorkoutHeader funWorkout = workoutHandler.getWorkoutHeaderByID(ID);
+
+        ArrayList<ExerciseHeader> exercises = workoutHandler.getAllExerciseHeaders();
+        exercises.get(0).toggleSelected();
+
+        workoutHandler.addSelectedExercisesToWorkout(funWorkout.getId());
+
+        Workout workout = workoutHandler.getWorkoutToPerform(ID);
+
+        assertNotNull(workout);
+    }
+
+    @Test
+    public void testWorkoutToPerformCorrectHeader() {
+        final int ID = 0;
+        workoutHandler.addNewWorkout("Fun Workout");
+        WorkoutHeader funWorkout = workoutHandler.getWorkoutHeaderByID(ID);
+
+        ArrayList<ExerciseHeader> exercises = workoutHandler.getAllExerciseHeaders();
+        exercises.get(0).toggleSelected();
+
+        workoutHandler.addSelectedExercisesToWorkout(funWorkout.getId());
+
+        WorkoutHeader header = workoutHandler.getWorkoutToPerform(ID).getHeader();
+
+        assertTrue(header instanceof PerformedWorkoutHeader);
+    }
+
+    @Test
+    public void testGetPerformedWorkoutHeaders() {
+        ArrayList<PerformedWorkoutHeader> listOfHeaders = workoutHandler.getPerformedWorkoutHeaders();
+
+        assertEquals(listOfHeaders.size(), 3);
+    }
+
+    @Test
+    public void testGetPerformedWorkout() {
+        Workout workoutResult = workoutHandler.getPerformedWorkout(0);
+
+        assertEquals(workoutResult.getHeader().getId(), 0);
     }
 }
