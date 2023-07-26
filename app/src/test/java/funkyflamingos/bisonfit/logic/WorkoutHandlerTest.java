@@ -28,6 +28,7 @@ public class WorkoutHandlerTest {
     private WorkoutHandler workoutHandler;
 
     private Workout performedWorkoutMock;
+    private ArrayList<PerformedWorkoutHeader> performedWorkoutHeaderListMock;
     @Before
     public void setup() {
         IWorkoutPersistence workoutsPersistenceStub = new WorkoutPersistenceStub();
@@ -48,6 +49,11 @@ public class WorkoutHandlerTest {
         performedWorkoutMock.addExercise(e2Mock);
         when(performedWorkoutRecordPersistence.getPerformedWorkoutById(0)).thenReturn(performedWorkoutMock);
 
+        performedWorkoutHeaderListMock = new ArrayList<>();
+        performedWorkoutHeaderListMock.add(new PerformedWorkoutHeader("W1", 0));
+        performedWorkoutHeaderListMock.add(new PerformedWorkoutHeader("W2", 1));
+        performedWorkoutHeaderListMock.add(new PerformedWorkoutHeader("W3", 2));
+        when(performedWorkoutRecordPersistence.getPerformedWorkoutHeaders()).thenReturn(performedWorkoutHeaderListMock);
 
     }
     @Test
@@ -320,7 +326,8 @@ public class WorkoutHandlerTest {
 
     @Test
     public void testGetPerformedWorkoutHeaders() {
-
+        ArrayList<PerformedWorkoutHeader> listOfHeaders = workoutHandler.getPerformedWorkoutHeaders();
+        assertEquals(listOfHeaders, performedWorkoutHeaderListMock);
     }
 
     @Test
@@ -328,11 +335,5 @@ public class WorkoutHandlerTest {
         Workout workoutResult = workoutHandler.getPerformedWorkout(0);
 
         assertSame(workoutResult, performedWorkoutMock);
-    }
-
-    private boolean compareWorkouts(Workout w1, Workout w2)  {
-        boolean same = true;
-
-        return same;
     }
 }

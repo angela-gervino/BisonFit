@@ -29,7 +29,7 @@ public interface IWorkoutHandler {
 
     void deleteExercise(ExerciseHeader exerciseHeader, WorkoutHeader workoutHeader);
 
-    List<PerformedWorkoutHeader> getPerformedWorkoutHeaders();
+    ArrayList<PerformedWorkoutHeader> getPerformedWorkoutHeaders();
 
     boolean savePerformedWorkout(Workout workout);
 

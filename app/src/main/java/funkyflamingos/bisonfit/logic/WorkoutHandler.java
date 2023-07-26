@@ -113,7 +113,7 @@ public class WorkoutHandler implements IWorkoutHandler {
     }
 
     @Override
-    public List<PerformedWorkoutHeader> getPerformedWorkoutHeaders() {
+    public ArrayList<PerformedWorkoutHeader> getPerformedWorkoutHeaders() {
         ArrayList<PerformedWorkoutHeader> list = performedWorkoutRecordPersistence.getPerformedWorkoutHeaders();
         return list;
     }
