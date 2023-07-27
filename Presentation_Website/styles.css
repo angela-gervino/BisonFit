@@ -1,0 +1,626 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Noto+Serif:ital,wght@0,300;0,400;0,600;1,300&family=Rubik+Puddles&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400;1,500;1,600;1,900&family=Shrikhand&display=swap');
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+
+
+    overflow-x: hidden;
+}
+
+.section {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 2rem;
+
+    margin: 0;
+    padding: 0;
+}
+
+.billy_bison {
+    position: fixed;
+    width: 20vw;
+    z-index: 100;
+    bottom: 1vw;
+    right: 1vw;
+    animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float { /* to make the footer icons appear as though they're pulsating and continuously rotating */
+    0% {
+        transform: scale(1) rotate(180deg);
+    }
+    50% {
+        transform: scale(1.25) rotate(0deg); /* Change the rotation angle as desired */
+    }
+    100% {
+        transform: scale(1) rotate(180deg); /* Change the rotation angle as desired */
+    }
+}
+
+
+/* Hero Section */
+  
+.hero_section {
+    height: 88vh; /* the hero section has a vertical height of 90% of the viewport because the name slider needs to fit as well */
+    background-color: #FB6542;
+}
+
+.hero_section_phone {
+    margin-right: 3vw;
+}
+
+.hero_section img {
+    border-radius: 1vw;
+    width: 15vw;
+
+    animation: zoomInOut 3s infinite;
+}
+
+.hero_section .content {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    
+}
+
+.hero_section .title {
+    font-family: "Rubik";
+    font-weight: bold;
+    color: #fbe110;
+    font-size: 20vh;
+    margin: 0;
+    letter-spacing: -0.5vw;
+
+}
+
+.hero_section .subtitle {
+    font-family: "Noto Serif";
+    font-size: 2vw;
+    font-style: italic;
+
+    margin: 0;
+
+    color: #fff;
+}
+
+@keyframes zoomInOut {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* ANIMATED NAME SLIDER */
+
+.name_slider {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    justify-content: left;
+    background-color: #FB6542;
+    position: sticky;
+    top: 300;
+
+    margin-bottom: 2vh;
+
+    animation: moveRight 10s linear infinite;
+}
+
+.name_slider_item {
+    flex: 0 0 calc(20% - 10px); /* Each name takes up 20% of the container */
+  background-color: #f0f0f0;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px; /* Rounded corners */
+  margin-right: 10px; /* Right margin between names */
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  /* Center the content both horizontally and vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "Rubik";
+    font-weight: bold;
+    color: #fbe110;
+    font-style: italic;
+  font-size: 3vh;
+
+  border-radius: 16px;
+background: #FB6542;
+box-shadow:  5px 5px 10px #a6432c,
+             -5px -5px 10px #ff8758;
+}
+
+
+.name_slider:hover {
+    animation: none;
+}
+
+
+
+.name_slider_item:hover {
+    cursor: pointer;
+
+    border-radius: 16px;
+background: #FB6542;
+box-shadow: inset 5px 5px 10px #a6432c,
+            inset -5px -5px 10px #ff8758;
+}
+
+
+
+@keyframes moveRight {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-100vw)); /* 80px is the total width of all name elements including padding */
+    }
+  }
+
+
+
+/* FEATURE SECTION */
+  
+.feature_section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #621bc1;
+    text-align: center;
+}
+
+.feature_section .feature_display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5vh;
+}
+
+.feature_section .feature_display .text {
+    margin-left: 3vw;;
+    width: 30vw;
+    font-style: italic;
+    font-size: 2vw;
+}
+
+.feature_section img {
+    width: 15vw;
+    border-radius: 1vw;
+}
+
+.feature_section .buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    background-color: #621bc1;
+}
+
+.feature_section input[type="radio"] {
+    display: none;
+}
+
+.feature_section .buttons label {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 2vh;
+    color: #fbe110;
+
+    font-family: "Rubik";
+
+    border-radius: 19px;
+background: #7b33da;
+box-shadow:  5px 5px 12px #360f6a,
+             -5px -5px 12px #8e27ff;
+}
+
+.feature_section input[type="radio"]:checked + label {
+    background-color: #fbe110;
+    color: #fbe110;
+
+    border-radius: 19px;
+background: #4b0c9d;
+box-shadow: inset 5px 5px 12px #360f6a,
+            inset -5px -5px 12px #8e27ff;
+}
+
+#image1:checked ~ #centerImage {
+    content: url("phone1.jpg");
+}
+
+#image2:checked ~ #centerImage {
+    content: url("phone2.jpg");
+}
+
+#image3:checked ~ #centerImage {
+    content: url("phone3.jpg");
+}
+
+#image4:checked ~ #centerImage {
+    content: url("phone4.jpg");
+}
+
+#image5:checked ~ #centerImage {
+    content: url("phone5.jpg");
+}
+
+#image6:checked ~ #centerImage {
+    content: url("phone6.jpg");
+}
+
+
+/* Detailed Section */
+
+
+.detailed_section
+{
+    background-color: #5cdb95;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+}
+
+.detailed_section .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    color: #05386b;
+    font-family: "Shrikhand";
+    font-size: 3vw;
+    margin-top: 10vh;
+    margin-bottom: 4vh;
+}
+
+.accordian_list {
+    margin-bottom: 15vh;
+}
+
+
+.accordion {
+    width: 75vw;
+    padding: 10px;
+    margin-bottom: 2vh;
+    opacity: 0.9;
+
+    background-color: #05386b;
+    border-radius: 1vw;
+
+    box-shadow:  5px 5px 10px #45a470,
+             -5px -5px 10px #73ffba;
+  }
+
+  .accordion label {
+    text-align: right;
+  }
+
+
+  .accordion input[type="checkbox"] {
+    display: none;
+  }
+
+  .accordion label {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: #edf5e1;
+    font-family: "Noto Serif";
+    font-size: 2vw;
+    font-style: italic;
+    font-weight: bold;
+    padding-right: 1vw;
+  }
+
+  .accordion label::before {
+    color: #edf5e1;
+    font-family: "Noto Serif";
+    font-size: 2vw;
+    padding-left: 1vw;
+    content: '+';
+  }
+
+  .accordion input[type="checkbox"]:checked + label::before {
+    content: '-';
+  }
+
+  .accordion .answer {
+    color: #edf5e1;
+    font-family: "Noto Serif";
+    font-size: 1.5vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+
+  .accordion input[type="checkbox"]:checked ~ .answer {
+    max-height: 50vw;
+  }
+
+
+
+
+
+/* Vision statement section */
+.paragraph_container {
+    display: flex;
+    flex-direction: column;
+    background: greenyellow;
+    padding: 1vw;
+    justify-content: space-between;
+    height: 75vh;
+
+    border-radius: 50px;
+    background: #e0e0e0;
+    box-shadow:  20px 20px 60px #bebebe,
+             -20px -20px 60px #ffffff;
+}
+
+.paragraph_container_text {
+    margin-top: 1vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+}
+
+.vision_statement_image
+{
+    display: flex;
+    flex-direction: column;
+    width: 30vw;
+
+    margin-right: 4vw;
+
+    
+}
+
+.vision_statement_image img {
+    height: 70vh;
+
+    border-radius: 50px;
+    background: #e0e0e0;
+    box-shadow:  20px 20px 60px #bebebe,
+             -20px -20px 60px #ffffff;
+}
+
+.vision_statement_image a {
+    font-size: 1vw;
+}
+
+.vision_statement_section .textAbove {
+    font-size: 5vw;
+    color: darkgrey;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    font-family: "Shrikhand";
+}
+
+.vision_statement_section p {
+    color: rgb(54, 52, 52);
+    font-family: "Rubik";
+    font-size: 2vw;
+}
+
+
+
+.vision_statement_section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e0e0e0;
+    text-align: center;
+}
+
+.vision_statement_section .buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.vision_statement_section input[type="radio"] {
+    display: none;
+}
+
+.vision_statement_section .buttons label {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    background-color: #f2f2f2;
+    cursor: pointer;
+    border-radius: 100vh;
+    font-size: 2vh;
+    color: black;
+
+    border-radius: 50px;
+background: #e0e0e0;
+box-shadow:  6px 6px 12px #bebebe,
+             -6px -6px 12px #ffffff;
+}
+
+.vision_statement_section input[type="radio"]:checked + label {
+    border-radius: 50px;
+background: #e0e0e0;
+box-shadow: inset 6px 6px 12px #bebebe,
+            inset -6px -6px 12px #ffffff;
+}
+
+/* Hide all paragraphs by default */
+.vision_statement_section .paragraph-content {
+    display: none;
+    max-width: 40vw;
+}
+
+/* Show the selected paragraph */
+.vision_statement_section .paragraph-content.show {
+    display: flex;
+    margin-left: 2vw;
+}
+
+.vision_statement_section p {
+    text-align: left;
+    font-size: 1.5vw;
+}
+
+
+
+
+
+
+/* Project Overview Section */
+.project_overview_section .paragraph_container {
+    display: flex;
+    flex-direction: column;
+    background: greenyellow;
+    padding: 1vw;
+    justify-content: space-between;
+    height: 75vh;
+
+    border-radius: 50px;
+    background: #DFB5B4;
+    box-shadow:  18px 18px 36px #b79494,
+             -18px -18px 36px #ffd6d4;
+}
+
+.project_overview_section .paragraph_container_text {
+    margin-top: 1vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+}
+
+
+.project_overview_image
+{
+    display: flex;
+    flex-direction: column;
+    width: 30vw;
+
+    margin-left: 4vw;
+
+    
+}
+
+.project_overview_image img {
+
+    border-radius: 50px;
+    background: #DFB5B4;
+    box-shadow:  18px 18px 36px #b79494,
+             -18px -18px 36px #ffd6d4;
+}
+
+.project_overview_image a {
+    font-size: 1vw;
+}
+
+.project_overview_section .textAbove {
+    font-size: 5vw;
+    color: #c58b8a;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    font-family: "Shrikhand";
+}
+
+.project_overview_section p {
+    color: rgb(54, 52, 52);
+    font-family: "Rubik";
+    font-size: 1.75vw;
+    text-align: left;
+    width: 40vw;
+    margin-left: 1vw;
+}
+
+
+
+.project_overview_section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #DFB5B4;
+    text-align: center;
+}
+
+.project_overview_section .project_overview_buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.project_overview_section input[type="radio"] {
+    display: none;
+}
+
+.project_overview_section .project_overview_buttons label {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    background-color: #DFB5B4;
+    cursor: pointer;
+    border-radius: 100vh;
+    font-size: 2vh;
+    color: black;
+
+    border-radius: 50px;
+    background: #DFB5B4;
+    box-shadow:  7px 7px 14px #b79494,
+                 -7px -7px 14px #ffd6d4;
+}
+
+.project_overview_section input[type="radio"]:checked + label {
+    border-radius: 50px;
+    background: #DFB5B4;
+    box-shadow: inset 7px 7px 14px #b79494,
+                inset -7px -7px 14px #ffd6d4;
+}
+
+/* Hide all paragraphs by default */
+.project_overview_section .paragraph-content {
+    display: none;
+}
+
+/* Show the selected paragraph */
+.project_overview_section .paragraph-content.show {
+    display: block;
+}
+
+
+
+
+
+/* Site footer */
+
+.site_footer {
+    width: 100vw;
+    height: 20vh;
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: "Rubik Puddles";
+    font-size: 5vw;
+    color: yellowgreen;
+}
+
+
+
+
