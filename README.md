@@ -14,6 +14,16 @@ BisonFit is a new app to create a fitness companion app for U of M students tail
 ## Website 
 App presentation [website](https://bisonfit.netlify.app/)
 
+## Usage 
+### Run On Emulator 
+* Clone the repo 
+* Build in Android Studio 
+* Run the app 
+
+### Run On Android 
+* Download APK file from most resent release in GitLab 
+* Run the app 
+
 ## Iteration Documents
 
 [Iteration 1](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/blob/main/Docs/Iteration1.md)
