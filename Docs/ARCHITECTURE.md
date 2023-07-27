@@ -97,6 +97,7 @@ Tables that hold the record of workouts and exercises done by the user.<br><br>
 |EXERCISEID|`int`|Identifier of exercise
 |WEIGHT|`int`|The weight in lbs performed in this set, `-1` if not required
 |REPS|`int`|The number of repitions performed in this set, `-1` if not required
+|SETIDENTIFIER|`int`| Determines which exercise a specific exercise set belongs to in a performed workout
 
 
 #### Water Tracking Table:
