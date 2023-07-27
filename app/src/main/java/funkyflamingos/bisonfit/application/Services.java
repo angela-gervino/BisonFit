@@ -1,7 +1,5 @@
 package funkyflamingos.bisonfit.application;
 
-// the interfaces
-
 import funkyflamingos.bisonfit.persistence.IPerformedWorkoutRecordPersistence;
 import funkyflamingos.bisonfit.persistence.ISavedWorkoutExercises;
 import funkyflamingos.bisonfit.persistence.IWaterTrackerPersistence;
@@ -10,7 +8,6 @@ import funkyflamingos.bisonfit.persistence.IExerciseLookupPersistence;
 import funkyflamingos.bisonfit.persistence.IGymHoursPersistence;
 import funkyflamingos.bisonfit.persistence.IUserRegistrationPersistence;
 
-//the DB
 import funkyflamingos.bisonfit.persistence.hsqldb.PerformedWorkoutRecordPersistenceHSQLDB;
 import funkyflamingos.bisonfit.persistence.hsqldb.WorkoutPersistenceHSQLDB;
 import funkyflamingos.bisonfit.persistence.hsqldb.SavedWorkoutExercisesPersistenceHSQLDB;

@@ -25,8 +25,12 @@ public class PerformedWorkoutHeader extends WorkoutHeader {
         this.dateStarted = dateStarted;
     }
 
-    public LocalDateTime getDateEnded() { return dateEnded; }
+    public LocalDateTime getDateEnded() {
+        return dateEnded;
+    }
 
-    public void setDateEnded(LocalDateTime dateEnded) { this.dateEnded = dateEnded; }
+    public void setDateEnded(LocalDateTime dateEnded) {
+        this.dateEnded = dateEnded;
+    }
 
 }

@@ -17,7 +17,6 @@ import android.widget.Toast;
 import java.util.List;
 
 import funkyflamingos.bisonfit.R;
-import funkyflamingos.bisonfit.dso.Exercise;
 import funkyflamingos.bisonfit.dso.ExerciseHeader;
 import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.logic.IWorkoutHandler;
@@ -69,12 +68,11 @@ public class WorkoutOverviewActivity extends AppCompatActivity {
     }
 
     public void openActiveWorkoutActivity(View v) {
-        if(startButtonEnabled()) {
+        if (startButtonEnabled()) {
             Intent intent = new Intent(this, ActiveWorkoutActivity.class);
             intent.putExtra("workoutID", workoutHeader.getId());
             activeWorkoutResultLauncher.launch(intent);
-        }
-        else
+        } else
             Toast.makeText(this, "Add some workouts first", Toast.LENGTH_SHORT).show();
     }
 
@@ -92,12 +90,12 @@ public class WorkoutOverviewActivity extends AppCompatActivity {
         List<ExerciseHeader> exerciseHeaders = workoutHandler.getExerciseHeaders(workoutHeader);
         boolean result = false;
 
-        for(ExerciseHeader header : exerciseHeaders)
+        for (ExerciseHeader header : exerciseHeaders)
             if (header.getSetCount() > 0) {
                 result = true;
                 break;
             }
 
-        return  result;
+        return result;
     }
 }

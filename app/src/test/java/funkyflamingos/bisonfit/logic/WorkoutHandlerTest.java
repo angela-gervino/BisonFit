@@ -1,6 +1,5 @@
 package funkyflamingos.bisonfit.logic;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,6 +28,7 @@ public class WorkoutHandlerTest {
 
     private Workout performedWorkoutMock;
     private ArrayList<PerformedWorkoutHeader> performedWorkoutHeaderListMock;
+
     @Before
     public void setup() {
         IWorkoutPersistence workoutsPersistenceStub = new WorkoutPersistenceStub();
@@ -44,7 +44,7 @@ public class WorkoutHandlerTest {
         e1Mock.addSet(new ExerciseSet(5, 19));
         e1Mock.addSet(new ExerciseSet(7, 12));
         Exercise e2Mock = new Exercise("E2", 1);
-        e2Mock.addSet(new ExerciseSet(3,5));
+        e2Mock.addSet(new ExerciseSet(3, 5));
         performedWorkoutMock.addExercise(e1Mock);
         performedWorkoutMock.addExercise(e2Mock);
         when(performedWorkoutRecordPersistence.getPerformedWorkoutById(0)).thenReturn(performedWorkoutMock);
@@ -56,6 +56,7 @@ public class WorkoutHandlerTest {
         when(performedWorkoutRecordPersistence.getPerformedWorkoutHeaders()).thenReturn(performedWorkoutHeaderListMock);
 
     }
+
     @Test
     public void testGetByIDFound() {
         workoutHandler.addNewWorkout("My New Workout Workout");

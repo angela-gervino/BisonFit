@@ -31,14 +31,14 @@ public class ActiveWorkoutSetListAdapter extends RecyclerView.Adapter<ActiveWork
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.active_workout_set_list_item, viewGroup, false);
 
-            return new ViewHolder(view, showPreviousWorkoutData);
+        return new ViewHolder(view, showPreviousWorkoutData);
     }
 
     // the decimal point is added only if it is necessary (no .0 shown)
     private String formatWeight(double weightDouble) {
         int weightInt = (int) weightDouble;
         String result = "";
-        if(weightInt == weightDouble)
+        if (weightInt == weightDouble)
             result = Integer.toString(weightInt);
         else
             result = Double.toString(weightDouble);
@@ -50,7 +50,7 @@ public class ActiveWorkoutSetListAdapter extends RecyclerView.Adapter<ActiveWork
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.setTxtSetNum(position + 1);
 
-        if(showPreviousWorkoutData) {
+        if (showPreviousWorkoutData) {
             ExerciseSet curSet = localExercise.getSet(position);
             holder.setTxtField1Text(formatWeight(curSet.getWeight()));
             holder.setTxtField2Text(Integer.toString(curSet.getReps()));
@@ -70,9 +70,12 @@ public class ActiveWorkoutSetListAdapter extends RecyclerView.Adapter<ActiveWork
             }
 
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
-            public void afterTextChanged(Editable editable) {}
+            public void afterTextChanged(Editable editable) {
+            }
         });
 
         holder.getTxtField2().addTextChangedListener(new TextWatcher() {
@@ -89,9 +92,12 @@ public class ActiveWorkoutSetListAdapter extends RecyclerView.Adapter<ActiveWork
             }
 
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
-            public void afterTextChanged(Editable editable) {}
+            public void afterTextChanged(Editable editable) {
+            }
         });
     }
 

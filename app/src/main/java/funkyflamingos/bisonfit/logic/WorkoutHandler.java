@@ -83,16 +83,14 @@ public class WorkoutHandler implements IWorkoutHandler {
     }
 
     @Override
-    public void addSelectedExercisesToWorkout(int workoutID)
-    {
+    public void addSelectedExercisesToWorkout(int workoutID) {
         savedWorkoutExercisesPersistence.addExercises(getAllSelectedExercises(), workoutID);
 
         unselectAllExercises();
     }
 
     @Override
-    public void unselectAllExercises()
-    {
+    public void unselectAllExercises() {
         exerciseList.forEach(exerciseHeader -> {
             if (exerciseHeader.isSelected()) {
                 exerciseHeader.toggleSelected();
@@ -101,14 +99,12 @@ public class WorkoutHandler implements IWorkoutHandler {
     }
 
     @Override
-    public ArrayList<ExerciseHeader> getExerciseHeaders(WorkoutHeader workoutHeader)
-    {
+    public ArrayList<ExerciseHeader> getExerciseHeaders(WorkoutHeader workoutHeader) {
         return savedWorkoutExercisesPersistence.getExercisesByWorkout(workoutHeader);
     }
 
     @Override
-    public void deleteExercise(ExerciseHeader exerciseHeader, WorkoutHeader workoutHeader)
-    {
+    public void deleteExercise(ExerciseHeader exerciseHeader, WorkoutHeader workoutHeader) {
         savedWorkoutExercisesPersistence.deleteExercise(exerciseHeader, workoutHeader);
     }
 
@@ -121,45 +117,45 @@ public class WorkoutHandler implements IWorkoutHandler {
     @Override
     public boolean savePerformedWorkout(Workout workout) {
         Workout workoutProcessed = new Workout(workout.getHeader());
-        for(Exercise curExercise : workout.getAllExercises()) {
+        for (Exercise curExercise : workout.getAllExercises()) {
             Exercise newExercise = new Exercise(curExercise.getHeader());
             newExercise.getHeader().resetSetCount();
-            for(ExerciseSet currSet : curExercise.getAllSets()) {
+            for (ExerciseSet currSet : curExercise.getAllSets()) {
                 ExerciseSet newSet;
 
                 // validate values: replace invalid (<0) values with 0s
-                if(currSet.getReps() < 0)
+                if (currSet.getReps() < 0)
                     currSet.setReps(0);
-                if(currSet.getWeight() < 0)
+                if (currSet.getWeight() < 0)
                     currSet.setWeight(0);
 
                 // add this set to the exercise only if it has data
-                if(currSet.getWeight() > 0 && currSet.getReps() > 0) {
+                if (currSet.getWeight() > 0 && currSet.getReps() > 0) {
                     newSet = new ExerciseSet(currSet.getWeight(), currSet.getReps());
                     newExercise.addSet(newSet);
                 }
             }
 
             // add this exercise to the workout only if it has sets
-            if(newExercise.getAllSets().size() > 0)
+            if (newExercise.getAllSets().size() > 0)
                 workoutProcessed.addExercise(newExercise);
         }
 
         // only save this if the processed workout has exercises
-        if(workoutProcessed.getAllExercises().size() > 0) {
+        if (workoutProcessed.getAllExercises().size() > 0) {
             PerformedWorkoutHeader performedHeader = (PerformedWorkoutHeader) workoutProcessed.getHeader();
             performedHeader.setDateEnded(LocalDateTime.now());
             performedWorkoutRecordPersistence.addPerformedWorkout(workoutProcessed);
             return true;
         }
-        return  false;
+        return false;
     }
 
     @Override
     public Workout getWorkoutToPerform(int workoutID) {
-       Workout workoutToPerform =  workoutsPersistence.getWorkoutByID(workoutID);
-       workoutToPerform.setHeader(new PerformedWorkoutHeader(workoutToPerform.getHeader()));
-       return workoutToPerform;
+        Workout workoutToPerform = workoutsPersistence.getWorkoutByID(workoutID);
+        workoutToPerform.setHeader(new PerformedWorkoutHeader(workoutToPerform.getHeader()));
+        return workoutToPerform;
     }
 
     @Override

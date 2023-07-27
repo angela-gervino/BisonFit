@@ -37,12 +37,11 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
 
         workoutHandler = new WorkoutHandler();
 
-        if(showPreviousWorkout) {
+        if (showPreviousWorkout) {
             workout = workoutHandler.getPerformedWorkout(workoutID);
-        }
-        else {
+        } else {
             workout = workoutHandler.getWorkoutToPerform(workoutID);
-            ((PerformedWorkoutHeader)workout.getHeader()).setDateStarted(LocalDateTime.now());
+            ((PerformedWorkoutHeader) workout.getHeader()).setDateStarted(LocalDateTime.now());
         }
 
         ActiveWorkoutExerciseListAdapter adapter = new ActiveWorkoutExerciseListAdapter(workout, this, showPreviousWorkout);
@@ -52,12 +51,12 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
 
         getActionBar().setTitle(workout.getHeader().getName());
 
-        if(showPreviousWorkout)
+        if (showPreviousWorkout)
             finishButton.setVisibility(View.GONE);
     }
 
     public void finishWorkoutBtnClicked(View v) {
-        ((PerformedWorkoutHeader)workout.getHeader()).setDateEnded(LocalDateTime.now());
+        ((PerformedWorkoutHeader) workout.getHeader()).setDateEnded(LocalDateTime.now());
         boolean saved = workoutHandler.savePerformedWorkout(workout);
         if (!saved) {
             Toast.makeText(this, "There was nothing to save", Toast.LENGTH_SHORT).show();
@@ -67,7 +66,7 @@ public class ActiveWorkoutActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(!showPreviousWorkout)
+        if (!showPreviousWorkout)
             Toast.makeText(this, "Finish this workout to exit", Toast.LENGTH_SHORT).show();
         else
             super.onBackPressed();

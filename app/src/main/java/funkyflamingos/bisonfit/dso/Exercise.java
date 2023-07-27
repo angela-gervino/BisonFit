@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 public class Exercise {
     private ExerciseHeader header;
-    private ArrayList <ExerciseSet> sets;
+    private ArrayList<ExerciseSet> sets;
 
     public Exercise(String name, int id, int setCount) {
         this(name, id);
 
-        for(int i = 0; i < setCount; i++) {
+        for (int i = 0; i < setCount; i++) {
             sets.add(new ExerciseSet(0, 0));
         }
     }

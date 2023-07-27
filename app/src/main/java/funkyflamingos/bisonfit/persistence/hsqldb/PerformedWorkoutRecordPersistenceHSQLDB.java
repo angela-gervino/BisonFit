@@ -23,7 +23,7 @@ import funkyflamingos.bisonfit.persistence.IPerformedWorkoutRecordPersistence;
 public class PerformedWorkoutRecordPersistenceHSQLDB implements IPerformedWorkoutRecordPersistence {
     private String dbPath;
 
-    public PerformedWorkoutRecordPersistenceHSQLDB(String dbPath){
+    public PerformedWorkoutRecordPersistenceHSQLDB(String dbPath) {
         this.dbPath = dbPath;
     }
 
@@ -130,9 +130,9 @@ public class PerformedWorkoutRecordPersistenceHSQLDB implements IPerformedWorkou
     private void addPerformedExercises(Workout workout, Connection connection) throws SQLException {
         int exerciseSetIdentifier = 1;
         for (Exercise exercise : workout.getAllExercises()) {
-            for (ExerciseSet exerciseSet: exercise.getAllSets()) {
+            for (ExerciseSet exerciseSet : exercise.getAllSets()) {
                 final PreparedStatement statement = connection.prepareStatement("INSERT INTO PERFORMEDEXERCISERECORD VALUES (?, DEFAULT, ?, ?, ?, ?)");
-                int workoutRecordId = getPerformedWorkoutRecordId(((PerformedWorkoutHeader)workout.getHeader()).getDateStarted());
+                int workoutRecordId = getPerformedWorkoutRecordId(((PerformedWorkoutHeader) workout.getHeader()).getDateStarted());
                 statement.setInt(1, workoutRecordId);
                 statement.setInt(2, exercise.getID());
                 statement.setDouble(3, exerciseSet.getWeight());
@@ -198,5 +198,5 @@ public class PerformedWorkoutRecordPersistenceHSQLDB implements IPerformedWorkou
             dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(date)), ZoneId.systemDefault());
         return dateTime;
     }
-    
+
 }
