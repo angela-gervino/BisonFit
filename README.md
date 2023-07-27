@@ -58,3 +58,6 @@ The planned [architecture](https://code.cs.umanitoba.ca/3350-summer2023/funkyfla
 
 - Out document for [Retrospective](https://code.cs.umanitoba.ca/3350-summer2023/funkyflamingos-4/-/blob/main/Docs/Retrospective.md)
 
+
+## Group Celebration!!! 
+![GroupCelebration](Docs/GroupCelebration.PNG)
