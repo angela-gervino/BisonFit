@@ -32,7 +32,7 @@ public class ExerciseSelectionListAdapter extends RecyclerView.Adapter<ExerciseS
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         viewHolder.getExerciseName().setText(localDataSet.get(position).getName());
-        viewHolder.getSetCountText().setText(localDataSet.get(position).getSetCountText());
+        viewHolder.getSetCountText().setText(getSetCountText(localDataSet.get(position)));
 
         ExerciseHeader exercise = localDataSet.get(position);
 
@@ -40,7 +40,7 @@ public class ExerciseSelectionListAdapter extends RecyclerView.Adapter<ExerciseS
             @Override
             public void onClick(View view) {
                 exercise.incrementSet();
-                viewHolder.getSetCountText().setText(exercise.getSetCountText());
+                viewHolder.getSetCountText().setText(getSetCountText(exercise));
             }
         });
 
@@ -48,7 +48,7 @@ public class ExerciseSelectionListAdapter extends RecyclerView.Adapter<ExerciseS
             @Override
             public void onClick(View view) {
                 exercise.decrementSet();
-                viewHolder.getSetCountText().setText(exercise.getSetCountText());
+                viewHolder.getSetCountText().setText(getSetCountText(exercise));
             }
         });
 
@@ -104,6 +104,11 @@ public class ExerciseSelectionListAdapter extends RecyclerView.Adapter<ExerciseS
         public TextView getSetCountText() {
             return setCountText;
         }
+    }
+
+    private String getSetCountText(ExerciseHeader exerciseHeader) {
+        int setCount = exerciseHeader.getSetCount();
+        return "x" + setCount + " SET" + (setCount > 1 ? "S" : "");
     }
 }
 
