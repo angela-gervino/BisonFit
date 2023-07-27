@@ -74,18 +74,17 @@ public class HomePageActivity extends AppCompatActivity implements AddWorkoutDia
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if(newStatus.isOpen()) {
-                                    if(newStatus.getDuration() != null)
+                                if (newStatus.isOpen()) {
+                                    if (newStatus.getDuration() != null)
                                         btnGymHours.setText(getFormattedTime(newStatus.getDuration().toString()) + " Until Closing");
-                                    else if(newStatus.getNextDay() > 0)
+                                    else if (newStatus.getNextDay() > 0)
                                         btnGymHours.setText("Open Till " + GymHoursActivity.dayIDToString(newStatus.getNextDay()));
                                     else
                                         btnGymHours.setText("Open All Week");
-                                }
-                                else {
-                                    if(newStatus.getDuration() != null)
+                                } else {
+                                    if (newStatus.getDuration() != null)
                                         btnGymHours.setText(getFormattedTime(newStatus.getDuration().toString()) + " Until Opening");
-                                    else if(newStatus.getNextDay() > 0)
+                                    else if (newStatus.getNextDay() > 0)
                                         btnGymHours.setText("Closed Till " + GymHoursActivity.dayIDToString(newStatus.getNextDay()));
                                     else
                                         btnGymHours.setText("Closed All Week");

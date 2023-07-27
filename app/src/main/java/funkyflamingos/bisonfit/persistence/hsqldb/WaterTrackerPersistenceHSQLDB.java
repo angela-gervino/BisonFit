@@ -1,7 +1,5 @@
 package funkyflamingos.bisonfit.persistence.hsqldb;
 
-import static java.lang.Long.parseLong;
-
 import static funkyflamingos.bisonfit.application.Constants.RECOMMENDED_CUPS_OF_WATER_PER_DAY;
 
 import android.util.Log;
@@ -13,12 +11,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.HashMap;
-import java.util.Map;
 
 public class WaterTrackerPersistenceHSQLDB implements IWaterTrackerPersistence {
     private final String dbPath;
@@ -30,7 +24,6 @@ public class WaterTrackerPersistenceHSQLDB implements IWaterTrackerPersistence {
     private Connection connect() throws SQLException {
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true", "SA", "");
     }
-
 
 
     private void insertWater(LocalDate date) {

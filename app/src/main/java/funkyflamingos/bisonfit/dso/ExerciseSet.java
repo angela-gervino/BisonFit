@@ -4,7 +4,7 @@ public class ExerciseSet {
     private double weight;
     private int reps;
 
-    public ExerciseSet (double weight, int reps) {
+    public ExerciseSet(double weight, int reps) {
         this.weight = weight;
         this.reps = reps;
     }

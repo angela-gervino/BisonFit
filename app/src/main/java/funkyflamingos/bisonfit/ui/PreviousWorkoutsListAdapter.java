@@ -26,14 +26,13 @@ public class PreviousWorkoutsListAdapter extends RecyclerView.Adapter<PreviousWo
     }
 
     private String capitalizeFirstLetterOnly(String input) {
-        if(input.length() > 0) {
+        if (input.length() > 0) {
             char[] output = input.toLowerCase().toCharArray();
             output[0] = Character.toUpperCase(output[0]);
 
             return new String(output);
-        }
-        else
-            return  input;
+        } else
+            return input;
     }
 
     @Override
