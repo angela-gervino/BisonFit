@@ -1,0 +1,83 @@
+/* Popup Windows */
+.modal {
+    position: fixed;
+    transform: translate(-50%, -50%) scale(0);
+    top: 50%;
+    left: 50%;
+    
+    
+    border-radius: 1vw;
+    z-index: 10;
+    background-color: white;
+    /* opacity: 90%; */
+    width: 50vw;
+    max-width: 80%;
+  }
+  
+  .modal.active {
+    transition: 200ms ease-in-out;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  
+  .modal-header {
+    margin: 3vw 3vw 0 3vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .modal-header .title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: black;
+    background-color: transparent;
+  }
+  
+  .modal-header .close-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 4rem;
+    font-weight: bold;
+    border-radius: 0.5vw;
+  }
+
+  .modal-header .close-button:hover {
+    background-color: lightgrey;
+  }
+  
+  .modal-body {
+    /*padding: 10px 15px;*/
+    margin: 2vw 1vw 3vw 1vw;
+    margin-left: 3vw;
+    font-size: 1.5vw;
+  }
+  
+  #overlay {
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .7);
+    pointer-events: none;
+  }
+  
+  #overlay.active {
+    transition: 200ms ease-in-out;
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .modal-text-box {
+    color: black;
+  }
+
+  
