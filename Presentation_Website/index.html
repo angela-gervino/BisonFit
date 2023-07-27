@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Switcher</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="aurora.css">
+  <link rel="stylesheet" href="popup_windows.css">
+  <script src="logic.js" async></script>
+</head>
+<body>
+
+    <img class="billy_bison" src="billy_bison.png">
+
+
+
+
+    <!-- This section is for the hero section at the top of the page -->
+    <section class="section hero_section">
+        <img class="hero_section_phone" src="main_page.png">
+        </div>
+        <div class="content">
+            <h1 class="title">bisonfit
+              <div class="aurora">
+                <div class="aurora__item"></div>
+                <div class="aurora__item"></div>
+                <div class="aurora__item"></div>
+                <div class="aurora__item"></div>
+              </div>
+            </h1>
+            <p class="subtitle">A workout app tailored to the ALC.</p>
+        </div>
+    </section>
+
+
+    <!-- This section is for the name slider. When a name is clicked, a pop-up button appears -->
+
+    <section class="name_slider">
+        <div class="name_slider_item button" data-modal-target="#eddie-modal">Eddie</div>
+        <div class="name_slider_item button" data-modal-target="#nathan-modal">Nathan</div>
+        <div class="name_slider_item button" data-modal-target="#luisa-modal">Luisa</div>
+        <div class="name_slider_item button" data-modal-target="#angela-modal">Angela</div>
+        <div class="name_slider_item button" data-modal-target="#bilal-modal">Bilal</div>
+
+        <div class="name_slider_item">Eddie</div>
+        <div class="name_slider_item">Nathan</div>
+        <div class="name_slider_item">Luisa</div>
+        <div class="name_slider_item">Angela</div>
+        <div class="name_slider_item">Bilal</div>
+
+    </section>
+
+    <div id="overlay"></div> <!-- the dark backdrop that appears when the popup appears-->
+
+    <!-- this section contains the popup for Eddie's skills-->
+    <div class="modal" id="eddie-modal">
+        <div class="modal-header">
+          <div class="title">Skills Gained By Eddie</div>
+          <button data-close-button class="close-button">&times;</button>
+        </div>
+        <div class="modal-body modal-text-box">
+            Eddie learned the following skills:
+            <ul>
+                <li>Creating beautiful UIs in Android Studio</li>
+                <li>Building a 3-tier architecture</li>
+                <li>Using GitLab</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- this section contains the popup for Nathan's skills-->
+    <div class="modal" id="nathan-modal">
+        <div class="modal-header">
+          <div class="title">Skills Gained By Nathan</div>
+          <button data-close-button class="close-button">&times;</button>
+        </div>
+        <div class="modal-body modal-text-box">
+            Nathan learned the following skills:
+            <ul>
+                <li>Writing unit tests, integration tests, and system tests</li>
+                <li>Identifying and fixing code smells</li>
+                <li>Using GitLab</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- this section contains the popup for Luisa's skills-->
+    <div class="modal" id="luisa-modal">
+        <div class="modal-header">
+          <div class="title">Skills Gained By Luisa</div>
+          <button data-close-button class="close-button">&times;</button>
+        </div>
+        <div class="modal-body modal-text-box">
+            Luisa learned the following skills:
+            <ul>
+                <li>Creating high quality architecture diagrams</li>
+                <li>Writing SQL code for databases</li>
+                <li>Identifying and fixing code smells</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- this section contains the popup for Angela's skills-->
+    <div class="modal" id="angela-modal">
+        <div class="modal-header">
+          <div class="title">Skills Gained By Angela</div>
+          <button data-close-button class="close-button">&times;</button>
+        </div>
+        <div class="modal-body modal-text-box">
+            Angela learned the following skills:
+            <ul>
+                <li>Writing SQL code for databases</li>
+                <li>Writing unit and integration tests</li>
+                <li>Creating interfaces in Java</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- this section contains the popup for Bilal's skills-->
+    <div class="modal" id="bilal-modal">
+        <div class="modal-header">
+          <div class="title">Skills Gained By Bilal</div>
+          <button data-close-button class="close-button">&times;</button>
+        </div>
+        <div class="modal-body modal-text-box">
+            Bilal learned the following skills:
+            <ul>
+                <li>Creating UIs in Android Studio</li>
+                <li>Writing unit tests</li>
+                <li>Using GitLab</li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <!-- This section is for the different features -->
+    <section class="section feature_section">
+        <div class="feature_display">
+            <img id="centerImage" src="welcome_page.gif" alt="Center Image">
+            <div class="text" id="centerText">The Bison-themed welcome page allows users to add their name so that a personalized greeting is displayed on the home page</div>
+        </div>
+        
+        <div class="buttons">
+            <input type="radio" name="image" id="image1" checked>
+            <label for="image1">Welcome Page</label>
+
+            <input type="radio" name="image" id="image2">
+            <label for="image2">Water Tracker</label>
+
+            <input type="radio" name="image" id="image3">
+            <label for="image3">Adding/Deleting a Workout</label>
+
+            <input type="radio" name="image" id="image4">
+            <label for="image4">Adding/Deleting an Exercise</label>
+        </div>
+
+        <div class="buttons">
+
+            <input type="radio" name="image" id="image5">
+            <label for="image5">Starting a Workout</label>
+
+            <input type="radio" name="image" id="image6">
+            <label for="image6">Viewing Past Workouts</label>
+
+            <input type="radio" name="image" id="image7">
+            <label for="image7">View Gym Schedule</label>
+        </div>
+    </section>
+
+
+    <!-- This section is for detailed questions with longer answers-->
+    <section class="section detailed_section">
+        <div class="title">
+            Postmortem of Development Experience
+        </div>
+        <div class="accordian_list">
+            <div class="accordion">
+                <input type="checkbox" id="question1">
+                <label for="question1">What went right in the development process?</label>
+                <div class="answer">
+                    We managed our time quite efficiently and were able to ensure that everybody got to learn something new and contribute meaningfully. We did a great job of following through on the goals we'd set out in our restrospectives (for example, we decided in Retrospective 1 that it would be a good idea to do more in-depth code reviews, which is something we quite effectively succeeded at doing). <br>Another thing that went well in the development process was dividing the user stories into logical dev tasks. Our dev tasks were written in an efficient way that allowed developers to clearly understand what they needed to do to complete that dev task.
+                </div>
+            </div>
+
+            <div class="accordion">
+                <input type="checkbox" id="question2">
+                <label for="question2">What went wrong in the development process?</label>
+                <div class="answer">
+                    We bit off a bit more than we could chew in our second iteration, which turned out to be far busier than the first or the third iterations. Though we got a lot of quality work done, there was a disproportionate amount of pressure during the second iteration and we think that, if we were to do things over, we'd allocate work more evenly among the different iterations.
+                </div>
+            </div>
+
+            <div class="accordion">
+                <input type="checkbox" id="question3">
+                <label for="question3">What would you do differently, if you had the chance to start over?</label>
+                <div class="answer">
+                    If we had the chance to start over, we'd have a more structured approach to meetings—we found out throughout the term that meetings for which we'd already defined the goals for what we wanted to accomplish during the meeting were far more productive and helpful than meetings in which we hadn't taken the time to flesh out the meeting subjects. Also, we would communicate more over Discord rather than Google Docs (Google Docs turned out to be very redundant—most of what we put in Google Docs would've been better placed in Discord or in the Docs folder in GitLab).
+                </div>
+            </div>
+
+            <div class="accordion">
+                <input type="checkbox" id="question4">
+                <label for="question4">Are there any outstanding bugs?</label>
+                <div class="answer">
+                    One outstanding bug is that the set count remains the same between instances of adding exercises. For example, if you add a “Bicep Curls” exercise (with 4 sets) to Workout1, when you go to add an exercise to Workout2, the “Bicep Curls” exercise option shows 4 sets, rather than reseting back to 1 set. <br>Another bug is that, when a workout with multiple exercises is started and a rep value is added, the numberpad to type in a value shows up—however, when the “next” button is clicked on the numberpad, the type cursor is moved to the Rep text box for the next set, rather than the Weight text box, which the user would expect, as it is on the left of the Rep text box. 
+                </div>
+            </div>
+
+            <div class="accordion">
+                <input type="checkbox" id="question5">
+                <label for="question5">What were your areas of improvement from the Iteration 2 Retrospective? How'd it go?</label>
+                <div class="answer">
+                    Two main areas of improvement from our Iteration 2 Retrospective were planning to do too much and working on too much at the same time. In our second iteration, we'd definitely had a lot on our plate so we decided to lighten the workload for our third iteration by removing a feature for adding replacement exercises when a workout has been started—this effectively lightened our workload and allowed us to get more done.<br>During our second iteration, we'd worked on lots of tightly related dev tasks at the same time, which resulted in frequent merge conflicts. We did better planning for our third iteration, which decreased overlaps in completing dev tasks—this turned out to be an effective strategy for minimizing merge conflicts.
+                </div>
+            </div>
+
+            <div class="accordion">
+                <input type="checkbox" id="question6">
+                <label for="question6">What did you learn about team or large project development? What will you start doing, keep doing, or stop doing next time?</label>
+                <div class="answer">
+                    One thing we learned about working in a team is that everyone has varied schedules and it's important to make plans while taking the priorities of other people into account. We benefited a lot from having regular meetings, status updates, and using collaboration tools (like Discord) to improve communication.<br>
+                    We also learned that it's important to have flexibility and to adapt to change, especially when working with technologies that most group members don't have experience with. Proper planning, and taking flexibility into account when planning, proved to be highly useful and is something we will continue doing in our future team projects.<br>
+                    One thing we'll start doing is having more discussions during projects about what changes group members would like to make. Having the overall vision change is not uncommon and accounting for that early on (by having vision-related meetings planned out through the development process) would be a helpful strategy that we plan to incorporate in future projects.
+                </div>
+            </div>
+
+        </div>
+        
+
+    </section>
+
+
+
+    <!-- This section is for the paragraphs making up the vision statement -->
+
+    <section class="section vision_statement_section">
+        <div class="vision_statement_image">
+            <img src="vision_statement_image.jpg">
+            <a href="https://www.freepik.com/free-vector/training-home-concept_7607081.htm#page=2&query=workout%20illustration&position=7&from_view=keyword&track=ais#position=7&page=2&query=workout%20illustration">Image by pikisuperstar on Freepik</a>
+        </div>
+        
+        <div class="paragraph_container">
+            <div class="paragraph_container_text">
+                <div class="textAbove">Vision Statement</div>
+                <div class="paragraph-content show" id="paragraphContent1">
+                    <p>BisonFit will be an Android app developed to assist in fitness management for visitors of the Active Living Center. Its user-friendly interface and functional capabilities will help individuals plan their workouts, track their progress, and stay hydrated. <br>
+                        The homepage will serve as a centralized hub, offering a convenient water tracker, Active Living Center operating hours, and a customizable workout list. Users can easily create and access detailed exercise routines by choosing a specific workout. The app allows them to customize these routines by adding, removing, modifying, or rearranging exercises according to their preferences.
+                        </p>
+                </div>
+                <div class="paragraph-content" id="paragraphContent2">
+                    <p>The water tracker on the homepage will allow users to stay mindful of their hydration goals by tracking their daily water intake. Additionally, the Active Living Center schedule will keep users informed about the remaining time they have to visit the gym and provide detailed operating hours for each weekday. <br>
+
+                        The primary users of BisonFit will be those who frequent the Active Living Center. It caters to individuals of all fitness levels, regardless of their past experience or expertise.
+                    </p>
+                </div>
+                <div class="paragraph-content" id="paragraphContent3">
+                    <p>Unlike other fitness apps and websites that offer fragmented features like water tracking, gym hours information, or workout tracking, BisonFit will bring all these capabilities together in a single, user-friendly app. Fine-tuned for the visitors of the Active Living Center, the app will also show machines provided at the gym, allowing users to plan workouts with greater flexibility. <br>
+                        The success of BisonFit will be measured by 3 metrics. The first two metrics will test whether the functionality of BisonFit is appreciated by both users who haven’t used a workout tracking app before and users who have. </p>
+                </div>
+                <div class="paragraph-content" id="paragraphContent4">
+                    <p>If the majority of both types of users appreciate the convenience provided by BisonFit, we will consider the functionality of BisonFit to be a success. <br>The third metric will measure whether users appreciate the convenience of having all essential fitness features combined in one place. If the majority of the people give positive feedback regarding this feature, we’ll consider the addition of Active Living Centre specific information a success. <br></p>
+                </div>
+                <div class="paragraph-content" id="paragraphContent5">
+                    <p>To gather this information, we will conduct a small survey giving app access to 10 individuals who visit the ALC but do not use a fitness tracker and 5 individuals who visit the ALC and do use a fitness tracker. Both groups will be asked if they like using BisonFit (and for the first group, whether they prefer BisonFit to alternative apps), and whether they appreciate the addition of Active Living Centre specific information. If more than 50% of people reply in the affirmative for both questions, we will consider BisonFit to be a successful app.</p>
+                </div>
+
+            </div>
+
+
+            <div class="buttons">
+                <input type="radio" name="paragraph" id="paragraph1" checked>
+                <label for="paragraph1">1</label>
+
+                <input type="radio" name="paragraph" id="paragraph2">
+                <label for="paragraph2">2</label>
+
+                <input type="radio" name="paragraph" id="paragraph3">
+                <label for="paragraph3">3</label>
+
+                <input type="radio" name="paragraph" id="paragraph4">
+                <label for="paragraph4">4</label>
+
+                <input type="radio" name="paragraph" id="paragraph5">
+                <label for="paragraph5">5</label>
+            </div>
+
+        </div>
+        
+    </section>
+
+
+
+
+    <!-- This section is for the paragraphs making up the Project Overview -->
+
+    <section class="section project_overview_section">        
+        <div class="paragraph_container">
+            <div class="paragraph_container_text">
+                <div class="textAbove">Project Overview</div>
+                <div class="paragraph-content show" id="paragraphContent6">
+                    <p>BisonFit caters to the regular visitors of the Active Living Centre, offering an app designed for effortless workout tracking and scheduling at the ALC. Its user-friendly interface makes it accessible to individuals of all fitness levels. Additionally, the app proves beneficial for those wishing to monitor their water consumption. We were fortunate to receive valuable feedback from multiple individuals who tested the app.</p>
+                </div>
+                <div class="paragraph-content" id="paragraphContent7">
+                    <p>"I found the Gym Hours feature to be super helpful--I haven't seen a feature like this on any other workout app. Nice job guys!"--Biology Student and frequenter of the Active Living Centre <br><br>"I like the water feature, it's nice that the app is holistic and has a variety of unique features." --High School student</p>
+                </div>
+            </div>
+
+
+            <div class="project_overview_buttons">
+                <input type="radio" name="paragraph" id="paragraph6" checked>
+                <label for="paragraph6">Intended Users</label>
+
+                <input type="radio" name="paragraph" id="paragraph7">
+                <label for="paragraph7">User Feedback</label>
+
+            </div>
+
+        </div>
+
+        <div class="project_overview_image">
+            <img src="project_overview_image.jpg">
+            <a href="https://www.freepik.com/free-vector/online-yoga-class-illustration-concept_8141434.htm#page=4&query=workout%20illustration&position=2&from_view=keyword&track=ais">Image by Freepik</a>
+        </div>
+        
+    </section>
+
+
+
+    <section class="site_footer">
+        <div>FunkyFlamingos</div>
+    </section>
+
+
+
+
+</body>
+</html>
