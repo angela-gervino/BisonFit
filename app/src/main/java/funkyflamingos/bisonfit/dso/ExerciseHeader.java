@@ -47,14 +47,6 @@ public class ExerciseHeader {
         return setCount;
     }
 
-    public String getSetCountTextShort() {
-        return "x" + setCount;
-    }
-
-    public String getSetCountText() {
-        return getSetCountTextShort() + " SET" + (setCount > 1 ? "S" : "");
-    }
-
     public boolean isSelected() {
         return selected;
     }

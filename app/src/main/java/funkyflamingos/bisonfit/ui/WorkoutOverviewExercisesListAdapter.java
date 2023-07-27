@@ -35,7 +35,7 @@ public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<Wo
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         viewHolder.getLabel().setText(localDataSet.get(position).getName());
-        viewHolder.getSetCount().setText(localDataSet.get(position).getSetCountTextShort());
+        viewHolder.getSetCount().setText(getSetCountTextShort(localDataSet.get(position)));
 
         // When the delete button (garbage can icon) is clicked on an exercise
         viewHolder.getDeleteExerciseButton().setOnClickListener(new View.OnClickListener() {
@@ -63,6 +63,9 @@ public class WorkoutOverviewExercisesListAdapter extends RecyclerView.Adapter<Wo
         localDataSet = workoutHandler.getExerciseHeaders(workoutHeader);
     }
 
+    private String getSetCountTextShort(ExerciseHeader exerciseHeader) {
+        return "x" + exerciseHeader.getSetCount();
+    }
 
     //ViewHolder object holds the individual UI item to display and interact with
     public static class ViewHolder extends RecyclerView.ViewHolder {
