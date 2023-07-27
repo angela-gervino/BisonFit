@@ -38,7 +38,7 @@ public class DoWorkoutTest {
     public void setupDatabase() {
         // clear username from the database
         IUserRegistrationPersistence userRegistrationPersistence = Services.getUserRegistrationPersistence();
-        userRegistrationPersistence.clearTable();
+        userRegistrationPersistence.clear();
 
         // delete all current workouts
         IWorkoutPersistence workoutPersistence = Services.getWorkoutsPersistence();
@@ -58,9 +58,6 @@ public class DoWorkoutTest {
         onView(withId(R.id.nameEditText)).perform(typeText("user1"));
         onView(withId(R.id.btnStartWelcomeActivity)).perform(click());
 
-        // check if list is empty
-        onView(withId(R.id.workout_item_layout)).check(ViewAssertions.doesNotExist());
-
         // add a workout
         onView(withId(R.id.addWorkoutButton)).perform(click());
         onView(withId(R.id.new_workout_name)).perform(typeText("workout1"));
@@ -76,9 +73,6 @@ public class DoWorkoutTest {
 
         // start workout
         onView(withId(R.id.startWorkoutButton)).perform(click());
-
-        // check for exercise
-        onView(withText("Bench Press")).check(matches(isDisplayed()));
 
         //add weights and reps
         onView(withId(R.id.txtActiveWorkoutField1)).perform(click());

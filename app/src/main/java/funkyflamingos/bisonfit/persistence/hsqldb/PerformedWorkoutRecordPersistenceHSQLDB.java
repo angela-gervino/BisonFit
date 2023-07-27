@@ -18,7 +18,6 @@ import funkyflamingos.bisonfit.dso.Exercise;
 import funkyflamingos.bisonfit.dso.ExerciseSet;
 import funkyflamingos.bisonfit.dso.PerformedWorkoutHeader;
 import funkyflamingos.bisonfit.dso.Workout;
-import funkyflamingos.bisonfit.dso.WorkoutHeader;
 import funkyflamingos.bisonfit.persistence.IPerformedWorkoutRecordPersistence;
 
 public class PerformedWorkoutRecordPersistenceHSQLDB implements IPerformedWorkoutRecordPersistence {
@@ -115,6 +114,17 @@ public class PerformedWorkoutRecordPersistenceHSQLDB implements IPerformedWorkou
             }
         }
         return workout;
+    }
+
+    @Override
+    public void clear() {
+        try (Connection connection = connect()) {
+            final PreparedStatement statement = connection.prepareStatement("DELETE FROM PERFORMEDWORKOUTRECORD");
+            statement.executeUpdate();
+        } catch (final SQLException e) {
+            Log.e("Connect SQL", e.getMessage() + e.getSQLState());
+            e.printStackTrace();
+        }
     }
 
     private void addPerformedExercises(Workout workout, Connection connection) throws SQLException {

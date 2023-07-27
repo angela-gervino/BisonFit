@@ -37,7 +37,7 @@ public class TrackWaterConsumptionTest {
     public void setupDatabase() {
         // clear username from the database
         IUserRegistrationPersistence userRegistrationPersistence = Services.getUserRegistrationPersistence();
-        userRegistrationPersistence.clearTable();
+        userRegistrationPersistence.clear();
 
         // reset water tracker
         today = LocalDate.now();

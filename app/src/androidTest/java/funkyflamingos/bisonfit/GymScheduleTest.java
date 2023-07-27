@@ -33,7 +33,7 @@ public class GymScheduleTest {
     public void setupDatabase() {
         // clear username from the database
         IUserRegistrationPersistence userRegistrationPersistence = Services.getUserRegistrationPersistence();
-        userRegistrationPersistence.clearTable();
+        userRegistrationPersistence.clear();
     }
 
     @Test

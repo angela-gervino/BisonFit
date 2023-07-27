@@ -20,7 +20,7 @@ public class UserRegistrationPersistenceStub implements IUserRegistrationPersist
     }
 
     @Override
-    public void clearTable() {
+    public void clear() {
         name = null;
     }
 }
