@@ -6,9 +6,7 @@ public class PerformedWorkoutHeader extends WorkoutHeader {
     private LocalDateTime dateStarted;
     private LocalDateTime dateEnded;
 
-    // TODO: Remove one of the constructors. Only one will be needed, not sure which one yet.
     public PerformedWorkoutHeader(String name, int id) {
-        // TODO: Remove dateStarted from constructor, make it a set method
         super(name, id);
         this.dateEnded = null;
     }

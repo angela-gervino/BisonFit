@@ -14,7 +14,6 @@ public class Exercise {
         }
     }
 
-    // TODO: remove one of the constructors
     public Exercise(String name, int id) {
         this(new ExerciseHeader(name, id));
     }
